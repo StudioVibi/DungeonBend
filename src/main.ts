@@ -177,13 +177,15 @@ function renderHub(balance: NormalizedBalance, meta: MetaState): string {
   var disabled = upgradeCost === null || meta.gold < upgradeCost ? "disabled" : "";
 
   return `
-    <main class="shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">DungeonBend</p>
+    <main class="shell shell--hub">
+      <header class="topbar topbar--hub">
+        <div class="brand-lockup">
+          <div class="brand-row">
+            <p class="eyebrow">DungeonBend</p>
+            <a class="eyebrow-link" href="${withBase("balance.html")}">Balance Tool</a>
+          </div>
           <h1 class="title">Dungeon setup</h1>
         </div>
-        <a class="link-button" href="${withBase("balance.html")}">Balance Tool</a>
       </header>
       <section class="hub">
         <div class="hub__hero">
@@ -228,29 +230,17 @@ function renderRunView(balance: NormalizedBalance, meta: MetaState, run: RunStat
 
   return `
     <main class="shell shell--run">
-      <header class="topbar topbar--run">
-        <div class="topbar__stats">
-          <div class="stat-panel">
-            <span class="stat-panel__label">Dungeon Level</span>
-            <strong class="stat-panel__value">${run.dungeonLevel}</strong>
-          </div>
-          <div class="stat-panel">
-            <span class="stat-panel__label">Remaining Cards</span>
-            <strong class="stat-panel__value">${run.remaining}/${run.capacity}</strong>
-          </div>
-          <div class="stat-panel">
-            <span class="stat-panel__label">Total Gold</span>
-            <strong class="stat-panel__value">${meta.gold}</strong>
-          </div>
+      <header class="run-head">
+        <div class="run-head__group">
+          <p class="run-stat">Dungeon Lv: ${run.dungeonLevel}</p>
+          <p class="run-stat run-stat--muted">Cards Remaining: ${run.remaining}/${run.capacity}</p>
         </div>
-        <button class="link-button" data-action="back">Hub</button>
+        <div class="run-head__group run-head__group--right">
+          <p class="run-stat">Coins: ${meta.gold}</p>
+          <button class="text-action" data-action="back">Hub</button>
+        </div>
       </header>
       <section class="board-shell">
-        <div class="board-copy">
-          <p class="eyebrow">Swipe to move</p>
-          <h1 class="title">Dungeon Room</h1>
-          <p class="subtitle">Touch, drag, or use arrow keys or WASD to target an adjacent tile.</p>
-        </div>
         <div class="board" data-board>
           ${renderBoard(balance, run)}
         </div>
@@ -371,6 +361,14 @@ function renderError(error: string): string {
 function render(): void {
   cleanupSwipe?.();
   cleanupSwipe = null;
+
+  var appView =
+    state.loading === false &&
+    state.error === null &&
+    state.balance !== null &&
+    state.meta !== null;
+  document.documentElement.classList.toggle("html--static", appView);
+  document.body.classList.toggle("body--static", appView);
 
   if (state.loading) {
     app.innerHTML = renderLoading();
