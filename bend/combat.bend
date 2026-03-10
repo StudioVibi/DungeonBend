@@ -60,7 +60,7 @@ def resolve_armed(
     case _:
       gold = Deck.monster_gold(monsters, monster_ref);
       next_board = Board.board_set(board_value, target_idx, gold{gold});
-      combat_result{hero_hp, weapon{weapon_ref, dmg}, next_board, 0}
+      combat_result{hero_hp, weapon{weapon_ref, dmg - monster_hp}, next_board, 0}
 
 def resolve_armed_equal_or_less(
   monsters: List(Types.MonsterDef),
@@ -75,7 +75,7 @@ def resolve_armed_equal_or_less(
   match dmg === monster_hp:
     case 0:
       next_board = Board.board_set(board_value, target_idx, monster{monster_ref, monster_hp - dmg});
-      (combat_result{hero_hp, weapon{weapon_ref, dmg}, next_board, 0} :: CombatResult)
+      (combat_result{hero_hp, no_weapon{}, next_board, 0} :: CombatResult)
     case _:
       gold = Deck.monster_gold(monsters, monster_ref);
       next_board = Board.board_set(board_value, target_idx, gold{gold});

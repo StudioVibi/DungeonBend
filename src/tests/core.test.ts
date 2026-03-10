@@ -124,10 +124,10 @@ describe("bend engine bridge", () => {
     expect(result.run.heroIndex).toBe(4);
   });
 
-  test("weapon greater damage kills the monster and keeps the weapon", () => {
+  test("weapon greater damage kills the monster and keeps the remaining weapon damage", () => {
     var balance = cloneBalance();
     var board = emptyBoard();
-    board[1] = { tag: "monster", ref: 0, hp: 4 };
+    board[1] = { tag: "monster", ref: 0, hp: 3 };
     var result = applySwipe(
       balance,
       { heroId: balance.hero.id, heroLevel: 0, gold: 0 },
@@ -140,7 +140,7 @@ describe("bend engine bridge", () => {
     );
 
     expect(result.run.heroHp).toBe(8);
-    expect(result.run.weapon).toEqual({ tag: "weapon", ref: 0, dmg: 5 });
+    expect(result.run.weapon).toEqual({ tag: "weapon", ref: 0, dmg: 2 });
     expect(result.run.board[1]).toEqual({ tag: "gold", amount: balance.monsterOrder[0].goldDrop });
   });
 
@@ -163,7 +163,7 @@ describe("bend engine bridge", () => {
     expect(result.run.board[1]).toEqual({ tag: "gold", amount: balance.monsterOrder[1].goldDrop });
   });
 
-  test("weapon lower damage leaves the monster alive and does not move or spawn", () => {
+  test("weapon lower damage leaves the monster alive, breaks the weapon, and does not move or spawn", () => {
     var balance = cloneBalance();
     var board = emptyBoard();
     board[1] = { tag: "monster", ref: 2, hp: 7 };
@@ -187,6 +187,7 @@ describe("bend engine bridge", () => {
     expect(result.run.heroIndex).toBe(4);
     expect(result.run.remaining).toBe(1);
     expect(result.run.seed).toBe(5);
+    expect(result.run.weapon).toEqual({ tag: "none" });
     expect(result.run.board[1]).toEqual({ tag: "monster", ref: 2, hp: 2 });
     expect(result.run.board[7]).toEqual({ tag: "potion", ref: 0, heal: 4 });
   });
