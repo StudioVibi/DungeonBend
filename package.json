@@ -1,19 +1,10 @@
 {
   "name": "dungeon-bend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build:bend": "bun run scripts/build-bend.ts",
-    "dev": "bun run build:bend && vite",
-    "build": "bun run build:bend && vite build",
-    "build:pages": "vite build",
-    "preview": "vite preview",
-    "test": "bun run build:bend && bun test",
-    "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3",
-    "vite": "^5.4.14"
+    "check": "sh scripts/check.sh",
+    "build": "sh scripts/build.sh",
+    "test": "sh scripts/test.sh"
   }
 }

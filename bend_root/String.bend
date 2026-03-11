@@ -1,0 +1,2 @@
+String : Type =
+  List(Char)
