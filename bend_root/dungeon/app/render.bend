@@ -144,20 +144,20 @@ def _hero_card_hub(meta_state: Meta) -> HTML(DungeonEvent):
   </article>
 
 def _hero_card_values(hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon) -> HTML(DungeonEvent):
-  <article class="card card--hero">
-    <div class="card__badge card__badge--hp">{text{_hero_badge_label(hero_hp, hero_max_hp, weapon_value)}}</div>
+  <article class="card card--hero" data-dmg={_hero_damage_attr(weapon_value)}>
+    <div class="card__badge card__badge--hp">{text{"HP " ++ show(hero_hp) ++ "/" ++ show(hero_max_hp)}}</div>
     <div class="card__art-wrap">
       <img class="card__art" src={_hero_sprite()} alt={_hero_name()} />
     </div>
     <div class="card__label">{text{_hero_name()}}</div>
   </article>
 
-def _hero_badge_label(hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon) -> String:
+def _hero_damage_attr(weapon_value: Weapon) -> String:
   match weapon_value:
     case no_weapon{}:
-      "HP " ++ show(hero_hp) ++ "/" ++ show(hero_max_hp)
+      ""
     case weapon{ref, dmg}:
-      "HP " ++ show(hero_hp) ++ "/" ++ show(hero_max_hp) ++ " | DMG " ++ show(dmg)
+      "DMG " ++ show(dmg)
 
 def _tile_card(tile: Tile) -> HTML(DungeonEvent):
   match tile:
