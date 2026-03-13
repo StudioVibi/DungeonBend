@@ -1,18 +1,22 @@
 #!/bin/sh
 set -eu
 
-if [ -f ../Bend2/bend-ts/src/CLI.ts ]; then
-  cli=../Bend2/bend-ts/src/CLI.ts
+out_dir="dist"
+out_html="$out_dir/index.html"
+out_assets="$out_dir/assets"
+
+mkdir -p "$out_assets"
+
+if command -v bend >/dev/null 2>&1; then
+  bend src/main.bend --to-web --no-strict > "$out_html"
+elif [ -f ../Bend2/bend-ts/src/CLI.ts ]; then
+  bun ../Bend2/bend-ts/src/CLI.ts src/main.bend --to-web --no-strict > "$out_html"
 elif [ -f ../Bend2/src/ts/CLI.ts ]; then
-  cli=../Bend2/src/ts/CLI.ts
+  bun ../Bend2/src/ts/CLI.ts src/main.bend --to-web --no-strict > "$out_html"
 else
-  echo "Bend2 CLI not found. Expected ../Bend2/bend-ts/src/CLI.ts or ../Bend2/src/ts/CLI.ts" >&2
+  echo "Bend2 CLI not found. Install bend globally or keep ../Bend2 next to this repo." >&2
   exit 1
 fi
 
-entry="src/main.bend"
-
-rm -rf dist
-mkdir -p dist/assets
-bun "$cli" "$entry" --to-web --no-strict > dist/index.html
-cp assets/* dist/assets/
+cp assets/* "$out_assets"/
+printf '%s\n' "Built $out_html"
