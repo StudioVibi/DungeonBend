@@ -1749,10 +1749,10 @@ def _tile_card(tile: Tile) -> HTML(DungeonEvent):
 def _filled_tile_card(tile: Tile, class_name: String) -> HTML(DungeonEvent):
   <article class={class_name}>
     {_tile_badge_node(tile)}
-    <div class="card__label card__label--tile">{text{_tile_name(tile)}}</div>
     <div class="card__art-wrap">
       <img class="card__art" src={_tile_sprite(tile)} alt={_tile_name(tile)} />
     </div>
+    <div class="card__label card__label--tile">{text{_tile_name(tile)}}</div>
   </article>
 
 def _tile_badge_node(tile: Tile) -> HTML(DungeonEvent):
