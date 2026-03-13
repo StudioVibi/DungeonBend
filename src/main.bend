@@ -111,7 +111,8 @@ type Run {
     remaining: U32,
     capacity: U32,
     seed: U32,
-    status: U32
+    status: U32,
+    ult_charge: U32
   }
 }
 
@@ -127,6 +128,7 @@ type RunSlot {
 type DungeonEvent {
   start{}
   upgrade{}
+  ultimate{}
   turn_up{}
   turn_down{}
   turn_left{}
@@ -707,50 +709,71 @@ def _draw_step(
 ) -> BoardDraw:
   _draw_into_slot(board_value, slot, draw_tile(config_value, deck_blueprint, draw_counts, remaining, seed, level))
 
-def _seed_after_1(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _draw_non_hero_step(config_value: Config, hero_index: U32, slot: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+  match stage:
+    case board_draw{board_value, counts, remaining, seed, level}:
+      match slot === hero_index:
+        case 0:
+          _draw_step(config_value, board_value, slot, blueprint, counts, remaining, seed, level)
+        case _:
+          board_draw{board_value, counts, remaining, seed, level}
+
+def _refill_after_1(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board1, counts1, remaining1, seed1, level1}:
-      _seed_after_2(config_value, blueprint, _draw_step(config_value, board1, 2, blueprint, counts1, remaining1, seed1, level1))
+      _refill_after_2(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 1, blueprint, board_draw{board1, counts1, remaining1, seed1, level1}))
 
-def _seed_after_2(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_2(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board2, counts2, remaining2, seed2, level2}:
-      _seed_after_3(config_value, blueprint, _draw_step(config_value, board2, 3, blueprint, counts2, remaining2, seed2, level2))
+      _refill_after_3(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 2, blueprint, board_draw{board2, counts2, remaining2, seed2, level2}))
 
-def _seed_after_3(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_3(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board3, counts3, remaining3, seed3, level3}:
-      _seed_after_4(config_value, blueprint, _draw_step(config_value, board3, 5, blueprint, counts3, remaining3, seed3, level3))
+      _refill_after_4(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 3, blueprint, board_draw{board3, counts3, remaining3, seed3, level3}))
 
-def _seed_after_4(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_4(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board4, counts4, remaining4, seed4, level4}:
-      _seed_after_5(config_value, blueprint, _draw_step(config_value, board4, 6, blueprint, counts4, remaining4, seed4, level4))
+      _refill_after_5(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 4, blueprint, board_draw{board4, counts4, remaining4, seed4, level4}))
 
-def _seed_after_5(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_5(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board5, counts5, remaining5, seed5, level5}:
-      _seed_after_6(config_value, blueprint, _draw_step(config_value, board5, 7, blueprint, counts5, remaining5, seed5, level5))
+      _refill_after_6(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 5, blueprint, board_draw{board5, counts5, remaining5, seed5, level5}))
 
-def _seed_after_6(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_6(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
     case board_draw{board6, counts6, remaining6, seed6, level6}:
-      _draw_step(config_value, board6, 8, blueprint, counts6, remaining6, seed6, level6)
+      _refill_after_7(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 6, blueprint, board_draw{board6, counts6, remaining6, seed6, level6}))
 
-def _seed_after_0(config_value: Config, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+def _refill_after_7(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
   match stage:
-    case board_draw{board0, counts0, remaining0, seed0, level0}:
-      _seed_after_1(config_value, blueprint, _draw_step(config_value, board0, 1, blueprint, counts0, remaining0, seed0, level0))
+    case board_draw{board7, counts7, remaining7, seed7, level7}:
+      _refill_after_8(config_value, hero_index, blueprint, _draw_non_hero_step(config_value, hero_index, 7, blueprint, board_draw{board7, counts7, remaining7, seed7, level7}))
 
-def _seed_initial_board(
+def _refill_after_8(config_value: Config, hero_index: U32, blueprint: List(DeckEntry), stage: BoardDraw) -> BoardDraw:
+  match stage:
+    case board_draw{board8, counts8, remaining8, seed8, level8}:
+      _draw_non_hero_step(config_value, hero_index, 8, blueprint, board_draw{board8, counts8, remaining8, seed8, level8})
+
+def _refill_non_hero_slots(
   config_value: Config,
+  board_value: Board,
+  hero_index: U32,
   deck_blueprint: List(DeckEntry),
   draw_counts: List(DeckEntry),
   remaining: U32,
   seed: U32,
   level: U32,
 ) -> BoardDraw:
-  _seed_after_0(config_value, deck_blueprint, _draw_step(config_value, empty_board(), 0, deck_blueprint, draw_counts, remaining, seed, level))
+  _refill_after_1(
+    config_value,
+    hero_index,
+    deck_blueprint,
+    _draw_non_hero_step(config_value, hero_index, 0, deck_blueprint, board_draw{board_value, draw_counts, remaining, seed, level})
+  )
 
 def _start_from_board(hero_max: U32, blueprint: List(DeckEntry), capacity: U32, stage: BoardDraw) -> Run:
   match stage:
@@ -767,6 +790,7 @@ def _start_from_board(hero_max: U32, blueprint: List(DeckEntry), capacity: U32, 
         next_remaining,
         capacity,
         next_seed_value,
+        0,
         0
       }
 
@@ -777,7 +801,7 @@ def start_run(config_value: Config, meta_state: Meta, seed: U32) -> Run:
       hero_max = hero_max_hp(hero_base_max_hp, upgrades, hero_level);
       blueprint = remove_hero_card(deck);
       remaining = sum_counts(blueprint);
-      _start_from_board(hero_max, blueprint, base_deck_size, _seed_initial_board(current, blueprint, blueprint, remaining, seed, starting_dungeon_level))
+      _start_from_board(hero_max, blueprint, base_deck_size, _refill_non_hero_slots(current, empty_board(), 4, blueprint, blueprint, remaining, seed, starting_dungeon_level))
 
 def upgrade_hero(config_value: Config, meta_state: Meta) -> Meta:
   match config_value meta_state:
@@ -826,6 +850,7 @@ def _keep_run(
   capacity: U32,
   seed: U32,
   status: U32,
+  ult_charge: U32,
 ) -> SwipeResult:
   swipe_result{
     meta_state,
@@ -841,7 +866,8 @@ def _keep_run(
       remaining,
       capacity,
       seed,
-      status
+      status,
+      ult_charge
     }
   }
 
@@ -855,6 +881,7 @@ def _move_after_collect_from_draw(
   board_value: Board,
   deck_blueprint: List(DeckEntry),
   capacity: U32,
+  ult_charge: U32,
   result: DrawResult,
   dir: U32,
 ) -> SwipeResult:
@@ -874,7 +901,8 @@ def _move_after_collect_from_draw(
           next_remaining,
           capacity,
           next_seed_value,
-          0
+          0,
+          ult_charge
         }
       }
 
@@ -893,6 +921,7 @@ def _move_after_collect(
   remaining: U32,
   capacity: U32,
   seed: U32,
+  ult_charge: U32,
   dir: U32,
 ) -> SwipeResult:
   _move_after_collect_from_draw(
@@ -905,6 +934,7 @@ def _move_after_collect(
     board_value,
     deck_blueprint,
     capacity,
+    ult_charge,
     draw_tile(config_value, deck_blueprint, draw_counts, remaining, seed, dungeon_level),
     dir
   )
@@ -919,6 +949,7 @@ def _from_combat(
   remaining: U32,
   capacity: U32,
   seed: U32,
+  ult_charge: U32,
   result: CombatResult,
 ) -> SwipeResult:
   match result:
@@ -937,7 +968,8 @@ def _from_combat(
           remaining,
           capacity,
           seed,
-          next_status
+          next_status,
+          ult_charge
         }
       }
 
@@ -956,13 +988,14 @@ def _apply_to_tile(
   capacity: U32,
   seed: U32,
   status: U32,
+  ult_charge: U32,
   dir: U32,
   target_index: U32,
   tile_value: Tile,
 ) -> SwipeResult:
   match tile_value:
     case none{}:
-      _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status)
+      _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge)
     case monster{ref, hp}:
       _from_combat(
         meta_state,
@@ -974,23 +1007,24 @@ def _apply_to_tile(
         remaining,
         capacity,
         seed,
+        ult_charge,
         resolve_monster(config_value, board_value, hero_hp, weapon_value, target_index, ref, hp)
       )
     case sword{ref, dmg}:
-      _move_after_collect(config_value, meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, target_index, weapon{ref, dmg}, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, dir)
+      _move_after_collect(config_value, meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, target_index, weapon{ref, dmg}, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, dir)
     case potion{ref, heal}:
       next_hp = _min_u32(hero_max_hp, hero_hp + heal);
-      _move_after_collect(config_value, meta_state, dungeon_level, next_hp, hero_max_hp, hero_index, target_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, dir)
+      _move_after_collect(config_value, meta_state, dungeon_level, next_hp, hero_max_hp, hero_index, target_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, dir)
     case gold{amount}:
       next_meta = _add_gold(meta_state, amount);
-      _move_after_collect(config_value, next_meta, dungeon_level, hero_hp, hero_max_hp, hero_index, target_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, dir)
+      _move_after_collect(config_value, next_meta, dungeon_level, hero_hp, hero_max_hp, hero_index, target_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, dir)
 
 def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: U32) -> SwipeResult:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       match status === 0:
         case 0:
-          _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status)
+          _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge)
         case _:
           _apply_swipe_target(
             config_value,
@@ -1007,6 +1041,7 @@ def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: U32
             capacity,
             seed,
             status,
+            ult_charge,
             dir,
             adjacent_index(hero_index, dir)
           )
@@ -1026,6 +1061,7 @@ def _apply_swipe_target(
   capacity: U32,
   seed: U32,
   status: U32,
+  ult_charge: U32,
   dir: U32,
   target_index: U32,
 ) -> SwipeResult:
@@ -1046,12 +1082,13 @@ def _apply_swipe_target(
         capacity,
         seed,
         status,
+        ult_charge,
         dir,
         target_index,
         board_get(board_value, target_index)
       )
     case _:
-      _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status)
+      _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge)
 
 # App state
 
@@ -1092,7 +1129,7 @@ def _start(meta_state: Meta, seed: U32) -> DungeonState:
 
 def _hero_hp(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       hero_hp
 
 def _weapon_dmg(weapon_value: Weapon) -> U32:
@@ -1104,13 +1141,59 @@ def _weapon_dmg(weapon_value: Weapon) -> U32:
 
 def _hero_dmg(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       _weapon_dmg(weapon)
 
 def _run_status(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       status
+
+def _run_ult_charge(run_value: Run) -> U32:
+  match run_value:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
+      ult_charge
+
+def _run_with_ult_charge(run_value: Run, next_ult_charge: U32) -> Run:
+  match run_value:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
+      run{
+        dungeon_level,
+        hero_hp,
+        hero_max_hp,
+        hero_index,
+        weapon,
+        board_value,
+        deck_blueprint,
+        draw_counts,
+        remaining,
+        capacity,
+        seed,
+        status,
+        next_ult_charge
+      }
+
+def _run_charge_after_gain(current_charge: U32) -> U32:
+  match current_charge < 6:
+    case 0:
+      6
+    case _:
+      current_charge + 1
+
+def _run_moved(current_run: Run, next_run: Run) -> U32:
+  match _run_hero_index(current_run) === _run_hero_index(next_run):
+    case 0:
+      1
+    case _:
+      0
+
+def _next_ult_charge(current_run: Run, next_run: Run) -> U32:
+  current_charge = _run_ult_charge(current_run);
+  match _run_moved(current_run, next_run):
+    case 0:
+      current_charge
+    case _:
+      _run_charge_after_gain(current_charge)
 
 def _phase_from_run(run_value: Run) -> U32:
   match _run_status(run_value) === 0:
@@ -1239,12 +1322,12 @@ def _toggle_impact_kill_fx(current_impact_fx: U32) -> U32:
 
 def _run_hero_index(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       hero_index
 
 def _run_board(run_value: Run) -> Board:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       board_value
 
 def _impact_none() -> ImpactState:
@@ -1288,9 +1371,10 @@ def _impact_from_turn(current_run: Run, next_run: Run, dir: U32, current_impact_
 def _state_from_swipe_impact(next_meta: Meta, current_run: Run, next_run: Run, next_seed_value: U32, current_hp_fx: U32, current_dmg_fx: U32, impact: ImpactState) -> DungeonState:
   match impact:
     case impact_state{next_impact_idx, next_impact_fx}:
+      charged_run = _run_with_ult_charge(next_run, _next_ult_charge(current_run, next_run));
       _state_from_run(
         next_meta,
-        next_run,
+        charged_run,
         next_seed_value,
         _next_hp_fx(current_run, next_run, current_hp_fx),
         _next_dmg_fx(current_run, next_run, current_dmg_fx),
@@ -1307,6 +1391,50 @@ def _state_from_swipe(result: SwipeResult, current_run: Run, next_seed_value: U3
 def _apply_turn(meta_state: Meta, run_value: Run, next_seed_value: U32, dir: U32, current_hp_fx: U32, current_dmg_fx: U32, current_impact_fx: U32) -> DungeonState:
   result = apply_swipe(config(), meta_state, run_value, dir);
   _state_from_swipe(result, run_value, next_seed_value, current_hp_fx, current_dmg_fx, current_impact_fx, dir)
+
+def _ultimate_run_from_values(
+  hero_hp: U32,
+  hero_max_hp: U32,
+  hero_index: U32,
+  weapon_value: Weapon,
+  deck_blueprint: List(DeckEntry),
+  capacity: U32,
+  status: U32,
+  stage: BoardDraw,
+) -> Run:
+  match stage:
+    case board_draw{next_board, next_counts, next_remaining, next_seed_value, next_level}:
+      run{
+        next_level,
+        hero_hp,
+        hero_max_hp,
+        hero_index,
+        weapon_value,
+        next_board,
+        deck_blueprint,
+        next_counts,
+        next_remaining,
+        capacity,
+        next_seed_value,
+        status,
+        0
+      }
+
+def _use_ultimate(meta_state: Meta, run_value: Run, next_seed_value: U32) -> DungeonState:
+  match run_value:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
+      stage = _refill_non_hero_slots(config(), empty_board(), hero_index, deck_blueprint, draw_counts, remaining, seed, dungeon_level);
+      _state_from_run(meta_state, _ultimate_run_from_values(hero_hp, hero_max_hp, hero_index, weapon_value, deck_blueprint, capacity, status, stage), next_seed_value, 0, 0, 9, 0)
+
+def _ultimate_ready_charge(ult_charge: U32) -> U32:
+  match ult_charge === 6:
+    case 0:
+      0
+    case _:
+      1
+
+def _ultimate_ready(run_value: Run) -> U32:
+  _ultimate_ready_charge(_run_ult_charge(run_value))
 
 def _can_afford_upgrade(meta_state: Meta, cost: U32) -> U32:
   match meta_state:
@@ -1333,8 +1461,17 @@ def _idle_event(evt: DungeonEvent, meta_state: Meta, next_seed_value: U32, hp_fx
     case _:
       dungeon{meta_state, idle_run{}, next_seed_value, hp_fx, dmg_fx, 9, 0}
 
+def _active_run_ultimate(meta_state: Meta, run_value: Run, next_seed_value: U32, hp_fx: U32, dmg_fx: U32, impact_idx: U32, impact_fx: U32) -> DungeonState:
+  match _ultimate_ready(run_value):
+    case 0:
+      _state_from_run(meta_state, run_value, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
+    case _:
+      _use_ultimate(meta_state, run_value, next_seed_value)
+
 def _active_run_event(evt: DungeonEvent, meta_state: Meta, run_value: Run, next_seed_value: U32, hp_fx: U32, dmg_fx: U32, impact_idx: U32, impact_fx: U32) -> DungeonState:
   match evt:
+    case ultimate{}:
+      _active_run_ultimate(meta_state, run_value, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
     case turn_up{}:
       _apply_turn(meta_state, run_value, next_seed_value, 0, hp_fx, dmg_fx, impact_fx)
     case turn_down{}:
@@ -1437,12 +1574,14 @@ def _board_node(current_run: RunSlot, meta_state: Meta, hp_fx: U32, dmg_fx: U32,
       cells = U32.grid(HTML(DungeonEvent), 3, 3, _idle_board_slot(meta_state));
       <section class={_board_shell_class_idle()}>
         <div class="board">{...cells}</div>
+        {_ultimate_button(idle_run{})}
         {_board_overlay_idle()}
       </section>
     case run_slot{run_value}:
       cells = U32.grid(HTML(DungeonEvent), 3, 3, _board_slot(run_value, hp_fx, dmg_fx, impact_idx, impact_fx));
       <section class={_board_shell_class_run(run_value)}>
         <div class="board">{...cells}</div>
+        {_ultimate_button(run_slot{run_value})}
         {_board_overlay_run(run_value)}
       </section>
 
@@ -1510,7 +1649,7 @@ def _idle_board_slot(meta_state: Meta, x: U32, y: U32) -> HTML(DungeonEvent):
 
 def _board_card_at(run_value: Run, hp_fx: U32, dmg_fx: U32, idx: U32) -> HTML(DungeonEvent):
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       match hero_index === idx:
         case 0:
           _tile_card(board_get(board_value, idx))
@@ -1610,10 +1749,10 @@ def _tile_card(tile: Tile) -> HTML(DungeonEvent):
 def _filled_tile_card(tile: Tile, class_name: String) -> HTML(DungeonEvent):
   <article class={class_name}>
     {_tile_badge_node(tile)}
+    <div class="card__label card__label--tile">{text{_tile_name(tile)}}</div>
     <div class="card__art-wrap">
       <img class="card__art" src={_tile_sprite(tile)} alt={_tile_name(tile)} />
     </div>
-    <div class="card__label">{text{_tile_name(tile)}}</div>
   </article>
 
 def _tile_badge_node(tile: Tile) -> HTML(DungeonEvent):
@@ -1641,7 +1780,7 @@ def _dungeon_level_value(current_run: RunSlot) -> String:
 
 def _dungeon_level_value_from_run(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       U32.show(dungeon_level)
 
 def _remaining_value(current_run: RunSlot) -> String:
@@ -1653,7 +1792,7 @@ def _remaining_value(current_run: RunSlot) -> String:
 
 def _remaining_value_from_run(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       U32.show(remaining) ++ "/" ++ U32.show(capacity)
 
 def _weapon_value(current_run: RunSlot) -> String:
@@ -1665,8 +1804,40 @@ def _weapon_value(current_run: RunSlot) -> String:
 
 def _weapon_value_from_run(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
       _weapon_value_from_weapon(weapon)
+
+def _ultimate_label_charge(ult_charge: U32) -> String:
+  "ULTIMATE " ++ U32.show(ult_charge) ++ "/6"
+
+def _ultimate_label(current_run: RunSlot) -> String:
+  match current_run:
+    case idle_run{}:
+      _ultimate_label_charge(0)
+    case run_slot{run_value}:
+      _ultimate_label_charge(_run_ult_charge(run_value))
+
+def _ultimate_enabled_run(run_value: Run) -> U32:
+  match _is_game_over_run(run_value):
+    case 0:
+      _ultimate_ready(run_value)
+    case _:
+      0
+
+def _ultimate_enabled(current_run: RunSlot) -> U32:
+  match current_run:
+    case idle_run{}:
+      0
+    case run_slot{run_value}:
+      _ultimate_enabled_run(run_value)
+
+def _ultimate_attrs(current_run: RunSlot) -> List(Attr(DungeonEvent)):
+  _button_attrs("button button--ultimate", ultimate{}, _ultimate_enabled(current_run))
+
+def _ultimate_button(current_run: RunSlot) -> HTML(DungeonEvent):
+  <button {..._ultimate_attrs(current_run)}>
+    {text{_ultimate_label(current_run)}}
+  </button>
 
 def _weapon_value_from_weapon(weapon_value: Weapon) -> String:
   match weapon_value:
@@ -1893,15 +2064,15 @@ def layout_css() -> String:
   ""
   ++ ".shell{width:min(100%,560px);min-height:100svh;height:100svh;max-height:100svh;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));display:grid;grid-template-rows:auto auto auto minmax(0,1fr);gap:12px;overflow:hidden;}"
   ++ ".topbar{display:flex;align-items:center;justify-content:flex-start;min-height:0;}.resource-bar{margin:0;display:inline-flex;align-items:baseline;gap:8px;color:var(--text-muted);font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.resource-bar__value{color:var(--text);font-size:1rem;letter-spacing:0;}"
-  ++ ".button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:14px 18px;font-weight:700;background:var(--accent);color:#fff;}.button--secondary{background:var(--surface);color:var(--text);}.button:disabled{opacity:0.45;cursor:not-allowed;}"
+  ++ ".button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:14px 18px;font-weight:700;background:var(--accent);color:#fff;}.button--secondary{background:var(--surface);color:var(--text);}.button--ultimate{width:min(100%,420px);min-height:52px;border-radius:18px;letter-spacing:0.08em;text-transform:uppercase;}.button:disabled{opacity:0.45;cursor:not-allowed;}"
   ++ ".status-panel{display:grid;gap:10px;}.status-panel__head{display:flex;align-items:center;justify-content:flex-start;gap:10px;}.status-chip{margin:0;display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;border-radius:999px;border:1px solid var(--surface-border);font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:#fff;}.status-chip--idle{color:#1f5db2;background:#edf4ff;}.status-chip--active{color:#0f6c4c;background:#ebfff5;}.status-chip--over{color:#8f1d1d;background:#fff1f1;}.status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}"
   ++ ".controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start;}.upgrade-slot{display:grid;gap:6px;}.upgrade-slot__meta{margin:0;color:var(--text-muted);font-size:0.78rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;text-align:center;}.stat-panel{padding:10px 12px;background:#fff;border:1px solid var(--surface-border);border-radius:var(--radius-sm);}.stat-panel__label{display:block;margin-bottom:6px;color:var(--text-muted);font-size:0.78rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;}.stat-panel__value{font-size:0.98rem;line-height:1.2;}"
-  ++ ".board-shell{position:relative;display:grid;min-height:0;place-items:center;}.board-shell--over .board{transform:scale(0.985);filter:blur(1px);}.board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(100%,420px);touch-action:none;transition:transform 140ms ease,filter 140ms ease;}.game-over-modal{position:absolute;inset:0;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;background:rgba(17,17,17,0);transition:opacity 140ms ease,background-color 140ms ease;}.game-over-modal--visible{opacity:1;pointer-events:auto;background:rgba(17,17,17,0.32);}.game-over-card{width:min(100%,280px);display:grid;gap:12px;justify-items:center;padding:20px 18px;background:#fff;border:1px solid var(--surface-border);border-radius:var(--radius-md);box-shadow:var(--shadow);text-align:center;}.game-over-card__eyebrow{margin:0;color:var(--danger);font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.game-over-card__title{margin:0;font-size:1.4rem;line-height:1;}"
-  ++ "@media (max-width:800px){.shell{padding-inline:12px;gap:10px;}.status-grid,.controls{grid-template-columns:1fr;}.upgrade-slot__meta{text-align:left;}.board{gap:8px;width:min(100%,380px);}.game-over-card{width:min(100%,240px);padding:18px 16px;}}"
+  ++ ".board-shell{position:relative;display:grid;grid-template-rows:auto auto;justify-items:center;align-content:center;gap:12px;min-height:0;}.board-shell--over .board{transform:scale(0.985);filter:blur(1px);}.board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(100%,420px);touch-action:none;transition:transform 140ms ease,filter 140ms ease;}.game-over-modal{position:absolute;inset:0;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;background:rgba(17,17,17,0);transition:opacity 140ms ease,background-color 140ms ease;}.game-over-modal--visible{opacity:1;pointer-events:auto;background:rgba(17,17,17,0.32);}.game-over-card{width:min(100%,280px);display:grid;gap:12px;justify-items:center;padding:20px 18px;background:#fff;border:1px solid var(--surface-border);border-radius:var(--radius-md);box-shadow:var(--shadow);text-align:center;}.game-over-card__eyebrow{margin:0;color:var(--danger);font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.game-over-card__title{margin:0;font-size:1.4rem;line-height:1;}"
+  ++ "@media (max-width:800px){.shell{padding-inline:12px;gap:10px;}.status-grid,.controls{grid-template-columns:1fr;}.upgrade-slot__meta{text-align:left;}.board{gap:8px;width:min(100%,380px);}.button--ultimate{width:min(100%,380px);}.game-over-card{width:min(100%,240px);padding:18px 16px;}}"
 
 def cards_css() -> String:
   ""
-  ++ ".board-slot{position:relative;}.board-slot>*{position:relative;z-index:1;}.board-slot::before{content:'';position:absolute;inset:-3px;border-radius:var(--radius-md);opacity:0;pointer-events:none;z-index:2;}.card{position:relative;display:flex;min-height:170px;flex-direction:column;justify-content:space-between;padding:12px;background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius-md);box-shadow:var(--shadow);overflow:hidden;}.board .card{min-height:0;aspect-ratio:1 / 1;padding:10px;}.card__art-wrap{display:flex;flex:1;align-items:center;justify-content:center;padding:16px 10px;}.card__art{width:100%;max-width:116px;max-height:116px;object-fit:contain;}.card__label{font-size:0.95rem;font-weight:700;text-align:center;}.card__badge{position:absolute;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--surface-border);font-size:0.78rem;font-weight:700;}.card__badge--hp{top:10px;right:10px;color:var(--danger);}.card__badge--value{left:10px;bottom:10px;}.board .card__art-wrap{padding:18px 4px 10px;}.board .card__art{max-width:clamp(44px,16vw,80px);max-height:clamp(44px,16vw,80px);}.board .card__label{font-size:clamp(0.64rem,2vw,0.82rem);line-height:1.05;}.board .card__badge{min-height:28px;padding:4px 8px;font-size:0.68rem;}.board .card__badge--hp{top:8px;right:8px;}.board .card__badge--value{left:8px;bottom:8px;}.board .card--hero[data-dmg]::after{content:attr(data-dmg);position:absolute;left:8px;bottom:8px;display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--surface-border);font-size:0.68rem;font-weight:700;color:#0f63c9;}.board .card--hero[data-dmg='']::after{content:none;}.card__empty{display:grid;flex:1;place-items:center;color:var(--text-muted);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.card--idle{background:linear-gradient(180deg,#f8f8f8,#ededed);}"
+  ++ ".board-slot{position:relative;}.board-slot>*{position:relative;z-index:1;}.board-slot::before{content:'';position:absolute;inset:-3px;border-radius:var(--radius-md);opacity:0;pointer-events:none;z-index:2;}.card{position:relative;display:flex;min-height:170px;flex-direction:column;justify-content:space-between;padding:12px;background:var(--surface);border:1px solid var(--surface-border);border-radius:var(--radius-md);box-shadow:var(--shadow);overflow:hidden;}.card--tile{justify-content:flex-start;}.board .card{min-height:0;aspect-ratio:1 / 1;padding:10px;}.card__art-wrap{display:flex;flex:1;align-items:center;justify-content:center;padding:16px 10px;}.card__art{width:100%;max-width:116px;max-height:116px;object-fit:contain;}.card__label{font-size:0.95rem;font-weight:700;text-align:center;}.card__label--tile{padding-right:6px;}.card__badge{position:absolute;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--surface-border);font-size:0.78rem;font-weight:700;}.card__badge--hp{top:10px;right:10px;color:var(--danger);}.card__badge--value{left:10px;bottom:10px;}.board .card__art-wrap{padding:18px 4px 10px;}.board .card__art{max-width:clamp(44px,16vw,80px);max-height:clamp(44px,16vw,80px);}.board .card__label{font-size:clamp(0.64rem,2vw,0.82rem);line-height:1.05;}.board .card__label--tile{margin-bottom:6px;}.board .card__badge{min-height:28px;padding:4px 8px;font-size:0.68rem;}.board .card__badge--hp{top:8px;right:8px;}.board .card__badge--value{left:8px;bottom:8px;}.board .card--hero[data-dmg]::after{content:attr(data-dmg);position:absolute;left:8px;bottom:8px;display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--surface-border);font-size:0.68rem;font-weight:700;color:#0f63c9;}.board .card--hero[data-dmg='']::after{content:none;}.card__empty{display:grid;flex:1;place-items:center;color:var(--text-muted);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.card--idle{background:linear-gradient(180deg,#f8f8f8,#ededed);}"
 
 def fx_css() -> String:
   ""
