@@ -96,9 +96,9 @@ def render(state: DungeonState) -> HTML(DungeonEvent):
       _frame(_shell_children(meta_state, run_slot{run_value}, hp_fx, dmg_fx, impact_idx, impact_fx))
 
 def _frame(kids: List(HTML(DungeonEvent))) -> HTML(DungeonEvent):
-  <div class="page">
+  <div class="page" tabindex="0" autofocus="autofocus" style="outline:none" on_key_down={key_event}>
     <style>{text{css()}}</style>
-    <main class="shell shell--dungeon" tabindex="0" autofocus="autofocus" style="outline:none" on_key_down={key_event}>
+    <main class="shell shell--dungeon">
       {...kids}
     </main>
   </div>
