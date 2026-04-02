@@ -1,0 +1,10 @@
+{
+  "source": "HEAD",
+  "targetDir": "src/Midum",
+  "overwrite": "conservative",
+  "installed": [
+    "theme-base",
+    "button",
+    "card"
+  ]
+}

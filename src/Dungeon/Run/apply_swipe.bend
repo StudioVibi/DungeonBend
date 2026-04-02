@@ -1,76 +1,44 @@
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/SwordDef as SwordDef
-import /Dungeon/PotionDef as PotionDef
 import /Dungeon/DeckEntry as DeckEntry
 import /Dungeon/Weapon as Weapon
-import /Dungeon/Tile as Tile
 import /Dungeon/Board as Board
-import /Dungeon/BoardDraw as BoardDraw
-import /Dungeon/DrawResult as DrawResult
-import /Dungeon/CombatResult as CombatResult
 import /Dungeon/Meta as Meta
 import /Dungeon/Config as Config
 import /Dungeon/Run as Run
 import /Dungeon/SwipeResult as SwipeResult
-import /Dungeon/RunSlot as RunSlot
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/DungeonState as DungeonState
-import /Dungeon/ImpactState as ImpactState
-import /Dungeon/_PickResult as _PickResult
+import /Dungeon/Direction as Direction
 import /Dungeon/Run/start_refill_upgrade/_keep_run as _keep_run
 import /Dungeon/Run/start_refill_upgrade/_apply_to_tile as _apply_to_tile
-import /Dungeon/Board/indexing/adjacent_index as adjacent_index
-import /Dungeon/Board/indexing/board_get as board_get
+import /Dungeon/Board/indexing/adjacent_pos as adjacent_pos
+import /Dungeon/Board/indexing/board_index as board_index
+import /Dungeon/Board/indexing/board_get_pos as board_get_pos
 
-def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: U32) -> SwipeResult:
+def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: Direction) -> SwipeResult:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge}:
-      match status === 0:
-        case 0:
-          _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge)
-        case _:
-          _apply_swipe_target(
-            config_value,
-            meta_state,
-            dungeon_level,
-            hero_hp,
-            hero_max_hp,
-            hero_index,
-            weapon_value,
-            board_value,
-            deck_blueprint,
-            draw_counts,
-            remaining,
-            capacity,
-            seed,
-            status,
-            ult_charge,
-            dir,
-            adjacent_index(hero_index, dir)
-          )
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+      _apply_swipe_target(
+        config_value,
+        meta_state,
+        dungeon_level,
+        hero_hp,
+        hero_max_hp,
+        hero_index,
+        weapon_value,
+        board_value,
+        deck_blueprint,
+        draw_counts,
+        remaining,
+        capacity,
+        seed,
+        ult_charge,
+        dir,
+        adjacent_pos(hero_index, dir)
+      )
 
-def _apply_swipe_target(
-  config_value: Config,
-  meta_state: Meta,
-  dungeon_level: U32,
-  hero_hp: U32,
-  hero_max_hp: U32,
-  hero_index: U32,
-  weapon_value: Weapon,
-  board_value: Board,
-  deck_blueprint: List(DeckEntry),
-  draw_counts: List(DeckEntry),
-  remaining: U32,
-  capacity: U32,
-  seed: U32,
-  status: U32,
-  ult_charge: U32,
-  dir: U32,
-  target_index: U32,
-) -> SwipeResult:
-  match target_index === 9:
-    case 0:
+def _apply_swipe_target(config_value: Config, meta_state: Meta, dungeon_level: U32, hero_hp: U32, hero_max_hp: U32, hero_index: U32, weapon_value: Weapon, board_value: Board, deck_blueprint: List(DeckEntry), draw_counts: List(DeckEntry), remaining: U32, capacity: U32, seed: U32, ult_charge: U32, dir: Direction, target: Maybe(Nat/V2)) -> SwipeResult:
+  match target:
+    case none{}:
+      _keep_run(meta_state, run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge})
+    case some{target_pos}:
       _apply_to_tile(
         config_value,
         meta_state,
@@ -85,11 +53,8 @@ def _apply_swipe_target(
         remaining,
         capacity,
         seed,
-        status,
         ult_charge,
         dir,
-        target_index,
-        board_get(board_value, target_index)
+        board_index(target_pos),
+        board_get_pos(board_value, target_pos)
       )
-    case _:
-      _keep_run(meta_state, dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, status, ult_charge)

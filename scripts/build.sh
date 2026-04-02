@@ -7,12 +7,10 @@ out_assets="$out_dir/assets"
 
 mkdir -p "$out_assets"
 
-if command -v bend >/dev/null 2>&1; then
-  bend src/main.bend --to-web --no-strict > "$out_html"
-elif [ -f ../Bend2/bend-ts/src/CLI.ts ]; then
-  bun ../Bend2/bend-ts/src/CLI.ts src/main.bend --to-web --no-strict > "$out_html"
-elif [ -f ../Bend2/src/ts/CLI.ts ]; then
-  bun ../Bend2/src/ts/CLI.ts src/main.bend --to-web --no-strict > "$out_html"
+if [ -f ../Bend2/bend-ts/src/Bend.ts ]; then
+  bun scripts/build.ts src/main.bend "$out_html"
+elif command -v bend >/dev/null 2>&1; then
+  bend src/main.bend --to-web > "$out_html"
 else
   echo "Bend2 CLI not found. Install bend globally or keep ../Bend2 next to this repo." >&2
   exit 1

@@ -1,47 +1,25 @@
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/SwordDef as SwordDef
-import /Dungeon/PotionDef as PotionDef
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/Weapon as Weapon
-import /Dungeon/Tile as Tile
 import /Dungeon/Board as Board
-import /Dungeon/BoardDraw as BoardDraw
-import /Dungeon/DrawResult as DrawResult
-import /Dungeon/CombatResult as CombatResult
-import /Dungeon/Meta as Meta
-import /Dungeon/Config as Config
-import /Dungeon/Run as Run
-import /Dungeon/SwipeResult as SwipeResult
-import /Dungeon/RunSlot as RunSlot
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/DungeonState as DungeonState
-import /Dungeon/ImpactState as ImpactState
-import /Dungeon/_PickResult as _PickResult
-import /Dungeon/Board/indexing/board_get as board_get
-import /Dungeon/Board/indexing/board_set as board_set
-import /Dungeon/Board/indexing/_back_index as _back_index
+import /Dungeon/Tile as Tile
+import /Dungeon/Direction as Direction
+import /Dungeon/Board/indexing/board_pos as board_pos
+import /Dungeon/Board/indexing/board_get_pos as board_get_pos
+import /Dungeon/Board/indexing/board_set_pos as board_set_pos
+import /Dungeon/Board/indexing/back_pos as back_pos
 
-def _shift_after_move_back(board_value: Board, board1: Board, hero_index: U32, back: U32, spawn: Tile) -> Board:
-  match back === 9:
-    case 0:
-      back_tile = board_get(board_value, back);
-      board2 = board_set(board1, hero_index, back_tile);
-      board_set(board2, back, spawn)
-    case _:
-      board_set(board1, hero_index, spawn)
+def _shift_after_move_back(board_value: Board, board1: Board, hero_pos: Nat/V2, back: Maybe(Nat/V2), spawn: Tile) -> Board:
+  match back:
+    case none{}:
+      board_set_pos(board1, hero_pos, spawn)
+    case some{back_pos_value}:
+      back_tile = board_get_pos(board_value, back_pos_value);
+      board2 = board_set_pos(board1, hero_pos, back_tile);
+      board_set_pos(board2, back_pos_value, spawn)
 
-def shift_after_move(
-  board_value: Board,
-  hero_index: U32,
-  target_index: U32,
-  dir: U32,
-  spawn: Tile,
-) -> Board:
+def shift_after_move(board_value: Board, hero_index: U32, target_index: U32, dir: Direction, spawn: Tile) -> Board:
   _shift_after_move_back(
     board_value,
-    board_set(board_value, target_index, none{}),
-    hero_index,
-    _back_index(hero_index, dir),
+    board_set_pos(board_value, board_pos(target_index), none{}),
+    board_pos(hero_index),
+    back_pos(hero_index, dir),
     spawn
   )

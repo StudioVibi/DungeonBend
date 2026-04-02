@@ -15,7 +15,17 @@ type PotionDef {
 }
 
 type DeckEntry {
-  deck_entry{kind: U32, ref: U32, count: U32}
+  monster_entry{ref: U32, count: U32}
+  sword_entry{ref: U32, count: U32}
+  potion_entry{ref: U32, count: U32}
+  hero_entry{count: U32}
+}
+
+type Direction {
+  up{}
+  down{}
+  left{}
+  right{}
 }
 
 type Weapon {
@@ -32,17 +42,7 @@ type Tile {
 }
 
 type Board {
-  board{
-    c0: Tile,
-    c1: Tile,
-    c2: Tile,
-    c3: Tile,
-    c4: Tile,
-    c5: Tile,
-    c6: Tile,
-    c7: Tile,
-    c8: Tile
-  }
+  board{cells: Nat/V2/Map(Tile)}
 }
 
 type BoardDraw {
@@ -65,12 +65,17 @@ type DrawResult {
   }
 }
 
+type CombatOutcome {
+  combat_continue{}
+  combat_game_over{}
+}
+
 type CombatResult {
   combat_result{
     hero_hp: U32,
     weapon: Weapon,
     board: Board,
-    status: U32
+    outcome: CombatOutcome
   }
 }
 
@@ -104,42 +109,77 @@ type Run {
     remaining: U32,
     capacity: U32,
     seed: U32,
-    status: U32,
     ult_charge: U32
   }
 }
 
-type SwipeResult {
-  swipe_result{meta: Meta, run: Run}
+type RunAdvance {
+  keep_running{run: Run}
+  end_run{run: Run}
 }
 
-type RunSlot {
-  idle_run{}
-  run_slot{run: Run}
+type SwipeResult {
+  swipe_result{meta: Meta, next: RunAdvance}
+}
+
+type Scene {
+  setup{}
+  running{run: Run}
+  game_over{run: Run}
+}
+
+type GameState {
+  game_state{meta: Meta, scene: Scene, next_seed: U32}
+}
+
+type HpFx {
+  hp_fx_none{}
+  hp_fx_heal_a{}
+  hp_fx_heal_b{}
+  hp_fx_hurt_a{}
+  hp_fx_hurt_b{}
+}
+
+type DmgFx {
+  dmg_fx_none{}
+  dmg_fx_up_a{}
+  dmg_fx_up_b{}
+  dmg_fx_down_a{}
+  dmg_fx_down_b{}
+}
+
+type ImpactFx {
+  impact_hit_a{}
+  impact_hit_b{}
+  impact_kill_a{}
+  impact_kill_b{}
+}
+
+type Impact {
+  no_impact{}
+  impact{pos: Nat/V2, fx: ImpactFx}
+}
+
+type UiState {
+  ui_state{hp_fx: HpFx, dmg_fx: DmgFx, impact: Impact}
+}
+
+type DungeonState {
+  dungeon{game: GameState, ui: UiState}
 }
 
 type DungeonEvent {
   start{}
   upgrade{}
   ultimate{}
-  turn_up{}
-  turn_down{}
-  turn_left{}
-  turn_right{}
+  move{dir: Direction}
   ok{}
   ignore{}
 }
 
-type DungeonState {
-  dungeon{meta: Meta, current_run: RunSlot, next_seed: U32, hp_fx: U32, dmg_fx: U32, impact_idx: U32, impact_fx: U32}
-}
-
-type ImpactState {
-  impact_state{idx: U32, fx: U32}
-}
-
 type _PickResult {
-  pick_result{kind: U32, ref: U32, counts: List(DeckEntry)}
+  no_pick{counts: List(DeckEntry)}
+  picked_entry{entry: DeckEntry, counts: List(DeckEntry)}
 }
 
 def default_meta() -> Meta:
@@ -147,6 +187,12 @@ def default_meta() -> Meta:
 
 def initial_seed() -> U32:
   1
+
+def default_ui() -> UiState:
+  ui_state{hp_fx_none{}, dmg_fx_none{}, no_impact{}}
+
+def initial_game() -> GameState:
+  game_state{default_meta(), setup{}, initial_seed()}
 
 def config() -> Config:
   config{
@@ -172,15 +218,15 @@ def config() -> Config:
       potion_def{4}
     ],
     [
-      deck_entry{0, 0, 4},
-      deck_entry{0, 1, 3},
-      deck_entry{0, 2, 3},
-      deck_entry{0, 3, 3},
-      deck_entry{1, 0, 1},
-      deck_entry{1, 1, 1},
-      deck_entry{1, 2, 1},
-      deck_entry{2, 0, 3},
-      deck_entry{3, 0, 1}
+      monster_entry{0, 4},
+      monster_entry{1, 3},
+      monster_entry{2, 3},
+      monster_entry{3, 3},
+      sword_entry{0, 1},
+      sword_entry{1, 1},
+      sword_entry{2, 1},
+      potion_entry{0, 3},
+      hero_entry{1}
     ],
     20,
     1
