@@ -6,4 +6,4 @@ import /Dungeon/App/on_event as on_event
 import /Dungeon/View/render as render
 
 main : App =
-  app{DungeonState, DungeonEvent, init, render, on_event}
+  app{DungeonState, DungeonEvent, init, render, on_event, none{}}

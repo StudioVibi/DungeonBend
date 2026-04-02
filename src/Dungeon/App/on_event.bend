@@ -1,3 +1,4 @@
+import /App/
 import /Dungeon/Upgrade as Upgrade
 import /Dungeon/MonsterDef as MonsterDef
 import /Dungeon/SwordDef as SwordDef
@@ -398,7 +399,7 @@ def _ended_run_event(evt: DungeonEvent, meta_state: Meta, run_value: Run, next_s
     case _:
       _state_from_run(meta_state, run_value, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
 
-def on_event(evt: DungeonEvent, state: DungeonState) -> DungeonState:
+def _next_state(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match state:
     case dungeon{meta_state, idle_run{}, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx}:
       _idle_event(evt, meta_state, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
@@ -408,3 +409,6 @@ def on_event(evt: DungeonEvent, state: DungeonState) -> DungeonState:
           _ended_run_event(evt, meta_state, run_value, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
         case _:
           _active_run_event(evt, meta_state, run_value, next_seed_value, hp_fx, dmg_fx, impact_idx, impact_fx)
+
+def on_event(evt: DungeonEvent, state: DungeonState) -> App/Update(DungeonState, DungeonEvent):
+  update{_next_state(evt, state), none{}}
