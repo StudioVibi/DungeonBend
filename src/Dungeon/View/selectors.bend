@@ -22,6 +22,13 @@ def meta_gold(meta_state: Meta) -> String:
 def hero_level_text(meta_state: Meta) -> String:
   "Hero Lv " ++ U32.show(_hero_level(meta_state))
 
+def hero_display_level(meta_state: Meta) -> String:
+  U32.show(_hero_level(meta_state) + 1)
+
+def hero_menu_stats(meta_state: Meta) -> String:
+  hp = U32.show(hero_max_hp_value(meta_state));
+  "LV: " ++ hero_display_level(meta_state) ++ "   HP: " ++ hp ++ "/" ++ hp
+
 def _run_dungeon_level(run_value: Run) -> U32:
   match run_value:
     case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
@@ -174,6 +181,26 @@ def _upgrade_label_cost(cost: U32) -> String:
       "Max Level"
     case _:
       "Upgrade - " ++ U32.show(cost)
+
+def menu_upgrade_label(meta_state: Meta) -> String:
+  _menu_upgrade_label_cost(next_upgrade_cost(meta_state))
+
+def _menu_upgrade_label_cost(cost: U32) -> String:
+  match cost:
+    case 0:
+      "MAX LEVEL"
+    case _:
+      "UPGRADE"
+
+def menu_upgrade_cost_text(meta_state: Meta) -> String:
+  _menu_upgrade_cost_text(next_upgrade_cost(meta_state))
+
+def _menu_upgrade_cost_text(cost: U32) -> String:
+  match cost:
+    case 0:
+      "MAX"
+    case _:
+      U32.show(cost)
 
 def board_shell_class(scene_value: Scene) -> String:
   match scene_value:

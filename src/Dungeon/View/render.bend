@@ -18,14 +18,14 @@ import /Dungeon/Board/indexing/same_pos as same_pos
 import /Dungeon/App/key_event as key_event
 import /Dungeon/View/css as css
 import /Dungeon/View/selectors/meta_gold as meta_gold
-import /Dungeon/View/selectors/hero_level_text as hero_level_text
+import /Dungeon/View/selectors/hero_menu_stats as hero_menu_stats
 import /Dungeon/View/selectors/ultimate_label as ultimate_label
 import /Dungeon/View/selectors/ultimate_enabled as ultimate_enabled
 import /Dungeon/View/selectors/start_enabled as start_enabled
 import /Dungeon/View/selectors/upgrade_enabled as upgrade_enabled
-import /Dungeon/View/selectors/upgrade_label as upgrade_label
+import /Dungeon/View/selectors/menu_upgrade_label as menu_upgrade_label
+import /Dungeon/View/selectors/menu_upgrade_cost_text as menu_upgrade_cost_text
 import /Dungeon/View/selectors/next_upgrade_cost as next_upgrade_cost
-import /Dungeon/View/selectors/hero_max_hp_value as hero_max_hp_value
 import /Dungeon/View/selectors/board_shell_class as board_shell_class
 import /Dungeon/View/selectors/game_over_modal_class as game_over_modal_class
 import /Midum/screen as screen
@@ -66,15 +66,7 @@ def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
     {_dashboard_header(meta_state)}
     <section class="menu-stage">
       <div class="menu-stage__content">
-        <div class="menu-stage__hero">
-          {_hero_card_idle(meta_state)}
-        </div>
-        <div class="menu-upgrade-row">
-          <div class="menu-upgrade-row__action">
-            {_menu_upgrade_button(meta_state)}
-          </div>
-          <p class="menu-upgrade-row__meta">{text{hero_level_text(meta_state)}}</p>
-        </div>
+        {_menu_hero_panel(meta_state)}
       </div>
     </section>
     <section class="menu-actions">
@@ -132,8 +124,20 @@ def _board_overlay(scene_value: Scene) -> HTML(DungeonEvent):
 def _board_idx(x: U32, y: U32) -> U32:
   x + (y * 3)
 
-def _hero_card_idle(meta_state: Meta) -> HTML(DungeonEvent):
-  _hero_card_values(hero_max_hp_value(meta_state), hero_max_hp_value(meta_state), no_weapon{}, hp_fx_none{}, dmg_fx_none{})
+def _menu_hero_panel(meta_state: Meta) -> HTML(DungeonEvent):
+  <section class="menu-hero-panel">
+    <p class="menu-hero-panel__name">{text{_hero_name()}}</p>
+    <div class="menu-hero-panel__portrait">
+      <img class="menu-hero-panel__image" src={_hero_sprite()} alt={_hero_name()} />
+    </div>
+    <p class="menu-hero-panel__stats">{text{hero_menu_stats(meta_state)}}</p>
+    <div class="menu-upgrade-row">
+      <div class="menu-upgrade-row__action">
+        {_menu_upgrade_button(meta_state)}
+      </div>
+      <p class="menu-upgrade-row__meta">{text{menu_upgrade_cost_text(meta_state)}}</p>
+    </div>
+  </section>
 
 def _board_card_at(run_value: Run, ui_value: UiState, idx: U32) -> HTML(DungeonEvent):
   match run_value ui_value:
@@ -292,7 +296,7 @@ def _menu_upgrade_button(meta_state: Meta) -> HTML(DungeonEvent):
     DungeonEvent,
     upgrade{},
     medium{},
-    upgrade_label(meta_state),
+    menu_upgrade_label(meta_state),
     _fit_button_overrides(upgrade_enabled(meta_state, setup{}, next_upgrade_cost(meta_state)))
   )
 
