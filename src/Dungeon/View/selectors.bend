@@ -58,24 +58,6 @@ def _run_ult_ready(run_value: Run) -> U32:
         case _:
           0
 
-def phase_badge(scene_value: Scene) -> String:
-  match scene_value:
-    case setup{}:
-      "Idle"
-    case running{run_value}:
-      "Run Active"
-    case game_over{run_value}:
-      "Game Over"
-
-def phase_chip_class(scene_value: Scene) -> String:
-  match scene_value:
-    case setup{}:
-      "status-chip status-chip--idle"
-    case running{run_value}:
-      "status-chip status-chip--active"
-    case game_over{run_value}:
-      "status-chip status-chip--over"
-
 def dungeon_level_value(scene_value: Scene) -> String:
   match scene_value:
     case setup{}:
