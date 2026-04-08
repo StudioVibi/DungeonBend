@@ -3,6 +3,7 @@ import /Dungeon/Meta as Meta
 import /Dungeon/Scene as Scene
 import /Dungeon/DungeonEvent as DungeonEvent
 import /Dungeon/View/selectors/meta_gold as meta_gold
+import /Dungeon/View/selectors/meta_pack_total as meta_pack_total
 import /Dungeon/View/selectors/hero_menu_stats as hero_menu_stats
 import /Dungeon/View/selectors/start_enabled as start_enabled
 import /Dungeon/View/selectors/upgrade_enabled as upgrade_enabled
@@ -15,11 +16,14 @@ import /Dungeon/View/assets_and_labels/_hero_name as _hero_name
 import /Dungeon/View/assets_and_labels/_hero_sprite as _hero_sprite
 
 def _dashboard_header(meta_state: Meta) -> HTML(DungeonEvent):
-  <header class="topbar">
+  <header class="topbar topbar--menu">
     <p class="resource-bar">
       <span class="resource-bar__label">Gold</span>
       <strong class="resource-bar__value">{text{meta_gold(meta_state)}}</strong>
     </p>
+    <div class="topbar__stats">
+      {_menu_stat("Boosters", meta_pack_total(meta_state))}
+    </div>
   </header>
 
 def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
@@ -31,6 +35,9 @@ def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
       </div>
     </section>
     <section class="menu-actions">
+      <div class="menu-secondary-action">
+        {_menu_boosters_button()}
+      </div>
       <div class="menu-start-action">
         {_menu_start_button()}
       </div>
@@ -61,6 +68,15 @@ def _menu_start_button() -> HTML(DungeonEvent):
     _full_button_overrides(start_enabled(setup{}))
   )
 
+def _menu_boosters_button() -> HTML(DungeonEvent):
+  Button.secondary(
+    DungeonEvent,
+    open_boosters{},
+    medium{},
+    "BOOSTERS",
+    _fit_button_overrides(1)
+  )
+
 def _menu_upgrade_button(meta_state: Meta) -> HTML(DungeonEvent):
   Button.secondary(
     DungeonEvent,
@@ -83,3 +99,9 @@ def _fit_button_overrides(enabled: U32) -> List(Midum/Button/Override):
       [state_disabled{}]
     case _:
       []
+
+def _menu_stat(label: String, value: String) -> HTML(DungeonEvent):
+  <p class="topbar-stat">
+    <span class="topbar-stat__label">{text{label}}</span>
+    <strong class="topbar-stat__value">{text{value}}</strong>
+  </p>

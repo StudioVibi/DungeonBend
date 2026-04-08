@@ -3,6 +3,7 @@ import /Dungeon/MonsterDef as MonsterDef
 import /Dungeon/SwordDef as SwordDef
 import /Dungeon/PotionDef as PotionDef
 import /Dungeon/DeckEntry as DeckEntry
+import /Dungeon/CardRef as CardRef
 import /Dungeon/_PickResult as _PickResult
 
 def _next_seed_value(value: U32) -> U32:
@@ -26,6 +27,19 @@ def _entry_count(entry: DeckEntry) -> U32:
     case hero_entry{count}:
       count
 
+def _same_entry_key(current: DeckEntry, target: DeckEntry) -> U32:
+  match current target:
+    case monster_entry{current_ref, current_count} monster_entry{target_ref, target_count}:
+      current_ref === target_ref
+    case sword_entry{current_ref, current_count} sword_entry{target_ref, target_count}:
+      current_ref === target_ref
+    case potion_entry{current_ref, current_count} potion_entry{target_ref, target_count}:
+      current_ref === target_ref
+    case hero_entry{current_count} hero_entry{target_count}:
+      1
+    case _ _:
+      0
+
 def _entry_with_count(entry: DeckEntry, count: U32) -> DeckEntry:
   match entry:
     case monster_entry{ref, current}:
@@ -36,6 +50,68 @@ def _entry_with_count(entry: DeckEntry, count: U32) -> DeckEntry:
       potion_entry{ref, count}
     case hero_entry{current}:
       hero_entry{count}
+
+def card_ref_entry(card: CardRef, count: U32) -> DeckEntry:
+  match card:
+    case monster_card{ref}:
+      monster_entry{ref, count}
+    case sword_card{ref}:
+      sword_entry{ref, count}
+    case potion_card{ref}:
+      potion_entry{ref, count}
+    case hero_card{}:
+      hero_entry{count}
+
+def _count_for_card(entry: DeckEntry, rest: List(DeckEntry), card: CardRef) -> U32:
+  _count_for_card_match(_entry_matches_card(entry, card), entry, rest, card)
+
+def _count_for_card_match(matched: U32, entry: DeckEntry, rest: List(DeckEntry), card: CardRef) -> U32:
+  match matched:
+    case 0:
+      deck_count_for_card(rest, card)
+    case _:
+      _entry_count(entry)
+
+def _entry_matches_card(entry: DeckEntry, card: CardRef) -> U32:
+  match entry card:
+    case monster_entry{entry_ref, count} monster_card{card_ref}:
+      entry_ref === card_ref
+    case sword_entry{entry_ref, count} sword_card{card_ref}:
+      entry_ref === card_ref
+    case potion_entry{entry_ref, count} potion_card{card_ref}:
+      entry_ref === card_ref
+    case hero_entry{count} hero_card{}:
+      1
+    case _ _:
+      0
+
+def deck_count_for_card(entries: List(DeckEntry), card: CardRef) -> U32:
+  match entries:
+    case []:
+      0
+    case entry<>rest:
+      _count_for_card(entry, rest, card)
+
+def _add_deck_entry_match(matched: U32, current: DeckEntry, rest: List(DeckEntry), entry: DeckEntry) -> List(DeckEntry):
+  match matched:
+    case 0:
+      current<>add_deck_entry(rest, entry)
+    case _:
+      _entry_with_count(current, _entry_count(current) + _entry_count(entry))<>rest
+
+def add_deck_entry(entries: List(DeckEntry), entry: DeckEntry) -> List(DeckEntry):
+  match entries:
+    case []:
+      [entry]
+    case current<>rest:
+      _add_deck_entry_match(_same_entry_key(current, entry), current, rest, entry)
+
+def merge_deck_entries(base: List(DeckEntry), extra: List(DeckEntry)) -> List(DeckEntry):
+  match extra:
+    case []:
+      base
+    case entry<>rest:
+      merge_deck_entries(add_deck_entry(base, entry), rest)
 
 def sum_counts(entries: List(DeckEntry)) -> U32:
   match entries:
@@ -75,7 +151,7 @@ def monster_gold(monsters: List(MonsterDef), idx: U32) -> U32:
   match monsters:
     case []:
       0
-    case monster_def{gold_drop, hp_levels}<>rest:
+    case monster_def{name, sprite, gold_drop, hp_levels}<>rest:
       match idx:
         case 0:
           gold_drop
@@ -157,7 +233,7 @@ def _monster_hp(monsters: List(MonsterDef), idx: U32, level: U32) -> U32:
   match monsters:
     case []:
       1
-    case monster_def{gold_drop, hp_levels}<>rest:
+    case monster_def{name, sprite, gold_drop, hp_levels}<>rest:
       match idx:
         case 0:
           _nth_u32(hp_levels, level - 1, 1)
@@ -168,7 +244,7 @@ def _sword_damage(swords: List(SwordDef), idx: U32) -> U32:
   match swords:
     case []:
       1
-    case sword_def{dmg}<>rest:
+    case sword_def{name, sprite, dmg}<>rest:
       match idx:
         case 0:
           dmg
@@ -179,7 +255,7 @@ def _potion_heal(potions: List(PotionDef), idx: U32) -> U32:
   match potions:
     case []:
       1
-    case potion_def{heal}<>rest:
+    case potion_def{name, sprite, heal}<>rest:
       match idx:
         case 0:
           heal

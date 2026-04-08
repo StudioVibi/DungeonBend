@@ -2,16 +2,20 @@ type Upgrade {
   upgrade{cost: U32, max_hp: U32}
 }
 
+type HeroDef {
+  hero_def{name: String, sprite: String, base_max_hp: U32}
+}
+
 type MonsterDef {
-  monster_def{gold_drop: U32, hp_levels: List(U32)}
+  monster_def{name: String, sprite: String, gold_drop: U32, hp_levels: List(U32)}
 }
 
 type SwordDef {
-  sword_def{dmg: U32}
+  sword_def{name: String, sprite: String, dmg: U32}
 }
 
 type PotionDef {
-  potion_def{heal: U32}
+  potion_def{name: String, sprite: String, heal: U32}
 }
 
 type DeckEntry {
@@ -19,6 +23,40 @@ type DeckEntry {
   sword_entry{ref: U32, count: U32}
   potion_entry{ref: U32, count: U32}
   hero_entry{count: U32}
+}
+
+type CardRef {
+  monster_card{ref: U32}
+  sword_card{ref: U32}
+  potion_card{ref: U32}
+  hero_card{}
+}
+
+type PackPoolEntry {
+  pack_pool_entry{card: CardRef, weight: U32}
+}
+
+type PackDef {
+  pack_def{
+    name: String,
+    price: U32,
+    reveal_count: U32,
+    allow_duplicates: U32,
+    pool: List(PackPoolEntry)
+  }
+}
+
+type PackReward {
+  no_pack_reward{}
+  pack_reward{cards: List(CardRef)}
+}
+
+type PackOpenResult {
+  pack_open_result{reward: PackReward, seed: U32}
+}
+
+type PackInventoryEntry {
+  pack_inventory_entry{ref: U32, count: U32}
 }
 
 type Direction {
@@ -80,18 +118,23 @@ type CombatResult {
 }
 
 type Meta {
-  meta{hero_level: U32, gold: U32}
+  meta{
+    hero_level: U32,
+    gold: U32,
+    bonus_deck: List(DeckEntry),
+    pack_inventory: List(PackInventoryEntry)
+  }
 }
 
 type Config {
   config{
-    hero_base_max_hp: U32,
+    hero: HeroDef,
     upgrades: List(Upgrade),
     monsters: List(MonsterDef),
     swords: List(SwordDef),
     potions: List(PotionDef),
     deck: List(DeckEntry),
-    base_deck_size: U32,
+    booster_packs: List(PackDef),
     starting_dungeon_level: U32
   }
 }
@@ -124,8 +167,14 @@ type SwipeResult {
 
 type Scene {
   setup{}
+  boosters{reward: PackReward, reveal_index: U32}
   running{run: Run}
   game_over{run: Run}
+}
+
+type SavedScene {
+  saved_setup{}
+  saved_boosters{reward: PackReward, reveal_index: U32}
 }
 
 type GameState {
@@ -171,15 +220,26 @@ type DungeonState {
 type DungeonEvent {
   start{}
   upgrade{}
+  open_boosters{}
+  close_boosters{}
+  buy_pack{ref: U32}
+  open_pack{ref: U32}
+  prev_reward{}
+  next_reward{}
   ultimate{}
   move{dir: Direction}
   ok{}
   ignore{}
-  loaded{hero_level: U32, gold: U32}
+  loaded{meta: Meta, saved_scene: SavedScene}
   no_save{}
 }
 
 type _PickResult {
   no_pick{counts: List(DeckEntry)}
   picked_entry{entry: DeckEntry, counts: List(DeckEntry)}
+}
+
+type _PackPickResult {
+  no_pack_pick{pool: List(PackPoolEntry)}
+  picked_pack_entry{card: CardRef, pool: List(PackPoolEntry)}
 }

@@ -42,7 +42,7 @@ def _dungeon_header(meta_state: Meta, scene_value: Scene) -> HTML(DungeonEvent):
     </p>
     <div class="topbar__stats">
       {_topbar_stat("Dungeon Lv", dungeon_level_value(scene_value))}
-      {_topbar_stat("Dungeon Deck", remaining_value(scene_value))}
+      {_topbar_stat("Cards", remaining_value(scene_value))}
     </div>
   </header>
 
@@ -65,6 +65,8 @@ def _run_board_node(scene_value: Scene, run_value: Run, ui_value: UiState) -> HT
 def _board_overlay(scene_value: Scene) -> HTML(DungeonEvent):
   match scene_value:
     case setup{}:
+      <div class="game-over-modal"></div>
+    case boosters{reward, reveal_index}:
       <div class="game-over-modal"></div>
     case running{run_value}:
       <div class="game-over-modal"></div>

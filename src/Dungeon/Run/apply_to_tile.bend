@@ -25,8 +25,8 @@ def _min_u32_flag(a_lt_b: U32, a: U32, b: U32) -> U32:
 
 def _add_gold(meta_state: Meta, amount: U32) -> Meta:
   match meta_state:
-    case meta{hero_level, gold}:
-      meta{hero_level, gold + amount}
+    case meta{hero_level, gold, bonus_deck, pack_inventory}:
+      meta{hero_level, gold + amount, bonus_deck, pack_inventory}
 
 def _keep_run(meta_state: Meta, run_value: Run) -> SwipeResult:
   swipe_result{meta_state, keep_running{run_value}}
