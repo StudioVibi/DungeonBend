@@ -368,6 +368,24 @@ function patchAppRuntime(html: string): string {
   if (out.includes(stepBuggy)) {
     out = out.replace(stepBuggy, stepFixed);
   }
+  // Inject a global keydown listener so arrow keys work without clicking the
+  // board first.  The listener finds the .page element and, if it is not
+  // already the event target, re-dispatches the key event on it.
+  const globalKeyPatch = [
+    "document.addEventListener(\"keydown\", function(e) {",
+    "  var page = document.querySelector(\".page\");",
+    "  if (page && e.target !== page) {",
+    "    page.dispatchEvent(new KeyboardEvent(\"keydown\", {",
+    "      key: e.key, code: e.code, keyCode: e.keyCode,",
+    "      bubbles: false, cancelable: true",
+    "    }));",
+    "    e.preventDefault();",
+    "  }",
+    "});",
+  ].join("\n");
+
+  out = out.replace("</script>", globalKeyPatch + "\n</script>");
+
   return out;
 }
 
