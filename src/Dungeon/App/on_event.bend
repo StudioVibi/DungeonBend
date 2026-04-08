@@ -1,4 +1,5 @@
 import /App/
+import /Dungeon/meta_to_string as meta_to_string
 import /Dungeon/DeckEntry as DeckEntry
 import /Dungeon/Weapon as Weapon
 import /Dungeon/Tile as Tile
@@ -333,7 +334,7 @@ def update_game_over(evt: DungeonEvent, meta_state: Meta, run_value: Run, next_s
     case _:
       _state(meta_state, game_over{run_value}, next_seed_value, ui_value)
 
-def _next_state(evt: DungeonEvent, state: DungeonState) -> DungeonState:
+def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match state:
     case dungeon{game_state{meta_state, setup{}, next_seed_value}, ui_value}:
       update_setup(evt, meta_state, next_seed_value, ui_value)
@@ -342,5 +343,43 @@ def _next_state(evt: DungeonEvent, state: DungeonState) -> DungeonState:
     case dungeon{game_state{meta_state, game_over{run_value}, next_seed_value}, ui_value}:
       update_game_over(evt, meta_state, run_value, next_seed_value, ui_value)
 
+def _apply_loaded_meta(loaded_meta: Meta, state: DungeonState) -> DungeonState:
+  match state:
+    case dungeon{game_state{old_meta, scene, seed}, ui}:
+      dungeon{game_state{loaded_meta, scene, seed}, ui}
+
+def _next_state(evt: DungeonEvent, state: DungeonState) -> DungeonState:
+  match evt:
+    case loaded{hero_level, gold}:
+      _apply_loaded_meta(meta{hero_level, gold}, state)
+    case no_save{}:
+      state
+    case _:
+      _next_state_scene(evt, state)
+
+def _get_meta(state: DungeonState) -> Meta:
+  match state:
+    case dungeon{game_state{meta_state, scene, seed}, ui}:
+      meta_state
+
+def _meta_changed(prev: Meta, next: Meta) -> U32:
+  match prev next:
+    case meta{pl, pg} meta{nl, ng}:
+      _either_changed(pl === nl, pg === ng)
+
+def _either_changed(level_same: U32, gold_same: U32) -> U32:
+  match level_same gold_same:
+    case 0 _: 1
+    case _ 0: 1
+    case _ _: 0
+
+def _maybe_save(changed: U32, next_state: DungeonState) -> App/Update(DungeonState, DungeonEvent):
+  match changed:
+    case 0:
+      update{next_state, none{}}
+    case _:
+      update{next_state, store_set{"dungeon_meta", meta_to_string(_get_meta(next_state))}}
+
 def on_event(evt: DungeonEvent, state: DungeonState) -> App/Update(DungeonState, DungeonEvent):
-  update{_next_state(evt, state), none{}}
+  next = _next_state(evt, state);
+  _maybe_save(_meta_changed(_get_meta(state), _get_meta(next)), next)

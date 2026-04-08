@@ -175,6 +175,8 @@ type DungeonEvent {
   move{dir: Direction}
   ok{}
   ignore{}
+  loaded{hero_level: U32, gold: U32}
+  no_save{}
 }
 
 type _PickResult {
@@ -231,3 +233,25 @@ def config() -> Config:
     20,
     1
   }
+
+def meta_to_string(m: Meta) -> String:
+  match m:
+    case meta{hero_level, gold}:
+      String/join([U32/show(hero_level), U32/show(gold)], ",")
+
+def _parse_meta(s: String) -> DungeonEvent:
+  _parse_meta_parts(String/split(s, ','))
+
+def _parse_meta_parts(parts: List(String)) -> DungeonEvent:
+  match parts:
+    case [hl_str, gold_str]:
+      _parse_meta_values(String/to_u32(hl_str), String/to_u32(gold_str))
+    case _:
+      no_save{}
+
+def _parse_meta_values(hl: Maybe(U32), g: Maybe(U32)) -> DungeonEvent:
+  match hl g:
+    case some{hl_val} some{g_val}:
+      loaded{hl_val, g_val}
+    case _ _:
+      no_save{}
