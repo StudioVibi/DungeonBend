@@ -13,6 +13,8 @@ import /Dungeon/PackReward as PackReward
 import /Dungeon/PackInventoryEntry as PackInventoryEntry
 import /Dungeon/SavedScene as SavedScene
 import /Dungeon/config as config
+import /Dungeon/initial_seed as initial_seed
+import /Dungeon/parse_saved_run as parse_saved_run
 import /Dungeon/Deck/counts_pick/merge_deck_entries as merge_deck_entries
 import /Dungeon/Boosters/inventory/add_pack as add_pack
 import /Dungeon/Boosters/reward_nav/reward_count as reward_count
@@ -37,15 +39,105 @@ def _parse_sections(parts: List(String)) -> DungeonEvent:
       no_save{}
 
 def _parse_sections_head(head: String, rest: List(String)) -> DungeonEvent:
-  match String/eq(head, "v3"):
+  match String/eq(head, "v4"):
     case true{}:
-      _parse_v3_sections(rest)
+      _parse_v4_sections(rest)
     case false{}:
-      match String/eq(head, "v2"):
+      match String/eq(head, "v3"):
         case true{}:
-          _parse_v2_sections(rest)
+          _parse_v3_sections(rest)
         case false{}:
-          _parse_legacy_sections(head, rest)
+          match String/eq(head, "v2"):
+            case true{}:
+              _parse_v2_sections(rest)
+            case false{}:
+              _parse_legacy_sections(head, rest)
+
+def _parse_v4_sections(parts: List(String)) -> DungeonEvent:
+  match parts:
+    case selected_str<>rest:
+      match rest:
+        case confirmed_str<>rest1:
+          match rest1:
+            case gold_str<>rest2:
+              match rest2:
+                case monster_str<>rest3:
+                  match rest3:
+                    case sword_str<>rest4:
+                      match rest4:
+                        case potion_str<>rest5:
+                          match rest5:
+                            case pack_str<>rest6:
+                              match rest6:
+                                case profiles_str<>rest7:
+                                  match rest7:
+                                    case next_seed_str<>rest8:
+                                      match rest8:
+                                        case scene_kind_str<>rest9:
+                                          match rest9:
+                                            case run_core_str<>rest10:
+                                              match rest10:
+                                                case run_weapon_str<>rest11:
+                                                  match rest11:
+                                                    case run_board_str<>rest12:
+                                                      match rest12:
+                                                        case run_blueprint_str<>rest13:
+                                                          match rest13:
+                                                            case run_counts_str<>rest14:
+                                                              match rest14:
+                                                                case []:
+                                                                  _parse_v4(
+                                                                    config(),
+                                                                    String/to_u32(selected_str),
+                                                                    String/to_u32(confirmed_str),
+                                                                    String/to_u32(gold_str),
+                                                                    String/split(monster_str, ','),
+                                                                    String/split(sword_str, ','),
+                                                                    String/split(potion_str, ','),
+                                                                    String/split(pack_str, ','),
+                                                                    String/split(profiles_str, ';'),
+                                                                    String/to_u32(next_seed_str),
+                                                                    _parse_saved_scene_v4(
+                                                                      String/to_u32(scene_kind_str),
+                                                                      run_core_str,
+                                                                      run_weapon_str,
+                                                                      run_board_str,
+                                                                      run_blueprint_str,
+                                                                      run_counts_str
+                                                                    )
+                                                                  )
+                                                                case _:
+                                                                  no_save{}
+                                                            case _:
+                                                              no_save{}
+                                                        case _:
+                                                          no_save{}
+                                                    case _:
+                                                      no_save{}
+                                                case _:
+                                                  no_save{}
+                                            case _:
+                                              no_save{}
+                                        case _:
+                                          no_save{}
+                                    case _:
+                                      no_save{}
+                                case _:
+                                  no_save{}
+                            case _:
+                              no_save{}
+                        case _:
+                          no_save{}
+                    case _:
+                      no_save{}
+                case _:
+                  no_save{}
+            case _:
+              no_save{}
+        case _:
+          no_save{}
+    case _:
+      no_save{}
 
 def _parse_legacy_sections(legacy: String, rest: List(String)) -> DungeonEvent:
   match rest:
@@ -270,8 +362,36 @@ def _load_legacy_profile(config_value: Config, hero_level: U32, gold: U32, monst
           0,
           hero_profile{1, hero_level}
         ),
-        saved_scene
+        saved_scene,
+        initial_seed()
       }
+
+def _parse_v4(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe: Maybe(U32), gold_maybe: Maybe(U32), monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), profile_parts: List(String), next_seed_maybe: Maybe(U32), saved_scene: SavedScene) -> DungeonEvent:
+  match config_value gold_maybe:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} some{gold}:
+      loaded{
+        _parse_v3_profiles_list(
+          heroes,
+          profile_parts,
+          meta{
+            _selected_hero_value(config_value, selected_maybe),
+            _selection_confirmed_value(confirmed_maybe),
+            gold,
+            _merge_bonus_sections(
+              _parse_monster_bonus(monsters, monster_counts, 0),
+              _parse_sword_bonus(swords, sword_counts, 0),
+              _parse_potion_bonus(potions, potion_counts, 0)
+            ),
+            _parse_pack_inventory(booster_packs, pack_counts, 0),
+            default_hero_profiles(config_value)
+          },
+          0
+        ),
+        saved_scene,
+        _saved_next_seed_value(next_seed_maybe)
+      }
+    case _:
+      no_save{}
 
 def _parse_v3(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe: Maybe(U32), gold_maybe: Maybe(U32), monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), profile_parts: List(String), saved_scene: SavedScene) -> DungeonEvent:
   match config_value gold_maybe:
@@ -294,7 +414,8 @@ def _parse_v3(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe:
           },
           0
         ),
-        saved_scene
+        saved_scene,
+        initial_seed()
       }
     case _:
       no_save{}
@@ -322,7 +443,8 @@ def _parse_v2(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe:
           selected_ref,
           0
         ),
-        saved_scene
+        saved_scene,
+        initial_seed()
       }
 
 def _selected_hero_value(config_value: Config, selected_maybe: Maybe(U32)) -> U32:
@@ -340,6 +462,15 @@ def _selection_confirmed_value(confirmed_maybe: Maybe(U32)) -> U32:
       1
     case none{}:
       0
+
+def _saved_next_seed_value(next_seed_maybe: Maybe(U32)) -> U32:
+  match next_seed_maybe:
+    case some{0}:
+      initial_seed()
+    case some{next_seed}:
+      next_seed
+    case none{}:
+      initial_seed()
 
 def _parse_v3_profiles_list(heroes: List(HeroDef), profile_parts: List(String), meta_state: Meta, hero_ref: U32) -> Meta:
   match heroes:
@@ -632,6 +763,20 @@ def _parse_saved_scene_vx(config_value: Config, scene_kind_maybe: Maybe(U32), re
   match scene_kind_maybe:
     case some{scene_kind}:
       _parse_saved_scene_kind(config_value, scene_kind, reward_parts, scene_value_maybe)
+    case none{}:
+      saved_setup{}
+
+def _parse_saved_scene_v4(scene_kind_maybe: Maybe(U32), run_core: String, run_weapon: String, run_board: String, run_blueprint: String, run_counts: String) -> SavedScene:
+  match scene_kind_maybe:
+    case some{1}:
+      _parse_saved_running(run_core, run_weapon, run_board, run_blueprint, run_counts)
+    case _:
+      saved_setup{}
+
+def _parse_saved_running(run_core: String, run_weapon: String, run_board: String, run_blueprint: String, run_counts: String) -> SavedScene:
+  match parse_saved_run(run_core, run_weapon, run_board, run_blueprint, run_counts):
+    case some{run_value}:
+      saved_running{run_value}
     case none{}:
       saved_setup{}
 

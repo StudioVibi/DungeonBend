@@ -87,6 +87,8 @@ def dungeon_level_value(scene_value: Scene) -> String:
       "--"
     case running{run_value}:
       U32.show(_run_dungeon_level(run_value))
+    case resume_prompt{run_value}:
+      U32.show(_run_dungeon_level(run_value))
     case game_over{run_value}:
       U32.show(_run_dungeon_level(run_value))
 
@@ -99,6 +101,8 @@ def remaining_value(scene_value: Scene) -> String:
     case boosters{reward, reveal_index}:
       "--/--"
     case running{run_value}:
+      _run_remaining_text(run_value)
+    case resume_prompt{run_value}:
       _run_remaining_text(run_value)
     case game_over{run_value}:
       _run_remaining_text(run_value)
@@ -113,6 +117,8 @@ def weapon_value(scene_value: Scene) -> String:
       "--"
     case running{run_value}:
       _run_weapon_text(run_value)
+    case resume_prompt{run_value}:
+      _run_weapon_text(run_value)
     case game_over{run_value}:
       _run_weapon_text(run_value)
 
@@ -125,6 +131,8 @@ def ultimate_label(scene_value: Scene) -> String:
     case boosters{reward, reveal_index}:
       "ULTIMATE 0/6"
     case running{run_value}:
+      _run_ult_label(run_value)
+    case resume_prompt{run_value}:
       _run_ult_label(run_value)
     case game_over{run_value}:
       _run_ult_label(run_value)
@@ -275,6 +283,8 @@ def _character_select_enabled(is_selected: U32) -> U32:
 
 def board_shell_class(scene_value: Scene) -> String:
   match scene_value:
+    case resume_prompt{run_value}:
+      "board-shell board-shell--over"
     case game_over{run_value}:
       "board-shell board-shell--over"
     case _:
@@ -282,6 +292,8 @@ def board_shell_class(scene_value: Scene) -> String:
 
 def game_over_modal_class(scene_value: Scene) -> String:
   match scene_value:
+    case resume_prompt{run_value}:
+      "game-over-modal game-over-modal--visible"
     case game_over{run_value}:
       "game-over-modal game-over-modal--visible"
     case _:

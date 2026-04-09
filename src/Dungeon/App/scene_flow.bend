@@ -5,11 +5,14 @@ import /Dungeon/GameState as GameState
 import /Dungeon/UiState as UiState
 import /Dungeon/DungeonEvent as DungeonEvent
 import /Dungeon/DungeonState as DungeonState
+import /Dungeon/default_ui as default_ui
 import /Dungeon/App/update_setup as update_setup
 import /Dungeon/App/update_character_select as update_character_select
 import /Dungeon/App/update_boosters as update_boosters
 import /Dungeon/App/update_running as update_running
+import /Dungeon/App/update_resume_prompt as update_resume_prompt
 import /Dungeon/App/update_game_over as update_game_over
+import /Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
 
 def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match state:
@@ -21,6 +24,8 @@ def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
       update_boosters(evt, meta_state, reward, reveal_index, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, running{run_value}, next_seed_value}, ui_value}:
       update_running(evt, meta_state, run_value, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, resume_prompt{run_value}, next_seed_value}, ui_value}:
+      update_resume_prompt(evt, meta_state, run_value, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, game_over{run_value}, next_seed_value}, ui_value}:
       update_game_over(evt, meta_state, run_value, next_seed_value, ui_value)
 
@@ -29,19 +34,28 @@ def _restore_saved_scene(saved_scene: SavedScene) -> Scene:
     case saved_setup{}:
       setup{}
     case saved_character_select{preview_hero}:
-      character_select{preview_hero}
+      setup{}
     case saved_boosters{reward, reveal_index}:
-      boosters{reward, reveal_index}
+      setup{}
+    case saved_running{run_value}:
+      resume_prompt{run_value}
 
-def _apply_loaded_meta(loaded_meta: Meta, saved_scene: SavedScene, state: DungeonState) -> DungeonState:
+def _loaded_meta_for_scene(saved_scene: SavedScene, loaded_meta: Meta) -> Meta:
+  match saved_scene:
+    case saved_running{run_value}:
+      loaded_meta
+    case _:
+      set_selection_confirmed(loaded_meta, 1)
+
+def _apply_loaded_meta(loaded_meta: Meta, saved_scene: SavedScene, loaded_next_seed: U32, state: DungeonState) -> DungeonState:
   match state:
     case dungeon{game_state{old_meta, scene, seed}, ui}:
-      dungeon{game_state{loaded_meta, _restore_saved_scene(saved_scene), seed}, ui}
+      dungeon{game_state{_loaded_meta_for_scene(saved_scene, loaded_meta), _restore_saved_scene(saved_scene), loaded_next_seed}, default_ui()}
 
 def _next_state(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match evt:
-    case loaded{loaded_meta, saved_scene}:
-      _apply_loaded_meta(loaded_meta, saved_scene, state)
+    case loaded{loaded_meta, saved_scene, loaded_next_seed}:
+      _apply_loaded_meta(loaded_meta, saved_scene, loaded_next_seed, state)
     case no_save{}:
       state
     case _:

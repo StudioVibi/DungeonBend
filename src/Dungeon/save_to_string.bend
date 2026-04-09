@@ -1,11 +1,14 @@
 import /U32/ as U32
-import /Dungeon/CardRef as CardRef
-import /Dungeon/PackReward as PackReward
 import /Dungeon/Scene as Scene
 import /Dungeon/GameState as GameState
 import /Dungeon/UiState as UiState
 import /Dungeon/DungeonState as DungeonState
 import /Dungeon/meta_to_string as meta_to_string
+import /Dungeon/run_snapshot_to_string/run_core_string as run_core_string
+import /Dungeon/run_snapshot_to_string/run_weapon_string as run_weapon_string
+import /Dungeon/run_snapshot_to_string/run_board_string as run_board_string
+import /Dungeon/run_snapshot_to_string/run_blueprint_string as run_blueprint_string
+import /Dungeon/run_snapshot_to_string/run_counts_string as run_counts_string
 
 def save_to_string(state: DungeonState) -> String:
   match state:
@@ -13,59 +16,67 @@ def save_to_string(state: DungeonState) -> String:
       String/join(
         [
           meta_to_string(meta_state),
+          U32.show(next_seed),
           _saved_scene_kind(scene_value),
-          _saved_scene_reward(scene_value),
-          _saved_scene_index(scene_value)
+          _saved_run_core(scene_value),
+          _saved_run_weapon(scene_value),
+          _saved_run_board(scene_value),
+          _saved_run_blueprint(scene_value),
+          _saved_run_counts(scene_value)
         ],
         "|"
       )
 
 def _saved_scene_kind(scene_value: Scene) -> String:
   match scene_value:
-    case boosters{reward, reveal_index}:
+    case running{run_value}:
       "1"
-    case character_select{preview_hero}:
-      "2"
+    case resume_prompt{run_value}:
+      "1"
     case _:
       "0"
 
-def _saved_scene_reward(scene_value: Scene) -> String:
+def _saved_run_core(scene_value: Scene) -> String:
   match scene_value:
-    case boosters{reward, reveal_index}:
-      _reward_to_string(reward)
+    case running{run_value}:
+      run_core_string(run_value)
+    case resume_prompt{run_value}:
+      run_core_string(run_value)
     case _:
       ""
 
-def _saved_scene_index(scene_value: Scene) -> String:
+def _saved_run_weapon(scene_value: Scene) -> String:
   match scene_value:
-    case boosters{reward, reveal_index}:
-      U32.show(reveal_index)
-    case character_select{preview_hero}:
-      U32.show(preview_hero)
+    case running{run_value}:
+      run_weapon_string(run_value)
+    case resume_prompt{run_value}:
+      run_weapon_string(run_value)
     case _:
       "0"
 
-def _reward_to_string(reward: PackReward) -> String:
-  match reward:
-    case no_pack_reward{}:
+def _saved_run_board(scene_value: Scene) -> String:
+  match scene_value:
+    case running{run_value}:
+      run_board_string(run_value)
+    case resume_prompt{run_value}:
+      run_board_string(run_value)
+    case _:
       ""
-    case pack_reward{cards}:
-      String/join(_reward_codes(cards), ",")
 
-def _reward_codes(cards: List(CardRef)) -> List(String):
-  match cards:
-    case []:
-      []
-    case card<>rest:
-      U32.show(_card_code(card))<>_reward_codes(rest)
+def _saved_run_blueprint(scene_value: Scene) -> String:
+  match scene_value:
+    case running{run_value}:
+      run_blueprint_string(run_value)
+    case resume_prompt{run_value}:
+      run_blueprint_string(run_value)
+    case _:
+      ""
 
-def _card_code(card: CardRef) -> U32:
-  match card:
-    case monster_card{ref}:
-      1000 + ref
-    case sword_card{ref}:
-      2000 + ref
-    case potion_card{ref}:
-      3000 + ref
-    case hero_card{}:
-      4000
+def _saved_run_counts(scene_value: Scene) -> String:
+  match scene_value:
+    case running{run_value}:
+      run_counts_string(run_value)
+    case resume_prompt{run_value}:
+      run_counts_string(run_value)
+    case _:
+      ""

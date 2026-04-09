@@ -24,7 +24,7 @@ def _meta_to_string_from_config(config_value: Config, meta_state: Meta) -> Strin
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} meta{selected_hero_ref, selection_confirmed_value, gold, bonus_deck, pack_inventory, hero_profiles}:
       String/join(
         [
-          "v3",
+          "v4",
           U32.show(selected_hero_ref),
           U32.show(selection_confirmed_value),
           U32.show(gold),

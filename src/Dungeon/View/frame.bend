@@ -31,5 +31,7 @@ def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTM
       _render_boosters(meta_state, reward, reveal_index)
     case running{run_value}:
       _render_dungeon(meta_state, running{run_value}, run_value, ui_value)
+    case resume_prompt{run_value}:
+      _render_dungeon(meta_state, resume_prompt{run_value}, run_value, ui_value)
     case game_over{run_value}:
       _render_dungeon(meta_state, game_over{run_value}, run_value, ui_value)

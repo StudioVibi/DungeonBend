@@ -185,6 +185,7 @@ type Scene {
   character_select{preview_hero: U32}
   boosters{reward: PackReward, reveal_index: U32}
   running{run: Run}
+  resume_prompt{run: Run}
   game_over{run: Run}
 }
 
@@ -192,6 +193,7 @@ type SavedScene {
   saved_setup{}
   saved_character_select{preview_hero: U32}
   saved_boosters{reward: PackReward, reveal_index: U32}
+  saved_running{run: Run}
 }
 
 type GameState {
@@ -249,8 +251,10 @@ type DungeonEvent {
   ultimate{}
   move{dir: Direction}
   ok{}
+  resume_dungeon{}
+  abandon_dungeon{}
   ignore{}
-  loaded{meta: Meta, saved_scene: SavedScene}
+  loaded{meta: Meta, saved_scene: SavedScene, next_seed: U32}
   no_save{}
 }
 
