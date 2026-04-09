@@ -1,11 +1,11 @@
 import /U32/ as U32
 import /Dungeon/Upgrade as Upgrade
 import /Dungeon/HeroDef as HeroDef
+import /Dungeon/HeroProfile as HeroProfile
 import /Dungeon/PackDef as PackDef
 import /Dungeon/PackReward as PackReward
 import /Dungeon/Weapon as Weapon
 import /Dungeon/Meta as Meta
-import /Dungeon/Config as Config
 import /Dungeon/Run as Run
 import /Dungeon/Scene as Scene
 import /Dungeon/config as config
@@ -15,31 +15,31 @@ import /Dungeon/Boosters/inventory/pack_inventory_count as pack_inventory_count
 import /Dungeon/Boosters/inventory/pack_inventory_total as pack_inventory_total
 import /Dungeon/Boosters/packs/active_pack as active_pack
 import /Dungeon/Boosters/reward_nav/reward_count as reward_count
-
-def _hero_level(meta_state: Meta) -> U32:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      hero_level
+import /Dungeon/hero_helpers/hero_base_max_hp as hero_base_max_hp
+import /Dungeon/hero_helpers/hero_unlock_cost as hero_unlock_cost
+import /Dungeon/hero_helpers/hero_upgrades as hero_upgrades
+import /Dungeon/profile_helpers/meta_gold as meta_gold_value
+import /Dungeon/profile_helpers/meta_pack_inventory as meta_pack_inventory_value
+import /Dungeon/profile_helpers/selected_hero as selected_hero
+import /Dungeon/profile_helpers/selection_confirmed as selection_confirmed
+import /Dungeon/profile_helpers/profile_unlocked as profile_unlocked
+import /Dungeon/profile_helpers/profile_hero_level as profile_hero_level
 
 def meta_gold(meta_state: Meta) -> String:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      U32.show(gold)
+  U32.show(meta_gold_value(meta_state))
 
 def meta_pack_total(meta_state: Meta) -> String:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      U32.show(pack_inventory_total(pack_inventory))
+  U32.show(pack_inventory_total(meta_pack_inventory_value(meta_state)))
 
-def hero_level_text(meta_state: Meta) -> String:
-  "Hero Lv " ++ U32.show(_hero_level(meta_state))
+def hero_level_text(profile: HeroProfile) -> String:
+  "Hero Lv " ++ U32.show(profile_hero_level(profile))
 
-def hero_display_level(meta_state: Meta) -> String:
-  U32.show(_hero_level(meta_state) + 1)
+def hero_display_level(profile: HeroProfile) -> String:
+  U32.show(profile_hero_level(profile) + 1)
 
-def hero_menu_stats(meta_state: Meta) -> String:
-  hp = U32.show(hero_max_hp_value(meta_state));
-  "LV: " ++ hero_display_level(meta_state) ++ "   HP: " ++ hp ++ "/" ++ hp
+def hero_menu_stats(hero_value: HeroDef, profile: HeroProfile) -> String:
+  hp = U32.show(hero_max_hp_value(hero_value, profile));
+  "LV: " ++ hero_display_level(profile) ++ "   HP: " ++ hp ++ "/" ++ hp
 
 def _run_dungeon_level(run_value: Run) -> U32:
   match run_value:
@@ -81,6 +81,8 @@ def dungeon_level_value(scene_value: Scene) -> String:
   match scene_value:
     case setup{}:
       "--"
+    case character_select{preview_hero}:
+      "--"
     case boosters{reward, reveal_index}:
       "--"
     case running{run_value}:
@@ -91,6 +93,8 @@ def dungeon_level_value(scene_value: Scene) -> String:
 def remaining_value(scene_value: Scene) -> String:
   match scene_value:
     case setup{}:
+      "--/--"
+    case character_select{preview_hero}:
       "--/--"
     case boosters{reward, reveal_index}:
       "--/--"
@@ -103,6 +107,8 @@ def weapon_value(scene_value: Scene) -> String:
   match scene_value:
     case setup{}:
       "--"
+    case character_select{preview_hero}:
+      "--"
     case boosters{reward, reveal_index}:
       "--"
     case running{run_value}:
@@ -113,6 +119,8 @@ def weapon_value(scene_value: Scene) -> String:
 def ultimate_label(scene_value: Scene) -> String:
   match scene_value:
     case setup{}:
+      "ULTIMATE 0/6"
+    case character_select{preview_hero}:
       "ULTIMATE 0/6"
     case boosters{reward, reveal_index}:
       "ULTIMATE 0/6"
@@ -153,9 +161,7 @@ def _can_afford_upgrade_flag(gold_lt_cost: U32) -> U32:
       0
 
 def can_afford_upgrade(meta_state: Meta, cost: U32) -> U32:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      _can_afford_upgrade_gold(gold, cost)
+  _can_afford_upgrade_gold(meta_gold_value(meta_state), cost)
 
 def upgrade_enabled(meta_state: Meta, scene_value: Scene, cost: U32) -> U32:
   _upgrade_enabled_flag(can_upgrade(scene_value), can_afford_upgrade(meta_state, cost))
@@ -176,29 +182,14 @@ def _upgrade_cost_or_zero(step: Upgrade) -> U32:
         case _:
           cost
 
-def hero_max_hp_value(meta_state: Meta) -> U32:
-  _hero_max_hp_from_config(config(), meta_state)
+def hero_max_hp_value(hero_value: HeroDef, profile: HeroProfile) -> U32:
+  hero_max_hp(hero_base_max_hp(hero_value), hero_upgrades(hero_value), profile_hero_level(profile))
 
-def _hero_max_hp_from_config(cfg: Config, meta_state: Meta) -> U32:
-  match cfg:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      _hero_max_hp_from_def(hero, upgrades, meta_state)
+def next_upgrade_cost(hero_value: HeroDef, profile: HeroProfile) -> U32:
+  _upgrade_cost_or_zero(nth_upgrade(hero_upgrades(hero_value), profile_hero_level(profile)))
 
-def _hero_max_hp_from_def(hero_value: HeroDef, upgrades: List(Upgrade), meta_state: Meta) -> U32:
-  match hero_value:
-    case hero_def{name, sprite, base_max_hp}:
-      hero_max_hp(base_max_hp, upgrades, _hero_level(meta_state))
-
-def next_upgrade_cost(meta_state: Meta) -> U32:
-  _next_upgrade_cost_from_config(config(), meta_state)
-
-def _next_upgrade_cost_from_config(cfg: Config, meta_state: Meta) -> U32:
-  match cfg:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      _upgrade_cost_or_zero(nth_upgrade(upgrades, _hero_level(meta_state)))
-
-def upgrade_label(meta_state: Meta) -> String:
-  _upgrade_label_cost(next_upgrade_cost(meta_state))
+def upgrade_label(hero_value: HeroDef, profile: HeroProfile) -> String:
+  _upgrade_label_cost(next_upgrade_cost(hero_value, profile))
 
 def _upgrade_label_cost(cost: U32) -> String:
   match cost:
@@ -207,8 +198,8 @@ def _upgrade_label_cost(cost: U32) -> String:
     case _:
       "Upgrade - " ++ U32.show(cost)
 
-def menu_upgrade_label(meta_state: Meta) -> String:
-  _menu_upgrade_label_cost(next_upgrade_cost(meta_state))
+def menu_upgrade_label(hero_value: HeroDef, profile: HeroProfile) -> String:
+  _menu_upgrade_label_cost(next_upgrade_cost(hero_value, profile))
 
 def _menu_upgrade_label_cost(cost: U32) -> String:
   match cost:
@@ -217,8 +208,8 @@ def _menu_upgrade_label_cost(cost: U32) -> String:
     case _:
       "UPGRADE"
 
-def menu_upgrade_cost_text(meta_state: Meta) -> String:
-  _menu_upgrade_cost_text(next_upgrade_cost(meta_state))
+def menu_upgrade_cost_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  _menu_upgrade_cost_text(next_upgrade_cost(hero_value, profile))
 
 def _menu_upgrade_cost_text(cost: U32) -> String:
   match cost:
@@ -226,6 +217,61 @@ def _menu_upgrade_cost_text(cost: U32) -> String:
       "MAX"
     case _:
       U32.show(cost)
+
+def _unlock_cost_text(cost: U32) -> String:
+  U32.show(cost)
+
+def character_upgrade_label(hero_value: HeroDef, profile: HeroProfile) -> String:
+  match profile_unlocked(profile):
+    case 0:
+      "LOCKED"
+    case _:
+      menu_upgrade_label(hero_value, profile)
+
+def character_upgrade_cost_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  match profile_unlocked(profile):
+    case 0:
+      _unlock_cost_text(hero_unlock_cost(hero_value))
+    case _:
+      menu_upgrade_cost_text(hero_value, profile)
+
+def _character_selected(meta_state: Meta, hero_ref: U32) -> U32:
+  _character_selected_confirmed(selection_confirmed(meta_state), selected_hero(meta_state) === hero_ref)
+
+def _character_selected_confirmed(confirmed: U32, same_ref: U32) -> U32:
+  match confirmed:
+    case 0:
+      0
+    case _:
+      same_ref
+
+def character_primary_label(meta_state: Meta, hero_ref: U32, hero_value: HeroDef, profile: HeroProfile) -> String:
+  match profile_unlocked(profile):
+    case 0:
+      "BUY"
+    case _:
+      _character_select_label(_character_selected(meta_state, hero_ref))
+
+def _character_select_label(is_selected: U32) -> String:
+  match is_selected:
+    case 0:
+      "SELECT"
+    case _:
+      "SELECTED"
+
+def character_primary_enabled(meta_state: Meta, hero_ref: U32, hero_value: HeroDef, profile: HeroProfile) -> U32:
+  match profile_unlocked(profile):
+    case 0:
+      _can_afford_upgrade_gold(meta_gold_value(meta_state), hero_unlock_cost(hero_value))
+    case _:
+      _character_select_enabled(_character_selected(meta_state, hero_ref))
+
+def _character_select_enabled(is_selected: U32) -> U32:
+  match is_selected:
+    case 0:
+      1
+    case _:
+      0
 
 def board_shell_class(scene_value: Scene) -> String:
   match scene_value:
@@ -266,15 +312,13 @@ def _pack_reveal_count(pack: PackDef) -> String:
       U32.show(reveal_count)
 
 def active_pack_owned(meta_state: Meta) -> U32:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      pack_inventory_count(pack_inventory, 0)
+  pack_inventory_count(meta_pack_inventory_value(meta_state), 0)
 
 def active_pack_owned_text(meta_state: Meta) -> String:
   U32.show(active_pack_owned(meta_state))
 
 def booster_buy_enabled(meta_state: Meta) -> U32:
-  _can_afford_upgrade_gold(_meta_gold_value(meta_state), active_pack_price())
+  _can_afford_upgrade_gold(meta_gold_value(meta_state), active_pack_price())
 
 def booster_open_enabled(meta_state: Meta) -> U32:
   _booster_open_enabled(active_pack_owned(meta_state))
@@ -285,11 +329,6 @@ def _booster_open_enabled(owned: U32) -> U32:
       0
     case _:
       1
-
-def _meta_gold_value(meta_state: Meta) -> U32:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      gold
 
 def booster_prev_enabled(reveal_index: U32) -> U32:
   match reveal_index:

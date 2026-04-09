@@ -12,6 +12,8 @@ import /Dungeon/Direction as Direction
 import /Dungeon/Deck/spawn_and_draw/draw_tile as draw_tile
 import /Dungeon/Board/shift_after_move as shift_after_move
 import /Dungeon/Combat/resolve_and_apply/resolve_monster as resolve_monster
+import /Dungeon/profile_helpers/meta_gold as meta_gold
+import /Dungeon/profile_helpers/set_meta_gold as set_meta_gold
 
 def _min_u32(a: U32, b: U32) -> U32:
   _min_u32_flag(a < b, a, b)
@@ -24,9 +26,7 @@ def _min_u32_flag(a_lt_b: U32, a: U32, b: U32) -> U32:
       a
 
 def _add_gold(meta_state: Meta, amount: U32) -> Meta:
-  match meta_state:
-    case meta{hero_level, gold, bonus_deck, pack_inventory}:
-      meta{hero_level, gold + amount, bonus_deck, pack_inventory}
+  set_meta_gold(meta_state, meta_gold(meta_state) + amount)
 
 def _keep_run(meta_state: Meta, run_value: Run) -> SwipeResult:
   swipe_result{meta_state, keep_running{run_value}}

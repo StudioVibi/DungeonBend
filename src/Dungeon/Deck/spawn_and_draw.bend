@@ -12,13 +12,13 @@ import /Dungeon/Deck/counts_pick/_potion_heal as _potion_heal
 
 def _spawn_tile(config_value: Config, entry: DeckEntry, level: U32) -> Tile:
   match config_value entry:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} monster_entry{ref, count}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} monster_entry{ref, count}:
       monster{ref, _monster_hp(monsters, ref, level)}
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} sword_entry{ref, count}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} sword_entry{ref, count}:
       sword{ref, _sword_damage(swords, ref)}
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} potion_entry{ref, count}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} potion_entry{ref, count}:
       potion{ref, _potion_heal(potions, ref)}
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} hero_entry{count}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} hero_entry{count}:
       none{}
 
 def _draw_from_pick(config_value: Config, remaining: U32, next_seed_value: U32, level: U32, entry: DeckEntry, counts: List(DeckEntry)) -> DrawResult:

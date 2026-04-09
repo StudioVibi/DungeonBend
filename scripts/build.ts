@@ -1,12 +1,213 @@
+import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import * as process from "node:process";
-import * as Bend from "../../Bend2/bend-ts/src/Bend.ts";
+import { pathToFileURL } from "node:url";
+
+async function loadPatchedBend(cwd: string) {
+  const bendSrcDir = path.resolve(cwd, "../Bend2/bend-ts/src");
+  const patchedRoot = path.resolve(process.env.TMPDIR ?? "/tmp", `dungeonbend-bend-ts-src-${process.pid}`);
+  const typeAnalysisPath = path.join(patchedRoot, "Compile/ToJS/TypeAnalysis.ts");
+  const compilerPath = path.join(patchedRoot, "Compile/ToJS/Compiler.ts");
+  const originalForceType = `export function force_type(book: Core.Book, typ: Core.Term | null): Core.Term | null {
+  if (typ === null) {
+    return null;
+  }
+  return Core.wnf_force(book, typ);
+}`;
+  const patchedForceType = `export function force_type(book: Core.Book, typ: Core.Term | null): Core.Term | null {
+  if (typ === null) {
+    return null;
+  }
+  try {
+    return Core.wnf_force(book, typ);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+}`;
+  const originalNativeType = `export function native_type(book: Core.Book | null, typ: Core.Term | null): "char" | "string" | "vector" | null {
+  if (book === null) {
+    return null;
+  }
+  var typ = force_type(book, typ);
+  if (typ === null || typ.$ !== "ADT") {
+    return null;
+  }
+  if (adt_is_char(book, typ)) {
+    return "char";
+  }
+  if (adt_is_string(book, typ)) {
+    return "string";
+  }
+  if (adt_is_vector(book, typ)) {
+    return "vector";
+  }
+  return null;
+}`;
+  const originalCtrFlds = `export function ctr_flds(
+  book: Core.Book | null,
+  typ: Core.Term | null,
+  nam: string,
+): Core.TeleFld[] | null {
+  if (book === null) {
+    return null;
+  }
+  var adt = force_type(book, typ);
+  if (adt === null || adt.$ !== "ADT") {
+    return null;
+  }
+  var [ctr] = Core.take_constructor(adt, nam);
+  if (ctr === null) {
+    return null;
+  }
+  return Core.tele_flds(ctr.fds);
+}`;
+  const patchedCtrFlds = `export function ctr_flds(
+  book: Core.Book | null,
+  typ: Core.Term | null,
+  nam: string,
+): Core.TeleFld[] | null {
+  if (book === null) {
+    return null;
+  }
+  let adt: Core.Term | null = null;
+  try {
+    adt = force_type(book, typ);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+  if (adt === null || adt.$ !== "ADT") {
+    return null;
+  }
+  var [ctr] = Core.take_constructor(adt, nam);
+  if (ctr === null) {
+    return null;
+  }
+  try {
+    return Core.tele_flds(ctr.fds);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+}`;
+  const patchedEmitStringCtr = `function emit_string_ctr(st: Types.EmitState, dst: string, trm: Core.Ctr, ctx: Types.EmitCtx): void {
+  function unwrap(tm: Core.Term): Core.Term {
+    while (tm.$ === "Ann" || tm.$ === "Red") {
+      tm = tm.$ === "Ann" ? tm.val : tm.rgt;
+    }
+    return tm;
+  }
+  var cur: Core.Term = trm;
+  var out = "";
+  while (true) {
+    cur = unwrap(cur);
+    if (cur.$ !== "Ctr") {
+      break;
+    }
+    if (cur.nam === "nil") {
+      Emit.emit_set(st, dst, JSON.stringify(out));
+      return;
+    }
+    if (cur.nam !== "cons" || cur.fds.length !== 2) {
+      break;
+    }
+    var hed_tm = unwrap(cur.fds[0]);
+    if (hed_tm.$ !== "Ctr" || hed_tm.nam !== "char" || hed_tm.fds.length !== 1) {
+      break;
+    }
+    var chr_tm = unwrap(hed_tm.fds[0]);
+    if (chr_tm.$ !== "W32") {
+      break;
+    }
+    out += String.fromCharCode((chr_tm.val >>> 0) & 0xFFFF);
+    cur = cur.fds[1];
+  }
+  if (trm.nam === "nil") {
+    Emit.emit_set(st, dst, '""');
+    return;
+  }
+  var hed = emit_sub(st, trm.fds[0], ctx);
+  var rst = emit_sub(st, trm.fds[1], ctx);
+  Emit.emit_set(st, dst, "(" + hed + " + " + rst + ")");
+}`;
+  const emitStringCtrPattern = /function emit_string_ctr\(st: Types\.EmitState, dst: string, trm: Core\.Ctr, ctx: Types\.EmitCtx\): void \{[\s\S]*?\n\}/;
+  const patchedNativeType = `export function native_type(book: Core.Book | null, typ: Core.Term | null): "char" | "string" | "vector" | null {
+  if (book === null) {
+    return null;
+  }
+  try {
+    var typ = force_type(book, typ);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+  if (typ === null || typ.$ !== "ADT") {
+    return null;
+  }
+  try {
+    if (adt_is_char(book, typ)) {
+      return "char";
+    }
+    if (adt_is_string(book, typ)) {
+      return "string";
+    }
+    if (adt_is_vector(book, typ)) {
+      return "vector";
+    }
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+  return null;
+}`;
+
+  await fs.rm(patchedRoot, { recursive: true, force: true });
+  await fs.cp(bendSrcDir, patchedRoot, { recursive: true });
+
+  const typeAnalysisSource = await fs.readFile(typeAnalysisPath, "utf8");
+  const compilerSource = await fs.readFile(compilerPath, "utf8");
+  if (!typeAnalysisSource.includes(originalForceType)) {
+    throw new Error("Could not locate Bend TypeAnalysis.force_type for patching");
+  }
+  if (!typeAnalysisSource.includes(originalNativeType)) {
+    throw new Error("Could not locate Bend TypeAnalysis.native_type for patching");
+  }
+  if (!typeAnalysisSource.includes(originalCtrFlds)) {
+    throw new Error("Could not locate Bend TypeAnalysis.ctr_flds for patching");
+  }
+  if (!emitStringCtrPattern.test(compilerSource)) {
+    throw new Error("Could not locate Bend Compiler.emit_string_ctr for patching");
+  }
+  await fs.writeFile(
+    typeAnalysisPath,
+    typeAnalysisSource
+      .replace(originalForceType, patchedForceType)
+      .replace(originalNativeType, patchedNativeType)
+      .replace(originalCtrFlds, patchedCtrFlds)
+  );
+  await fs.writeFile(compilerPath, compilerSource.replace(emitStringCtrPattern, patchedEmitStringCtr));
+
+  return import(`${pathToFileURL(path.join(patchedRoot, "Bend.ts")).href}?ts=${Date.now()}`);
+}
 
 type RawHero = {
   id: string;
   name: string;
   sprite: string;
   base_max_hp: number;
+  unlock_cost: number;
+  upgrades: RawUpgrade[];
 };
 
 type RawMonster = {
@@ -57,12 +258,11 @@ type RawPackPoolEntry = {
 
 type RawDungeonConfig = {
   cards: {
-    hero: RawHero;
+    heroes: RawHero[];
     monsters: RawMonster[];
     swords: RawSword[];
     potions: RawPotion[];
   };
-  hero_upgrades: RawUpgrade[];
   base_deck: RawDeckEntry[];
   booster_packs: RawPack[];
   booster_pack_pool: RawPackPoolEntry[];
@@ -85,6 +285,13 @@ function fail(message: string): never {
 function validatePositiveInt(value: number, label: string): number {
   if (!Number.isInteger(value) || value <= 0) {
     fail(`${label} must be a positive integer`);
+  }
+  return value;
+}
+
+function validateNonNegativeInt(value: number, label: string): number {
+  if (!Number.isInteger(value) || value < 0) {
+    fail(`${label} must be a non-negative integer`);
   }
   return value;
 }
@@ -122,7 +329,7 @@ function buildCardIndexes(raw: RawDungeonConfig): Map<string, CardIndex> {
     indexes.set(id, card);
   };
 
-  push(validateString(raw.cards.hero.id, "cards.hero.id"), { kind: "hero", index: 0 });
+  push("hero", { kind: "hero", index: 0 });
   raw.cards.monsters.forEach((monster, index) => {
     push(validateString(monster.id, `cards.monsters[${index}].id`), { kind: "monster", index });
   });
@@ -165,10 +372,31 @@ function renderDeckEntry(card: CardIndex, count: number): string {
 function renderConfigModule(raw: RawDungeonConfig): string {
   const cardIndexes = buildCardIndexes(raw);
 
-  const hero = raw.cards.hero;
-  validateString(hero.name, "cards.hero.name");
-  validateString(hero.sprite, "cards.hero.sprite");
-  validatePositiveInt(hero.base_max_hp, "cards.hero.base_max_hp");
+  if (!Array.isArray(raw.cards.heroes) || raw.cards.heroes.length === 0) {
+    fail("cards.heroes must contain at least one hero");
+  }
+
+  const heroIds = new Set<string>();
+  const heroes = raw.cards.heroes.map((hero, index) => {
+    const heroId = validateString(hero.id, `cards.heroes[${index}].id`);
+    if (heroIds.has(heroId)) {
+      fail(`duplicate hero id "${heroId}"`);
+    }
+    heroIds.add(heroId);
+    validateString(hero.name, `cards.heroes[${index}].name`);
+    validateString(hero.sprite, `cards.heroes[${index}].sprite`);
+    validatePositiveInt(hero.base_max_hp, `cards.heroes[${index}].base_max_hp`);
+    validateNonNegativeInt(hero.unlock_cost, `cards.heroes[${index}].unlock_cost`);
+    if (!Array.isArray(hero.upgrades) || hero.upgrades.length === 0) {
+      fail(`cards.heroes[${index}].upgrades must contain at least one upgrade step`);
+    }
+    const upgrades = hero.upgrades.map((upgrade, upgradeIndex) => {
+      validatePositiveInt(upgrade.cost, `cards.heroes[${index}].upgrades[${upgradeIndex}].cost`);
+      validatePositiveInt(upgrade.max_hp, `cards.heroes[${index}].upgrades[${upgradeIndex}].max_hp`);
+      return `upgrade{${upgrade.cost}, ${upgrade.max_hp}}`;
+    });
+    return `hero_def{${bendString(heroId)}, ${bendString(hero.name)}, ${bendString(hero.sprite)}, ${hero.base_max_hp}, ${hero.unlock_cost}, ${bendList(upgrades, 6)}}`;
+  });
 
   const monsterDefs = raw.cards.monsters.map((monster, index) => {
     validateString(monster.name, `cards.monsters[${index}].name`);
@@ -196,16 +424,6 @@ function renderConfigModule(raw: RawDungeonConfig): string {
     validatePositiveInt(potion.heal, `cards.potions[${index}].heal`);
     return `potion_def{${bendString(potion.name)}, ${bendString(potion.sprite)}, ${potion.heal}}`;
   });
-
-  const upgrades = raw.hero_upgrades.map((upgrade, index) => {
-    validatePositiveInt(upgrade.cost, `hero_upgrades[${index}].cost`);
-    validatePositiveInt(upgrade.max_hp, `hero_upgrades[${index}].max_hp`);
-    return `upgrade{${upgrade.cost}, ${upgrade.max_hp}}`;
-  });
-
-  if (upgrades.length === 0) {
-    fail("hero_upgrades must contain at least one upgrade step");
-  }
 
   const baseDeck = raw.base_deck.map((entry, index) => {
     const cardId = validateString(entry.card_id, `base_deck[${index}].card_id`);
@@ -293,8 +511,7 @@ function renderConfigModule(raw: RawDungeonConfig): string {
     "",
     "def generated_config() -> Config:",
     "  config{",
-    `    hero_def{${bendString(hero.name)}, ${bendString(hero.sprite)}, ${hero.base_max_hp}},`,
-    `    ${bendList(upgrades, 4)},`,
+    `    ${bendList(heroes, 4)},`,
     `    ${bendList(monsterDefs, 4)},`,
     `    ${bendList(swordDefs, 4)},`,
     `    ${bendList(potionDefs, 4)},`,
@@ -359,6 +576,9 @@ function patchAppRuntime(html: string): string {
   ].join("\n");
 
   let out = html;
+  // Bend's JS backend sometimes emits discard bindings such as `var #_$5 = x$4;`
+  // which are invalid identifiers in JS and crash the app before first render.
+  out = out.replace(/#_\$(\d+)/g, (_match, suffix) => `_discard_$${suffix}`);
   if (out.includes(childPatchBuggy)) {
     out = out.replace(childPatchBuggy, childPatchFixed);
   }
@@ -407,6 +627,7 @@ const out = path.resolve(cwd, output);
 const preludeDir = path.resolve(cwd, process.env.BEND_PRELUDE_DIR ?? "../Bend2/prelude");
 
 await generateDungeonConfig(cwd);
+const Bend = await loadPatchedBend(cwd);
 
 const loaded = Bend.Loader.load_book(file, { prelude_dir: preludeDir, strict: true });
 const ok = Bend.Core.check_book(loaded.book, {

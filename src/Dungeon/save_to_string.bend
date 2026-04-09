@@ -24,6 +24,8 @@ def _saved_scene_kind(scene_value: Scene) -> String:
   match scene_value:
     case boosters{reward, reveal_index}:
       "1"
+    case character_select{preview_hero}:
+      "2"
     case _:
       "0"
 
@@ -38,6 +40,8 @@ def _saved_scene_index(scene_value: Scene) -> String:
   match scene_value:
     case boosters{reward, reveal_index}:
       U32.show(reveal_index)
+    case character_select{preview_hero}:
+      U32.show(preview_hero)
     case _:
       "0"
 

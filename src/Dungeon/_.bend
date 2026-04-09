@@ -3,7 +3,14 @@ type Upgrade {
 }
 
 type HeroDef {
-  hero_def{name: String, sprite: String, base_max_hp: U32}
+  hero_def{
+    id: String,
+    name: String,
+    sprite: String,
+    base_max_hp: U32,
+    unlock_cost: U32,
+    upgrades: List(Upgrade)
+  }
 }
 
 type MonsterDef {
@@ -117,19 +124,27 @@ type CombatResult {
   }
 }
 
+type HeroProfile {
+  hero_profile{
+    unlocked: U32,
+    hero_level: U32
+  }
+}
+
 type Meta {
   meta{
-    hero_level: U32,
+    selected_hero: U32,
+    selection_confirmed: U32,
     gold: U32,
     bonus_deck: List(DeckEntry),
-    pack_inventory: List(PackInventoryEntry)
+    pack_inventory: List(PackInventoryEntry),
+    hero_profiles: List(HeroProfile)
   }
 }
 
 type Config {
   config{
-    hero: HeroDef,
-    upgrades: List(Upgrade),
+    heroes: List(HeroDef),
     monsters: List(MonsterDef),
     swords: List(SwordDef),
     potions: List(PotionDef),
@@ -167,6 +182,7 @@ type SwipeResult {
 
 type Scene {
   setup{}
+  character_select{preview_hero: U32}
   boosters{reward: PackReward, reveal_index: U32}
   running{run: Run}
   game_over{run: Run}
@@ -174,6 +190,7 @@ type Scene {
 
 type SavedScene {
   saved_setup{}
+  saved_character_select{preview_hero: U32}
   saved_boosters{reward: PackReward, reveal_index: U32}
 }
 
@@ -220,6 +237,9 @@ type DungeonState {
 type DungeonEvent {
   start{}
   upgrade{}
+  open_character_select{}
+  close_character_select{}
+  select_character{}
   open_boosters{}
   close_boosters{}
   buy_pack{ref: U32}

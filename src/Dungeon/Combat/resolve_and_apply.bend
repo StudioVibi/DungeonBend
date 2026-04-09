@@ -45,7 +45,7 @@ def _resolve_armed_hit(overkill: U32, monsters: List(MonsterDef), board_value: B
 
 def resolve_monster(config_value: Config, board_value: Board, hero_hp: U32, weapon_value: Weapon, target_idx: U32, monster_ref: U32, monster_hp: U32) -> CombatResult:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       match weapon_value:
         case no_weapon{}:
           _resolve_unarmed(monsters, board_value, hero_hp, target_idx, monster_ref, monster_hp)

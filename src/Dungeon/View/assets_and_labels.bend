@@ -7,32 +7,15 @@ import /Dungeon/PotionDef as PotionDef
 import /Dungeon/CardRef as CardRef
 import /Dungeon/Tile as Tile
 import /Dungeon/config as config
+import /Dungeon/hero_helpers/hero_at as hero_at
+import /Dungeon/hero_helpers/hero_name as hero_name
+import /Dungeon/hero_helpers/hero_sprite as hero_sprite
 
 def _hero_name() -> String:
-  _hero_name_from_config(config())
-
-def _hero_name_from_config(config_value: Config) -> String:
-  match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      _hero_name_from_def(hero)
-
-def _hero_name_from_def(hero_value: HeroDef) -> String:
-  match hero_value:
-    case hero_def{name, sprite, base_max_hp}:
-      name
+  hero_name(hero_at(config(), 0))
 
 def _hero_sprite() -> String:
-  _hero_sprite_from_config(config())
-
-def _hero_sprite_from_config(config_value: Config) -> String:
-  match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      _hero_sprite_from_def(hero)
-
-def _hero_sprite_from_def(hero_value: HeroDef) -> String:
-  match hero_value:
-    case hero_def{name, sprite, base_max_hp}:
-      sprite
+  hero_sprite(hero_at(config(), 0))
 
 def _gold_name() -> String:
   "Gold"
@@ -45,7 +28,7 @@ def _monster_name(ref: U32) -> String:
 
 def _monster_name_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _monster_name_from_list(monsters, ref)
 
 def _monster_name_from_list(monsters: List(MonsterDef), ref: U32) -> String:
@@ -64,7 +47,7 @@ def _monster_sprite(ref: U32) -> String:
 
 def _monster_sprite_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _monster_sprite_from_list(monsters, ref)
 
 def _monster_sprite_from_list(monsters: List(MonsterDef), ref: U32) -> String:
@@ -83,7 +66,7 @@ def _sword_name(ref: U32) -> String:
 
 def _sword_name_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _sword_name_from_list(swords, ref)
 
 def _sword_name_from_list(swords: List(SwordDef), ref: U32) -> String:
@@ -102,7 +85,7 @@ def _sword_sprite(ref: U32) -> String:
 
 def _sword_sprite_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _sword_sprite_from_list(swords, ref)
 
 def _sword_sprite_from_list(swords: List(SwordDef), ref: U32) -> String:
@@ -121,7 +104,7 @@ def _potion_name(ref: U32) -> String:
 
 def _potion_name_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _potion_name_from_list(potions, ref)
 
 def _potion_name_from_list(potions: List(PotionDef), ref: U32) -> String:
@@ -140,7 +123,7 @@ def _potion_sprite(ref: U32) -> String:
 
 def _potion_sprite_from_defs(config_value: Config, ref: U32) -> String:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _potion_sprite_from_list(potions, ref)
 
 def _potion_sprite_from_list(potions: List(PotionDef), ref: U32) -> String:
@@ -231,7 +214,7 @@ def _monster_hp_value(ref: U32) -> U32:
 
 def _monster_hp_from_defs(config_value: Config, ref: U32) -> U32:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _monster_hp_from_list(monsters, ref)
 
 def _monster_hp_from_list(monsters: List(MonsterDef), ref: U32) -> U32:
@@ -257,7 +240,7 @@ def _sword_damage_value(ref: U32) -> U32:
 
 def _sword_damage_from_defs(config_value: Config, ref: U32) -> U32:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _sword_damage_from_list(swords, ref)
 
 def _sword_damage_from_list(swords: List(SwordDef), ref: U32) -> U32:
@@ -276,7 +259,7 @@ def _potion_heal_value(ref: U32) -> U32:
 
 def _potion_heal_from_defs(config_value: Config, ref: U32) -> U32:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       _potion_heal_from_list(potions, ref)
 
 def _potion_heal_from_list(potions: List(PotionDef), ref: U32) -> U32:

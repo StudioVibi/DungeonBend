@@ -1,11 +1,33 @@
 {
   "cards": {
-    "hero": {
-      "id": "hero",
-      "name": "Adventurer",
-      "sprite": "assets/player-boy.png",
-      "base_max_hp": 11
-    },
+    "heroes": [
+      {
+        "id": "adventurer",
+        "name": "Adventurer",
+        "sprite": "assets/player-boy.png",
+        "base_max_hp": 11,
+        "unlock_cost": 0,
+        "upgrades": [
+          { "cost": 20, "max_hp": 14 },
+          { "cost": 35, "max_hp": 17 },
+          { "cost": 55, "max_hp": 20 },
+          { "cost": 80, "max_hp": 24 }
+        ]
+      },
+      {
+        "id": "gato_de_botas",
+        "name": "Gato de Botas",
+        "sprite": "assets/player-gato-de-botas.png",
+        "base_max_hp": 9,
+        "unlock_cost": 45,
+        "upgrades": [
+          { "cost": 18, "max_hp": 12 },
+          { "cost": 30, "max_hp": 15 },
+          { "cost": 48, "max_hp": 18 },
+          { "cost": 72, "max_hp": 22 }
+        ]
+      }
+    ],
     "monsters": [
       {
         "id": "rat",
@@ -65,12 +87,6 @@
       }
     ]
   },
-  "hero_upgrades": [
-    { "cost": 20, "max_hp": 14 },
-    { "cost": 35, "max_hp": 17 },
-    { "cost": 55, "max_hp": 20 },
-    { "cost": 80, "max_hp": 24 }
-  ],
   "base_deck": [
     { "card_id": "rat", "count": 4 },
     { "card_id": "spider", "count": 3 },

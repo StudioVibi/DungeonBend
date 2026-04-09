@@ -4,7 +4,7 @@ import /Dungeon/PackPoolEntry as PackPoolEntry
 
 def active_pack(config_value: Config) -> PackDef:
   match config_value:
-    case config{hero, upgrades, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       pack_at(booster_packs, 0)
 
 def pack_at(packs: List(PackDef), idx: U32) -> PackDef:

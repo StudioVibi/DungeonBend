@@ -1,24 +1,25 @@
 import /HTML/
 import /U32/ as U32
+import /Dungeon/HeroDef as HeroDef
 import /Dungeon/Weapon as Weapon
 import /Dungeon/Tile as Tile
 import /Dungeon/HpFx as HpFx
 import /Dungeon/DmgFx as DmgFx
 import /Dungeon/DungeonEvent as DungeonEvent
 import /Midum/Card/ as Card
-import /Dungeon/View/assets_and_labels/_hero_name as _hero_name
-import /Dungeon/View/assets_and_labels/_hero_sprite as _hero_sprite
+import /Dungeon/hero_helpers/hero_name as hero_name
+import /Dungeon/hero_helpers/hero_sprite as hero_sprite
 import /Dungeon/View/assets_and_labels/_tile_name as _tile_name
 import /Dungeon/View/assets_and_labels/_tile_sprite as _tile_sprite
 import /Dungeon/View/assets_and_labels/_tile_badge as _tile_badge
 
-def _hero_card_values(hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx) -> HTML(DungeonEvent):
+def _hero_card_values(hero_value: HeroDef, hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx) -> HTML(DungeonEvent):
   Card.neutral(
     DungeonEvent,
     <div class={_hero_card_class(dmg_fx)} data-dmg={_hero_damage_attr(weapon_value)}>
       <div class={_hero_hp_badge_class(hp_fx)}>{text{"HP " ++ U32.show(hero_hp) ++ "/" ++ U32.show(hero_max_hp)}}</div>
       <div class="card__art-wrap">
-        <img class="card__art" src={_hero_sprite()} alt={_hero_name()} />
+        <img class="card__art" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
       </div>
     </div>,
     [padding_none{}]

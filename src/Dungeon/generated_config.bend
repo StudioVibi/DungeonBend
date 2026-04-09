@@ -11,12 +11,19 @@ import /Dungeon/PackDef as PackDef
 
 def generated_config() -> Config:
   config{
-    hero_def{"Adventurer", "assets/player-boy.png", 11},
     [
-      upgrade{20, 14},
-      upgrade{35, 17},
-      upgrade{55, 20},
-      upgrade{80, 24}
+      hero_def{"adventurer", "Adventurer", "assets/player-boy.png", 11, 0, [
+        upgrade{20, 14},
+        upgrade{35, 17},
+        upgrade{55, 20},
+        upgrade{80, 24}
+      ]},
+      hero_def{"gato_de_botas", "Gato de Botas", "assets/player-gato-de-botas.png", 9, 45, [
+        upgrade{18, 12},
+        upgrade{30, 15},
+        upgrade{48, 18},
+        upgrade{72, 22}
+      ]}
     ],
     [
       monster_def{"Rat", "assets/enemy-rat.png", 3, [
