@@ -85,12 +85,14 @@ def _board_overlay(scene_value: Scene) -> HTML(DungeonEvent):
             <p class="game-over-card__eyebrow">{text{"Dungeon interrompida"}}</p>
             <h2 class="game-over-card__title">{text{"Retomar partida?"}}</h2>
             <p class="game-over-card__body">{text{"Voce saiu no meio desta run."}}</p>
-            <div class="game-over-card__action">
-              {_resume_dungeon_button()}
-            </div>
-            <div class="game-over-card__action">
-              {_resume_menu_button()}
-            </div>
+            <section class="game-over-card__actions">
+              <div class="menu-secondary-action game-over-card__secondary">
+                {_resume_menu_button()}
+              </div>
+              <div class="menu-start-action game-over-card__primary">
+                {_resume_dungeon_button()}
+              </div>
+            </section>
           </div>,
           [padding_md{}]
         )}
@@ -176,7 +178,7 @@ def _game_over_ok_button() -> HTML(DungeonEvent):
   Button.primary(DungeonEvent, ok{}, medium{}, "OK", [width_full{}])
 
 def _resume_dungeon_button() -> HTML(DungeonEvent):
-  Button.primary(DungeonEvent, resume_dungeon{}, medium{}, "Retomar dungeon", [width_full{}])
+  Button.primary(DungeonEvent, resume_dungeon{}, large{}, "Retomar dungeon", [width_full{}])
 
 def _resume_menu_button() -> HTML(DungeonEvent):
   Button.secondary(DungeonEvent, abandon_dungeon{}, medium{}, "Menu principal", [width_full{}])

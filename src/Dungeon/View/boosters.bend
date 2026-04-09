@@ -26,14 +26,10 @@ def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) ->
     <section class="boosters-stage">
       <div class="boosters-stage__content">
         {_booster_visual(reward, reveal_index)}
-        <div class="boosters-stage__open">
-          {_open_button(meta_state)}
-        </div>
-        <p class="boosters-stage__price">{text{"GOLD: " ++ U32.show(active_pack_price())}}</p>
-        <div class="boosters-stage__buy">
-          {_buy_button(meta_state)}
-        </div>
       </div>
+    </section>
+    <section class="boosters-actions">
+      {_booster_actions(meta_state)}
     </section>
   </section>
 
@@ -95,20 +91,20 @@ def _reward_nav_button(label: String, evt: DungeonEvent, enabled: U32) -> HTML(D
 def _back_button() -> HTML(DungeonEvent):
   Button.secondary(DungeonEvent, close_boosters{}, medium{}, "Back", [])
 
-def _buy_button(meta_state: Meta) -> HTML(DungeonEvent):
-  Button.primary(
-    DungeonEvent,
-    buy_pack{0},
-    large{},
-    "Buy",
-    _full_button_overrides(booster_buy_enabled(meta_state))
-  )
-
-def _open_button(meta_state: Meta) -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    open_pack{0},
-    medium{},
-    "Open",
-    _fit_button_overrides(booster_open_enabled(meta_state))
-  )
+def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
+  match booster_open_enabled(meta_state):
+    case 1:
+      <div class="menu-actions">
+        <div class="menu-secondary-action">
+          {Button.secondary(DungeonEvent, buy_pack{0}, medium{}, "Buy More - " ++ U32.show(active_pack_price()) ++ "g", _fit_button_overrides(booster_buy_enabled(meta_state)))}
+        </div>
+        <div class="menu-start-action">
+          {Button.primary(DungeonEvent, open_pack{0}, large{}, "Open", _full_button_overrides(1))}
+        </div>
+      </div>
+    case _:
+      <div class="menu-actions">
+        <div class="menu-start-action">
+          {Button.primary(DungeonEvent, buy_pack{0}, large{}, "Buy - " ++ U32.show(active_pack_price()) ++ "g", _full_button_overrides(booster_buy_enabled(meta_state)))}
+        </div>
+      </div>
