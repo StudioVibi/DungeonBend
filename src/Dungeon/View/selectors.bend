@@ -43,9 +43,14 @@ def hero_level_text(profile: HeroProfile) -> String:
 def hero_display_level(profile: HeroProfile) -> String:
   U32.show(profile_hero_level(profile) + 1)
 
-def hero_menu_stats(hero_value: HeroDef, profile: HeroProfile) -> String:
-  hp = U32.show(hero_max_hp_value(hero_value, profile));
-  "LV: " ++ hero_display_level(profile) ++ "   HP: " ++ hp ++ "/" ++ hp
+def hero_menu_level_text(profile: HeroProfile) -> String:
+  "LV: " ++ hero_display_level(profile)
+
+def hero_menu_current_hp_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  hero_menu_max_hp_text(hero_value, profile)
+
+def hero_menu_max_hp_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  U32.show(hero_max_hp_value(hero_value, profile))
 
 def _run_dungeon_level(run_value: Run) -> U32:
   match run_value:
@@ -201,6 +206,9 @@ def hero_max_hp_value(hero_value: HeroDef, profile: HeroProfile) -> U32:
 
 def next_upgrade_cost(hero_value: HeroDef, profile: HeroProfile) -> U32:
   _upgrade_cost_or_zero(nth_upgrade(hero_upgrades(hero_value), profile_hero_level(profile)))
+
+def menu_upgrade_visible(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> U32:
+  upgrade_enabled(meta_state, setup{}, next_upgrade_cost(hero_value, profile))
 
 def upgrade_label(hero_value: HeroDef, profile: HeroProfile) -> String:
   _upgrade_label_cost(next_upgrade_cost(hero_value, profile))

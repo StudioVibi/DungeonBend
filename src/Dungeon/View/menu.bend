@@ -14,18 +14,21 @@ import /Dungeon/profile_helpers/active_profile as active_profile
 import /Dungeon/profile_helpers/profile_for_hero as profile_for_hero
 import /Dungeon/View/selectors/meta_gold as meta_gold
 import /Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import /Dungeon/View/selectors/hero_menu_stats as hero_menu_stats
+import /Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
+import /Dungeon/View/selectors/hero_menu_current_hp_text as hero_menu_current_hp_text
+import /Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
 import /Dungeon/View/selectors/start_enabled as start_enabled
-import /Dungeon/View/selectors/upgrade_enabled as upgrade_enabled
 import /Dungeon/View/selectors/menu_upgrade_label as menu_upgrade_label
 import /Dungeon/View/selectors/menu_upgrade_cost_text as menu_upgrade_cost_text
-import /Dungeon/View/selectors/next_upgrade_cost as next_upgrade_cost
+import /Dungeon/View/selectors/menu_upgrade_visible as menu_upgrade_visible
 import /Dungeon/View/selectors/character_upgrade_label as character_upgrade_label
 import /Dungeon/View/selectors/character_upgrade_cost_text as character_upgrade_cost_text
 import /Dungeon/View/selectors/character_primary_label as character_primary_label
 import /Dungeon/View/selectors/character_primary_enabled as character_primary_enabled
 import /Midum/Button/ as Button
 import /Midum/Button/Size
+import /Midum/Text/ as Text
+import /Midum/Text/Align
 
 def _dashboard_header(meta_state: Meta, header_action: HTML(DungeonEvent)) -> HTML(DungeonEvent):
   <header class="topbar topbar--menu">
@@ -90,13 +93,8 @@ def _menu_hero_panel(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile
     <div class="menu-hero-panel__portrait">
       <img class="menu-hero-panel__image" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
     </div>
-    <p class="menu-hero-panel__stats">{text{hero_menu_stats(hero_value, profile)}}</p>
-    <div class="menu-upgrade-row">
-      <div class="menu-upgrade-row__action">
-        {_menu_upgrade_button(meta_state, hero_value, profile)}
-      </div>
-      <p class="menu-upgrade-row__meta">{text{menu_upgrade_cost_text(hero_value, profile)}}</p>
-    </div>
+    {_hero_hud(hero_value, profile)}
+    {_menu_upgrade_row(meta_state, hero_value, profile)}
   </section>
 
 def _menu_character_panel(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
@@ -115,7 +113,7 @@ def _menu_character_panel(hero_value: HeroDef, profile: HeroProfile) -> HTML(Dun
         </div>
       </div>
     </div>
-    <p class="menu-hero-panel__stats">{text{hero_menu_stats(hero_value, profile)}}</p>
+    {_hero_hud(hero_value, profile)}
     <div class="menu-upgrade-row">
       <div class="menu-upgrade-row__action">
         {_menu_preview_upgrade_button(hero_value, profile)}
@@ -123,6 +121,34 @@ def _menu_character_panel(hero_value: HeroDef, profile: HeroProfile) -> HTML(Dun
       <p class="menu-upgrade-row__meta">{text{character_upgrade_cost_text(hero_value, profile)}}</p>
     </div>
   </section>
+
+def _hero_hud(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
+  <div class="hero-hud">
+    <div class="hero-hud__level">
+      {Text.label(DungeonEvent, left{}, hero_menu_level_text(profile), [])}
+    </div>
+    <div class="hero-hud__hp">
+      <div class="hero-hud__heart">
+        <img class="hero-hud__heart-image" src="assets/icon_heart.png" alt="" />
+        <span class="hero-hud__heart-value">{text{hero_menu_current_hp_text(hero_value, profile)}}</span>
+      </div>
+      <div class="hero-hud__max">
+        {Text.body(DungeonEvent, left{}, "/" ++ hero_menu_max_hp_text(hero_value, profile), [])}
+      </div>
+    </div>
+  </div>
+
+def _menu_upgrade_row(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
+  match menu_upgrade_visible(meta_state, hero_value, profile):
+    case 1:
+      <div class="menu-upgrade-row">
+        <div class="menu-upgrade-row__action">
+          {_menu_upgrade_button(hero_value, profile)}
+        </div>
+        <p class="menu-upgrade-row__meta">{text{menu_upgrade_cost_text(hero_value, profile)}}</p>
+      </div>
+    case _:
+      <div class="menu-upgrade-row menu-upgrade-row--placeholder"></div>
 
 def _character_nav_enabled() -> U32:
   _character_nav_enabled_count(hero_count(config()))
@@ -154,13 +180,13 @@ def _menu_boosters_button() -> HTML(DungeonEvent):
     _fit_button_overrides(1)
   )
 
-def _menu_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
+def _menu_upgrade_button(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   Button.secondary(
     DungeonEvent,
     upgrade{},
     medium{},
     menu_upgrade_label(hero_value, profile),
-    _fit_button_overrides(upgrade_enabled(meta_state, setup{}, next_upgrade_cost(hero_value, profile)))
+    _fit_button_overrides(1)
   )
 
 def _menu_preview_upgrade_button(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
