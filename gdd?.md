@@ -1,6 +1,6 @@
 # Booster Pack
 
-- Booster packs are the primary way to add new to the player's deck, serving as the core system for progression and in-game customization.
+- Booster packs are the primary way to add new cards to the player's deck, serving as the core system for progression and in-game customization.
 
 - Opening a booster pack grants a set of X cards to the player.
 
@@ -21,7 +21,7 @@
 
 "heroes": [
       {
-        "id": "adventurer",
+        "id": "001",
         "name": "Adventurer",
         "sprite": "assets/player-boy.png",
         "base_max_hp": 11,
