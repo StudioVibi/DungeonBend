@@ -27,6 +27,7 @@ import /Dungeon/View/selectors/character_primary_label as character_primary_labe
 import /Dungeon/View/selectors/character_primary_enabled as character_primary_enabled
 import /Midum/Button/ as Button
 import /Midum/Button/Size
+import /Midum/Layout/ as Layout
 import /Midum/Text/ as Text
 import /Midum/Text/Align
 
@@ -50,22 +51,47 @@ def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
   hero_ref = selected_hero(meta_state);
   hero_value = hero_at(config(), hero_ref);
   profile = active_profile(meta_state);
-  <section class="shell shell--menu">
-    {_dashboard_header(meta_state, _header_characters_action())}
-    <section class="menu-stage">
-      <div class="menu-stage__content">
-        {_menu_hero_panel(meta_state, hero_value, profile)}
-      </div>
-    </section>
-    <section class="menu-actions">
-      <div class="menu-secondary-action">
-        {_menu_boosters_button()}
-      </div>
-      <div class="menu-start-action">
-        {_menu_start_button()}
-      </div>
-    </section>
+  <section class="shell shell--setup">
+    {Layout.frame(
+      DungeonEvent,
+      Layout.overlay(DungeonEvent, [
+        Layout.top(DungeonEvent,
+          Layout.frame(
+            DungeonEvent,
+            _dashboard_header(meta_state, _header_characters_action()),
+            [width_full{} height_fit{} inset_none{}]
+          )
+        )
+        Layout.center(DungeonEvent,
+          Layout.frame(
+            DungeonEvent,
+            <section class="menu-stage">
+              <div class="menu-stage__content">
+                {_menu_hero_panel(meta_state, hero_value, profile)}
+              </div>
+            </section>,
+            [width_full{} height_fit{} inset_none{}]
+          )
+        )
+        Layout.bottom(DungeonEvent, _menu_actions_layout())
+      ]),
+      [width_full{} height_full{} inset_none{}]
+    )}
   </section>
+
+def _menu_actions_layout() -> HTML(DungeonEvent):
+  Layout.frame(
+    DungeonEvent,
+    Layout.group(
+      DungeonEvent,
+      [
+        _menu_boosters_button()
+        _menu_start_button()
+      ],
+      [direction_column{} gap_sm{} align_stretch{}]
+    ),
+    [width_px{value: 280n} height_fit{} inset_none{}]
+  )
 
 def _render_character_select(meta_state: Meta, preview_hero: U32) -> HTML(DungeonEvent):
   hero_value = hero_at(config(), preview_hero);
@@ -177,7 +203,7 @@ def _menu_boosters_button() -> HTML(DungeonEvent):
     open_boosters{},
     medium{},
     "BOOSTERS",
-    _fit_button_overrides(1)
+    _full_button_overrides(1)
   )
 
 def _menu_upgrade_button(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):

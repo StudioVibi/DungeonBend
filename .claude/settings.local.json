@@ -5,7 +5,14 @@
       "Bash(git stash:*)",
       "Bash(sh scripts/build.sh)",
       "Bash(./scripts/build.sh:*)",
-      "Bash(./scripts/build-pages.sh:*)"
+      "Bash(./scripts/build-pages.sh:*)",
+      "Bash(xargs cat:*)",
+      "Bash(bend check:*)",
+      "Bash(bend src/Dungeon/_SPEC_.bend)",
+      "Bash(bend src/Dungeon/Boosters/_SPEC_.bend)",
+      "Bash(bend src/Dungeon/Deck/_SPEC_.bend)",
+      "Bash(bend src/Dungeon/Combat/_SPEC_.bend)",
+      "Bash(bend src/Dungeon/Board/_SPEC_.bend)"
     ]
   }
 }

@@ -1714,7 +1714,7 @@ export function $Dungeon$_parse_meta$_parse_sections_head(head, rest$1) {
   var _v5;
   _v5 = "v4";
   _v3 = $String$eq(_v4, _v5);
-  _r0 = $cm_0(_v1, _v2, _v3);
+  _r0 = $Dungeon$_parse_meta$_parse_sections_head$_0(_v1, _v2, _v3);
   return _r0;
 }
 
@@ -4994,7 +4994,7 @@ export function $Dungeon$_parse_meta$_parse_saved_running(run_core, run_weapon$1
   var _v11;
   _v11 = run_counts$4;
   _v6 = $Dungeon$parse_saved_run(_v7, _v8, _v9, _v10, _v11);
-  _r0 = $cm_3(_v1, _v2, _v3, _v4, _v5, _v6);
+  _r0 = $Dungeon$_parse_meta$_parse_saved_running$_0(_v1, _v2, _v3, _v4, _v5, _v6);
   return _r0;
 }
 
@@ -5652,7 +5652,7 @@ export function $Char$eq(x, x$1) {
   var _v7;
   _v7 = vb$1;
   _v5 = (_v6) === (_v7) ? 1 : 0;
-  _r0 = $cm_5(_v3, _v4, _v5);
+  _r0 = $Char$eq$_0(_v3, _v4, _v5);
   return _r0;
 }
 
@@ -8942,7 +8942,7 @@ export function $Dungeon$parse_saved_run$_parse_run_with_core_values(dungeon_lev
   _v16 = String.fromCharCode(((_v17) >>> 0) & 0xFFFF);
   _v14 = $String$split(_v15, _v16);
   _v13 = $Dungeon$parse_saved_run$_parse_saved_weapon(_v14);
-  _r0 = $cm_7(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
+  _r0 = $Dungeon$parse_saved_run$_parse_run_with_core_values$_0(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
   return _r0;
 }
 
@@ -8988,7 +8988,7 @@ export function $Dungeon$parse_saved_run$_parse_run_with_weapon(dungeon_level, h
   var _v19;
   _v19 = Dungeon$Board$indexing$empty_board();
   _v13 = $Dungeon$parse_saved_run$_parse_saved_board(_v14, _v18, _v19);
-  _r0 = $cm_8(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
+  _r0 = $Dungeon$parse_saved_run$_parse_run_with_weapon$_0(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
   return _r0;
 }
 
@@ -9030,7 +9030,7 @@ export function $Dungeon$parse_saved_run$_parse_run_with_board(dungeon_level, he
   _v16 = String.fromCharCode(((_v17) >>> 0) & 0xFFFF);
   _v14 = $String$split(_v15, _v16);
   _v13 = $Dungeon$parse_saved_run$_parse_saved_deck_entries(_v14);
-  _r0 = $cm_9(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
+  _r0 = $Dungeon$parse_saved_run$_parse_run_with_board$_0(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
   return _r0;
 }
 
@@ -9072,7 +9072,7 @@ export function $Dungeon$parse_saved_run$_parse_run_with_blueprint(dungeon_level
   _v16 = String.fromCharCode(((_v17) >>> 0) & 0xFFFF);
   _v14 = $String$split(_v15, _v16);
   _v13 = $Dungeon$parse_saved_run$_parse_saved_deck_entries(_v14);
-  _r0 = $cm_10(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
+  _r0 = $Dungeon$parse_saved_run$_parse_run_with_blueprint$_0(_v1, _v2, _v3, _v4, _v5, _v6, _v7, _v8, _v9, _v10, _v11, _v12, _v13);
   return _r0;
 }
 
@@ -9330,7 +9330,7 @@ export function $Dungeon$parse_saved_run$_parse_saved_board_next(x, x$1, x$2) {
       _v10 = String.fromCharCode(((_v11) >>> 0) & 0xFFFF);
       _v8 = $String$split(_v9, _v10);
       _v7 = $Dungeon$parse_saved_run$_parse_saved_tile(_v8);
-      _r0 = $cm_11(_v3, _v4, _v5, _v6, _v7);
+      _r0 = $Dungeon$parse_saved_run$_parse_saved_board_next$_0(_v3, _v4, _v5, _v6, _v7);
       break;
     }
     default: {
@@ -9889,7 +9889,7 @@ export function $Dungeon$parse_saved_run$_parse_saved_deck_entries_head(x, x$1, 
           var _v10;
           _v10 = rest$1;
           _v9 = $Dungeon$parse_saved_run$_parse_saved_deck_entries(_v10);
-          _r0 = $cm_12(_v2, _v3, _v4, _v9);
+          _r0 = $Dungeon$parse_saved_run$_parse_saved_deck_entries_head$_0(_v2, _v3, _v4, _v9);
           break;
         }
         default: {
@@ -11339,7 +11339,7 @@ export function $Nat$V2$Map$row(A, map$1, y$2) {
   var _v8;
   _v8 = y$2;
   _v4 = $Nat$Map$get(_v5, _v7, _v8);
-  _r0 = $cm_14(_v1, _v2, _v3, _v4);
+  _r0 = $Nat$V2$Map$row$_0(_v1, _v2, _v3, _v4);
   return _r0;
 }
 
@@ -11494,7 +11494,7 @@ export function $Ord$Map$set(K, V$1, cmp$2, x$3, x$4, x$5) {
           var _a24 = (_v21)(_v22);
           var _a25 = (_a24)(_v23);
           _v21 = _a25;
-          _r0 = $cm_15(_v11, _v12, _v13, _v14, _v15, _v16, _v17, _v18, _v19, _v20, _v21);
+          _r0 = $Ord$Map$set$_0(_v11, _v12, _v13, _v14, _v15, _v16, _v17, _v18, _v19, _v20, _v21);
           break;
         }
         default: {
@@ -11630,7 +11630,7 @@ export function $Ord$Map$split(K, V$1, x$2) {
                           var _v48;
                           _v48 = lvl$2;
                           _v46 = $Nat$eq(_v47, _v48);
-                          _r0 = $cm_16(_v31, _v32, _v33, _v34, _v35, _v36, _v37, _v38, _v39, _v40, _v41, _v42, _v43, _v44, _v45, _v46);
+                          _r0 = $Ord$Map$split$_0(_v31, _v32, _v33, _v34, _v35, _v36, _v37, _v38, _v39, _v40, _v41, _v42, _v43, _v44, _v45, _v46);
                           break;
                         }
                         default: {
@@ -11773,7 +11773,7 @@ export function $Ord$Map$skew(K, V$1, x$2) {
                   var _v29;
                   _v29 = lvl$2;
                   _v27 = $Nat$eq(_v28, _v29);
-                  _r0 = $cm_17(_v16, _v17, _v18, _v19, _v20, _v21, _v22, _v23, _v24, _v25, _v26, _v27);
+                  _r0 = $Ord$Map$skew$_0(_v16, _v17, _v18, _v19, _v20, _v21, _v22, _v23, _v24, _v25, _v26, _v27);
                   break;
                 }
                 default: {
@@ -13250,39 +13250,146 @@ export function $Midum$Internal$DOM$Layout$gap_class(x) {
 
 export const Midum$Internal$DOM$Layout$gap_class = () => ((a0) => ($Midum$Internal$DOM$Layout$gap_class(a0)));
 
-export function $Midum$Internal$DOM$Layout$box_class(position, flow$1, gap$2) {
+export function $Midum$Internal$DOM$Layout$align_class(x) {
+  var _r0;
+  switch (x.$) {
+    case "align_start_value": {
+      _r0 = "bc-layout-align-start";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "align_center_value": {
+          _r0 = "bc-layout-align-center";
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "align_end_value": {
+              _r0 = "bc-layout-align-end";
+              break;
+            }
+            default: {
+              switch (x.$) {
+                case "align_stretch_value": {
+                  _r0 = "bc-layout-align-stretch";
+                  break;
+                }
+                default: {
+                  throw new Error("EFQ applied");
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$align_class = () => ((a0) => ($Midum$Internal$DOM$Layout$align_class(a0)));
+
+export function $Midum$Internal$DOM$Layout$arrangement_class(_Event, x$1, x$2) {
+  var _r0;
+  switch (x$1.$) {
+    case "between": {
+      switch (x$2.$) {
+        case "nil": {
+          _r0 = "bc-layout-arrangement-packed";
+          break;
+        }
+        default: {
+          switch (x$2.$) {
+            case "cons": {
+              var _m1 = x$2.head;
+              var _m2 = x$2.tail;
+              var _$1 = _m1;
+              switch (_m2.$) {
+                case "nil": {
+                  _r0 = "bc-layout-arrangement-packed";
+                  break;
+                }
+                default: {
+                  var $m1$2 = _m2;
+                  _r0 = "bc-layout-arrangement-between";
+                  break;
+                }
+              }
+              break;
+            }
+            default: {
+              var _$1 = x$2;
+              _r0 = "bc-layout-arrangement-between";
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+    default: {
+      switch (x$1.$) {
+        case "packed": {
+          var _$1 = x$2;
+          _r0 = "bc-layout-arrangement-packed";
+          break;
+        }
+        default: {
+          throw new Error("EFQ applied");
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$arrangement_class = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$arrangement_class(a0, a1, a2)))));
+
+export function $Midum$Internal$DOM$Layout$box_class(position) {
+  var _r0;
+  var _v1;
+  _v1 = "bc-layout-box ";
+  var _v2;
+  var _v3;
+  _v3 = position;
+  _v2 = $Midum$Internal$DOM$Layout$position_class(_v3);
+  _r0 = (_v1 + _v2);
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$box_class = () => ((a0) => ($Midum$Internal$DOM$Layout$box_class(a0)));
+
+export function $Midum$Internal$DOM$Layout$box_body_class(flow, gap$1) {
   var _r0;
   var _v1;
   var _v2;
   var _v3;
+  _v3 = "bc-layout-box-body ";
   var _v4;
   var _v5;
-  _v5 = "bc-layout-box ";
+  _v5 = flow;
+  _v4 = $Midum$Internal$DOM$Layout$flow_class(_v5);
+  _v2 = (_v3 + _v4);
   var _v6;
+  _v6 = " ";
+  _v1 = (_v2 + _v6);
   var _v7;
-  _v7 = position;
-  _v6 = $Midum$Internal$DOM$Layout$position_class(_v7);
-  _v4 = (_v5 + _v6);
   var _v8;
-  _v8 = " ";
-  _v3 = (_v4 + _v8);
-  var _v9;
-  var _v10;
-  _v10 = flow$1;
-  _v9 = $Midum$Internal$DOM$Layout$flow_class(_v10);
-  _v2 = (_v3 + _v9);
-  var _v11;
-  _v11 = " ";
-  _v1 = (_v2 + _v11);
-  var _v12;
-  var _v13;
-  _v13 = gap$2;
-  _v12 = $Midum$Internal$DOM$Layout$gap_class(_v13);
-  _r0 = (_v1 + _v12);
+  _v8 = gap$1;
+  _v7 = $Midum$Internal$DOM$Layout$gap_class(_v8);
+  _r0 = (_v1 + _v7);
   return _r0;
 }
 
-export const Midum$Internal$DOM$Layout$box_class = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$box_class(a0, a1, a2)))));
+export const Midum$Internal$DOM$Layout$box_body_class = () => ((a0) => ((a1) => ($Midum$Internal$DOM$Layout$box_body_class(a0, a1))));
 
 export function $Midum$Internal$DOM$Layout$box(_Event, x$1, x$2) {
   var _r0;
@@ -13304,32 +13411,40 @@ export function $Midum$Internal$DOM$Layout$box(_Event, x$1, x$2) {
       var _v8;
       var _v9;
       _v9 = position$1;
-      var _v10;
-      _v10 = flow$2;
-      var _v11;
-      _v11 = gap$3;
-      _v8 = $Midum$Internal$DOM$Layout$box_class(_v9, _v10, _v11);
+      _v8 = $Midum$Internal$DOM$Layout$box_class(_v9);
       _v6 = ({$: "attr", nam: _v7, val: _v8});
+      var _v10;
+      _v10 = ({$: "nil"});
+      _v5 = ({$: "cons", head: _v6, tail: _v10});
+      var _v11;
       var _v12;
-      _v12 = ({$: "nil"});
-      _v5 = ({$: "cons", head: _v6, tail: _v12});
       var _v13;
+      _v13 = "div";
       var _v14;
       var _v15;
-      _v15 = "div";
       var _v16;
-      _v16 = ({$: "nil"});
+      _v16 = "class";
       var _v17;
       var _v18;
-      _v18 = body$4;
+      _v18 = flow$2;
       var _v19;
-      _v19 = ({$: "nil"});
-      _v17 = ({$: "cons", head: _v18, tail: _v19});
-      _v14 = ({$: "node", tag: _v15, attrs: _v16, kids: _v17});
+      _v19 = gap$3;
+      _v17 = $Midum$Internal$DOM$Layout$box_body_class(_v18, _v19);
+      _v15 = ({$: "attr", nam: _v16, val: _v17});
       var _v20;
       _v20 = ({$: "nil"});
-      _v13 = ({$: "cons", head: _v14, tail: _v20});
-      _r0 = ({$: "node", tag: _v4, attrs: _v5, kids: _v13});
+      _v14 = ({$: "cons", head: _v15, tail: _v20});
+      var _v21;
+      var _v22;
+      _v22 = body$4;
+      var _v23;
+      _v23 = ({$: "nil"});
+      _v21 = ({$: "cons", head: _v22, tail: _v23});
+      _v12 = ({$: "node", tag: _v13, attrs: _v14, kids: _v21});
+      var _v24;
+      _v24 = ({$: "nil"});
+      _v11 = ({$: "cons", head: _v12, tail: _v24});
+      _r0 = ({$: "node", tag: _v4, attrs: _v5, kids: _v11});
       break;
     }
     default: {
@@ -13341,6 +13456,356 @@ export function $Midum$Internal$DOM$Layout$box(_Event, x$1, x$2) {
 }
 
 export const Midum$Internal$DOM$Layout$box = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$box(a0, a1, a2)))));
+
+export function $Midum$Internal$DOM$Layout$css_nat(value) {
+  var _r0;
+  var _v1;
+  _v1 = value;
+  _r0 = $Nat$show(_v1);
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$css_nat = () => ((a0) => ($Midum$Internal$DOM$Layout$css_nat(a0)));
+
+export function $Midum$Internal$DOM$Layout$frame_width_style(x) {
+  var _r0;
+  switch (x.$) {
+    case "fit": {
+      _r0 = "fit-content";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "full": {
+          _r0 = "100%";
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "px": {
+              var _m1 = x.value;
+              var value = _m1;
+              var _v2;
+              var _v3;
+              _v3 = value;
+              _v2 = $Midum$Internal$DOM$Layout$css_nat(_v3);
+              var _v4;
+              _v4 = "px";
+              _r0 = (_v2 + _v4);
+              break;
+            }
+            default: {
+              throw new Error("EFQ applied");
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$frame_width_style = () => ((a0) => ($Midum$Internal$DOM$Layout$frame_width_style(a0)));
+
+export function $Midum$Internal$DOM$Layout$frame_height_style(x) {
+  var _r0;
+  switch (x.$) {
+    case "fit": {
+      _r0 = "fit-content";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "full": {
+          _r0 = "100%";
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "px": {
+              var _m1 = x.value;
+              var value = _m1;
+              var _v2;
+              var _v3;
+              _v3 = value;
+              _v2 = $Midum$Internal$DOM$Layout$css_nat(_v3);
+              var _v4;
+              _v4 = "px";
+              _r0 = (_v2 + _v4);
+              break;
+            }
+            default: {
+              throw new Error("EFQ applied");
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$frame_height_style = () => ((a0) => ($Midum$Internal$DOM$Layout$frame_height_style(a0)));
+
+export function $Midum$Internal$DOM$Layout$frame_inset_style(x) {
+  var _r0;
+  switch (x.$) {
+    case "none": {
+      _r0 = "0px";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "sm": {
+          _r0 = "8px";
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "md": {
+              _r0 = "16px";
+              break;
+            }
+            default: {
+              switch (x.$) {
+                case "lg": {
+                  _r0 = "24px";
+                  break;
+                }
+                default: {
+                  throw new Error("EFQ applied");
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$frame_inset_style = () => ((a0) => ($Midum$Internal$DOM$Layout$frame_inset_style(a0)));
+
+export function $Midum$Internal$DOM$Layout$max_width_style(x) {
+  var _r0;
+  switch (x.$) {
+    case "max_width_none": {
+      _r0 = "none";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "max_width_px_value": {
+          var _m1 = x.value;
+          var value = _m1;
+          var _v2;
+          var _v3;
+          _v3 = value;
+          _v2 = $Midum$Internal$DOM$Layout$css_nat(_v3);
+          var _v4;
+          _v4 = "px";
+          _r0 = (_v2 + _v4);
+          break;
+        }
+        default: {
+          throw new Error("EFQ applied");
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$max_width_style = () => ((a0) => ($Midum$Internal$DOM$Layout$max_width_style(a0)));
+
+export function $Midum$Internal$DOM$Layout$render_page(_Event, x$1, x$2) {
+  var _r0;
+  switch (x$1.$) {
+    case "page_layout": {
+      var _m1 = x$1.inset;
+      var inset$1 = _m1;
+      var body$2 = x$2;
+      var _v2;
+      _v2 = "div";
+      var _v3;
+      var _v4;
+      var _v5;
+      _v5 = "class";
+      var _v6;
+      _v6 = "bc-layout-page";
+      _v4 = ({$: "attr", nam: _v5, val: _v6});
+      var _v7;
+      var _v8;
+      var _v9;
+      _v9 = "padding";
+      var _v10;
+      var _v11;
+      _v11 = inset$1;
+      _v10 = $Midum$Internal$DOM$Layout$frame_inset_style(_v11);
+      _v8 = ({$: "style", nam: _v9, val: _v10});
+      var _v12;
+      _v12 = ({$: "nil"});
+      _v7 = ({$: "cons", head: _v8, tail: _v12});
+      _v3 = ({$: "cons", head: _v4, tail: _v7});
+      var _v13;
+      var _v14;
+      _v14 = body$2;
+      var _v15;
+      _v15 = ({$: "nil"});
+      _v13 = ({$: "cons", head: _v14, tail: _v15});
+      _r0 = ({$: "node", tag: _v2, attrs: _v3, kids: _v13});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$render_page = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$render_page(a0, a1, a2)))));
+
+export function $Midum$Internal$DOM$Layout$render_container(_Event, x$1, x$2) {
+  var _r0;
+  switch (x$1.$) {
+    case "container_layout": {
+      var _m1 = x$1.max_width;
+      var max_width$1 = _m1;
+      var body$2 = x$2;
+      var _v2;
+      _v2 = "div";
+      var _v3;
+      var _v4;
+      var _v5;
+      _v5 = "class";
+      var _v6;
+      _v6 = "bc-layout-container";
+      _v4 = ({$: "attr", nam: _v5, val: _v6});
+      var _v7;
+      var _v8;
+      var _v9;
+      _v9 = "max-width";
+      var _v10;
+      var _v11;
+      _v11 = max_width$1;
+      _v10 = $Midum$Internal$DOM$Layout$max_width_style(_v11);
+      _v8 = ({$: "style", nam: _v9, val: _v10});
+      var _v12;
+      _v12 = ({$: "nil"});
+      _v7 = ({$: "cons", head: _v8, tail: _v12});
+      _v3 = ({$: "cons", head: _v4, tail: _v7});
+      var _v13;
+      var _v14;
+      _v14 = body$2;
+      var _v15;
+      _v15 = ({$: "nil"});
+      _v13 = ({$: "cons", head: _v14, tail: _v15});
+      _r0 = ({$: "node", tag: _v2, attrs: _v3, kids: _v13});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$render_container = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$render_container(a0, a1, a2)))));
+
+export function $Midum$Internal$DOM$Layout$frame(_Event, x$1, x$2) {
+  var _r0;
+  switch (x$1.$) {
+    case "frame": {
+      var _m1 = x$1.width;
+      var _m2 = x$1.height;
+      var _m3 = x$1.inset;
+      var width$1 = _m1;
+      var height$2 = _m2;
+      var inset$3 = _m3;
+      var body$4 = x$2;
+      var _v4;
+      _v4 = "div";
+      var _v5;
+      var _v6;
+      var _v7;
+      _v7 = "class";
+      var _v8;
+      _v8 = "bc-layout-frame";
+      _v6 = ({$: "attr", nam: _v7, val: _v8});
+      var _v9;
+      var _v10;
+      var _v11;
+      _v11 = "width";
+      var _v12;
+      var _v13;
+      _v13 = width$1;
+      _v12 = $Midum$Internal$DOM$Layout$frame_width_style(_v13);
+      _v10 = ({$: "style", nam: _v11, val: _v12});
+      var _v14;
+      var _v15;
+      var _v16;
+      _v16 = "max-width";
+      var _v17;
+      _v17 = "100%";
+      _v15 = ({$: "style", nam: _v16, val: _v17});
+      var _v18;
+      var _v19;
+      var _v20;
+      _v20 = "height";
+      var _v21;
+      var _v22;
+      _v22 = height$2;
+      _v21 = $Midum$Internal$DOM$Layout$frame_height_style(_v22);
+      _v19 = ({$: "style", nam: _v20, val: _v21});
+      var _v23;
+      var _v24;
+      var _v25;
+      _v25 = "padding";
+      var _v26;
+      var _v27;
+      _v27 = inset$3;
+      _v26 = $Midum$Internal$DOM$Layout$frame_inset_style(_v27);
+      _v24 = ({$: "style", nam: _v25, val: _v26});
+      var _v28;
+      _v28 = ({$: "nil"});
+      _v23 = ({$: "cons", head: _v24, tail: _v28});
+      _v18 = ({$: "cons", head: _v19, tail: _v23});
+      _v14 = ({$: "cons", head: _v15, tail: _v18});
+      _v9 = ({$: "cons", head: _v10, tail: _v14});
+      _v5 = ({$: "cons", head: _v6, tail: _v9});
+      var _v29;
+      var _v30;
+      _v30 = body$4;
+      var _v31;
+      _v31 = ({$: "nil"});
+      _v29 = ({$: "cons", head: _v30, tail: _v31});
+      _r0 = ({$: "node", tag: _v4, attrs: _v5, kids: _v29});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$frame = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$frame(a0, a1, a2)))));
 
 export function $Midum$Internal$DOM$Layout$overlay(_Event, layers$1) {
   var _r0;
@@ -13364,31 +13829,55 @@ export function $Midum$Internal$DOM$Layout$overlay(_Event, layers$1) {
 
 export const Midum$Internal$DOM$Layout$overlay = () => ((a0) => ((a1) => ($Midum$Internal$DOM$Layout$overlay(a0, a1))));
 
-export function $Midum$Internal$DOM$Layout$stack_class(flow, gap$1) {
+export function $Midum$Internal$DOM$Layout$group_stack_class(_Event, flow$1, arrangement$2, gap$3, align$4, kids$5) {
   var _r0;
   var _v1;
   var _v2;
   var _v3;
-  _v3 = "bc-layout-stack ";
   var _v4;
   var _v5;
-  _v5 = flow;
-  _v4 = $Midum$Internal$DOM$Layout$flow_class(_v5);
-  _v2 = (_v3 + _v4);
   var _v6;
-  _v6 = " ";
-  _v1 = (_v2 + _v6);
   var _v7;
+  _v7 = "bc-layout-stack ";
   var _v8;
-  _v8 = gap$1;
-  _v7 = $Midum$Internal$DOM$Layout$gap_class(_v8);
-  _r0 = (_v1 + _v7);
+  var _v9;
+  _v9 = flow$1;
+  _v8 = $Midum$Internal$DOM$Layout$flow_class(_v9);
+  _v6 = (_v7 + _v8);
+  var _v10;
+  _v10 = " ";
+  _v5 = (_v6 + _v10);
+  var _v11;
+  var _v12;
+  _v12 = _Event;
+  var _v13;
+  _v13 = arrangement$2;
+  var _v14;
+  _v14 = kids$5;
+  _v11 = $Midum$Internal$DOM$Layout$arrangement_class(_v12, _v13, _v14);
+  _v4 = (_v5 + _v11);
+  var _v15;
+  _v15 = " ";
+  _v3 = (_v4 + _v15);
+  var _v16;
+  var _v17;
+  _v17 = gap$3;
+  _v16 = $Midum$Internal$DOM$Layout$gap_class(_v17);
+  _v2 = (_v3 + _v16);
+  var _v18;
+  _v18 = " ";
+  _v1 = (_v2 + _v18);
+  var _v19;
+  var _v20;
+  _v20 = align$4;
+  _v19 = $Midum$Internal$DOM$Layout$align_class(_v20);
+  _r0 = (_v1 + _v19);
   return _r0;
 }
 
-export const Midum$Internal$DOM$Layout$stack_class = () => ((a0) => ((a1) => ($Midum$Internal$DOM$Layout$stack_class(a0, a1))));
+export const Midum$Internal$DOM$Layout$group_stack_class = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($Midum$Internal$DOM$Layout$group_stack_class(a0, a1, a2, a3, a4, a5))))))));
 
-export function $Midum$Internal$DOM$Layout$stack(_Event, flow$1, gap$2, kids$3) {
+export function $Midum$Internal$DOM$Layout$group_stack(_Event, flow$1, arrangement$2, gap$3, align$4, kids$5) {
   var _r0;
   var _v1;
   _v1 = "div";
@@ -13398,25 +13887,138 @@ export function $Midum$Internal$DOM$Layout$stack(_Event, flow$1, gap$2, kids$3) 
   _v4 = "class";
   var _v5;
   var _v6;
-  _v6 = flow$1;
+  _v6 = _Event;
   var _v7;
-  _v7 = gap$2;
-  _v5 = $Midum$Internal$DOM$Layout$stack_class(_v6, _v7);
-  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  _v7 = flow$1;
   var _v8;
-  _v8 = ({$: "nil"});
-  _v2 = ({$: "cons", head: _v3, tail: _v8});
+  _v8 = arrangement$2;
   var _v9;
-  _v9 = kids$3;
-  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v9});
+  _v9 = gap$3;
+  var _v10;
+  _v10 = align$4;
+  var _v11;
+  _v11 = kids$5;
+  _v5 = $Midum$Internal$DOM$Layout$group_stack_class(_v6, _v7, _v8, _v9, _v10, _v11);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v12;
+  _v12 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v12});
+  var _v13;
+  _v13 = kids$5;
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v13});
   return _r0;
 }
 
-export const Midum$Internal$DOM$Layout$stack = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Midum$Internal$DOM$Layout$stack(a0, a1, a2, a3))))));
+export const Midum$Internal$DOM$Layout$group_stack = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($Midum$Internal$DOM$Layout$group_stack(a0, a1, a2, a3, a4, a5))))))));
+
+export function $Midum$Internal$DOM$Layout$document_stack_class(x) {
+  var _r0;
+  switch (x.$) {
+    case "document_stack_layout": {
+      var _m1 = x.flow;
+      var _m2 = x.gap;
+      var _m3 = x.align;
+      var flow = _m1;
+      var gap$1 = _m2;
+      var align$2 = _m3;
+      var _v4;
+      var _v5;
+      var _v6;
+      var _v7;
+      var _v8;
+      _v8 = "bc-layout-document-stack ";
+      var _v9;
+      var _v10;
+      _v10 = flow;
+      _v9 = $Midum$Internal$DOM$Layout$flow_class(_v10);
+      _v7 = (_v8 + _v9);
+      var _v11;
+      _v11 = " ";
+      _v6 = (_v7 + _v11);
+      var _v12;
+      var _v13;
+      _v13 = gap$1;
+      _v12 = $Midum$Internal$DOM$Layout$gap_class(_v13);
+      _v5 = (_v6 + _v12);
+      var _v14;
+      _v14 = " ";
+      _v4 = (_v5 + _v14);
+      var _v15;
+      var _v16;
+      _v16 = align$2;
+      _v15 = $Midum$Internal$DOM$Layout$align_class(_v16);
+      _r0 = (_v4 + _v15);
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$document_stack_class = () => ((a0) => ($Midum$Internal$DOM$Layout$document_stack_class(a0)));
+
+export function $Midum$Internal$DOM$Layout$render_document_stack(_Event, cfg$1, kids$2) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  var _v6;
+  _v6 = cfg$1;
+  _v5 = $Midum$Internal$DOM$Layout$document_stack_class(_v6);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v7;
+  _v7 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v7});
+  var _v8;
+  _v8 = kids$2;
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v8});
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$render_document_stack = () => ((a0) => ((a1) => ((a2) => ($Midum$Internal$DOM$Layout$render_document_stack(a0, a1, a2)))));
+
+export function $Midum$Internal$DOM$Layout$css_canvas() {
+  var _r0;
+  _r0 = "\n  .bc-layout-page {\n    display: block;\n    box-sizing: border-box;\n    width: 100%;\n    min-height: 100vh;\n  }\n\n  .bc-layout-container {\n    display: block;\n    box-sizing: border-box;\n    width: 100%;\n    min-width: 0;\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .bc-layout-box {\n    box-sizing: border-box;\n    display: flex;\n    flex: 1 1 auto;\n    width: 100%;\n    max-width: 100%;\n    height: 100%;\n    min-height: 0;\n  }\n\n  .bc-screen > .bc-layout-box {\n    min-height: 100vh;\n    padding: 24px;\n  }\n\n  .bc-layout-box > .bc-layout-box-body {\n    display: flex;\n    box-sizing: border-box;\n    max-width: 100%;\n    max-height: 100%;\n    min-width: 0;\n    min-height: 0;\n  }\n\n  .bc-layout-overlay {\n    position: relative;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    min-height: 100%;\n  }\n\n  .bc-screen > .bc-layout-overlay {\n    min-height: 100vh;\n  }\n\n  .bc-layout-overlay > .bc-layout-box {\n    position: absolute;\n    inset: 0;\n    padding: 24px;\n    pointer-events: none;\n  }\n\n  .bc-layout-overlay > .bc-layout-box > .bc-layout-box-body {\n    pointer-events: none;\n  }\n\n  .bc-layout-overlay > .bc-layout-box > .bc-layout-box-body > * {\n    pointer-events: auto;\n  }\n\n  .bc-layout-frame {\n    display: block;\n    box-sizing: border-box;\n    min-width: 0;\n    min-height: 0;\n  }\n\n  .bc-layout-frame > .bc-layout-overlay {\n    width: 100%;\n    height: 100%;\n    min-height: 0;\n  }\n\n  .bc-layout-frame > .bc-layout-overlay > .bc-layout-box {\n    padding: 0;\n  }\n\n  .bc-layout-stack {\n    display: flex;\n    box-sizing: border-box;\n    max-width: 100%;\n    min-width: 0;\n    min-height: 0;\n  }\n\n  .bc-layout-document-stack {\n    display: flex;\n    box-sizing: border-box;\n    width: 100%;\n    max-width: 100%;\n    min-width: 0;\n    min-height: 0;\n    gap: var(--bc-layout-gap);\n  }\n  ";
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$css_canvas = () => ($Midum$Internal$DOM$Layout$css_canvas());
+
+export function $Midum$Internal$DOM$Layout$css_regions() {
+  var _r0;
+  _r0 = "\n  .bc-layout-pos-top-left {\n    justify-content: flex-start;\n    align-items: flex-start;\n  }\n\n  .bc-layout-pos-top {\n    justify-content: flex-start;\n    align-items: stretch;\n  }\n\n  .bc-layout-pos-top-right {\n    justify-content: flex-end;\n    align-items: flex-start;\n  }\n\n  .bc-layout-pos-left {\n    justify-content: flex-start;\n    align-items: stretch;\n  }\n\n  .bc-layout-pos-center {\n    justify-content: center;\n    align-items: stretch;\n  }\n\n  .bc-layout-pos-right {\n    justify-content: flex-end;\n    align-items: stretch;\n  }\n\n  .bc-layout-pos-bottom-left {\n    justify-content: flex-start;\n    align-items: flex-end;\n  }\n\n  .bc-layout-pos-bottom {\n    justify-content: flex-end;\n    align-items: stretch;\n  }\n\n  .bc-layout-pos-bottom-right {\n    justify-content: flex-end;\n    align-items: flex-end;\n  }\n\n  .bc-layout-pos-top > .bc-layout-box-body,\n  .bc-layout-pos-bottom > .bc-layout-box-body,\n  .bc-layout-pos-center > .bc-layout-box-body {\n    width: 100%;\n  }\n\n  .bc-layout-pos-left > .bc-layout-box-body,\n  .bc-layout-pos-right > .bc-layout-box-body,\n  .bc-layout-pos-top > .bc-layout-box-body,\n  .bc-layout-pos-bottom > .bc-layout-box-body,\n  .bc-layout-pos-center > .bc-layout-box-body {\n    height: 100%;\n  }\n\n  .bc-layout-pos-top > .bc-layout-box-body {\n    justify-content: flex-start;\n  }\n\n  .bc-layout-pos-bottom > .bc-layout-box-body {\n    justify-content: flex-end;\n  }\n\n  .bc-layout-pos-left > .bc-layout-box-body,\n  .bc-layout-pos-right > .bc-layout-box-body,\n  .bc-layout-pos-center > .bc-layout-box-body {\n    justify-content: center;\n  }\n  ";
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$css_regions = () => ($Midum$Internal$DOM$Layout$css_regions());
+
+export function $Midum$Internal$DOM$Layout$css_flow() {
+  var _r0;
+  _r0 = "\n  .bc-layout-box-body.bc-layout-flow-row {\n    flex-direction: row;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-box-body.bc-layout-flow-column {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-stack.bc-layout-flow-row {\n    flex-direction: row;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-stack.bc-layout-flow-column {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-document-stack.bc-layout-flow-row {\n    flex-direction: row;\n  }\n\n  .bc-layout-document-stack.bc-layout-flow-column {\n    flex-direction: column;\n  }\n\n  .bc-layout-document-stack.bc-layout-align-start,\n  .bc-layout-stack.bc-layout-align-start {\n    align-items: flex-start;\n  }\n\n  .bc-layout-document-stack.bc-layout-align-center,\n  .bc-layout-stack.bc-layout-align-center {\n    align-items: center;\n  }\n\n  .bc-layout-document-stack.bc-layout-align-end,\n  .bc-layout-stack.bc-layout-align-end {\n    align-items: flex-end;\n  }\n\n  .bc-layout-document-stack.bc-layout-align-stretch,\n  .bc-layout-stack.bc-layout-align-stretch {\n    align-items: stretch;\n  }\n\n  .bc-layout-stack.bc-layout-flow-column.bc-layout-align-stretch {\n    width: 100%;\n  }\n\n  .bc-layout-stack.bc-layout-flow-row.bc-layout-align-stretch {\n    height: 100%;\n  }\n\n  .bc-layout-stack.bc-layout-arrangement-packed {\n    justify-content: center;\n  }\n\n  .bc-layout-stack.bc-layout-arrangement-between.bc-layout-flow-row {\n    width: 100%;\n    justify-content: space-between;\n  }\n\n  .bc-layout-stack.bc-layout-arrangement-between.bc-layout-flow-column {\n    height: 100%;\n    justify-content: space-between;\n  }\n\n  .bc-layout-gap-none {\n    --bc-layout-gap: 0px;\n  }\n\n  .bc-layout-gap-sm {\n    --bc-layout-gap: 8px;\n  }\n\n  .bc-layout-gap-md {\n    --bc-layout-gap: 16px;\n  }\n\n  .bc-layout-gap-lg {\n    --bc-layout-gap: 24px;\n  }\n  ";
+  return _r0;
+}
+
+export const Midum$Internal$DOM$Layout$css_flow = () => ($Midum$Internal$DOM$Layout$css_flow());
 
 export function $Midum$Internal$DOM$Layout$css() {
   var _r0;
-  _r0 = "\n  .bc-layout-box {\n    box-sizing: border-box;\n    display: flex;\n    flex: 1 1 auto;\n    width: 100%;\n    max-width: 100%;\n    height: 100%;\n  }\n\n  .bc-screen > .bc-layout-box {\n    min-height: 100vh;\n    padding: 24px;\n  }\n\n  .bc-layout-box > div {\n    display: inline-flex;\n    box-sizing: border-box;\n    max-width: 100%;\n  }\n\n  .bc-layout-overlay {\n    position: relative;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    min-height: 100%;\n  }\n\n  .bc-screen > .bc-layout-overlay {\n    min-height: 100vh;\n  }\n\n  .bc-layout-overlay > .bc-layout-box {\n    position: absolute;\n    inset: 0;\n    padding: 24px;\n    pointer-events: none;\n  }\n\n  .bc-layout-overlay > .bc-layout-box > div {\n    pointer-events: auto;\n  }\n\n  .bc-layout-stack {\n    display: inline-flex;\n    box-sizing: border-box;\n    max-width: 100%;\n  }\n\n  .bc-layout-pos-top-left {\n    justify-content: flex-start;\n    align-items: flex-start;\n  }\n\n  .bc-layout-pos-top {\n    justify-content: center;\n    align-items: flex-start;\n  }\n\n  .bc-layout-pos-top-right {\n    justify-content: flex-end;\n    align-items: flex-start;\n  }\n\n  .bc-layout-pos-left {\n    justify-content: flex-start;\n    align-items: center;\n  }\n\n  .bc-layout-pos-center {\n    justify-content: center;\n    align-items: center;\n  }\n\n  .bc-layout-pos-right {\n    justify-content: flex-end;\n    align-items: center;\n  }\n\n  .bc-layout-pos-bottom-left {\n    justify-content: flex-start;\n    align-items: flex-end;\n  }\n\n  .bc-layout-pos-bottom {\n    justify-content: center;\n    align-items: flex-end;\n  }\n\n  .bc-layout-pos-bottom-right {\n    justify-content: flex-end;\n    align-items: flex-end;\n  }\n\n  .bc-layout-flow-row > div {\n    flex-direction: row;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-flow-column > div {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-stack.bc-layout-flow-row {\n    flex-direction: row;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-stack.bc-layout-flow-column {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--bc-layout-gap);\n  }\n\n  .bc-layout-gap-none {\n    --bc-layout-gap: 0px;\n  }\n\n  .bc-layout-gap-sm {\n    --bc-layout-gap: 8px;\n  }\n\n  .bc-layout-gap-md {\n    --bc-layout-gap: 16px;\n  }\n\n  .bc-layout-gap-lg {\n    --bc-layout-gap: 24px;\n  }\n  ";
+  var _v1;
+  var _v2;
+  _v2 = Midum$Internal$DOM$Layout$css_canvas();
+  var _v3;
+  _v3 = Midum$Internal$DOM$Layout$css_regions();
+  _v1 = (_v2 + _v3);
+  var _v4;
+  _v4 = Midum$Internal$DOM$Layout$css_flow();
+  _r0 = (_v1 + _v4);
   return _r0;
 }
 
@@ -13428,7 +14030,197 @@ export const Midum$Layout$Flow = null;
 
 export const Midum$Layout$Gap = null;
 
+export const Midum$Layout$Align = null;
+
+export const Midum$Internal$DOM$Layout$Arrangement = null;
+
 export const Midum$Layout$Config = null;
+
+export function $Nat$show(n) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = n;
+  _v1 = $Nat$to_u32(_v2);
+  _r0 = $U32$show(_v1);
+  return _r0;
+}
+
+export const Nat$show = () => ((a0) => ($Nat$show(a0)));
+
+export function $U32$show(n) {
+  var _r0;
+  var _v1;
+  _v1 = n;
+  var _v2;
+  _v2 = "";
+  _r0 = $U32$show$_0(_v1, _v2);
+  return _r0;
+}
+
+export const U32$show = () => ((a0) => ($U32$show(a0)));
+
+export function $U32$show$_0(x, x$1) {
+  while (true) {
+    var _r0;
+    if (((x) >>> 0) === 0) {
+      var out = x$1;
+      var _v1;
+      var _v2;
+      _v2 = 48;
+      _v1 = String.fromCharCode(((_v2) >>> 0) & 0xFFFF);
+      var _v3;
+      _v3 = out;
+      _r0 = (_v1 + _v3);
+    } else {
+      if (((x) >>> 0) === 1) {
+        var out = x$1;
+        var _v4;
+        var _v5;
+        _v5 = 49;
+        _v4 = String.fromCharCode(((_v5) >>> 0) & 0xFFFF);
+        var _v6;
+        _v6 = out;
+        _r0 = (_v4 + _v6);
+      } else {
+        if (((x) >>> 0) === 2) {
+          var out = x$1;
+          var _v7;
+          var _v8;
+          _v8 = 50;
+          _v7 = String.fromCharCode(((_v8) >>> 0) & 0xFFFF);
+          var _v9;
+          _v9 = out;
+          _r0 = (_v7 + _v9);
+        } else {
+          if (((x) >>> 0) === 3) {
+            var out = x$1;
+            var _v10;
+            var _v11;
+            _v11 = 51;
+            _v10 = String.fromCharCode(((_v11) >>> 0) & 0xFFFF);
+            var _v12;
+            _v12 = out;
+            _r0 = (_v10 + _v12);
+          } else {
+            if (((x) >>> 0) === 4) {
+              var out = x$1;
+              var _v13;
+              var _v14;
+              _v14 = 52;
+              _v13 = String.fromCharCode(((_v14) >>> 0) & 0xFFFF);
+              var _v15;
+              _v15 = out;
+              _r0 = (_v13 + _v15);
+            } else {
+              if (((x) >>> 0) === 5) {
+                var out = x$1;
+                var _v16;
+                var _v17;
+                _v17 = 53;
+                _v16 = String.fromCharCode(((_v17) >>> 0) & 0xFFFF);
+                var _v18;
+                _v18 = out;
+                _r0 = (_v16 + _v18);
+              } else {
+                if (((x) >>> 0) === 6) {
+                  var out = x$1;
+                  var _v19;
+                  var _v20;
+                  _v20 = 54;
+                  _v19 = String.fromCharCode(((_v20) >>> 0) & 0xFFFF);
+                  var _v21;
+                  _v21 = out;
+                  _r0 = (_v19 + _v21);
+                } else {
+                  if (((x) >>> 0) === 7) {
+                    var out = x$1;
+                    var _v22;
+                    var _v23;
+                    _v23 = 55;
+                    _v22 = String.fromCharCode(((_v23) >>> 0) & 0xFFFF);
+                    var _v24;
+                    _v24 = out;
+                    _r0 = (_v22 + _v24);
+                  } else {
+                    if (((x) >>> 0) === 8) {
+                      var out = x$1;
+                      var _v25;
+                      var _v26;
+                      _v26 = 56;
+                      _v25 = String.fromCharCode(((_v26) >>> 0) & 0xFFFF);
+                      var _v27;
+                      _v27 = out;
+                      _r0 = (_v25 + _v27);
+                    } else {
+                      if (((x) >>> 0) === 9) {
+                        var out = x$1;
+                        var _v28;
+                        var _v29;
+                        _v29 = 57;
+                        _v28 = String.fromCharCode(((_v29) >>> 0) & 0xFFFF);
+                        var _v30;
+                        _v30 = out;
+                        _r0 = (_v28 + _v30);
+                      } else {
+                        var p = x;
+                        var out$1 = x$1;
+                        var _v31;
+                        var _v32;
+                        _v32 = p;
+                        var _v33;
+                        _v33 = 10;
+                        _v31 = (((_v33) === 0 ? 0 : ((_v32) / (_v33))) >>> 0);
+                        var _v34;
+                        var _v35;
+                        var _v36;
+                        var _v37;
+                        _v37 = 48;
+                        var _v38;
+                        var _v39;
+                        _v39 = p;
+                        var _v40;
+                        _v40 = 10;
+                        _v38 = (((_v40) === 0 ? 0 : ((_v39) % (_v40))) >>> 0);
+                        _v36 = (((_v37) + (_v38)) >>> 0);
+                        _v35 = String.fromCharCode(((_v36) >>> 0) & 0xFFFF);
+                        var _v41;
+                        _v41 = out$1;
+                        _v34 = (_v35 + _v41);
+                        x = _v31;
+                        x$1 = _v34;
+                        continue;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return _r0;
+  }
+}
+
+export const U32$show$_0 = () => ((a0) => ((a1) => ($U32$show$_0(a0, a1))));
+
+export const Midum$Layout$Width = null;
+
+export const Midum$Layout$Height = null;
+
+export const Midum$Layout$Inset = null;
+
+export const Midum$Layout$MaxWidth = null;
+
+export const Midum$Layout$PageConfig = null;
+
+export const Midum$Layout$ContainerConfig = null;
+
+export const Midum$Layout$FrameConfig = null;
+
+export const Midum$Layout$StackConfig = null;
 
 export function $Midum$Internal$DOM$Card$primary(_Event, body$1, cfg$2) {
   var _r0;
@@ -14403,176 +15195,6 @@ export const Midum$Card$Border = null;
 export const Midum$Card$Gradient = null;
 
 export const Midum$Card$Surface = null;
-
-export function $Nat$show(n) {
-  var _r0;
-  var _v1;
-  var _v2;
-  _v2 = n;
-  _v1 = $Nat$to_u32(_v2);
-  _r0 = $U32$show(_v1);
-  return _r0;
-}
-
-export const Nat$show = () => ((a0) => ($Nat$show(a0)));
-
-export function $U32$show(n) {
-  var _r0;
-  var _v1;
-  _v1 = n;
-  var _v2;
-  _v2 = "";
-  _r0 = $U32$show$_0(_v1, _v2);
-  return _r0;
-}
-
-export const U32$show = () => ((a0) => ($U32$show(a0)));
-
-export function $U32$show$_0(x, x$1) {
-  while (true) {
-    var _r0;
-    if (((x) >>> 0) === 0) {
-      var out = x$1;
-      var _v1;
-      var _v2;
-      _v2 = 48;
-      _v1 = String.fromCharCode(((_v2) >>> 0) & 0xFFFF);
-      var _v3;
-      _v3 = out;
-      _r0 = (_v1 + _v3);
-    } else {
-      if (((x) >>> 0) === 1) {
-        var out = x$1;
-        var _v4;
-        var _v5;
-        _v5 = 49;
-        _v4 = String.fromCharCode(((_v5) >>> 0) & 0xFFFF);
-        var _v6;
-        _v6 = out;
-        _r0 = (_v4 + _v6);
-      } else {
-        if (((x) >>> 0) === 2) {
-          var out = x$1;
-          var _v7;
-          var _v8;
-          _v8 = 50;
-          _v7 = String.fromCharCode(((_v8) >>> 0) & 0xFFFF);
-          var _v9;
-          _v9 = out;
-          _r0 = (_v7 + _v9);
-        } else {
-          if (((x) >>> 0) === 3) {
-            var out = x$1;
-            var _v10;
-            var _v11;
-            _v11 = 51;
-            _v10 = String.fromCharCode(((_v11) >>> 0) & 0xFFFF);
-            var _v12;
-            _v12 = out;
-            _r0 = (_v10 + _v12);
-          } else {
-            if (((x) >>> 0) === 4) {
-              var out = x$1;
-              var _v13;
-              var _v14;
-              _v14 = 52;
-              _v13 = String.fromCharCode(((_v14) >>> 0) & 0xFFFF);
-              var _v15;
-              _v15 = out;
-              _r0 = (_v13 + _v15);
-            } else {
-              if (((x) >>> 0) === 5) {
-                var out = x$1;
-                var _v16;
-                var _v17;
-                _v17 = 53;
-                _v16 = String.fromCharCode(((_v17) >>> 0) & 0xFFFF);
-                var _v18;
-                _v18 = out;
-                _r0 = (_v16 + _v18);
-              } else {
-                if (((x) >>> 0) === 6) {
-                  var out = x$1;
-                  var _v19;
-                  var _v20;
-                  _v20 = 54;
-                  _v19 = String.fromCharCode(((_v20) >>> 0) & 0xFFFF);
-                  var _v21;
-                  _v21 = out;
-                  _r0 = (_v19 + _v21);
-                } else {
-                  if (((x) >>> 0) === 7) {
-                    var out = x$1;
-                    var _v22;
-                    var _v23;
-                    _v23 = 55;
-                    _v22 = String.fromCharCode(((_v23) >>> 0) & 0xFFFF);
-                    var _v24;
-                    _v24 = out;
-                    _r0 = (_v22 + _v24);
-                  } else {
-                    if (((x) >>> 0) === 8) {
-                      var out = x$1;
-                      var _v25;
-                      var _v26;
-                      _v26 = 56;
-                      _v25 = String.fromCharCode(((_v26) >>> 0) & 0xFFFF);
-                      var _v27;
-                      _v27 = out;
-                      _r0 = (_v25 + _v27);
-                    } else {
-                      if (((x) >>> 0) === 9) {
-                        var out = x$1;
-                        var _v28;
-                        var _v29;
-                        _v29 = 57;
-                        _v28 = String.fromCharCode(((_v29) >>> 0) & 0xFFFF);
-                        var _v30;
-                        _v30 = out;
-                        _r0 = (_v28 + _v30);
-                      } else {
-                        var p = x;
-                        var out$1 = x$1;
-                        var _v31;
-                        var _v32;
-                        _v32 = p;
-                        var _v33;
-                        _v33 = 10;
-                        _v31 = (((_v33) === 0 ? 0 : ((_v32) / (_v33))) >>> 0);
-                        var _v34;
-                        var _v35;
-                        var _v36;
-                        var _v37;
-                        _v37 = 48;
-                        var _v38;
-                        var _v39;
-                        _v39 = p;
-                        var _v40;
-                        _v40 = 10;
-                        _v38 = (((_v40) === 0 ? 0 : ((_v39) % (_v40))) >>> 0);
-                        _v36 = (((_v37) + (_v38)) >>> 0);
-                        _v35 = String.fromCharCode(((_v36) >>> 0) & 0xFFFF);
-                        var _v41;
-                        _v41 = out$1;
-                        _v34 = (_v35 + _v41);
-                        x = _v31;
-                        x$1 = _v34;
-                        continue;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return _r0;
-  }
-}
-
-export const U32$show$_0 = () => ((a0) => ((a1) => ($U32$show$_0(a0, a1))));
 
 export function $Midum$Internal$DOM$Button$primary(_Event, evt$1, cfg$2) {
   var _r0;
@@ -15987,7 +16609,7 @@ export function $Dungeon$View$css$layout_css() {
   _v11 = ".shell{width:min(100%,560px);min-height:100svh;height:100svh;max-height:100svh;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));overflow:hidden;}";
   _v9 = (_v10 + _v11);
   var _v12;
-  _v12 = ".shell--menu{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:22px;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));}.shell--dungeon,.shell--boosters,.shell--boosters-reveal{display:grid;grid-template-rows:auto minmax(0,1fr);gap:22px;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));}";
+  _v12 = ".shell--menu{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:22px;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));}.shell--setup{display:block;position:relative;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));}.shell--dungeon,.shell--boosters,.shell--boosters-reveal{display:grid;grid-template-rows:auto minmax(0,1fr);gap:22px;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));}";
   _v8 = (_v9 + _v12);
   var _v13;
   _v13 = ".topbar{display:flex;align-items:center;justify-content:flex-start;min-height:0;}.topbar--menu,.topbar--dungeon,.topbar--boosters{justify-content:space-between;gap:12px;}.topbar__back{display:flex;align-items:center;}.topbar__back>.bc-btn{width:auto;min-width:0;}.resource-bar{margin:0;display:inline-flex;align-items:baseline;gap:8px;color:var(--text-muted);font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.resource-bar__value{color:var(--text);font-size:1rem;letter-spacing:0;}.topbar__actions{display:flex;align-items:baseline;justify-content:flex-end;gap:12px;min-width:0;}.topbar__stats{display:flex;align-items:baseline;justify-content:flex-end;gap:14px;min-width:0;}.topbar__slot{display:flex;align-items:center;justify-content:flex-end;min-width:110px;}.topbar__slot .bc-btn{width:auto;min-width:0;}.topbar__slot--placeholder{display:flex;visibility:hidden;pointer-events:none;}.topbar-stat{margin:0;display:inline-flex;align-items:baseline;gap:6px;color:var(--text-muted);font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;}.topbar-stat__value{color:var(--text);font-size:0.92rem;letter-spacing:0;}";
@@ -16008,7 +16630,7 @@ export function $Dungeon$View$css$layout_css() {
   _v18 = ".board-shell{position:relative;display:grid;grid-template-rows:minmax(0,1fr) auto;justify-items:center;align-items:center;align-content:stretch;gap:12px;min-height:0;padding-block:8px;}.board-shell--over .board{transform:scale(0.985);filter:blur(1px);}.board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(100%,460px);touch-action:none;transition:transform 140ms ease,filter 140ms ease;}.ultimate-action{width:min(100%,460px);align-self:end;}.ultimate-action>.bc-btn{width:100%;letter-spacing:0.08em;text-transform:uppercase;}.game-over-modal{position:absolute;inset:0;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;background:rgba(17,17,17,0);transition:opacity 140ms ease,background-color 140ms ease;}.game-over-modal--visible{opacity:1;pointer-events:auto;background:rgba(17,17,17,0.32);}.game-over-modal>.bc-card{width:min(100%,280px);}.game-over-card{display:grid;gap:12px;justify-items:center;text-align:center;}.game-over-card__action{width:100%;}.game-over-card__action>.bc-btn{width:100%;}.game-over-card__actions{width:100%;display:grid;justify-items:center;gap:12px;padding-top:4px;}.game-over-card__primary,.game-over-card__secondary{width:min(100%,280px);justify-self:center;}.game-over-card__primary>.bc-btn,.game-over-card__secondary>.bc-btn{width:100%;}.game-over-card__eyebrow{margin:0;color:var(--danger);font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.game-over-card__title{margin:0;font-size:1.4rem;line-height:1;}.game-over-card__body{margin:0;color:var(--text-muted);font-size:0.92rem;line-height:1.35;}";
   _v2 = (_v3 + _v18);
   var _v19;
-  _v19 = "@media (max-width:800px){.shell{padding-inline:12px;}.shell--menu,.shell--dungeon,.shell--boosters,.shell--boosters-reveal{gap:16px;padding-top:calc(20px + env(safe-area-inset-top));padding-bottom:calc(18px + env(safe-area-inset-bottom));}.topbar--menu,.topbar--dungeon,.topbar--boosters{gap:10px;}.topbar__actions,.topbar__stats{gap:10px;}.topbar__slot{min-width:88px;}.topbar-stat{font-size:0.64rem;}.topbar-stat__value{font-size:0.82rem;}.menu-hero-panel{gap:12px;}.menu-hero-panel__name{font-size:1.08rem;}.menu-hero-panel__portrait{width:min(100%,190px);min-height:0;max-height:clamp(140px,24vh,190px);padding-bottom:4px;}.menu-hero-panel__portrait--select{width:min(100%,280px);max-height:clamp(140px,24vh,190px);}.menu-hero-panel__stats{font-size:0.8rem;white-space:normal;}.menu-upgrade-row{grid-template-columns:1fr;justify-items:center;gap:10px;}.menu-upgrade-row__meta{text-align:center;}.menu-secondary-action,.menu-start-action,.boosters-stage__buy{width:min(100%,260px);}.boosters-reveal__top-spacer{min-height:40px;}.booster-reveal-panel{gap:14px;}.booster-reveal-panel__meta{width:min(100%,248px);}.booster-reveal-panel__footer{padding-top:26px;}.booster-reveal-panel__action{width:min(100%,156px);}.reveal-meta{gap:6px;}.reveal-name{font-size:1rem;}.reveal-copies{font-size:0.82rem;}.reveal-stat--detail{font-size:0.88rem;}.reveal-position{font-size:0.82rem;}.booster-visual{width:min(100%,248px);padding:14px;}.booster-visual--revealed{max-height:clamp(280px,48vh,360px);}.booster-visual--midum{padding:0;}.booster-visual__detail--midum{padding:14px;}.booster-visual__image{max-height:156px;}.booster-visual__image--midum{transform:translateY(-9px);}.booster-visual__nav{gap:8px;}.board{gap:8px;width:min(100%,400px);}.ultimate-action{width:min(100%,400px);}.game-over-modal>.bc-card{width:min(100%,240px);}}";
+  _v19 = "@media (max-width:800px){.shell{padding-inline:12px;}.shell--menu,.shell--setup,.shell--dungeon,.shell--boosters,.shell--boosters-reveal{gap:16px;padding-top:calc(20px + env(safe-area-inset-top));padding-bottom:calc(18px + env(safe-area-inset-bottom));}.topbar--menu,.topbar--dungeon,.topbar--boosters{gap:10px;}.topbar__actions,.topbar__stats{gap:10px;}.topbar__slot{min-width:88px;}.topbar-stat{font-size:0.64rem;}.topbar-stat__value{font-size:0.82rem;}.menu-hero-panel{gap:12px;}.menu-hero-panel__name{font-size:1.08rem;}.menu-hero-panel__portrait{width:min(100%,190px);min-height:0;max-height:clamp(140px,24vh,190px);padding-bottom:4px;}.menu-hero-panel__portrait--select{width:min(100%,280px);max-height:clamp(140px,24vh,190px);}.menu-hero-panel__stats{font-size:0.8rem;white-space:normal;}.menu-upgrade-row{grid-template-columns:1fr;justify-items:center;gap:10px;}.menu-upgrade-row__meta{text-align:center;}.menu-secondary-action,.menu-start-action,.boosters-stage__buy{width:min(100%,260px);}.boosters-reveal__top-spacer{min-height:40px;}.booster-reveal-panel{gap:14px;}.booster-reveal-panel__meta{width:min(100%,248px);}.booster-reveal-panel__footer{padding-top:26px;}.booster-reveal-panel__action{width:min(100%,156px);}.reveal-meta{gap:6px;}.reveal-name{font-size:1rem;}.reveal-copies{font-size:0.82rem;}.reveal-stat--detail{font-size:0.88rem;}.reveal-position{font-size:0.82rem;}.booster-visual{width:min(100%,248px);padding:14px;}.booster-visual--revealed{max-height:clamp(280px,48vh,360px);}.booster-visual--midum{padding:0;}.booster-visual__detail--midum{padding:14px;}.booster-visual__image{max-height:156px;}.booster-visual__image--midum{transform:translateY(-9px);}.booster-visual__nav{gap:8px;}.board{gap:8px;width:min(100%,400px);}.ultimate-action{width:min(100%,400px);}.game-over-modal>.bc-card{width:min(100%,240px);}}";
   _v1 = (_v2 + _v19);
   var _v20;
   _v20 = "@media (max-width:800px){.hero-hud{width:min(100%,228px);column-gap:16px;}.hero-hud__level .bc-text{font-size:0.94rem;}.hero-hud__heart{width:40px;flex-basis:40px;}.hero-hud__heart-value{font-size:0.92rem;}.hero-hud__max .bc-text{font-size:0.94rem;}.menu-upgrade-row--placeholder{width:min(100%,260px);min-height:72px;}}";
@@ -16291,7 +16913,7 @@ export function $Dungeon$View$menu$_render_menu(meta_state) {
   var _v8;
   _v8 = "class";
   var _v9;
-  _v9 = "shell shell--menu";
+  _v9 = "shell shell--setup";
   _v7 = ({$: "attr", nam: _v8, val: _v9});
   var _v10;
   _v10 = ({$: "nil"});
@@ -16299,126 +16921,196 @@ export function $Dungeon$View$menu$_render_menu(meta_state) {
   var _v11;
   var _v12;
   var _v13;
-  _v13 = meta_state;
+  _v13 = null;
   var _v14;
-  _v14 = Dungeon$View$menu$_header_characters_action();
-  _v12 = $Dungeon$View$menu$_dashboard_header(_v13, _v14);
   var _v15;
+  _v15 = null;
   var _v16;
   var _v17;
-  _v17 = "section";
   var _v18;
+  _v18 = null;
   var _v19;
   var _v20;
-  _v20 = "class";
+  _v20 = null;
   var _v21;
-  _v21 = "menu-stage";
-  _v19 = ({$: "attr", nam: _v20, val: _v21});
   var _v22;
-  _v22 = ({$: "nil"});
-  _v18 = ({$: "cons", head: _v19, tail: _v22});
+  _v22 = meta_state;
   var _v23;
+  _v23 = Dungeon$View$menu$_header_characters_action();
+  _v21 = $Dungeon$View$menu$_dashboard_header(_v22, _v23);
   var _v24;
   var _v25;
-  _v25 = "div";
+  _v25 = ({$: "width_full"});
   var _v26;
   var _v27;
+  _v27 = ({$: "height_fit"});
   var _v28;
-  _v28 = "class";
   var _v29;
-  _v29 = "menu-stage__content";
-  _v27 = ({$: "attr", nam: _v28, val: _v29});
+  _v29 = ({$: "inset_none"});
   var _v30;
   _v30 = ({$: "nil"});
-  _v26 = ({$: "cons", head: _v27, tail: _v30});
+  _v28 = ({$: "cons", head: _v29, tail: _v30});
+  _v26 = ({$: "cons", head: _v27, tail: _v28});
+  _v24 = ({$: "cons", head: _v25, tail: _v26});
+  _v19 = $Midum$Layout$frame(_v20, _v21, _v24);
+  _v17 = $Midum$Layout$top(_v18, _v19);
   var _v31;
   var _v32;
   var _v33;
-  _v33 = meta_state;
+  _v33 = null;
   var _v34;
-  _v34 = hero_value$2;
   var _v35;
-  _v35 = profile$3;
-  _v32 = $Dungeon$View$menu$_menu_hero_panel(_v33, _v34, _v35);
+  _v35 = null;
   var _v36;
-  _v36 = ({$: "nil"});
-  _v31 = ({$: "cons", head: _v32, tail: _v36});
-  _v24 = ({$: "node", tag: _v25, attrs: _v26, kids: _v31});
   var _v37;
-  _v37 = ({$: "nil"});
-  _v23 = ({$: "cons", head: _v24, tail: _v37});
-  _v16 = ({$: "node", tag: _v17, attrs: _v18, kids: _v23});
+  _v37 = "section";
   var _v38;
   var _v39;
   var _v40;
-  _v40 = "section";
+  _v40 = "class";
   var _v41;
+  _v41 = "menu-stage";
+  _v39 = ({$: "attr", nam: _v40, val: _v41});
   var _v42;
+  _v42 = ({$: "nil"});
+  _v38 = ({$: "cons", head: _v39, tail: _v42});
   var _v43;
-  _v43 = "class";
   var _v44;
-  _v44 = "menu-actions";
-  _v42 = ({$: "attr", nam: _v43, val: _v44});
   var _v45;
-  _v45 = ({$: "nil"});
-  _v41 = ({$: "cons", head: _v42, tail: _v45});
+  _v45 = "div";
   var _v46;
   var _v47;
   var _v48;
-  _v48 = "div";
+  _v48 = "class";
   var _v49;
+  _v49 = "menu-stage__content";
+  _v47 = ({$: "attr", nam: _v48, val: _v49});
   var _v50;
+  _v50 = ({$: "nil"});
+  _v46 = ({$: "cons", head: _v47, tail: _v50});
   var _v51;
-  _v51 = "class";
   var _v52;
-  _v52 = "menu-secondary-action";
-  _v50 = ({$: "attr", nam: _v51, val: _v52});
   var _v53;
-  _v53 = ({$: "nil"});
-  _v49 = ({$: "cons", head: _v50, tail: _v53});
+  _v53 = meta_state;
   var _v54;
+  _v54 = hero_value$2;
   var _v55;
-  _v55 = Dungeon$View$menu$_menu_boosters_button();
+  _v55 = profile$3;
+  _v52 = $Dungeon$View$menu$_menu_hero_panel(_v53, _v54, _v55);
   var _v56;
   _v56 = ({$: "nil"});
-  _v54 = ({$: "cons", head: _v55, tail: _v56});
-  _v47 = ({$: "node", tag: _v48, attrs: _v49, kids: _v54});
+  _v51 = ({$: "cons", head: _v52, tail: _v56});
+  _v44 = ({$: "node", tag: _v45, attrs: _v46, kids: _v51});
   var _v57;
+  _v57 = ({$: "nil"});
+  _v43 = ({$: "cons", head: _v44, tail: _v57});
+  _v36 = ({$: "node", tag: _v37, attrs: _v38, kids: _v43});
   var _v58;
   var _v59;
-  _v59 = "div";
+  _v59 = ({$: "width_full"});
   var _v60;
   var _v61;
+  _v61 = ({$: "height_fit"});
   var _v62;
-  _v62 = "class";
   var _v63;
-  _v63 = "menu-start-action";
-  _v61 = ({$: "attr", nam: _v62, val: _v63});
+  _v63 = ({$: "inset_none"});
   var _v64;
   _v64 = ({$: "nil"});
-  _v60 = ({$: "cons", head: _v61, tail: _v64});
+  _v62 = ({$: "cons", head: _v63, tail: _v64});
+  _v60 = ({$: "cons", head: _v61, tail: _v62});
+  _v58 = ({$: "cons", head: _v59, tail: _v60});
+  _v34 = $Midum$Layout$frame(_v35, _v36, _v58);
+  _v32 = $Midum$Layout$center(_v33, _v34);
   var _v65;
   var _v66;
-  _v66 = Dungeon$View$menu$_menu_start_button();
   var _v67;
-  _v67 = ({$: "nil"});
-  _v65 = ({$: "cons", head: _v66, tail: _v67});
-  _v58 = ({$: "node", tag: _v59, attrs: _v60, kids: _v65});
+  _v67 = null;
   var _v68;
-  _v68 = ({$: "nil"});
-  _v57 = ({$: "cons", head: _v58, tail: _v68});
-  _v46 = ({$: "cons", head: _v47, tail: _v57});
-  _v39 = ({$: "node", tag: _v40, attrs: _v41, kids: _v46});
+  _v68 = Dungeon$View$menu$_menu_actions_layout();
+  _v66 = $Midum$Layout$bottom(_v67, _v68);
   var _v69;
   _v69 = ({$: "nil"});
-  _v38 = ({$: "cons", head: _v39, tail: _v69});
-  _v15 = ({$: "cons", head: _v16, tail: _v38});
-  _v11 = ({$: "cons", head: _v12, tail: _v15});
+  _v65 = ({$: "cons", head: _v66, tail: _v69});
+  _v31 = ({$: "cons", head: _v32, tail: _v65});
+  _v16 = ({$: "cons", head: _v17, tail: _v31});
+  _v14 = $Midum$Layout$overlay(_v15, _v16);
+  var _v70;
+  var _v71;
+  _v71 = ({$: "width_full"});
+  var _v72;
+  var _v73;
+  _v73 = ({$: "height_full"});
+  var _v74;
+  var _v75;
+  _v75 = ({$: "inset_none"});
+  var _v76;
+  _v76 = ({$: "nil"});
+  _v74 = ({$: "cons", head: _v75, tail: _v76});
+  _v72 = ({$: "cons", head: _v73, tail: _v74});
+  _v70 = ({$: "cons", head: _v71, tail: _v72});
+  _v12 = $Midum$Layout$frame(_v13, _v14, _v70);
+  var _v77;
+  _v77 = ({$: "nil"});
+  _v11 = ({$: "cons", head: _v12, tail: _v77});
   _r0 = ({$: "node", tag: _v5, attrs: _v6, kids: _v11});
   return _r0;
 }
 
 export const Dungeon$View$menu$_render_menu = () => ((a0) => ($Dungeon$View$menu$_render_menu(a0)));
+
+export function $Dungeon$View$menu$_menu_actions_layout() {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  var _v3;
+  _v3 = null;
+  var _v4;
+  var _v5;
+  _v5 = Dungeon$View$menu$_menu_boosters_button();
+  var _v6;
+  var _v7;
+  _v7 = Dungeon$View$menu$_menu_start_button();
+  var _v8;
+  _v8 = ({$: "nil"});
+  _v6 = ({$: "cons", head: _v7, tail: _v8});
+  _v4 = ({$: "cons", head: _v5, tail: _v6});
+  var _v9;
+  var _v10;
+  _v10 = ({$: "direction_column"});
+  var _v11;
+  var _v12;
+  _v12 = ({$: "gap_sm"});
+  var _v13;
+  var _v14;
+  _v14 = ({$: "align_stretch"});
+  var _v15;
+  _v15 = ({$: "nil"});
+  _v13 = ({$: "cons", head: _v14, tail: _v15});
+  _v11 = ({$: "cons", head: _v12, tail: _v13});
+  _v9 = ({$: "cons", head: _v10, tail: _v11});
+  _v2 = $Midum$Layout$group(_v3, _v4, _v9);
+  var _v16;
+  var _v17;
+  var _v18;
+  _v18 = 280;
+  _v17 = ({$: "width_px", value: _v18});
+  var _v19;
+  var _v20;
+  _v20 = ({$: "height_fit"});
+  var _v21;
+  var _v22;
+  _v22 = ({$: "inset_none"});
+  var _v23;
+  _v23 = ({$: "nil"});
+  _v21 = ({$: "cons", head: _v22, tail: _v23});
+  _v19 = ({$: "cons", head: _v20, tail: _v21});
+  _v16 = ({$: "cons", head: _v17, tail: _v19});
+  _r0 = $Midum$Layout$frame(_v1, _v2, _v16);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_menu_actions_layout = () => ($Dungeon$View$menu$_menu_actions_layout());
 
 export function $Dungeon$View$menu$_render_character_select(meta_state, preview_hero$1) {
   var _r0;
@@ -17186,7 +17878,7 @@ export function $Dungeon$View$menu$_menu_upgrade_row(meta_state, hero_value$1, p
   var _v7;
   _v7 = profile$2;
   _v4 = $Dungeon$View$selectors$menu_upgrade_visible(_v5, _v6, _v7);
-  _r0 = $cm_18(_v1, _v2, _v3, _v4);
+  _r0 = $Dungeon$View$menu$_menu_upgrade_row$_0(_v1, _v2, _v3, _v4);
   return _r0;
 }
 
@@ -17256,7 +17948,7 @@ export function $Dungeon$View$menu$_menu_boosters_button() {
   var _v5;
   var _v6;
   _v6 = 1;
-  _v5 = $Dungeon$View$menu$_fit_button_overrides(_v6);
+  _v5 = $Dungeon$View$menu$_full_button_overrides(_v6);
   _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v5);
   return _r0;
 }
@@ -18559,7 +19251,7 @@ export function $Dungeon$View$selectors$character_upgrade_label(hero_value, prof
   var _v4;
   _v4 = profile$1;
   _v3 = $Dungeon$profile_helpers$profile_unlocked(_v4);
-  _r0 = $cm_19(_v1, _v2, _v3);
+  _r0 = $Dungeon$View$selectors$character_upgrade_label$_0(_v1, _v2, _v3);
   return _r0;
 }
 
@@ -18575,7 +19267,7 @@ export function $Dungeon$View$selectors$character_upgrade_cost_text(hero_value, 
   var _v4;
   _v4 = profile$1;
   _v3 = $Dungeon$profile_helpers$profile_unlocked(_v4);
-  _r0 = $cm_20(_v1, _v2, _v3);
+  _r0 = $Dungeon$View$selectors$character_upgrade_cost_text$_0(_v1, _v2, _v3);
   return _r0;
 }
 
@@ -18630,7 +19322,7 @@ export function $Dungeon$View$selectors$character_primary_label(meta_state, hero
   var _v6;
   _v6 = profile$3;
   _v5 = $Dungeon$profile_helpers$profile_unlocked(_v6);
-  _r0 = $cm_21(_v1, _v2, _v3, _v4, _v5);
+  _r0 = $Dungeon$View$selectors$character_primary_label$_0(_v1, _v2, _v3, _v4, _v5);
   return _r0;
 }
 
@@ -18663,7 +19355,7 @@ export function $Dungeon$View$selectors$character_primary_enabled(meta_state, he
   var _v6;
   _v6 = profile$3;
   _v5 = $Dungeon$profile_helpers$profile_unlocked(_v6);
-  _r0 = $cm_22(_v1, _v2, _v3, _v4, _v5);
+  _r0 = $Dungeon$View$selectors$character_primary_enabled$_0(_v1, _v2, _v3, _v4, _v5);
   return _r0;
 }
 
@@ -19261,6 +19953,1682 @@ export function $Dungeon$Boosters$packs$pack_at(x, x$1) {
 }
 
 export const Dungeon$Boosters$packs$pack_at = () => ((a0) => ((a1) => ($Dungeon$Boosters$packs$pack_at(a0, a1))));
+
+export function $Midum$Layout$with_frame_width(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "frame": {
+      var _m1 = x.width;
+      var _m2 = x.height;
+      var _m3 = x.inset;
+      var width = _m1;
+      var height$1 = _m2;
+      var inset$2 = _m3;
+      var next_width$3 = x$1;
+      var _v4;
+      _v4 = next_width$3;
+      var _v5;
+      _v5 = height$1;
+      var _v6;
+      _v6 = inset$2;
+      _r0 = ({$: "frame", width: _v4, height: _v5, inset: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_frame_width = () => ((a0) => ((a1) => ($Midum$Layout$with_frame_width(a0, a1))));
+
+export function $Midum$Layout$with_frame_height(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "frame": {
+      var _m1 = x.width;
+      var _m2 = x.height;
+      var _m3 = x.inset;
+      var width = _m1;
+      var height$1 = _m2;
+      var inset$2 = _m3;
+      var next_height$3 = x$1;
+      var _v4;
+      _v4 = width;
+      var _v5;
+      _v5 = next_height$3;
+      var _v6;
+      _v6 = inset$2;
+      _r0 = ({$: "frame", width: _v4, height: _v5, inset: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_frame_height = () => ((a0) => ((a1) => ($Midum$Layout$with_frame_height(a0, a1))));
+
+export function $Midum$Layout$with_frame_inset(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "frame": {
+      var _m1 = x.width;
+      var _m2 = x.height;
+      var _m3 = x.inset;
+      var width = _m1;
+      var height$1 = _m2;
+      var inset$2 = _m3;
+      var next_inset$3 = x$1;
+      var _v4;
+      _v4 = width;
+      var _v5;
+      _v5 = height$1;
+      var _v6;
+      _v6 = next_inset$3;
+      _r0 = ({$: "frame", width: _v4, height: _v5, inset: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_frame_inset = () => ((a0) => ((a1) => ($Midum$Layout$with_frame_inset(a0, a1))));
+
+export function $Midum$Layout$apply_frame_override(cfg, x$1) {
+  var _r0;
+  switch (x$1.$) {
+    case "width_fit": {
+      var _v1;
+      _v1 = cfg;
+      var _v2;
+      _v2 = ({$: "fit"});
+      _r0 = $Midum$Layout$with_frame_width(_v1, _v2);
+      break;
+    }
+    default: {
+      switch (x$1.$) {
+        case "width_full": {
+          var _v3;
+          _v3 = cfg;
+          var _v4;
+          _v4 = ({$: "full"});
+          _r0 = $Midum$Layout$with_frame_width(_v3, _v4);
+          break;
+        }
+        default: {
+          switch (x$1.$) {
+            case "width_px": {
+              var _m5 = x$1.value;
+              var value$1 = _m5;
+              var _v6;
+              _v6 = cfg;
+              var _v7;
+              var _v8;
+              _v8 = value$1;
+              _v7 = ({$: "px", value: _v8});
+              _r0 = $Midum$Layout$with_frame_width(_v6, _v7);
+              break;
+            }
+            default: {
+              switch (x$1.$) {
+                case "height_fit": {
+                  var _v9;
+                  _v9 = cfg;
+                  var _v10;
+                  _v10 = ({$: "fit"});
+                  _r0 = $Midum$Layout$with_frame_height(_v9, _v10);
+                  break;
+                }
+                default: {
+                  switch (x$1.$) {
+                    case "height_full": {
+                      var _v11;
+                      _v11 = cfg;
+                      var _v12;
+                      _v12 = ({$: "full"});
+                      _r0 = $Midum$Layout$with_frame_height(_v11, _v12);
+                      break;
+                    }
+                    default: {
+                      switch (x$1.$) {
+                        case "height_px": {
+                          var _m13 = x$1.value;
+                          var value$1 = _m13;
+                          var _v14;
+                          _v14 = cfg;
+                          var _v15;
+                          var _v16;
+                          _v16 = value$1;
+                          _v15 = ({$: "px", value: _v16});
+                          _r0 = $Midum$Layout$with_frame_height(_v14, _v15);
+                          break;
+                        }
+                        default: {
+                          switch (x$1.$) {
+                            case "inset_none": {
+                              var _v17;
+                              _v17 = cfg;
+                              var _v18;
+                              _v18 = ({$: "none"});
+                              _r0 = $Midum$Layout$with_frame_inset(_v17, _v18);
+                              break;
+                            }
+                            default: {
+                              switch (x$1.$) {
+                                case "inset_sm": {
+                                  var _v19;
+                                  _v19 = cfg;
+                                  var _v20;
+                                  _v20 = ({$: "sm"});
+                                  _r0 = $Midum$Layout$with_frame_inset(_v19, _v20);
+                                  break;
+                                }
+                                default: {
+                                  switch (x$1.$) {
+                                    case "inset_md": {
+                                      var _v21;
+                                      _v21 = cfg;
+                                      var _v22;
+                                      _v22 = ({$: "md"});
+                                      _r0 = $Midum$Layout$with_frame_inset(_v21, _v22);
+                                      break;
+                                    }
+                                    default: {
+                                      switch (x$1.$) {
+                                        case "inset_lg": {
+                                          var _v23;
+                                          _v23 = cfg;
+                                          var _v24;
+                                          _v24 = ({$: "lg"});
+                                          _r0 = $Midum$Layout$with_frame_inset(_v23, _v24);
+                                          break;
+                                        }
+                                        default: {
+                                          switch (x$1.$) {
+                                            case "max_width_px": {
+                                              var _m25 = x$1.value;
+                                              var value$1 = _m25;
+                                              _r0 = cfg;
+                                              break;
+                                            }
+                                            default: {
+                                              switch (x$1.$) {
+                                                case "direction_column": {
+                                                  _r0 = cfg;
+                                                  break;
+                                                }
+                                                default: {
+                                                  switch (x$1.$) {
+                                                    case "direction_row": {
+                                                      _r0 = cfg;
+                                                      break;
+                                                    }
+                                                    default: {
+                                                      switch (x$1.$) {
+                                                        case "gap_none": {
+                                                          _r0 = cfg;
+                                                          break;
+                                                        }
+                                                        default: {
+                                                          switch (x$1.$) {
+                                                            case "gap_sm": {
+                                                              _r0 = cfg;
+                                                              break;
+                                                            }
+                                                            default: {
+                                                              switch (x$1.$) {
+                                                                case "gap_md": {
+                                                                  _r0 = cfg;
+                                                                  break;
+                                                                }
+                                                                default: {
+                                                                  switch (x$1.$) {
+                                                                    case "gap_lg": {
+                                                                      _r0 = cfg;
+                                                                      break;
+                                                                    }
+                                                                    default: {
+                                                                      switch (x$1.$) {
+                                                                        case "align_start": {
+                                                                          _r0 = cfg;
+                                                                          break;
+                                                                        }
+                                                                        default: {
+                                                                          switch (x$1.$) {
+                                                                            case "align_center": {
+                                                                              _r0 = cfg;
+                                                                              break;
+                                                                            }
+                                                                            default: {
+                                                                              switch (x$1.$) {
+                                                                                case "align_end": {
+                                                                                  _r0 = cfg;
+                                                                                  break;
+                                                                                }
+                                                                                default: {
+                                                                                  switch (x$1.$) {
+                                                                                    case "align_stretch": {
+                                                                                      _r0 = cfg;
+                                                                                      break;
+                                                                                    }
+                                                                                    default: {
+                                                                                      throw new Error("EFQ applied");
+                                                                                      break;
+                                                                                    }
+                                                                                  }
+                                                                                  break;
+                                                                                }
+                                                                              }
+                                                                              break;
+                                                                            }
+                                                                          }
+                                                                          break;
+                                                                        }
+                                                                      }
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                  break;
+                                                                }
+                                                              }
+                                                              break;
+                                                            }
+                                                          }
+                                                          break;
+                                                        }
+                                                      }
+                                                      break;
+                                                    }
+                                                  }
+                                                  break;
+                                                }
+                                              }
+                                              break;
+                                            }
+                                          }
+                                          break;
+                                        }
+                                      }
+                                      break;
+                                    }
+                                  }
+                                  break;
+                                }
+                              }
+                              break;
+                            }
+                          }
+                          break;
+                        }
+                      }
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$apply_frame_override = () => ((a0) => ((a1) => ($Midum$Layout$apply_frame_override(a0, a1))));
+
+export function $Midum$Layout$apply_frame_overrides(cfg, x$1) {
+  while (true) {
+    var _r0;
+    switch (x$1.$) {
+      case "nil": {
+        _r0 = cfg;
+        break;
+      }
+      default: {
+        switch (x$1.$) {
+          case "cons": {
+            var _m1 = x$1.head;
+            var _m2 = x$1.tail;
+            var override$1 = _m1;
+            var rest$2 = _m2;
+            var _v3;
+            var _v4;
+            _v4 = cfg;
+            var _v5;
+            _v5 = override$1;
+            _v3 = $Midum$Layout$apply_frame_override(_v4, _v5);
+            var _v6;
+            _v6 = rest$2;
+            cfg = _v3;
+            x$1 = _v6;
+            continue;
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Midum$Layout$apply_frame_overrides = () => ((a0) => ((a1) => ($Midum$Layout$apply_frame_overrides(a0, a1))));
+
+export function $Midum$Layout$frame_config(overrides) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = ({$: "fit"});
+  var _v3;
+  _v3 = ({$: "fit"});
+  var _v4;
+  _v4 = ({$: "md"});
+  _v1 = ({$: "frame", width: _v2, height: _v3, inset: _v4});
+  var _v5;
+  _v5 = overrides;
+  _r0 = $Midum$Layout$apply_frame_overrides(_v1, _v5);
+  return _r0;
+}
+
+export const Midum$Layout$frame_config = () => ((a0) => ($Midum$Layout$frame_config(a0)));
+
+export function $Midum$Layout$apply_page_override(cfg, x$1) {
+  var _r0;
+  switch (x$1.$) {
+    case "inset_none": {
+      var _v1;
+      _v1 = ({$: "none"});
+      _r0 = ({$: "page_layout", inset: _v1});
+      break;
+    }
+    default: {
+      switch (x$1.$) {
+        case "inset_sm": {
+          var _v2;
+          _v2 = ({$: "sm"});
+          _r0 = ({$: "page_layout", inset: _v2});
+          break;
+        }
+        default: {
+          switch (x$1.$) {
+            case "inset_md": {
+              var _v3;
+              _v3 = ({$: "md"});
+              _r0 = ({$: "page_layout", inset: _v3});
+              break;
+            }
+            default: {
+              switch (x$1.$) {
+                case "inset_lg": {
+                  var _v4;
+                  _v4 = ({$: "lg"});
+                  _r0 = ({$: "page_layout", inset: _v4});
+                  break;
+                }
+                default: {
+                  switch (x$1.$) {
+                    case "width_fit": {
+                      _r0 = cfg;
+                      break;
+                    }
+                    default: {
+                      switch (x$1.$) {
+                        case "width_full": {
+                          _r0 = cfg;
+                          break;
+                        }
+                        default: {
+                          switch (x$1.$) {
+                            case "width_px": {
+                              var _m5 = x$1.value;
+                              var value$1 = _m5;
+                              _r0 = cfg;
+                              break;
+                            }
+                            default: {
+                              switch (x$1.$) {
+                                case "height_fit": {
+                                  _r0 = cfg;
+                                  break;
+                                }
+                                default: {
+                                  switch (x$1.$) {
+                                    case "height_full": {
+                                      _r0 = cfg;
+                                      break;
+                                    }
+                                    default: {
+                                      switch (x$1.$) {
+                                        case "height_px": {
+                                          var _m6 = x$1.value;
+                                          var value$1 = _m6;
+                                          _r0 = cfg;
+                                          break;
+                                        }
+                                        default: {
+                                          switch (x$1.$) {
+                                            case "max_width_px": {
+                                              var _m7 = x$1.value;
+                                              var value$1 = _m7;
+                                              _r0 = cfg;
+                                              break;
+                                            }
+                                            default: {
+                                              switch (x$1.$) {
+                                                case "direction_column": {
+                                                  _r0 = cfg;
+                                                  break;
+                                                }
+                                                default: {
+                                                  switch (x$1.$) {
+                                                    case "direction_row": {
+                                                      _r0 = cfg;
+                                                      break;
+                                                    }
+                                                    default: {
+                                                      switch (x$1.$) {
+                                                        case "gap_none": {
+                                                          _r0 = cfg;
+                                                          break;
+                                                        }
+                                                        default: {
+                                                          switch (x$1.$) {
+                                                            case "gap_sm": {
+                                                              _r0 = cfg;
+                                                              break;
+                                                            }
+                                                            default: {
+                                                              switch (x$1.$) {
+                                                                case "gap_md": {
+                                                                  _r0 = cfg;
+                                                                  break;
+                                                                }
+                                                                default: {
+                                                                  switch (x$1.$) {
+                                                                    case "gap_lg": {
+                                                                      _r0 = cfg;
+                                                                      break;
+                                                                    }
+                                                                    default: {
+                                                                      switch (x$1.$) {
+                                                                        case "align_start": {
+                                                                          _r0 = cfg;
+                                                                          break;
+                                                                        }
+                                                                        default: {
+                                                                          switch (x$1.$) {
+                                                                            case "align_center": {
+                                                                              _r0 = cfg;
+                                                                              break;
+                                                                            }
+                                                                            default: {
+                                                                              switch (x$1.$) {
+                                                                                case "align_end": {
+                                                                                  _r0 = cfg;
+                                                                                  break;
+                                                                                }
+                                                                                default: {
+                                                                                  switch (x$1.$) {
+                                                                                    case "align_stretch": {
+                                                                                      _r0 = cfg;
+                                                                                      break;
+                                                                                    }
+                                                                                    default: {
+                                                                                      throw new Error("EFQ applied");
+                                                                                      break;
+                                                                                    }
+                                                                                  }
+                                                                                  break;
+                                                                                }
+                                                                              }
+                                                                              break;
+                                                                            }
+                                                                          }
+                                                                          break;
+                                                                        }
+                                                                      }
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                  break;
+                                                                }
+                                                              }
+                                                              break;
+                                                            }
+                                                          }
+                                                          break;
+                                                        }
+                                                      }
+                                                      break;
+                                                    }
+                                                  }
+                                                  break;
+                                                }
+                                              }
+                                              break;
+                                            }
+                                          }
+                                          break;
+                                        }
+                                      }
+                                      break;
+                                    }
+                                  }
+                                  break;
+                                }
+                              }
+                              break;
+                            }
+                          }
+                          break;
+                        }
+                      }
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$apply_page_override = () => ((a0) => ((a1) => ($Midum$Layout$apply_page_override(a0, a1))));
+
+export function $Midum$Layout$apply_page_overrides(cfg, x$1) {
+  while (true) {
+    var _r0;
+    switch (x$1.$) {
+      case "nil": {
+        _r0 = cfg;
+        break;
+      }
+      default: {
+        switch (x$1.$) {
+          case "cons": {
+            var _m1 = x$1.head;
+            var _m2 = x$1.tail;
+            var override$1 = _m1;
+            var rest$2 = _m2;
+            var _v3;
+            var _v4;
+            _v4 = cfg;
+            var _v5;
+            _v5 = override$1;
+            _v3 = $Midum$Layout$apply_page_override(_v4, _v5);
+            var _v6;
+            _v6 = rest$2;
+            cfg = _v3;
+            x$1 = _v6;
+            continue;
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Midum$Layout$apply_page_overrides = () => ((a0) => ((a1) => ($Midum$Layout$apply_page_overrides(a0, a1))));
+
+export function $Midum$Layout$page_config(overrides) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = ({$: "md"});
+  _v1 = ({$: "page_layout", inset: _v2});
+  var _v3;
+  _v3 = overrides;
+  _r0 = $Midum$Layout$apply_page_overrides(_v1, _v3);
+  return _r0;
+}
+
+export const Midum$Layout$page_config = () => ((a0) => ($Midum$Layout$page_config(a0)));
+
+export function $Midum$Layout$apply_container_override(cfg, x$1) {
+  var _r0;
+  switch (x$1.$) {
+    case "max_width_px": {
+      var _m1 = x$1.value;
+      var value$1 = _m1;
+      var _v2;
+      var _v3;
+      _v3 = value$1;
+      _v2 = ({$: "max_width_px_value", value: _v3});
+      _r0 = ({$: "container_layout", max_width: _v2});
+      break;
+    }
+    default: {
+      switch (x$1.$) {
+        case "width_fit": {
+          _r0 = cfg;
+          break;
+        }
+        default: {
+          switch (x$1.$) {
+            case "width_full": {
+              _r0 = cfg;
+              break;
+            }
+            default: {
+              switch (x$1.$) {
+                case "width_px": {
+                  var _m4 = x$1.value;
+                  var value$1 = _m4;
+                  _r0 = cfg;
+                  break;
+                }
+                default: {
+                  switch (x$1.$) {
+                    case "height_fit": {
+                      _r0 = cfg;
+                      break;
+                    }
+                    default: {
+                      switch (x$1.$) {
+                        case "height_full": {
+                          _r0 = cfg;
+                          break;
+                        }
+                        default: {
+                          switch (x$1.$) {
+                            case "height_px": {
+                              var _m5 = x$1.value;
+                              var value$1 = _m5;
+                              _r0 = cfg;
+                              break;
+                            }
+                            default: {
+                              switch (x$1.$) {
+                                case "inset_none": {
+                                  _r0 = cfg;
+                                  break;
+                                }
+                                default: {
+                                  switch (x$1.$) {
+                                    case "inset_sm": {
+                                      _r0 = cfg;
+                                      break;
+                                    }
+                                    default: {
+                                      switch (x$1.$) {
+                                        case "inset_md": {
+                                          _r0 = cfg;
+                                          break;
+                                        }
+                                        default: {
+                                          switch (x$1.$) {
+                                            case "inset_lg": {
+                                              _r0 = cfg;
+                                              break;
+                                            }
+                                            default: {
+                                              switch (x$1.$) {
+                                                case "direction_column": {
+                                                  _r0 = cfg;
+                                                  break;
+                                                }
+                                                default: {
+                                                  switch (x$1.$) {
+                                                    case "direction_row": {
+                                                      _r0 = cfg;
+                                                      break;
+                                                    }
+                                                    default: {
+                                                      switch (x$1.$) {
+                                                        case "gap_none": {
+                                                          _r0 = cfg;
+                                                          break;
+                                                        }
+                                                        default: {
+                                                          switch (x$1.$) {
+                                                            case "gap_sm": {
+                                                              _r0 = cfg;
+                                                              break;
+                                                            }
+                                                            default: {
+                                                              switch (x$1.$) {
+                                                                case "gap_md": {
+                                                                  _r0 = cfg;
+                                                                  break;
+                                                                }
+                                                                default: {
+                                                                  switch (x$1.$) {
+                                                                    case "gap_lg": {
+                                                                      _r0 = cfg;
+                                                                      break;
+                                                                    }
+                                                                    default: {
+                                                                      switch (x$1.$) {
+                                                                        case "align_start": {
+                                                                          _r0 = cfg;
+                                                                          break;
+                                                                        }
+                                                                        default: {
+                                                                          switch (x$1.$) {
+                                                                            case "align_center": {
+                                                                              _r0 = cfg;
+                                                                              break;
+                                                                            }
+                                                                            default: {
+                                                                              switch (x$1.$) {
+                                                                                case "align_end": {
+                                                                                  _r0 = cfg;
+                                                                                  break;
+                                                                                }
+                                                                                default: {
+                                                                                  switch (x$1.$) {
+                                                                                    case "align_stretch": {
+                                                                                      _r0 = cfg;
+                                                                                      break;
+                                                                                    }
+                                                                                    default: {
+                                                                                      throw new Error("EFQ applied");
+                                                                                      break;
+                                                                                    }
+                                                                                  }
+                                                                                  break;
+                                                                                }
+                                                                              }
+                                                                              break;
+                                                                            }
+                                                                          }
+                                                                          break;
+                                                                        }
+                                                                      }
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                  break;
+                                                                }
+                                                              }
+                                                              break;
+                                                            }
+                                                          }
+                                                          break;
+                                                        }
+                                                      }
+                                                      break;
+                                                    }
+                                                  }
+                                                  break;
+                                                }
+                                              }
+                                              break;
+                                            }
+                                          }
+                                          break;
+                                        }
+                                      }
+                                      break;
+                                    }
+                                  }
+                                  break;
+                                }
+                              }
+                              break;
+                            }
+                          }
+                          break;
+                        }
+                      }
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$apply_container_override = () => ((a0) => ((a1) => ($Midum$Layout$apply_container_override(a0, a1))));
+
+export function $Midum$Layout$apply_container_overrides(cfg, x$1) {
+  while (true) {
+    var _r0;
+    switch (x$1.$) {
+      case "nil": {
+        _r0 = cfg;
+        break;
+      }
+      default: {
+        switch (x$1.$) {
+          case "cons": {
+            var _m1 = x$1.head;
+            var _m2 = x$1.tail;
+            var override$1 = _m1;
+            var rest$2 = _m2;
+            var _v3;
+            var _v4;
+            _v4 = cfg;
+            var _v5;
+            _v5 = override$1;
+            _v3 = $Midum$Layout$apply_container_override(_v4, _v5);
+            var _v6;
+            _v6 = rest$2;
+            cfg = _v3;
+            x$1 = _v6;
+            continue;
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Midum$Layout$apply_container_overrides = () => ((a0) => ((a1) => ($Midum$Layout$apply_container_overrides(a0, a1))));
+
+export function $Midum$Layout$container_config(overrides) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = ({$: "max_width_none"});
+  _v1 = ({$: "container_layout", max_width: _v2});
+  var _v3;
+  _v3 = overrides;
+  _r0 = $Midum$Layout$apply_container_overrides(_v1, _v3);
+  return _r0;
+}
+
+export const Midum$Layout$container_config = () => ((a0) => ($Midum$Layout$container_config(a0)));
+
+export function $Midum$Layout$with_stack_flow(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "document_stack_layout": {
+      var _m1 = x.flow;
+      var _m2 = x.gap;
+      var _m3 = x.align;
+      var flow = _m1;
+      var gap$1 = _m2;
+      var align$2 = _m3;
+      var next_flow$3 = x$1;
+      var _v4;
+      _v4 = next_flow$3;
+      var _v5;
+      _v5 = gap$1;
+      var _v6;
+      _v6 = align$2;
+      _r0 = ({$: "document_stack_layout", flow: _v4, gap: _v5, align: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_stack_flow = () => ((a0) => ((a1) => ($Midum$Layout$with_stack_flow(a0, a1))));
+
+export function $Midum$Layout$with_stack_gap(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "document_stack_layout": {
+      var _m1 = x.flow;
+      var _m2 = x.gap;
+      var _m3 = x.align;
+      var flow = _m1;
+      var gap$1 = _m2;
+      var align$2 = _m3;
+      var next_gap$3 = x$1;
+      var _v4;
+      _v4 = flow;
+      var _v5;
+      _v5 = next_gap$3;
+      var _v6;
+      _v6 = align$2;
+      _r0 = ({$: "document_stack_layout", flow: _v4, gap: _v5, align: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_stack_gap = () => ((a0) => ((a1) => ($Midum$Layout$with_stack_gap(a0, a1))));
+
+export function $Midum$Layout$with_stack_align(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "document_stack_layout": {
+      var _m1 = x.flow;
+      var _m2 = x.gap;
+      var _m3 = x.align;
+      var flow = _m1;
+      var gap$1 = _m2;
+      var align$2 = _m3;
+      var next_align$3 = x$1;
+      var _v4;
+      _v4 = flow;
+      var _v5;
+      _v5 = gap$1;
+      var _v6;
+      _v6 = next_align$3;
+      _r0 = ({$: "document_stack_layout", flow: _v4, gap: _v5, align: _v6});
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$with_stack_align = () => ((a0) => ((a1) => ($Midum$Layout$with_stack_align(a0, a1))));
+
+export function $Midum$Layout$apply_stack_override(cfg, x$1) {
+  var _r0;
+  switch (x$1.$) {
+    case "direction_column": {
+      var _v1;
+      _v1 = cfg;
+      var _v2;
+      _v2 = ({$: "column"});
+      _r0 = $Midum$Layout$with_stack_flow(_v1, _v2);
+      break;
+    }
+    default: {
+      switch (x$1.$) {
+        case "direction_row": {
+          var _v3;
+          _v3 = cfg;
+          var _v4;
+          _v4 = ({$: "row"});
+          _r0 = $Midum$Layout$with_stack_flow(_v3, _v4);
+          break;
+        }
+        default: {
+          switch (x$1.$) {
+            case "gap_none": {
+              var _v5;
+              _v5 = cfg;
+              var _v6;
+              _v6 = ({$: "none"});
+              _r0 = $Midum$Layout$with_stack_gap(_v5, _v6);
+              break;
+            }
+            default: {
+              switch (x$1.$) {
+                case "gap_sm": {
+                  var _v7;
+                  _v7 = cfg;
+                  var _v8;
+                  _v8 = ({$: "sm"});
+                  _r0 = $Midum$Layout$with_stack_gap(_v7, _v8);
+                  break;
+                }
+                default: {
+                  switch (x$1.$) {
+                    case "gap_md": {
+                      var _v9;
+                      _v9 = cfg;
+                      var _v10;
+                      _v10 = ({$: "md"});
+                      _r0 = $Midum$Layout$with_stack_gap(_v9, _v10);
+                      break;
+                    }
+                    default: {
+                      switch (x$1.$) {
+                        case "gap_lg": {
+                          var _v11;
+                          _v11 = cfg;
+                          var _v12;
+                          _v12 = ({$: "lg"});
+                          _r0 = $Midum$Layout$with_stack_gap(_v11, _v12);
+                          break;
+                        }
+                        default: {
+                          switch (x$1.$) {
+                            case "align_start": {
+                              var _v13;
+                              _v13 = cfg;
+                              var _v14;
+                              _v14 = ({$: "align_start_value"});
+                              _r0 = $Midum$Layout$with_stack_align(_v13, _v14);
+                              break;
+                            }
+                            default: {
+                              switch (x$1.$) {
+                                case "align_center": {
+                                  var _v15;
+                                  _v15 = cfg;
+                                  var _v16;
+                                  _v16 = ({$: "align_center_value"});
+                                  _r0 = $Midum$Layout$with_stack_align(_v15, _v16);
+                                  break;
+                                }
+                                default: {
+                                  switch (x$1.$) {
+                                    case "align_end": {
+                                      var _v17;
+                                      _v17 = cfg;
+                                      var _v18;
+                                      _v18 = ({$: "align_end_value"});
+                                      _r0 = $Midum$Layout$with_stack_align(_v17, _v18);
+                                      break;
+                                    }
+                                    default: {
+                                      switch (x$1.$) {
+                                        case "align_stretch": {
+                                          var _v19;
+                                          _v19 = cfg;
+                                          var _v20;
+                                          _v20 = ({$: "align_stretch_value"});
+                                          _r0 = $Midum$Layout$with_stack_align(_v19, _v20);
+                                          break;
+                                        }
+                                        default: {
+                                          switch (x$1.$) {
+                                            case "width_fit": {
+                                              _r0 = cfg;
+                                              break;
+                                            }
+                                            default: {
+                                              switch (x$1.$) {
+                                                case "width_full": {
+                                                  _r0 = cfg;
+                                                  break;
+                                                }
+                                                default: {
+                                                  switch (x$1.$) {
+                                                    case "width_px": {
+                                                      var _m21 = x$1.value;
+                                                      var value$1 = _m21;
+                                                      _r0 = cfg;
+                                                      break;
+                                                    }
+                                                    default: {
+                                                      switch (x$1.$) {
+                                                        case "height_fit": {
+                                                          _r0 = cfg;
+                                                          break;
+                                                        }
+                                                        default: {
+                                                          switch (x$1.$) {
+                                                            case "height_full": {
+                                                              _r0 = cfg;
+                                                              break;
+                                                            }
+                                                            default: {
+                                                              switch (x$1.$) {
+                                                                case "height_px": {
+                                                                  var _m22 = x$1.value;
+                                                                  var value$1 = _m22;
+                                                                  _r0 = cfg;
+                                                                  break;
+                                                                }
+                                                                default: {
+                                                                  switch (x$1.$) {
+                                                                    case "inset_none": {
+                                                                      _r0 = cfg;
+                                                                      break;
+                                                                    }
+                                                                    default: {
+                                                                      switch (x$1.$) {
+                                                                        case "inset_sm": {
+                                                                          _r0 = cfg;
+                                                                          break;
+                                                                        }
+                                                                        default: {
+                                                                          switch (x$1.$) {
+                                                                            case "inset_md": {
+                                                                              _r0 = cfg;
+                                                                              break;
+                                                                            }
+                                                                            default: {
+                                                                              switch (x$1.$) {
+                                                                                case "inset_lg": {
+                                                                                  _r0 = cfg;
+                                                                                  break;
+                                                                                }
+                                                                                default: {
+                                                                                  switch (x$1.$) {
+                                                                                    case "max_width_px": {
+                                                                                      var _m23 = x$1.value;
+                                                                                      var value$1 = _m23;
+                                                                                      _r0 = cfg;
+                                                                                      break;
+                                                                                    }
+                                                                                    default: {
+                                                                                      throw new Error("EFQ applied");
+                                                                                      break;
+                                                                                    }
+                                                                                  }
+                                                                                  break;
+                                                                                }
+                                                                              }
+                                                                              break;
+                                                                            }
+                                                                          }
+                                                                          break;
+                                                                        }
+                                                                      }
+                                                                      break;
+                                                                    }
+                                                                  }
+                                                                  break;
+                                                                }
+                                                              }
+                                                              break;
+                                                            }
+                                                          }
+                                                          break;
+                                                        }
+                                                      }
+                                                      break;
+                                                    }
+                                                  }
+                                                  break;
+                                                }
+                                              }
+                                              break;
+                                            }
+                                          }
+                                          break;
+                                        }
+                                      }
+                                      break;
+                                    }
+                                  }
+                                  break;
+                                }
+                              }
+                              break;
+                            }
+                          }
+                          break;
+                        }
+                      }
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$apply_stack_override = () => ((a0) => ((a1) => ($Midum$Layout$apply_stack_override(a0, a1))));
+
+export function $Midum$Layout$apply_stack_overrides(cfg, x$1) {
+  while (true) {
+    var _r0;
+    switch (x$1.$) {
+      case "nil": {
+        _r0 = cfg;
+        break;
+      }
+      default: {
+        switch (x$1.$) {
+          case "cons": {
+            var _m1 = x$1.head;
+            var _m2 = x$1.tail;
+            var override$1 = _m1;
+            var rest$2 = _m2;
+            var _v3;
+            var _v4;
+            _v4 = cfg;
+            var _v5;
+            _v5 = override$1;
+            _v3 = $Midum$Layout$apply_stack_override(_v4, _v5);
+            var _v6;
+            _v6 = rest$2;
+            cfg = _v3;
+            x$1 = _v6;
+            continue;
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Midum$Layout$apply_stack_overrides = () => ((a0) => ((a1) => ($Midum$Layout$apply_stack_overrides(a0, a1))));
+
+export function $Midum$Layout$stack_config(overrides) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = ({$: "column"});
+  var _v3;
+  _v3 = ({$: "md"});
+  var _v4;
+  _v4 = ({$: "align_stretch_value"});
+  _v1 = ({$: "document_stack_layout", flow: _v2, gap: _v3, align: _v4});
+  var _v5;
+  _v5 = overrides;
+  _r0 = $Midum$Layout$apply_stack_overrides(_v1, _v5);
+  return _r0;
+}
+
+export const Midum$Layout$stack_config = () => ((a0) => ($Midum$Layout$stack_config(a0)));
+
+export function $Midum$Layout$overlay(_Event, layers$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = layers$1;
+  _r0 = $Midum$Internal$DOM$Layout$overlay(_v1, _v2);
+  return _r0;
+}
+
+export const Midum$Layout$overlay = () => ((a0) => ((a1) => ($Midum$Layout$overlay(a0, a1))));
+
+export function $Midum$Layout$frame(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = overrides$2;
+  _v2 = $Midum$Layout$frame_config(_v3);
+  var _v4;
+  _v4 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$frame(_v1, _v2, _v4);
+  return _r0;
+}
+
+export const Midum$Layout$frame = () => ((a0) => ((a1) => ((a2) => ($Midum$Layout$frame(a0, a1, a2)))));
+
+export function $Midum$Layout$page(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = overrides$2;
+  _v2 = $Midum$Layout$page_config(_v3);
+  var _v4;
+  _v4 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$render_page(_v1, _v2, _v4);
+  return _r0;
+}
+
+export const Midum$Layout$page = () => ((a0) => ((a1) => ((a2) => ($Midum$Layout$page(a0, a1, a2)))));
+
+export function $Midum$Layout$container(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = overrides$2;
+  _v2 = $Midum$Layout$container_config(_v3);
+  var _v4;
+  _v4 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$render_container(_v1, _v2, _v4);
+  return _r0;
+}
+
+export const Midum$Layout$container = () => ((a0) => ((a1) => ((a2) => ($Midum$Layout$container(a0, a1, a2)))));
+
+export function $Midum$Layout$stack(_Event, kids$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = overrides$2;
+  _v2 = $Midum$Layout$stack_config(_v3);
+  var _v4;
+  _v4 = kids$1;
+  _r0 = $Midum$Internal$DOM$Layout$render_document_stack(_v1, _v2, _v4);
+  return _r0;
+}
+
+export const Midum$Layout$stack = () => ((a0) => ((a1) => ((a2) => ($Midum$Layout$stack(a0, a1, a2)))));
+
+export function $Midum$Layout$group(_Event, kids$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = kids$1;
+  var _v3;
+  _v3 = overrides$2;
+  var _v4;
+  var _v5;
+  _v5 = overrides$2;
+  _v4 = $Midum$Layout$stack_config(_v5);
+  _r0 = $Midum$Layout$group$_0(_v1, _v2, _v3, _v4);
+  return _r0;
+}
+
+export const Midum$Layout$group = () => ((a0) => ((a1) => ((a2) => ($Midum$Layout$group(a0, a1, a2)))));
+
+export function $Midum$Layout$top_left(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "top_left"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$top_left = () => ((a0) => ((a1) => ($Midum$Layout$top_left(a0, a1))));
+
+export function $Midum$Layout$top(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "top"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$top = () => ((a0) => ((a1) => ($Midum$Layout$top(a0, a1))));
+
+export function $Midum$Layout$top_right(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "top_right"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$top_right = () => ((a0) => ((a1) => ($Midum$Layout$top_right(a0, a1))));
+
+export function $Midum$Layout$left(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "left"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$left = () => ((a0) => ((a1) => ($Midum$Layout$left(a0, a1))));
+
+export function $Midum$Layout$center(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "center"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$center = () => ((a0) => ((a1) => ($Midum$Layout$center(a0, a1))));
+
+export function $Midum$Layout$right(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "right"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$right = () => ((a0) => ((a1) => ($Midum$Layout$right(a0, a1))));
+
+export function $Midum$Layout$bottom_left(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "bottom_left"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$bottom_left = () => ((a0) => ((a1) => ($Midum$Layout$bottom_left(a0, a1))));
+
+export function $Midum$Layout$bottom(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "bottom"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$bottom = () => ((a0) => ((a1) => ($Midum$Layout$bottom(a0, a1))));
+
+export function $Midum$Layout$bottom_right(_Event, body$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  var _v3;
+  _v3 = ({$: "bottom_right"});
+  var _v4;
+  _v4 = ({$: "column"});
+  var _v5;
+  _v5 = ({$: "none"});
+  _v2 = ({$: "layout", position: _v3, flow: _v4, gap: _v5});
+  var _v6;
+  _v6 = body$1;
+  _r0 = $Midum$Internal$DOM$Layout$box(_v1, _v2, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$bottom_right = () => ((a0) => ((a1) => ($Midum$Layout$bottom_right(a0, a1))));
+
+export function $Midum$Layout$column(_Event, kids$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = ({$: "column"});
+  var _v3;
+  _v3 = ({$: "packed"});
+  var _v4;
+  _v4 = ({$: "md"});
+  var _v5;
+  _v5 = ({$: "align_center_value"});
+  var _v6;
+  _v6 = kids$1;
+  _r0 = $Midum$Internal$DOM$Layout$group_stack(_v1, _v2, _v3, _v4, _v5, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$column = () => ((a0) => ((a1) => ($Midum$Layout$column(a0, a1))));
+
+export function $Midum$Layout$column_between(_Event, kids$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = ({$: "column"});
+  var _v3;
+  _v3 = ({$: "between"});
+  var _v4;
+  _v4 = ({$: "md"});
+  var _v5;
+  _v5 = ({$: "align_center_value"});
+  var _v6;
+  _v6 = kids$1;
+  _r0 = $Midum$Internal$DOM$Layout$group_stack(_v1, _v2, _v3, _v4, _v5, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$column_between = () => ((a0) => ((a1) => ($Midum$Layout$column_between(a0, a1))));
+
+export function $Midum$Layout$row(_Event, kids$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = ({$: "row"});
+  var _v3;
+  _v3 = ({$: "packed"});
+  var _v4;
+  _v4 = ({$: "md"});
+  var _v5;
+  _v5 = ({$: "align_center_value"});
+  var _v6;
+  _v6 = kids$1;
+  _r0 = $Midum$Internal$DOM$Layout$group_stack(_v1, _v2, _v3, _v4, _v5, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$row = () => ((a0) => ((a1) => ($Midum$Layout$row(a0, a1))));
+
+export function $Midum$Layout$row_between(_Event, kids$1) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = ({$: "row"});
+  var _v3;
+  _v3 = ({$: "between"});
+  var _v4;
+  _v4 = ({$: "md"});
+  var _v5;
+  _v5 = ({$: "align_center_value"});
+  var _v6;
+  _v6 = kids$1;
+  _r0 = $Midum$Internal$DOM$Layout$group_stack(_v1, _v2, _v3, _v4, _v5, _v6);
+  return _r0;
+}
+
+export const Midum$Layout$row_between = () => ((a0) => ((a1) => ($Midum$Layout$row_between(a0, a1))));
+
+export const Midum$Layout$Override = null;
 
 export function $Midum$Text$apply_override(_Event, x$1, x$2) {
   var _r0;
@@ -20793,7 +23161,7 @@ export function $Dungeon$View$boosters$_reveal_action_button(reward, reveal_inde
   var _v5;
   _v5 = reveal_index$1;
   _v3 = $Dungeon$View$selectors$booster_is_last_card(_v4, _v5);
-  _r0 = $cm_23(_v1, _v2, _v3);
+  _r0 = $Dungeon$View$boosters$_reveal_action_button$_0(_v1, _v2, _v3);
   return _r0;
 }
 
@@ -21059,7 +23427,7 @@ export function $Dungeon$View$boosters$_booster_actions(meta_state) {
   var _v3;
   _v3 = meta_state;
   _v2 = $Dungeon$View$selectors$booster_open_enabled(_v3);
-  _r0 = $cm_24(_v1, _v2);
+  _r0 = $Dungeon$View$boosters$_booster_actions$_0(_v1, _v2);
   return _r0;
 }
 
@@ -26842,7 +29210,7 @@ export function $Dungeon$Run$upgrade_hero$_upgrade_from_step(meta_state, hero_re
   var _v6;
   _v6 = profile$2;
   _v5 = $Dungeon$profile_helpers$profile_unlocked(_v6);
-  _r0 = $cm_25(_v1, _v2, _v3, _v4, _v5);
+  _r0 = $Dungeon$Run$upgrade_hero$_upgrade_from_step$_0(_v1, _v2, _v3, _v4, _v5);
   return _r0;
 }
 
@@ -27109,7 +29477,7 @@ export function $Dungeon$App$update_character_select$_select_or_buy_profile(conf
   var _v7;
   _v7 = profile$4;
   _v6 = $Dungeon$profile_helpers$profile_unlocked(_v7);
-  _r0 = $cm_27(_v1, _v2, _v3, _v4, _v5, _v6);
+  _r0 = $Dungeon$App$update_character_select$_select_or_buy_profile$_0(_v1, _v2, _v3, _v4, _v5, _v6);
   return _r0;
 }
 
@@ -32824,7 +35192,7 @@ export function $Dungeon$run_snapshot_to_string$_deck_entry_string(x) {
 
 export const Dungeon$run_snapshot_to_string$_deck_entry_string = () => ((a0) => ($Dungeon$run_snapshot_to_string$_deck_entry_string(a0)));
 
-export function $cm_0(head, rest$1, x$2) {
+export function $Dungeon$_parse_meta$_parse_sections_head$_0(head, rest$1, x$2) {
   var _r0;
   switch (x$2.$) {
     case "true": {
@@ -32846,7 +35214,7 @@ export function $cm_0(head, rest$1, x$2) {
           var _v6;
           _v6 = "v3";
           _v4 = $String$eq(_v5, _v6);
-          _r0 = $cm_1(_v2, _v3, _v4);
+          _r0 = $Dungeon$_parse_meta$_parse_sections_head$_1(_v2, _v3, _v4);
           break;
         }
         default: {
@@ -32860,9 +35228,9 @@ export function $cm_0(head, rest$1, x$2) {
   return _r0;
 }
 
-export const cm_0 = () => ((a0) => ((a1) => ((a2) => ($cm_0(a0, a1, a2)))));
+export const Dungeon$_parse_meta$_parse_sections_head$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$_parse_meta$_parse_sections_head$_0(a0, a1, a2)))));
 
-export function $cm_1(head, rest$1, x$2) {
+export function $Dungeon$_parse_meta$_parse_sections_head$_1(head, rest$1, x$2) {
   var _r0;
   switch (x$2.$) {
     case "true": {
@@ -32884,7 +35252,7 @@ export function $cm_1(head, rest$1, x$2) {
           var _v6;
           _v6 = "v2";
           _v4 = $String$eq(_v5, _v6);
-          _r0 = $cm_2(_v2, _v3, _v4);
+          _r0 = $Dungeon$_parse_meta$_parse_sections_head$_2(_v2, _v3, _v4);
           break;
         }
         default: {
@@ -32898,9 +35266,9 @@ export function $cm_1(head, rest$1, x$2) {
   return _r0;
 }
 
-export const cm_1 = () => ((a0) => ((a1) => ((a2) => ($cm_1(a0, a1, a2)))));
+export const Dungeon$_parse_meta$_parse_sections_head$_1 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$_parse_meta$_parse_sections_head$_1(a0, a1, a2)))));
 
-export function $cm_2(head, rest$1, x$2) {
+export function $Dungeon$_parse_meta$_parse_sections_head$_2(head, rest$1, x$2) {
   var _r0;
   switch (x$2.$) {
     case "true": {
@@ -32930,9 +35298,9 @@ export function $cm_2(head, rest$1, x$2) {
   return _r0;
 }
 
-export const cm_2 = () => ((a0) => ((a1) => ((a2) => ($cm_2(a0, a1, a2)))));
+export const Dungeon$_parse_meta$_parse_sections_head$_2 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$_parse_meta$_parse_sections_head$_2(a0, a1, a2)))));
 
-export function $cm_3(run_core, run_weapon$1, run_board$2, run_blueprint$3, run_counts$4, x$5) {
+export function $Dungeon$_parse_meta$_parse_saved_running$_0(run_core, run_weapon$1, run_board$2, run_blueprint$3, run_counts$4, x$5) {
   var _r0;
   switch (x$5.$) {
     case "some": {
@@ -32960,9 +35328,9 @@ export function $cm_3(run_core, run_weapon$1, run_board$2, run_blueprint$3, run_
   return _r0;
 }
 
-export const cm_3 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($cm_3(a0, a1, a2, a3, a4, a5))))))));
+export const Dungeon$_parse_meta$_parse_saved_running$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($Dungeon$_parse_meta$_parse_saved_running$_0(a0, a1, a2, a3, a4, a5))))))));
 
-export function $cm_4(h, t$1, sep$2, acc$3, x$4) {
+export function $String$split$go$_0(h, t$1, sep$2, acc$3, x$4) {
   var _r0;
   switch (x$4.$) {
     case "true": {
@@ -33008,9 +35376,9 @@ export function $cm_4(h, t$1, sep$2, acc$3, x$4) {
   return _r0;
 }
 
-export const cm_4 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_4(a0, a1, a2, a3, a4)))))));
+export const String$split$go$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($String$split$go$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_5(va, vb$1, x$2) {
+export function $Char$eq$_0(va, vb$1, x$2) {
   var _r0;
   if (((x$2) >>> 0) === 0) {
     _r0 = ({$: "false"});
@@ -33021,9 +35389,9 @@ export function $cm_5(va, vb$1, x$2) {
   return _r0;
 }
 
-export const cm_5 = () => ((a0) => ((a1) => ((a2) => ($cm_5(a0, a1, a2)))));
+export const Char$eq$_0 = () => ((a0) => ((a1) => ((a2) => ($Char$eq$_0(a0, a1, a2)))));
 
-export function $cm_6(h, t$1, hb$2, tb$3, x$4) {
+export function $String$eq$_0(h, t$1, hb$2, tb$3, x$4) {
   var _r0;
   switch (x$4.$) {
     case "true": {
@@ -33051,9 +35419,9 @@ export function $cm_6(h, t$1, hb$2, tb$3, x$4) {
   return _r0;
 }
 
-export const cm_6 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_6(a0, a1, a2, a3, a4)))))));
+export const String$eq$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($String$eq$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_7(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon$8, board_snapshot$9, blueprint$10, draw_counts$11, x$12) {
+export function $Dungeon$parse_saved_run$_parse_run_with_core_values$_0(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon$8, board_snapshot$9, blueprint$10, draw_counts$11, x$12) {
   var _r0;
   switch (x$12.$) {
     case "some": {
@@ -33103,9 +35471,9 @@ export function $cm_7(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, rem
   return _r0;
 }
 
-export const cm_7 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($cm_7(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
+export const Dungeon$parse_saved_run$_parse_run_with_core_values$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($Dungeon$parse_saved_run$_parse_run_with_core_values$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
 
-export function $cm_8(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, board_snapshot$9, blueprint$10, draw_counts$11, x$12) {
+export function $Dungeon$parse_saved_run$_parse_run_with_weapon$_0(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, board_snapshot$9, blueprint$10, draw_counts$11, x$12) {
   var _r0;
   switch (x$12.$) {
     case "some": {
@@ -33155,9 +35523,9 @@ export function $cm_8(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, rem
   return _r0;
 }
 
-export const cm_8 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($cm_8(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
+export const Dungeon$parse_saved_run$_parse_run_with_weapon$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($Dungeon$parse_saved_run$_parse_run_with_weapon$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
 
-export function $cm_9(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, current_board$9, blueprint$10, draw_counts$11, x$12) {
+export function $Dungeon$parse_saved_run$_parse_run_with_board$_0(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, current_board$9, blueprint$10, draw_counts$11, x$12) {
   var _r0;
   switch (x$12.$) {
     case "some": {
@@ -33207,9 +35575,9 @@ export function $cm_9(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, rem
   return _r0;
 }
 
-export const cm_9 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($cm_9(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
+export const Dungeon$parse_saved_run$_parse_run_with_board$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($Dungeon$parse_saved_run$_parse_run_with_board$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
 
-export function $cm_10(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, current_board$9, deck_blueprint$10, draw_counts$11, x$12) {
+export function $Dungeon$parse_saved_run$_parse_run_with_blueprint$_0(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, remaining$4, capacity$5, seed$6, ult_charge$7, weapon_value$8, current_board$9, deck_blueprint$10, draw_counts$11, x$12) {
   var _r0;
   switch (x$12.$) {
     case "some": {
@@ -33261,9 +35629,9 @@ export function $cm_10(dungeon_level, hero_hp$1, hero_max_hp$2, hero_index$3, re
   return _r0;
 }
 
-export const cm_10 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($cm_10(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
+export const Dungeon$parse_saved_run$_parse_run_with_blueprint$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ($Dungeon$parse_saved_run$_parse_run_with_blueprint$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))))))))))))));
 
-export function $cm_11(part, rest$1, idx$2, current_board$3, x$4) {
+export function $Dungeon$parse_saved_run$_parse_saved_board_next$_0(part, rest$1, idx$2, current_board$3, x$4) {
   var _r0;
   switch (x$4.$) {
     case "some": {
@@ -33305,9 +35673,9 @@ export function $cm_11(part, rest$1, idx$2, current_board$3, x$4) {
   return _r0;
 }
 
-export const cm_11 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_11(a0, a1, a2, a3, a4)))))));
+export const Dungeon$parse_saved_run$_parse_saved_board_next$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$parse_saved_run$_parse_saved_board_next$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_12(part, rest$1, x$2, x$3) {
+export function $Dungeon$parse_saved_run$_parse_saved_deck_entries_head$_0(part, rest$1, x$2, x$3) {
   var _r0;
   switch (x$2.$) {
     case "some": {
@@ -33344,9 +35712,9 @@ export function $cm_12(part, rest$1, x$2, x$3) {
   return _r0;
 }
 
-export const cm_12 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($cm_12(a0, a1, a2, a3))))));
+export const Dungeon$parse_saved_run$_parse_saved_deck_entries_head$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$parse_saved_run$_parse_saved_deck_entries_head$_0(a0, a1, a2, a3))))));
 
-export function $cm_13(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8, x$9) {
+export function $Ord$Map$get$_0(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8, x$9) {
   var _r0;
   switch (x$9.$) {
     case "lt": {
@@ -33401,9 +35769,9 @@ export function $cm_13(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8,
   return _r0;
 }
 
-export const cm_13 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ($cm_13(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9))))))))))));
+export const Ord$Map$get$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ($Ord$Map$get$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9))))))))))));
 
-export function $cm_14(A, map$1, y$2, x$3) {
+export function $Nat$V2$Map$row$_0(A, map$1, y$2, x$3) {
   var _r0;
   switch (x$3.$) {
     case "none": {
@@ -33431,9 +35799,9 @@ export function $cm_14(A, map$1, y$2, x$3) {
   return _r0;
 }
 
-export const cm_14 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($cm_14(a0, a1, a2, a3))))));
+export const Nat$V2$Map$row$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Nat$V2$Map$row$_0(a0, a1, a2, a3))))));
 
-export function $cm_15(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8, v$9, x$10) {
+export function $Ord$Map$set$_0(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8, v$9, x$10) {
   var _r0;
   switch (x$10.$) {
     case "lt": {
@@ -33544,9 +35912,9 @@ export function $cm_15(K, V$1, cmp$2, lvl$3, key$4, val$5, left$6, right$7, k$8,
   return _r0;
 }
 
-export const cm_15 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ($cm_15(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)))))))))))));
+export const Ord$Map$set$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ($Ord$Map$set$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)))))))))))));
 
-export function $cm_16(K, V$1, lvl$2, key$3, val$4, left$5, rl$6, rk$7, rv$8, ra$9, rrl$10, rrk$11, rrv$12, rra$13, rrb$14, x$15) {
+export function $Ord$Map$split$_0(K, V$1, lvl$2, key$3, val$4, left$5, rl$6, rk$7, rv$8, ra$9, rrl$10, rrk$11, rrv$12, rra$13, rrb$14, x$15) {
   var _r0;
   switch (x$15.$) {
     case "true": {
@@ -33632,9 +36000,9 @@ export function $cm_16(K, V$1, lvl$2, key$3, val$4, left$5, rl$6, rk$7, rv$8, ra
   return _r0;
 }
 
-export const cm_16 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ((a13) => ((a14) => ((a15) => ($cm_16(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15))))))))))))))))));
+export const Ord$Map$split$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ((a12) => ((a13) => ((a14) => ((a15) => ($Ord$Map$split$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15))))))))))))))))));
 
-export function $cm_17(K, V$1, lvl$2, key$3, val$4, ll$5, lk$6, lv$7, la$8, lb$9, right$10, x$11) {
+export function $Ord$Map$skew$_0(K, V$1, lvl$2, key$3, val$4, ll$5, lk$6, lv$7, la$8, lb$9, right$10, x$11) {
   var _r0;
   switch (x$11.$) {
     case "true": {
@@ -33698,9 +36066,9 @@ export function $cm_17(K, V$1, lvl$2, key$3, val$4, ll$5, lk$6, lv$7, la$8, lb$9
   return _r0;
 }
 
-export const cm_17 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ($cm_17(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11))))))))))))));
+export const Ord$Map$skew$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ($Ord$Map$skew$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11))))))))))))));
 
-export function $cm_18(meta_state, hero_value$1, profile$2, x$3) {
+export function $Dungeon$View$menu$_menu_upgrade_row$_0(meta_state, hero_value$1, profile$2, x$3) {
   var _r0;
   if (((x$3) >>> 0) === 1) {
     var _v1;
@@ -33793,9 +36161,9 @@ export function $cm_18(meta_state, hero_value$1, profile$2, x$3) {
   return _r0;
 }
 
-export const cm_18 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($cm_18(a0, a1, a2, a3))))));
+export const Dungeon$View$menu$_menu_upgrade_row$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_menu_upgrade_row$_0(a0, a1, a2, a3))))));
 
-export function $cm_19(hero_value, profile$1, x$2) {
+export function $Dungeon$View$selectors$character_upgrade_label$_0(hero_value, profile$1, x$2) {
   var _r0;
   if (((x$2) >>> 0) === 0) {
     _r0 = "LOCKED";
@@ -33810,9 +36178,9 @@ export function $cm_19(hero_value, profile$1, x$2) {
   return _r0;
 }
 
-export const cm_19 = () => ((a0) => ((a1) => ((a2) => ($cm_19(a0, a1, a2)))));
+export const Dungeon$View$selectors$character_upgrade_label$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$selectors$character_upgrade_label$_0(a0, a1, a2)))));
 
-export function $cm_20(hero_value, profile$1, x$2) {
+export function $Dungeon$View$selectors$character_upgrade_cost_text$_0(hero_value, profile$1, x$2) {
   var _r0;
   if (((x$2) >>> 0) === 0) {
     var _v1;
@@ -33831,9 +36199,9 @@ export function $cm_20(hero_value, profile$1, x$2) {
   return _r0;
 }
 
-export const cm_20 = () => ((a0) => ((a1) => ((a2) => ($cm_20(a0, a1, a2)))));
+export const Dungeon$View$selectors$character_upgrade_cost_text$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$selectors$character_upgrade_cost_text$_0(a0, a1, a2)))));
 
-export function $cm_21(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
+export function $Dungeon$View$selectors$character_primary_label$_0(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
   var _r0;
   if (((x$4) >>> 0) === 0) {
     _r0 = "BUY";
@@ -33850,9 +36218,9 @@ export function $cm_21(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
   return _r0;
 }
 
-export const cm_21 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_21(a0, a1, a2, a3, a4)))))));
+export const Dungeon$View$selectors$character_primary_label$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$selectors$character_primary_label$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_22(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
+export function $Dungeon$View$selectors$character_primary_enabled$_0(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
   var _r0;
   if (((x$4) >>> 0) === 0) {
     var _v1;
@@ -33877,9 +36245,44 @@ export function $cm_22(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
   return _r0;
 }
 
-export const cm_22 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_22(a0, a1, a2, a3, a4)))))));
+export const Dungeon$View$selectors$character_primary_enabled$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$selectors$character_primary_enabled$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_23(reward, reveal_index$1, x$2) {
+export function $Midum$Layout$group$_0(_Event, kids$1, overrides$2, x$3) {
+  var _r0;
+  switch (x$3.$) {
+    case "document_stack_layout": {
+      var _m1 = x$3.flow;
+      var _m2 = x$3.gap;
+      var _m3 = x$3.align;
+      var flow$3 = _m1;
+      var gap$4 = _m2;
+      var align$5 = _m3;
+      var _v4;
+      _v4 = _Event;
+      var _v5;
+      _v5 = flow$3;
+      var _v6;
+      _v6 = ({$: "packed"});
+      var _v7;
+      _v7 = gap$4;
+      var _v8;
+      _v8 = align$5;
+      var _v9;
+      _v9 = kids$1;
+      _r0 = $Midum$Internal$DOM$Layout$group_stack(_v4, _v5, _v6, _v7, _v8, _v9);
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Layout$group$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Midum$Layout$group$_0(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$boosters$_reveal_action_button$_0(reward, reveal_index$1, x$2) {
   var _r0;
   if (((x$2) >>> 0) === 1) {
     var _v1;
@@ -33910,9 +36313,9 @@ export function $cm_23(reward, reveal_index$1, x$2) {
   return _r0;
 }
 
-export const cm_23 = () => ((a0) => ((a1) => ((a2) => ($cm_23(a0, a1, a2)))));
+export const Dungeon$View$boosters$_reveal_action_button$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$boosters$_reveal_action_button$_0(a0, a1, a2)))));
 
-export function $cm_24(meta_state, x$1) {
+export function $Dungeon$View$boosters$_booster_actions$_0(meta_state, x$1) {
   var _r0;
   if (((x$1) >>> 0) === 1) {
     var _v1;
@@ -34083,9 +36486,9 @@ export function $cm_24(meta_state, x$1) {
   return _r0;
 }
 
-export const cm_24 = () => ((a0) => ((a1) => ($cm_24(a0, a1))));
+export const Dungeon$View$boosters$_booster_actions$_0 = () => ((a0) => ((a1) => ($Dungeon$View$boosters$_booster_actions$_0(a0, a1))));
 
-export function $cm_25(meta_state, hero_ref$1, profile$2, step$3, x$4) {
+export function $Dungeon$Run$upgrade_hero$_upgrade_from_step$_0(meta_state, hero_ref$1, profile$2, step$3, x$4) {
   var _r0;
   if (((x$4) >>> 0) === 0) {
     _r0 = meta_state;
@@ -34098,14 +36501,14 @@ export function $cm_25(meta_state, hero_ref$1, profile$2, step$3, x$4) {
     _v3 = profile$2;
     var _v4;
     _v4 = step$3;
-    _r0 = $cm_26(_v1, _v2, _v3, _v4, x$4);
+    _r0 = $Dungeon$Run$upgrade_hero$_upgrade_from_step$_1(_v1, _v2, _v3, _v4, x$4);
   }
   return _r0;
 }
 
-export const cm_25 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_25(a0, a1, a2, a3, a4)))))));
+export const Dungeon$Run$upgrade_hero$_upgrade_from_step$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$Run$upgrade_hero$_upgrade_from_step$_0(a0, a1, a2, a3, a4)))))));
 
-export function $cm_26(meta_state, hero_ref$1, profile$2, x$3, x$4) {
+export function $Dungeon$Run$upgrade_hero$_upgrade_from_step$_1(meta_state, hero_ref$1, profile$2, x$3, x$4) {
   var _r0;
   switch (x$3.$) {
     case "upgrade": {
@@ -34138,9 +36541,9 @@ export function $cm_26(meta_state, hero_ref$1, profile$2, x$3, x$4) {
   return _r0;
 }
 
-export const cm_26 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($cm_26(a0, a1, a2, a3, a4)))))));
+export const Dungeon$Run$upgrade_hero$_upgrade_from_step$_1 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$Run$upgrade_hero$_upgrade_from_step$_1(a0, a1, a2, a3, a4)))))));
 
-export function $cm_27(config_value, meta_state$1, hero_ref$2, next_seed_value$3, profile$4, x$5) {
+export function $Dungeon$App$update_character_select$_select_or_buy_profile$_0(config_value, meta_state$1, hero_ref$2, next_seed_value$3, profile$4, x$5) {
   var _r0;
   if (((x$5) >>> 0) === 0) {
     var _v1;
@@ -34183,7 +36586,7 @@ export function $cm_27(config_value, meta_state$1, hero_ref$2, next_seed_value$3
   return _r0;
 }
 
-export const cm_27 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($cm_27(a0, a1, a2, a3, a4, a5))))))));
+export const Dungeon$App$update_character_select$_select_or_buy_profile$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ($Dungeon$App$update_character_select$_select_or_buy_profile$_0(a0, a1, a2, a3, a4, a5))))))));
 
 
 function __app_fld(obj, nam, idx) {

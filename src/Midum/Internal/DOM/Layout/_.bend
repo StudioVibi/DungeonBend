@@ -4,6 +4,8 @@
 # primitive, while the DOM renderer maps each closed choice to a CSS class.
 
 import /HTML/
+import /Midum/Internal/DOM/Layout/Arrangement
+import Nat/show as show_nat
 
 def position_class(position: Midum/Layout/Position) -> String:
   match position:
@@ -44,16 +46,107 @@ def gap_class(gap: Midum/Layout/Gap) -> String:
     case lg{}:
       "bc-layout-gap-lg"
 
-def box_class(position: Midum/Layout/Position, flow: Midum/Layout/Flow, gap: Midum/Layout/Gap) -> String:
-  "bc-layout-box " ++ position_class(position) ++ " " ++ flow_class(flow) ++ " " ++ gap_class(gap)
+def align_class(align: Midum/Layout/Align) -> String:
+  match align:
+    case align_start_value{}:
+      "bc-layout-align-start"
+    case align_center_value{}:
+      "bc-layout-align-center"
+    case align_end_value{}:
+      "bc-layout-align-end"
+    case align_stretch_value{}:
+      "bc-layout-align-stretch"
+
+def arrangement_class(Event: Type, arrangement: Midum/Internal/DOM/Layout/Arrangement, kids: List(HTML(Event))) -> String:
+  match arrangement kids:
+    case between{} []:
+      "bc-layout-arrangement-packed"
+    case between{} _<>[]:
+      "bc-layout-arrangement-packed"
+    case between{} _:
+      "bc-layout-arrangement-between"
+    case packed{} _:
+      "bc-layout-arrangement-packed"
+
+def box_class(position: Midum/Layout/Position) -> String:
+  "bc-layout-box " ++ position_class(position)
+
+def box_body_class(flow: Midum/Layout/Flow, gap: Midum/Layout/Gap) -> String:
+  "bc-layout-box-body " ++ flow_class(flow) ++ " " ++ gap_class(gap)
 
 def box(Event: Type, cfg: Midum/Layout/Config, body: HTML(Event)) -> HTML(Event):
   match cfg:
     case layout{position, flow, gap}:
-      <div class={box_class(position, flow, gap)}>
-        <div>
+      <div class={box_class(position)}>
+        <div class={box_body_class(flow, gap)}>
           {body}
         </div>
+      </div>
+
+def css_nat(value: Nat) -> String:
+  show_nat(value)
+
+def frame_width_style(width: Midum/Layout/Width) -> String:
+  match width:
+    case fit{}:
+      "fit-content"
+    case full{}:
+      "100%"
+    case px{value}:
+      css_nat(value) ++ "px"
+
+def frame_height_style(height: Midum/Layout/Height) -> String:
+  match height:
+    case fit{}:
+      "fit-content"
+    case full{}:
+      "100%"
+    case px{value}:
+      css_nat(value) ++ "px"
+
+def frame_inset_style(inset: Midum/Layout/Inset) -> String:
+  match inset:
+    case none{}:
+      "0px"
+    case sm{}:
+      "8px"
+    case md{}:
+      "16px"
+    case lg{}:
+      "24px"
+
+def max_width_style(max_width: Midum/Layout/MaxWidth) -> String:
+  match max_width:
+    case max_width_none{}:
+      "none"
+    case max_width_px_value{value}:
+      css_nat(value) ++ "px"
+
+def render_page(Event: Type, cfg: Midum/Layout/PageConfig, body: HTML(Event)) -> HTML(Event):
+  match cfg:
+    case page_layout{inset}:
+      <div class="bc-layout-page" style:padding={frame_inset_style(inset)}>
+        {body}
+      </div>
+
+def render_container(Event: Type, cfg: Midum/Layout/ContainerConfig, body: HTML(Event)) -> HTML(Event):
+  match cfg:
+    case container_layout{max_width}:
+      <div class="bc-layout-container" style:max-width={max_width_style(max_width)}>
+        {body}
+      </div>
+
+def frame(Event: Type, cfg: Midum/Layout/FrameConfig, body: HTML(Event)) -> HTML(Event):
+  match cfg:
+    case frame{width, height, inset}:
+      <div
+        class="bc-layout-frame"
+        style:width={frame_width_style(width)}
+        style:max-width="100%"
+        style:height={frame_height_style(height)}
+        style:padding={frame_inset_style(inset)}
+      >
+        {body}
       </div>
 
 def overlay(Event: Type, layers: List(HTML(Event))) -> HTML(Event):
@@ -61,16 +154,42 @@ def overlay(Event: Type, layers: List(HTML(Event))) -> HTML(Event):
     {...layers}
   </div>
 
-def stack_class(flow: Midum/Layout/Flow, gap: Midum/Layout/Gap) -> String:
-  "bc-layout-stack " ++ flow_class(flow) ++ " " ++ gap_class(gap)
+def group_stack_class(Event: Type, flow: Midum/Layout/Flow, arrangement: Midum/Internal/DOM/Layout/Arrangement, gap: Midum/Layout/Gap, align: Midum/Layout/Align, kids: List(HTML(Event))) -> String:
+  "bc-layout-stack " ++ flow_class(flow) ++ " " ++ arrangement_class(Event, arrangement, kids) ++ " " ++ gap_class(gap) ++ " " ++ align_class(align)
 
-def stack(Event: Type, flow: Midum/Layout/Flow, gap: Midum/Layout/Gap, kids: List(HTML(Event))) -> HTML(Event):
-  <div class={stack_class(flow, gap)}>
+def group_stack(Event: Type, flow: Midum/Layout/Flow, arrangement: Midum/Internal/DOM/Layout/Arrangement, gap: Midum/Layout/Gap, align: Midum/Layout/Align, kids: List(HTML(Event))) -> HTML(Event):
+  <div class={group_stack_class(Event, flow, arrangement, gap, align, kids)}>
     {...kids}
   </div>
 
-def css() -> String:
+def document_stack_class(cfg: Midum/Layout/StackConfig) -> String:
+  match cfg:
+    case document_stack_layout{flow, gap, align}:
+      "bc-layout-document-stack " ++ flow_class(flow) ++ " " ++ gap_class(gap) ++ " " ++ align_class(align)
+
+def render_document_stack(Event: Type, cfg: Midum/Layout/StackConfig, kids: List(HTML(Event))) -> HTML(Event):
+  <div class={document_stack_class(cfg)}>
+    {...kids}
+  </div>
+
+def css_canvas() -> String:
   "
+  .bc-layout-page {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .bc-layout-container {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .bc-layout-box {
     box-sizing: border-box;
     display: flex;
@@ -78,6 +197,7 @@ def css() -> String:
     width: 100%;
     max-width: 100%;
     height: 100%;
+    min-height: 0;
   }
 
   .bc-screen > .bc-layout-box {
@@ -85,10 +205,13 @@ def css() -> String:
     padding: 24px;
   }
 
-  .bc-layout-box > div {
-    display: inline-flex;
+  .bc-layout-box > .bc-layout-box-body {
+    display: flex;
     box-sizing: border-box;
     max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+    min-height: 0;
   }
 
   .bc-layout-overlay {
@@ -110,24 +233,60 @@ def css() -> String:
     pointer-events: none;
   }
 
-  .bc-layout-overlay > .bc-layout-box > div {
+  .bc-layout-overlay > .bc-layout-box > .bc-layout-box-body {
+    pointer-events: none;
+  }
+
+  .bc-layout-overlay > .bc-layout-box > .bc-layout-box-body > * {
     pointer-events: auto;
   }
 
-  .bc-layout-stack {
-    display: inline-flex;
+  .bc-layout-frame {
+    display: block;
     box-sizing: border-box;
-    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
   }
 
+  .bc-layout-frame > .bc-layout-overlay {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .bc-layout-frame > .bc-layout-overlay > .bc-layout-box {
+    padding: 0;
+  }
+
+  .bc-layout-stack {
+    display: flex;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .bc-layout-document-stack {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    gap: var(--bc-layout-gap);
+  }
+  "
+
+def css_regions() -> String:
+  "
   .bc-layout-pos-top-left {
     justify-content: flex-start;
     align-items: flex-start;
   }
 
   .bc-layout-pos-top {
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: stretch;
   }
 
   .bc-layout-pos-top-right {
@@ -137,17 +296,17 @@ def css() -> String:
 
   .bc-layout-pos-left {
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
   }
 
   .bc-layout-pos-center {
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
   }
 
   .bc-layout-pos-right {
     justify-content: flex-end;
-    align-items: center;
+    align-items: stretch;
   }
 
   .bc-layout-pos-bottom-left {
@@ -156,8 +315,8 @@ def css() -> String:
   }
 
   .bc-layout-pos-bottom {
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: stretch;
   }
 
   .bc-layout-pos-bottom-right {
@@ -165,13 +324,44 @@ def css() -> String:
     align-items: flex-end;
   }
 
-  .bc-layout-flow-row > div {
+  .bc-layout-pos-top > .bc-layout-box-body,
+  .bc-layout-pos-bottom > .bc-layout-box-body,
+  .bc-layout-pos-center > .bc-layout-box-body {
+    width: 100%;
+  }
+
+  .bc-layout-pos-left > .bc-layout-box-body,
+  .bc-layout-pos-right > .bc-layout-box-body,
+  .bc-layout-pos-top > .bc-layout-box-body,
+  .bc-layout-pos-bottom > .bc-layout-box-body,
+  .bc-layout-pos-center > .bc-layout-box-body {
+    height: 100%;
+  }
+
+  .bc-layout-pos-top > .bc-layout-box-body {
+    justify-content: flex-start;
+  }
+
+  .bc-layout-pos-bottom > .bc-layout-box-body {
+    justify-content: flex-end;
+  }
+
+  .bc-layout-pos-left > .bc-layout-box-body,
+  .bc-layout-pos-right > .bc-layout-box-body,
+  .bc-layout-pos-center > .bc-layout-box-body {
+    justify-content: center;
+  }
+  "
+
+def css_flow() -> String:
+  "
+  .bc-layout-box-body.bc-layout-flow-row {
     flex-direction: row;
     align-items: center;
     gap: var(--bc-layout-gap);
   }
 
-  .bc-layout-flow-column > div {
+  .bc-layout-box-body.bc-layout-flow-column {
     flex-direction: column;
     align-items: center;
     gap: var(--bc-layout-gap);
@@ -187,6 +377,56 @@ def css() -> String:
     flex-direction: column;
     align-items: center;
     gap: var(--bc-layout-gap);
+  }
+
+  .bc-layout-document-stack.bc-layout-flow-row {
+    flex-direction: row;
+  }
+
+  .bc-layout-document-stack.bc-layout-flow-column {
+    flex-direction: column;
+  }
+
+  .bc-layout-document-stack.bc-layout-align-start,
+  .bc-layout-stack.bc-layout-align-start {
+    align-items: flex-start;
+  }
+
+  .bc-layout-document-stack.bc-layout-align-center,
+  .bc-layout-stack.bc-layout-align-center {
+    align-items: center;
+  }
+
+  .bc-layout-document-stack.bc-layout-align-end,
+  .bc-layout-stack.bc-layout-align-end {
+    align-items: flex-end;
+  }
+
+  .bc-layout-document-stack.bc-layout-align-stretch,
+  .bc-layout-stack.bc-layout-align-stretch {
+    align-items: stretch;
+  }
+
+  .bc-layout-stack.bc-layout-flow-column.bc-layout-align-stretch {
+    width: 100%;
+  }
+
+  .bc-layout-stack.bc-layout-flow-row.bc-layout-align-stretch {
+    height: 100%;
+  }
+
+  .bc-layout-stack.bc-layout-arrangement-packed {
+    justify-content: center;
+  }
+
+  .bc-layout-stack.bc-layout-arrangement-between.bc-layout-flow-row {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .bc-layout-stack.bc-layout-arrangement-between.bc-layout-flow-column {
+    height: 100%;
+    justify-content: space-between;
   }
 
   .bc-layout-gap-none {
@@ -205,3 +445,6 @@ def css() -> String:
     --bc-layout-gap: 24px;
   }
   "
+
+def css() -> String:
+  css_canvas() ++ css_regions() ++ css_flow()
