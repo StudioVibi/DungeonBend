@@ -210,6 +210,18 @@ type RawHero = {
   upgrades: RawUpgrade[];
 };
 
+type RawHeroPresentation = {
+  hero_id: string;
+  name_align: string;
+  ultimate_title: string;
+  ultimate_icon: string;
+  ultimate_description: string;
+};
+
+type RawHeroPresentationConfig = {
+  heroes: RawHeroPresentation[];
+};
+
 type RawMonster = {
   id: string;
   name: string;
@@ -318,6 +330,19 @@ function bendList(items: string[], size: number): string {
   const outer = indent(size);
   const inner = indent(size + 2);
   return `[\n${items.map((item) => `${inner}${item}`).join(",\n")}\n${outer}]`;
+}
+
+function renderPresentationAlign(value: string, label: string): string {
+  switch (validateString(value, label)) {
+    case "left":
+      return "presentation_left{}";
+    case "center":
+      return "presentation_center{}";
+    case "right":
+      return "presentation_right{}";
+    default:
+      fail(`${label} must be "left", "center", or "right"`);
+  }
 }
 
 function buildCardIndexes(raw: RawDungeonConfig): Map<string, CardIndex> {
@@ -523,11 +548,59 @@ function renderConfigModule(raw: RawDungeonConfig): string {
   ].join("\n");
 }
 
+function renderHeroPresentationModule(rawConfig: RawDungeonConfig, rawPresentation: RawHeroPresentationConfig): string {
+  if (!Array.isArray(rawPresentation.heroes)) {
+    fail("hero.presentation heroes must be a list");
+  }
+
+  const presentationByHeroId = new Map<string, RawHeroPresentation>();
+  rawPresentation.heroes.forEach((presentation, index) => {
+    const heroId = validateString(presentation.hero_id, `hero.presentation.heroes[${index}].hero_id`);
+    if (presentationByHeroId.has(heroId)) {
+      fail(`duplicate hero presentation for "${heroId}"`);
+    }
+    validateString(presentation.ultimate_title, `hero.presentation.heroes[${index}].ultimate_title`);
+    validateString(presentation.ultimate_icon, `hero.presentation.heroes[${index}].ultimate_icon`);
+    validateString(presentation.ultimate_description, `hero.presentation.heroes[${index}].ultimate_description`);
+    renderPresentationAlign(presentation.name_align, `hero.presentation.heroes[${index}].name_align`);
+    presentationByHeroId.set(heroId, presentation);
+  });
+
+  const heroIds = new Set(rawConfig.cards.heroes.map((hero, index) => validateString(hero.id, `cards.heroes[${index}].id`)));
+  presentationByHeroId.forEach((presentation, heroId) => {
+    if (!heroIds.has(heroId)) {
+      fail(`hero.presentation references unknown hero_id "${heroId}"`);
+    }
+  });
+
+  const presentations = rawConfig.cards.heroes.map((hero, index) => {
+    const heroId = validateString(hero.id, `cards.heroes[${index}].id`);
+    const presentation = presentationByHeroId.get(heroId);
+    if (presentation === undefined) {
+      fail(`hero.presentation is missing hero_id "${heroId}"`);
+    }
+    return `hero_presentation{${bendString(heroId)}, ${renderPresentationAlign(presentation.name_align, `hero.presentation["${heroId}"].name_align`)}, ${bendString(presentation.ultimate_title)}, ${bendString(presentation.ultimate_icon)}, ${bendString(presentation.ultimate_description)}}`;
+  });
+
+  return [
+    "import /Dungeon/HeroPresentation as HeroPresentation",
+    "import /Dungeon/PresentationAlign as PresentationAlign",
+    "",
+    "def generated_hero_presentation() -> List(HeroPresentation):",
+    `  ${bendList(presentations, 2)}`,
+    "",
+  ].join("\n");
+}
+
 async function generateDungeonConfig(cwd: string): Promise<void> {
   const dataPath = path.resolve(cwd, "data/dungeon.config.json");
+  const presentationPath = path.resolve(cwd, "data/hero.presentation.json");
   const outPath = path.resolve(cwd, "src/Dungeon/generated_config.bend");
+  const presentationOutPath = path.resolve(cwd, "src/Dungeon/generated_hero_presentation.bend");
   const raw = (await Bun.file(dataPath).json()) as RawDungeonConfig;
+  const rawPresentation = (await Bun.file(presentationPath).json()) as RawHeroPresentationConfig;
   await Bun.write(outPath, renderConfigModule(raw));
+  await Bun.write(presentationOutPath, renderHeroPresentationModule(raw, rawPresentation));
 }
 
 function patchAppRuntime(html: string): string {

@@ -144,6 +144,10 @@ export const Dungeon$Upgrade = null;
 
 export const Dungeon$HeroDef = null;
 
+export const Dungeon$PresentationAlign = null;
+
+export const Dungeon$HeroPresentation = null;
+
 export const Dungeon$MonsterDef = null;
 
 export const Dungeon$SwordDef = null;
@@ -17159,7 +17163,7 @@ export function $Dungeon$View$css$layout_css() {
   _v10 = ".topbar--menu,.topbar--dungeon,.topbar--boosters{padding-top:4px;}.menu-stage{display:grid;min-height:0;place-items:center;padding-block:8px;}.menu-stage__content{width:100%;min-height:0;max-height:100%;display:grid;justify-items:center;align-content:center;}.menu-hero-panel{width:100%;min-height:0;display:grid;justify-items:center;align-content:center;gap:16px;}.menu-hero-panel__name{margin:0;font-size:1.18rem;font-weight:800;letter-spacing:0.02em;text-align:center;}.menu-hero-panel__portrait{width:min(100%,220px);min-height:0;max-height:clamp(160px,30vh,220px);display:grid;place-items:center;padding-bottom:6px;}.menu-hero-panel__image{width:auto;height:auto;min-height:0;max-width:100%;max-height:100%;object-fit:contain;}.menu-hero-panel__stats{margin:0;color:var(--text-muted);font-size:0.86rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-align:center;white-space:nowrap;}.menu-upgrade-row{display:grid;grid-template-columns:auto auto;gap:12px;align-items:center;justify-content:center;}.menu-upgrade-row__action{width:auto;}.menu-upgrade-row__action>.bc-btn{width:auto;min-width:0;}.menu-upgrade-row__meta{margin:0;color:var(--text);font-size:0.96rem;font-weight:800;letter-spacing:0.02em;text-align:left;white-space:nowrap;}.menu-secondary-action,.menu-start-action{width:min(100%,280px);justify-self:center;}.menu-secondary-action>.bc-btn,.menu-start-action>.bc-btn{width:100%;}";
   _v6 = (_v7 + _v10);
   var _v11;
-  _v11 = ".menu-hero-panel__portrait--select{width:min(100%,320px);max-height:clamp(160px,30vh,220px);}.menu-hero-panel__nav{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;}.menu-hero-panel__nav-action{display:flex;justify-content:center;}.menu-hero-panel__nav-action>.bc-btn{width:auto;min-width:44px;}.menu-hero-panel__nav-figure{display:grid;place-items:center;min-width:0;}";
+  _v11 = ".character-detail{width:min(100%,460px);}.character-detail__portrait{width:clamp(112px,34vw,190px);min-height:0;display:grid;place-items:center;}.character-detail__image{width:auto;height:auto;max-width:100%;max-height:clamp(132px,28vh,210px);object-fit:contain;}.character-detail__info{width:clamp(152px,40vw,230px);display:grid;align-content:center;justify-items:stretch;min-width:0;}.character-detail__name-outline{width:100%;}.character-detail__name-outline .bc-text{color:#fff;font-size:1.22rem;font-weight:900;letter-spacing:0.01em;line-height:1.02;-webkit-text-stroke:1px #1d1d1d;paint-order:stroke fill;text-shadow:0 2px 0 #1d1d1d,1px 0 0 #1d1d1d,-1px 0 0 #1d1d1d,0 -1px 0 #1d1d1d;}.character-detail__info .hero-hud{align-self:center;}.character-detail__status{margin:0;display:inline-flex;align-items:center;align-self:center;min-height:28px;padding:5px 10px;border-radius:999px;border:1px solid var(--surface-border);font-size:0.7rem;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}.character-detail__status--equipped{background:#e8f7dc;color:#2e7d1f;border-color:#8ccf62;}.character-detail__status--preview{background:#fff;color:var(--text-muted);}.character-detail__status--locked{background:#f4e6e6;color:var(--danger);border-color:#efb2b2;}.character-ultimate{width:100%;display:grid;gap:6px;color:var(--text-muted);}.character-ultimate__body{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:start;gap:10px;}.character-ultimate__icon{width:42px;height:42px;object-fit:contain;padding:5px;border:2px solid #7bbf42;background:#fff;box-shadow:0 2px 0 rgba(17,17,17,0.18);}.character-ultimate__description{min-width:0;color:var(--text);}.character-ultimate__description .bc-text{font-size:0.72rem;font-weight:800;line-height:1.2;letter-spacing:0.01em;}.character-actions{width:min(100%,460px);display:grid;justify-items:center;}.character-actions .bc-btn{min-width:132px;}.character-roster{width:min(100%,460px);display:grid;justify-items:center;}.character-roster-card{appearance:none;width:clamp(112px,36vw,160px);padding:0;border:0;background:transparent;color:inherit;font:inherit;text-align:center;cursor:pointer;}.character-roster-card>.bc-card{width:100%;min-height:120px;transition:border-color 120ms ease,transform 120ms ease,box-shadow 120ms ease;}.character-roster-card>.bc-card>.bc-card-body{height:100%;}.character-roster-card:hover>.bc-card{transform:translateY(-1px);}.character-roster-card--preview>.bc-card{border-color:var(--accent);box-shadow:0 0 0 3px rgba(17,17,17,0.1),var(--shadow);}.character-roster-card--locked{opacity:0.74;}.character-roster-card__content{min-height:104px;display:grid;place-items:center;}.character-roster-card__image-wrap{width:100%;min-height:0;display:grid;place-items:center;}.character-roster-card__image{width:auto;height:auto;max-width:100%;max-height:92px;object-fit:contain;}";
   _v5 = (_v6 + _v11);
   var _v12;
   _v12 = ".hero-hud{width:min(100%,252px);display:grid;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:20px;}.hero-hud__level{justify-self:start;}.hero-hud__level .bc-text{color:#b4482e;font-size:1.04rem;font-weight:900;letter-spacing:0.04em;line-height:1;text-transform:uppercase;}.hero-hud__hp{display:flex;align-items:center;justify-self:end;gap:8px;min-width:0;}.hero-hud__heart{position:relative;width:44px;flex:0 0 44px;}.hero-hud__heart-image{width:100%;height:auto;object-fit:contain;}.hero-hud__heart-value{position:absolute;inset:0;display:grid;place-items:center;color:#ffffff;font-size:1.02rem;font-weight:900;line-height:1;transform:translateY(-1px);}.hero-hud__max .bc-text{color:#b4482e;font-size:1.02rem;font-weight:900;line-height:1;letter-spacing:0.01em;}.menu-upgrade-row--placeholder{width:min(100%,280px);min-height:44px;}";
@@ -17171,7 +17175,7 @@ export function $Dungeon$View$css$layout_css() {
   _v14 = ".board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(100%,460px);touch-action:none;transition:transform 140ms ease,filter 140ms ease;}.board--over{transform:scale(0.985);filter:blur(1px);}.ultimate-action{width:min(100%,460px);}.ultimate-action>.bc-btn{width:100%;letter-spacing:0.08em;text-transform:uppercase;}.game-over-modal{position:absolute;inset:0;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;background:rgba(17,17,17,0);transition:opacity 140ms ease,background-color 140ms ease;}.game-over-modal--visible{opacity:1;pointer-events:auto;background:rgba(17,17,17,0.32);}.game-over-modal>.bc-card{width:min(100%,280px);}.game-over-card{display:grid;gap:12px;justify-items:center;text-align:center;}.game-over-card__action{width:100%;}.game-over-card__action>.bc-btn{width:100%;}.game-over-card__actions{width:100%;display:grid;justify-items:center;gap:12px;padding-top:4px;}.game-over-card__primary,.game-over-card__secondary{width:min(100%,280px);justify-self:center;}.game-over-card__primary>.bc-btn,.game-over-card__secondary>.bc-btn{width:100%;}.game-over-card__eyebrow{margin:0;color:var(--danger);font-size:0.74rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}.game-over-card__title{margin:0;font-size:1.4rem;line-height:1;}.game-over-card__body{margin:0;color:var(--text-muted);font-size:0.92rem;line-height:1.35;}";
   _v2 = (_v3 + _v14);
   var _v15;
-  _v15 = "@media (max-width:800px){.topbar--menu,.topbar--dungeon,.topbar--boosters{gap:10px;}.topbar__actions,.topbar__stats{gap:10px;}.topbar__slot{min-width:88px;}.topbar-stat{font-size:0.64rem;}.topbar-stat__value{font-size:0.82rem;}.menu-hero-panel{gap:12px;}.menu-hero-panel__name{font-size:1.08rem;}.menu-hero-panel__portrait{width:min(100%,190px);min-height:0;max-height:clamp(140px,24vh,190px);padding-bottom:4px;}.menu-hero-panel__portrait--select{width:min(100%,280px);max-height:clamp(140px,24vh,190px);}.menu-hero-panel__stats{font-size:0.8rem;white-space:normal;}.menu-upgrade-row{grid-template-columns:1fr;justify-items:center;gap:10px;}.menu-upgrade-row__meta{text-align:center;}.menu-secondary-action,.menu-start-action,.boosters-stage__buy{width:min(100%,260px);}.booster-reveal-panel{gap:14px;}.booster-reveal-panel__meta{width:min(100%,248px);}.booster-reveal-panel__footer{padding-top:26px;}.booster-reveal-panel__action{width:min(100%,156px);}.reveal-meta{gap:6px;}.reveal-name{font-size:1rem;}.reveal-copies{font-size:0.82rem;}.reveal-stat--detail{font-size:0.88rem;}.reveal-position{font-size:0.82rem;}.booster-visual{width:min(100%,248px);padding:14px;}.booster-visual--revealed{max-height:clamp(280px,48vh,360px);}.booster-visual--midum{padding:0;}.booster-visual__detail--midum{padding:14px;}.booster-visual__image{max-height:156px;}.booster-visual__image--midum{transform:translateY(-9px);}.booster-visual__nav{gap:8px;}.board{gap:8px;width:min(100%,400px);}.ultimate-action{width:min(100%,400px);}.game-over-modal>.bc-card{width:min(100%,240px);}}";
+  _v15 = "@media (max-width:800px){.topbar--menu,.topbar--dungeon,.topbar--boosters{gap:10px;}.topbar__actions,.topbar__stats{gap:10px;}.topbar__slot{min-width:88px;}.topbar-stat{font-size:0.64rem;}.topbar-stat__value{font-size:0.82rem;}.menu-hero-panel{gap:12px;}.menu-hero-panel__name{font-size:1.08rem;}.menu-hero-panel__portrait{width:min(100%,190px);min-height:0;max-height:clamp(140px,24vh,190px);padding-bottom:4px;}.menu-hero-panel__stats{font-size:0.8rem;white-space:normal;}.menu-upgrade-row{grid-template-columns:1fr;justify-items:center;gap:10px;}.menu-upgrade-row__meta{text-align:center;}.menu-secondary-action,.menu-start-action,.boosters-stage__buy{width:min(100%,260px);}.booster-reveal-panel{gap:14px;}.booster-reveal-panel__meta{width:min(100%,248px);}.booster-reveal-panel__footer{padding-top:26px;}.booster-reveal-panel__action{width:min(100%,156px);}.reveal-meta{gap:6px;}.reveal-name{font-size:1rem;}.reveal-copies{font-size:0.82rem;}.reveal-stat--detail{font-size:0.88rem;}.reveal-position{font-size:0.82rem;}.booster-visual{width:min(100%,248px);padding:14px;}.booster-visual--revealed{max-height:clamp(280px,48vh,360px);}.booster-visual--midum{padding:0;}.booster-visual__detail--midum{padding:14px;}.booster-visual__image{max-height:156px;}.booster-visual__image--midum{transform:translateY(-9px);}.booster-visual__nav{gap:8px;}.board{gap:8px;width:min(100%,400px);}.ultimate-action{width:min(100%,400px);}.game-over-modal>.bc-card{width:min(100%,240px);}}";
   _v1 = (_v2 + _v15);
   var _v16;
   _v16 = "@media (max-width:800px){.hero-hud{width:min(100%,228px);column-gap:16px;}.hero-hud__level .bc-text{font-size:0.94rem;}.hero-hud__heart{width:40px;flex-basis:40px;}.hero-hud__heart-value{font-size:0.92rem;}.hero-hud__max .bc-text{font-size:0.94rem;}.menu-upgrade-row--placeholder{width:min(100%,260px);min-height:72px;}}";
@@ -17707,149 +17711,181 @@ export function $Dungeon$View$menu$_render_character_select(meta_state, preview_
   var _v4;
   _v4 = preview_hero$1;
   profile$3 = $Dungeon$profile_helpers$profile_for_hero(_v3, _v4);
+  var presentation$4;
   var _v5;
+  _v5 = preview_hero$1;
+  presentation$4 = $Dungeon$hero_presentation$hero_presentation_at(_v5);
   var _v6;
-  _v6 = null;
   var _v7;
+  _v7 = null;
   var _v8;
-  _v8 = null;
   var _v9;
+  _v9 = null;
   var _v10;
   var _v11;
-  _v11 = null;
   var _v12;
+  _v12 = null;
   var _v13;
-  _v13 = null;
   var _v14;
+  _v14 = null;
   var _v15;
-  _v15 = meta_state;
   var _v16;
-  _v16 = Dungeon$View$menu$_header_placeholder_action();
-  _v14 = $Dungeon$View$menu$_dashboard_header(_v15, _v16);
+  _v16 = meta_state;
   var _v17;
+  _v17 = Dungeon$View$menu$_header_placeholder_action();
+  _v15 = $Dungeon$View$menu$_dashboard_header(_v16, _v17);
   var _v18;
-  _v18 = ({$: "width_full"});
   var _v19;
+  _v19 = ({$: "width_full"});
   var _v20;
-  _v20 = ({$: "height_fit"});
   var _v21;
+  _v21 = ({$: "height_fit"});
   var _v22;
-  _v22 = ({$: "inset_none"});
   var _v23;
-  _v23 = ({$: "nil"});
-  _v21 = ({$: "cons", head: _v22, tail: _v23});
-  _v19 = ({$: "cons", head: _v20, tail: _v21});
-  _v17 = ({$: "cons", head: _v18, tail: _v19});
-  _v12 = $Midum$Layout$frame(_v13, _v14, _v17);
-  _v10 = $Midum$Layout$top(_v11, _v12);
+  _v23 = ({$: "inset_none"});
   var _v24;
+  _v24 = ({$: "nil"});
+  _v22 = ({$: "cons", head: _v23, tail: _v24});
+  _v20 = ({$: "cons", head: _v21, tail: _v22});
+  _v18 = ({$: "cons", head: _v19, tail: _v20});
+  _v13 = $Midum$Layout$frame(_v14, _v15, _v18);
+  _v11 = $Midum$Layout$top(_v12, _v13);
   var _v25;
   var _v26;
-  _v26 = null;
   var _v27;
+  _v27 = null;
   var _v28;
-  _v28 = null;
   var _v29;
+  _v29 = null;
   var _v30;
-  _v30 = "section";
   var _v31;
+  _v31 = meta_state;
   var _v32;
+  _v32 = preview_hero$1;
   var _v33;
-  _v33 = "class";
+  _v33 = hero_value$2;
   var _v34;
-  _v34 = "menu-stage";
-  _v32 = ({$: "attr", nam: _v33, val: _v34});
+  _v34 = profile$3;
   var _v35;
-  _v35 = ({$: "nil"});
-  _v31 = ({$: "cons", head: _v32, tail: _v35});
+  _v35 = presentation$4;
+  _v30 = $Dungeon$View$menu$_character_select_content(_v31, _v32, _v33, _v34, _v35);
   var _v36;
   var _v37;
+  _v37 = ({$: "width_full"});
   var _v38;
-  _v38 = "div";
   var _v39;
+  _v39 = ({$: "height_fit"});
   var _v40;
   var _v41;
-  _v41 = "class";
+  _v41 = ({$: "inset_none"});
   var _v42;
-  _v42 = "menu-stage__content";
-  _v40 = ({$: "attr", nam: _v41, val: _v42});
+  _v42 = ({$: "nil"});
+  _v40 = ({$: "cons", head: _v41, tail: _v42});
+  _v38 = ({$: "cons", head: _v39, tail: _v40});
+  _v36 = ({$: "cons", head: _v37, tail: _v38});
+  _v28 = $Midum$Layout$frame(_v29, _v30, _v36);
+  _v26 = $Midum$Layout$center(_v27, _v28);
   var _v43;
-  _v43 = ({$: "nil"});
-  _v39 = ({$: "cons", head: _v40, tail: _v43});
   var _v44;
   var _v45;
+  _v45 = null;
   var _v46;
-  _v46 = hero_value$2;
   var _v47;
-  _v47 = profile$3;
-  _v45 = $Dungeon$View$menu$_menu_character_panel(_v46, _v47);
+  _v47 = meta_state;
   var _v48;
-  _v48 = ({$: "nil"});
-  _v44 = ({$: "cons", head: _v45, tail: _v48});
-  _v37 = ({$: "node", tag: _v38, attrs: _v39, kids: _v44});
+  _v48 = preview_hero$1;
   var _v49;
-  _v49 = ({$: "nil"});
-  _v36 = ({$: "cons", head: _v37, tail: _v49});
-  _v29 = ({$: "node", tag: _v30, attrs: _v31, kids: _v36});
+  _v49 = hero_value$2;
   var _v50;
+  _v50 = profile$3;
+  _v46 = $Dungeon$View$menu$_character_bottom_actions(_v47, _v48, _v49, _v50);
+  _v44 = $Midum$Layout$bottom(_v45, _v46);
   var _v51;
-  _v51 = ({$: "width_full"});
+  _v51 = ({$: "nil"});
+  _v43 = ({$: "cons", head: _v44, tail: _v51});
+  _v25 = ({$: "cons", head: _v26, tail: _v43});
+  _v10 = ({$: "cons", head: _v11, tail: _v25});
+  _v8 = $Midum$Layout$overlay(_v9, _v10);
   var _v52;
   var _v53;
-  _v53 = ({$: "height_fit"});
+  _v53 = ({$: "width_full"});
   var _v54;
   var _v55;
-  _v55 = ({$: "inset_none"});
+  _v55 = ({$: "height_full"});
   var _v56;
-  _v56 = ({$: "nil"});
+  var _v57;
+  _v57 = ({$: "inset_none"});
+  var _v58;
+  _v58 = ({$: "nil"});
+  _v56 = ({$: "cons", head: _v57, tail: _v58});
   _v54 = ({$: "cons", head: _v55, tail: _v56});
   _v52 = ({$: "cons", head: _v53, tail: _v54});
-  _v50 = ({$: "cons", head: _v51, tail: _v52});
-  _v27 = $Midum$Layout$frame(_v28, _v29, _v50);
-  _v25 = $Midum$Layout$center(_v26, _v27);
-  var _v57;
-  var _v58;
-  var _v59;
-  _v59 = null;
-  var _v60;
-  var _v61;
-  _v61 = meta_state;
-  var _v62;
-  _v62 = preview_hero$1;
-  var _v63;
-  _v63 = hero_value$2;
-  var _v64;
-  _v64 = profile$3;
-  _v60 = $Dungeon$View$menu$_character_select_actions_layout(_v61, _v62, _v63, _v64);
-  _v58 = $Midum$Layout$bottom(_v59, _v60);
-  var _v65;
-  _v65 = ({$: "nil"});
-  _v57 = ({$: "cons", head: _v58, tail: _v65});
-  _v24 = ({$: "cons", head: _v25, tail: _v57});
-  _v9 = ({$: "cons", head: _v10, tail: _v24});
-  _v7 = $Midum$Layout$overlay(_v8, _v9);
-  var _v66;
-  var _v67;
-  _v67 = ({$: "width_full"});
-  var _v68;
-  var _v69;
-  _v69 = ({$: "height_full"});
-  var _v70;
-  var _v71;
-  _v71 = ({$: "inset_none"});
-  var _v72;
-  _v72 = ({$: "nil"});
-  _v70 = ({$: "cons", head: _v71, tail: _v72});
-  _v68 = ({$: "cons", head: _v69, tail: _v70});
-  _v66 = ({$: "cons", head: _v67, tail: _v68});
-  _v5 = $Midum$Layout$frame(_v6, _v7, _v66);
-  _r0 = $Dungeon$View$menu$_menu_shell(_v5);
+  _v6 = $Midum$Layout$frame(_v7, _v8, _v52);
+  _r0 = $Dungeon$View$menu$_menu_shell(_v6);
   return _r0;
 }
 
 export const Dungeon$View$menu$_render_character_select = () => ((a0) => ((a1) => ($Dungeon$View$menu$_render_character_select(a0, a1))));
 
-export function $Dungeon$View$menu$_character_select_actions_layout(meta_state, preview_hero$1, hero_value$2, profile$3) {
+export function $Dungeon$View$menu$_character_select_content(meta_state, preview_hero$1, hero_value$2, profile$3, presentation$4) {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = meta_state;
+  var _v5;
+  _v5 = preview_hero$1;
+  var _v6;
+  _v6 = hero_value$2;
+  var _v7;
+  _v7 = profile$3;
+  var _v8;
+  _v8 = presentation$4;
+  _v3 = $Dungeon$View$menu$_character_detail_panel(_v4, _v5, _v6, _v7, _v8);
+  var _v9;
+  var _v10;
+  var _v11;
+  _v11 = meta_state;
+  var _v12;
+  _v12 = hero_value$2;
+  var _v13;
+  _v13 = profile$3;
+  _v10 = $Dungeon$View$menu$_character_context_actions(_v11, _v12, _v13);
+  var _v14;
+  var _v15;
+  var _v16;
+  _v16 = meta_state;
+  var _v17;
+  _v17 = preview_hero$1;
+  _v15 = $Dungeon$View$menu$_character_roster(_v16, _v17);
+  var _v18;
+  _v18 = ({$: "nil"});
+  _v14 = ({$: "cons", head: _v15, tail: _v18});
+  _v9 = ({$: "cons", head: _v10, tail: _v14});
+  _v2 = ({$: "cons", head: _v3, tail: _v9});
+  var _v19;
+  var _v20;
+  _v20 = ({$: "direction_column"});
+  var _v21;
+  var _v22;
+  _v22 = ({$: "gap_md"});
+  var _v23;
+  var _v24;
+  _v24 = ({$: "align_center"});
+  var _v25;
+  _v25 = ({$: "nil"});
+  _v23 = ({$: "cons", head: _v24, tail: _v25});
+  _v21 = ({$: "cons", head: _v22, tail: _v23});
+  _v19 = ({$: "cons", head: _v20, tail: _v21});
+  _r0 = $Midum$Layout$group(_v1, _v2, _v19);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_select_content = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_select_content(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$View$menu$_character_bottom_actions(meta_state, preview_hero$1, hero_value$2, profile$3) {
   var _r0;
   var _v1;
   _v1 = null;
@@ -17858,60 +17894,907 @@ export function $Dungeon$View$menu$_character_select_actions_layout(meta_state, 
   _v3 = null;
   var _v4;
   var _v5;
+  _v5 = Dungeon$View$menu$_character_back_button();
+  var _v6;
+  var _v7;
+  var _v8;
+  _v8 = null;
+  var _v9;
+  var _v10;
+  _v10 = meta_state;
+  var _v11;
+  _v11 = preview_hero$1;
+  var _v12;
+  _v12 = hero_value$2;
+  var _v13;
+  _v13 = profile$3;
+  _v9 = $Dungeon$View$menu$_character_select_button(_v10, _v11, _v12, _v13);
+  var _v14;
+  var _v15;
+  var _v16;
+  _v16 = 280;
+  _v15 = ({$: "width_px", value: _v16});
+  var _v17;
+  var _v18;
+  _v18 = ({$: "height_fit"});
+  var _v19;
+  var _v20;
+  _v20 = ({$: "inset_none"});
+  var _v21;
+  _v21 = ({$: "nil"});
+  _v19 = ({$: "cons", head: _v20, tail: _v21});
+  _v17 = ({$: "cons", head: _v18, tail: _v19});
+  _v14 = ({$: "cons", head: _v15, tail: _v17});
+  _v7 = $Midum$Layout$frame(_v8, _v9, _v14);
+  var _v22;
+  _v22 = ({$: "nil"});
+  _v6 = ({$: "cons", head: _v7, tail: _v22});
+  _v4 = ({$: "cons", head: _v5, tail: _v6});
+  _v2 = $Midum$Layout$row_between(_v3, _v4);
+  var _v23;
+  var _v24;
+  var _v25;
+  _v25 = 460;
+  _v24 = ({$: "width_px", value: _v25});
+  var _v26;
+  var _v27;
+  _v27 = ({$: "height_fit"});
+  var _v28;
+  var _v29;
+  _v29 = ({$: "inset_none"});
+  var _v30;
+  _v30 = ({$: "nil"});
+  _v28 = ({$: "cons", head: _v29, tail: _v30});
+  _v26 = ({$: "cons", head: _v27, tail: _v28});
+  _v23 = ({$: "cons", head: _v24, tail: _v26});
+  _r0 = $Midum$Layout$frame(_v1, _v2, _v23);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_bottom_actions = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_bottom_actions(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_detail_panel(meta_state, preview_hero$1, hero_value$2, profile$3, presentation$4) {
+  var _r0;
+  var _v1;
+  _v1 = "section";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-detail";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = null;
+  var _v10;
+  var _v11;
+  var _v12;
+  _v12 = hero_value$2;
+  _v11 = $Dungeon$View$menu$_character_detail_portrait(_v12);
+  var _v13;
+  var _v14;
+  var _v15;
+  _v15 = meta_state;
+  var _v16;
+  _v16 = preview_hero$1;
+  var _v17;
+  _v17 = hero_value$2;
+  var _v18;
+  _v18 = profile$3;
+  var _v19;
+  _v19 = presentation$4;
+  _v14 = $Dungeon$View$menu$_character_info_column(_v15, _v16, _v17, _v18, _v19);
+  var _v20;
+  _v20 = ({$: "nil"});
+  _v13 = ({$: "cons", head: _v14, tail: _v20});
+  _v10 = ({$: "cons", head: _v11, tail: _v13});
+  _v8 = $Midum$Layout$row(_v9, _v10);
+  var _v21;
+  _v21 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v21});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_panel = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_detail_panel(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$View$menu$_character_detail_portrait(hero_value) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-detail__portrait";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = "img";
+  var _v10;
+  var _v11;
+  var _v12;
+  _v12 = "class";
+  var _v13;
+  _v13 = "character-detail__image";
+  _v11 = ({$: "attr", nam: _v12, val: _v13});
+  var _v14;
+  var _v15;
+  var _v16;
+  _v16 = "src";
+  var _v17;
+  var _v18;
+  _v18 = hero_value;
+  _v17 = $Dungeon$hero_helpers$hero_sprite(_v18);
+  _v15 = ({$: "attr", nam: _v16, val: _v17});
+  var _v19;
+  var _v20;
+  var _v21;
+  _v21 = "alt";
+  var _v22;
+  var _v23;
+  _v23 = hero_value;
+  _v22 = $Dungeon$hero_helpers$hero_name(_v23);
+  _v20 = ({$: "attr", nam: _v21, val: _v22});
+  var _v24;
+  _v24 = ({$: "nil"});
+  _v19 = ({$: "cons", head: _v20, tail: _v24});
+  _v14 = ({$: "cons", head: _v15, tail: _v19});
+  _v10 = ({$: "cons", head: _v11, tail: _v14});
+  var _v25;
+  _v25 = ({$: "nil"});
+  _v8 = ({$: "node", tag: _v9, attrs: _v10, kids: _v25});
+  var _v26;
+  _v26 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v26});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_portrait = () => ((a0) => ($Dungeon$View$menu$_character_detail_portrait(a0)));
+
+export function $Dungeon$View$menu$_character_info_column(meta_state, preview_hero$1, hero_value$2, profile$3, presentation$4) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-detail__info";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = null;
+  var _v10;
+  var _v11;
+  var _v12;
+  _v12 = hero_value$2;
+  var _v13;
+  _v13 = presentation$4;
+  _v11 = $Dungeon$View$menu$_character_detail_name(_v12, _v13);
+  var _v14;
+  var _v15;
+  var _v16;
+  _v16 = hero_value$2;
+  var _v17;
+  _v17 = profile$3;
+  _v15 = $Dungeon$View$menu$_hero_hud(_v16, _v17);
+  var _v18;
+  var _v19;
+  var _v20;
+  _v20 = meta_state;
+  var _v21;
+  _v21 = preview_hero$1;
+  var _v22;
+  _v22 = profile$3;
+  _v19 = $Dungeon$View$menu$_character_detail_status(_v20, _v21, _v22);
+  var _v23;
+  var _v24;
+  var _v25;
+  _v25 = presentation$4;
+  _v24 = $Dungeon$View$menu$_character_ultimate_block(_v25);
+  var _v26;
+  _v26 = ({$: "nil"});
+  _v23 = ({$: "cons", head: _v24, tail: _v26});
+  _v18 = ({$: "cons", head: _v19, tail: _v23});
+  _v14 = ({$: "cons", head: _v15, tail: _v18});
+  _v10 = ({$: "cons", head: _v11, tail: _v14});
+  var _v27;
+  var _v28;
+  _v28 = ({$: "direction_column"});
+  var _v29;
+  var _v30;
+  _v30 = ({$: "gap_sm"});
+  var _v31;
+  var _v32;
+  _v32 = ({$: "align_stretch"});
+  var _v33;
+  _v33 = ({$: "nil"});
+  _v31 = ({$: "cons", head: _v32, tail: _v33});
+  _v29 = ({$: "cons", head: _v30, tail: _v31});
+  _v27 = ({$: "cons", head: _v28, tail: _v29});
+  _v8 = $Midum$Layout$group(_v9, _v10, _v27);
+  var _v34;
+  _v34 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v34});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_info_column = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_info_column(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$View$menu$_character_detail_name(hero_value, presentation$1) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-detail__name-outline";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = null;
+  var _v10;
+  var _v11;
+  var _v12;
+  _v12 = presentation$1;
+  _v11 = $Dungeon$hero_presentation$hero_presentation_name_align(_v12);
+  _v10 = $Dungeon$View$menu$_presentation_text_align(_v11);
+  var _v13;
+  var _v14;
+  _v14 = hero_value;
+  _v13 = $Dungeon$hero_helpers$hero_name(_v14);
+  var _v15;
+  _v15 = ({$: "nil"});
+  _v8 = $Midum$Text$h2(_v9, _v10, _v13, _v15);
+  var _v16;
+  _v16 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v16});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_name = () => ((a0) => ((a1) => ($Dungeon$View$menu$_character_detail_name(a0, a1))));
+
+export function $Dungeon$View$menu$_character_detail_status(meta_state, preview_hero$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = "p";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
   var _v6;
   _v6 = meta_state;
-  _v5 = $Dungeon$View$menu$_character_back_button(_v6);
+  var _v7;
+  _v7 = preview_hero$1;
+  var _v8;
+  _v8 = profile$2;
+  _v5 = $Dungeon$View$menu$_character_detail_status_class(_v6, _v7, _v8);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v9;
+  _v9 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v9});
+  var _v10;
+  var _v11;
+  var _v12;
+  var _v13;
+  _v13 = meta_state;
+  var _v14;
+  _v14 = preview_hero$1;
+  var _v15;
+  _v15 = profile$2;
+  _v12 = $Dungeon$View$menu$_character_detail_status_label(_v13, _v14, _v15);
+  _v11 = ({$: "text", value: _v12});
+  var _v16;
+  _v16 = ({$: "nil"});
+  _v10 = ({$: "cons", head: _v11, tail: _v16});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v10});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_detail_status(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_ultimate_block(presentation) {
+  var _r0;
+  var _v1;
+  _v1 = "section";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-ultimate";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = null;
+  var _v10;
+  _v10 = ({$: "left"});
+  var _v11;
+  var _v12;
+  _v12 = presentation;
+  _v11 = $Dungeon$hero_presentation$hero_presentation_ultimate_title(_v12);
+  var _v13;
+  _v13 = ({$: "nil"});
+  _v8 = $Midum$Text$label(_v9, _v10, _v11, _v13);
+  var _v14;
+  var _v15;
+  var _v16;
+  _v16 = "div";
+  var _v17;
+  var _v18;
+  var _v19;
+  _v19 = "class";
+  var _v20;
+  _v20 = "character-ultimate__body";
+  _v18 = ({$: "attr", nam: _v19, val: _v20});
+  var _v21;
+  _v21 = ({$: "nil"});
+  _v17 = ({$: "cons", head: _v18, tail: _v21});
+  var _v22;
+  var _v23;
+  var _v24;
+  _v24 = "img";
+  var _v25;
+  var _v26;
+  var _v27;
+  _v27 = "class";
+  var _v28;
+  _v28 = "character-ultimate__icon";
+  _v26 = ({$: "attr", nam: _v27, val: _v28});
+  var _v29;
+  var _v30;
+  var _v31;
+  _v31 = "src";
+  var _v32;
+  var _v33;
+  _v33 = presentation;
+  _v32 = $Dungeon$hero_presentation$hero_presentation_ultimate_icon(_v33);
+  _v30 = ({$: "attr", nam: _v31, val: _v32});
+  var _v34;
+  var _v35;
+  var _v36;
+  _v36 = "alt";
+  var _v37;
+  var _v38;
+  _v38 = presentation;
+  _v37 = $Dungeon$hero_presentation$hero_presentation_ultimate_title(_v38);
+  _v35 = ({$: "attr", nam: _v36, val: _v37});
+  var _v39;
+  _v39 = ({$: "nil"});
+  _v34 = ({$: "cons", head: _v35, tail: _v39});
+  _v29 = ({$: "cons", head: _v30, tail: _v34});
+  _v25 = ({$: "cons", head: _v26, tail: _v29});
+  var _v40;
+  _v40 = ({$: "nil"});
+  _v23 = ({$: "node", tag: _v24, attrs: _v25, kids: _v40});
+  var _v41;
+  var _v42;
+  var _v43;
+  _v43 = "div";
+  var _v44;
+  var _v45;
+  var _v46;
+  _v46 = "class";
+  var _v47;
+  _v47 = "character-ultimate__description";
+  _v45 = ({$: "attr", nam: _v46, val: _v47});
+  var _v48;
+  _v48 = ({$: "nil"});
+  _v44 = ({$: "cons", head: _v45, tail: _v48});
+  var _v49;
+  var _v50;
+  var _v51;
+  _v51 = null;
+  var _v52;
+  _v52 = ({$: "left"});
+  var _v53;
+  var _v54;
+  _v54 = presentation;
+  _v53 = $Dungeon$hero_presentation$hero_presentation_ultimate_description(_v54);
+  var _v55;
+  _v55 = ({$: "nil"});
+  _v50 = $Midum$Text$body(_v51, _v52, _v53, _v55);
+  var _v56;
+  _v56 = ({$: "nil"});
+  _v49 = ({$: "cons", head: _v50, tail: _v56});
+  _v42 = ({$: "node", tag: _v43, attrs: _v44, kids: _v49});
+  var _v57;
+  _v57 = ({$: "nil"});
+  _v41 = ({$: "cons", head: _v42, tail: _v57});
+  _v22 = ({$: "cons", head: _v23, tail: _v41});
+  _v15 = ({$: "node", tag: _v16, attrs: _v17, kids: _v22});
+  var _v58;
+  _v58 = ({$: "nil"});
+  _v14 = ({$: "cons", head: _v15, tail: _v58});
+  _v7 = ({$: "cons", head: _v8, tail: _v14});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_ultimate_block = () => ((a0) => ($Dungeon$View$menu$_character_ultimate_block(a0)));
+
+export function $Dungeon$View$menu$_presentation_text_align(x) {
+  var _r0;
+  switch (x.$) {
+    case "presentation_left": {
+      _r0 = ({$: "left"});
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "presentation_center": {
+          _r0 = ({$: "center"});
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "presentation_right": {
+              _r0 = ({$: "right"});
+              break;
+            }
+            default: {
+              throw new Error("EFQ applied");
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_presentation_text_align = () => ((a0) => ($Dungeon$View$menu$_presentation_text_align(a0)));
+
+export function $Dungeon$View$menu$_character_context_actions(meta_state, hero_value$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = "section";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-actions";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
   var _v7;
   var _v8;
   var _v9;
   _v9 = meta_state;
   var _v10;
-  _v10 = preview_hero$1;
+  _v10 = hero_value$1;
   var _v11;
-  _v11 = hero_value$2;
+  _v11 = profile$2;
+  _v8 = $Dungeon$View$menu$_character_upgrade_button(_v9, _v10, _v11);
   var _v12;
-  _v12 = profile$3;
-  _v8 = $Dungeon$View$menu$_character_select_button(_v9, _v10, _v11, _v12);
-  var _v13;
-  _v13 = ({$: "nil"});
-  _v7 = ({$: "cons", head: _v8, tail: _v13});
-  _v4 = ({$: "cons", head: _v5, tail: _v7});
-  var _v14;
-  var _v15;
-  _v15 = ({$: "direction_column"});
-  var _v16;
-  var _v17;
-  _v17 = ({$: "gap_sm"});
-  var _v18;
-  var _v19;
-  _v19 = ({$: "align_stretch"});
-  var _v20;
-  _v20 = ({$: "nil"});
-  _v18 = ({$: "cons", head: _v19, tail: _v20});
-  _v16 = ({$: "cons", head: _v17, tail: _v18});
-  _v14 = ({$: "cons", head: _v15, tail: _v16});
-  _v2 = $Midum$Layout$group(_v3, _v4, _v14);
-  var _v21;
-  var _v22;
-  var _v23;
-  _v23 = 280;
-  _v22 = ({$: "width_px", value: _v23});
-  var _v24;
-  var _v25;
-  _v25 = ({$: "height_fit"});
-  var _v26;
-  var _v27;
-  _v27 = ({$: "inset_none"});
-  var _v28;
-  _v28 = ({$: "nil"});
-  _v26 = ({$: "cons", head: _v27, tail: _v28});
-  _v24 = ({$: "cons", head: _v25, tail: _v26});
-  _v21 = ({$: "cons", head: _v22, tail: _v24});
-  _r0 = $Midum$Layout$frame(_v1, _v2, _v21);
+  _v12 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v12});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
   return _r0;
 }
 
-export const Dungeon$View$menu$_character_select_actions_layout = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_select_actions_layout(a0, a1, a2, a3))))));
+export const Dungeon$View$menu$_character_context_actions = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_context_actions(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_roster(meta_state, preview_hero$1) {
+  var _r0;
+  var _v1;
+  _v1 = "section";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  _v5 = "character-roster";
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v6;
+  _v6 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = null;
+  var _v10;
+  var _v11;
+  _v11 = meta_state;
+  var _v12;
+  _v12 = preview_hero$1;
+  var _v13;
+  _v13 = 0;
+  var _v14;
+  var _v15;
+  _v15 = Dungeon$config();
+  _v14 = $Dungeon$hero_helpers$hero_count(_v15);
+  _v10 = $Dungeon$View$menu$_character_roster_items(_v11, _v12, _v13, _v14);
+  _v8 = $Midum$Layout$row(_v9, _v10);
+  var _v16;
+  _v16 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v16});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster = () => ((a0) => ((a1) => ($Dungeon$View$menu$_character_roster(a0, a1))));
+
+export function $Dungeon$View$menu$_character_roster_items(meta_state, preview_hero$1, hero_ref$2, count$3) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = preview_hero$1;
+  var _v3;
+  _v3 = hero_ref$2;
+  var _v4;
+  _v4 = count$3;
+  var _v5;
+  var _v6;
+  _v6 = hero_ref$2;
+  var _v7;
+  _v7 = count$3;
+  _v5 = (_v6) < (_v7) ? 1 : 0;
+  _r0 = $Dungeon$View$menu$_character_roster_items$_0(_v1, _v2, _v3, _v4, _v5);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_items = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_roster_items(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_roster_card(meta_state, preview_hero$1, hero_ref$2, hero_value$3, profile$4) {
+  var _r0;
+  var _v1;
+  _v1 = "button";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  var _v6;
+  _v6 = meta_state;
+  var _v7;
+  _v7 = preview_hero$1;
+  var _v8;
+  _v8 = hero_ref$2;
+  var _v9;
+  _v9 = profile$4;
+  _v5 = $Dungeon$View$menu$_character_roster_card_class(_v6, _v7, _v8, _v9);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v10;
+  var _v11;
+  var _v12;
+  _v12 = "type";
+  var _v13;
+  _v13 = "button";
+  _v11 = ({$: "attr", nam: _v12, val: _v13});
+  var _v14;
+  var _v15;
+  var _v16;
+  var _v17;
+  _v17 = hero_ref$2;
+  _v16 = ({$: "preview_character", ref: _v17});
+  _v15 = ({$: "on_click", msg: _v16});
+  var _v18;
+  _v18 = ({$: "nil"});
+  _v14 = ({$: "cons", head: _v15, tail: _v18});
+  _v10 = ({$: "cons", head: _v11, tail: _v14});
+  _v2 = ({$: "cons", head: _v3, tail: _v10});
+  var _v19;
+  var _v20;
+  var _v21;
+  _v21 = null;
+  var _v22;
+  var _v23;
+  _v23 = "span";
+  var _v24;
+  var _v25;
+  var _v26;
+  _v26 = "class";
+  var _v27;
+  _v27 = "character-roster-card__content";
+  _v25 = ({$: "attr", nam: _v26, val: _v27});
+  var _v28;
+  _v28 = ({$: "nil"});
+  _v24 = ({$: "cons", head: _v25, tail: _v28});
+  var _v29;
+  var _v30;
+  var _v31;
+  _v31 = "span";
+  var _v32;
+  var _v33;
+  var _v34;
+  _v34 = "class";
+  var _v35;
+  _v35 = "character-roster-card__image-wrap";
+  _v33 = ({$: "attr", nam: _v34, val: _v35});
+  var _v36;
+  _v36 = ({$: "nil"});
+  _v32 = ({$: "cons", head: _v33, tail: _v36});
+  var _v37;
+  var _v38;
+  var _v39;
+  _v39 = "img";
+  var _v40;
+  var _v41;
+  var _v42;
+  _v42 = "class";
+  var _v43;
+  _v43 = "character-roster-card__image";
+  _v41 = ({$: "attr", nam: _v42, val: _v43});
+  var _v44;
+  var _v45;
+  var _v46;
+  _v46 = "src";
+  var _v47;
+  var _v48;
+  _v48 = hero_value$3;
+  _v47 = $Dungeon$hero_helpers$hero_sprite(_v48);
+  _v45 = ({$: "attr", nam: _v46, val: _v47});
+  var _v49;
+  var _v50;
+  var _v51;
+  _v51 = "alt";
+  var _v52;
+  var _v53;
+  _v53 = hero_value$3;
+  _v52 = $Dungeon$hero_helpers$hero_name(_v53);
+  _v50 = ({$: "attr", nam: _v51, val: _v52});
+  var _v54;
+  _v54 = ({$: "nil"});
+  _v49 = ({$: "cons", head: _v50, tail: _v54});
+  _v44 = ({$: "cons", head: _v45, tail: _v49});
+  _v40 = ({$: "cons", head: _v41, tail: _v44});
+  var _v55;
+  _v55 = ({$: "nil"});
+  _v38 = ({$: "node", tag: _v39, attrs: _v40, kids: _v55});
+  var _v56;
+  _v56 = ({$: "nil"});
+  _v37 = ({$: "cons", head: _v38, tail: _v56});
+  _v30 = ({$: "node", tag: _v31, attrs: _v32, kids: _v37});
+  var _v57;
+  _v57 = ({$: "nil"});
+  _v29 = ({$: "cons", head: _v30, tail: _v57});
+  _v22 = ({$: "node", tag: _v23, attrs: _v24, kids: _v29});
+  var _v58;
+  var _v59;
+  _v59 = ({$: "padding_sm"});
+  var _v60;
+  _v60 = ({$: "nil"});
+  _v58 = ({$: "cons", head: _v59, tail: _v60});
+  _v20 = $Midum$Card$neutral(_v21, _v22, _v58);
+  var _v61;
+  _v61 = ({$: "nil"});
+  _v19 = ({$: "cons", head: _v20, tail: _v61});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v19});
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_roster_card(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$View$menu$_character_equipped(meta_state, hero_ref$1) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = hero_ref$1;
+  var _v3;
+  var _v4;
+  _v4 = meta_state;
+  _v3 = $Dungeon$profile_helpers$selection_confirmed(_v4);
+  _r0 = $Dungeon$View$menu$_character_equipped$_0(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_equipped = () => ((a0) => ((a1) => ($Dungeon$View$menu$_character_equipped(a0, a1))));
+
+export function $Dungeon$View$menu$_character_detail_status_label(meta_state, preview_hero$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = preview_hero$1;
+  var _v3;
+  _v3 = profile$2;
+  var _v4;
+  var _v5;
+  _v5 = profile$2;
+  _v4 = $Dungeon$profile_helpers$profile_unlocked(_v5);
+  _r0 = $Dungeon$View$menu$_character_detail_status_label$_0(_v1, _v2, _v3, _v4);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_label = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_detail_status_label(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_detail_unlocked_status(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    _r0 = "PREVIEW";
+  } else {
+    var _ = x;
+    _r0 = "EQUIPPED";
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_unlocked_status = () => ((a0) => ($Dungeon$View$menu$_character_detail_unlocked_status(a0)));
+
+export function $Dungeon$View$menu$_character_detail_status_class(meta_state, preview_hero$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = "character-detail__status ";
+  var _v2;
+  var _v3;
+  _v3 = meta_state;
+  var _v4;
+  _v4 = preview_hero$1;
+  var _v5;
+  _v5 = profile$2;
+  _v2 = $Dungeon$View$menu$_character_detail_status_state_class(_v3, _v4, _v5);
+  _r0 = (_v1 + _v2);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_class = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_detail_status_class(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_detail_status_state_class(meta_state, preview_hero$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = preview_hero$1;
+  var _v3;
+  _v3 = profile$2;
+  var _v4;
+  var _v5;
+  _v5 = profile$2;
+  _v4 = $Dungeon$profile_helpers$profile_unlocked(_v5);
+  _r0 = $Dungeon$View$menu$_character_detail_status_state_class$_0(_v1, _v2, _v3, _v4);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_state_class = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_detail_status_state_class(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_detail_status_unlocked_class(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    _r0 = "character-detail__status--preview";
+  } else {
+    var _ = x;
+    _r0 = "character-detail__status--equipped";
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_unlocked_class = () => ((a0) => ($Dungeon$View$menu$_character_detail_status_unlocked_class(a0)));
+
+export function $Dungeon$View$menu$_character_roster_card_class(meta_state, preview_hero$1, hero_ref$2, profile$3) {
+  var _r0;
+  var _v1;
+  _v1 = "character-roster-card ";
+  var _v2;
+  var _v3;
+  _v3 = meta_state;
+  var _v4;
+  _v4 = preview_hero$1;
+  var _v5;
+  _v5 = hero_ref$2;
+  var _v6;
+  _v6 = profile$3;
+  _v2 = $Dungeon$View$menu$_character_roster_card_state_class(_v3, _v4, _v5, _v6);
+  _r0 = (_v1 + _v2);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_class = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_roster_card_class(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_roster_card_state_class(meta_state, preview_hero$1, hero_ref$2, profile$3) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = preview_hero$1;
+  var _v3;
+  _v3 = hero_ref$2;
+  var _v4;
+  _v4 = profile$3;
+  var _v5;
+  var _v6;
+  _v6 = profile$3;
+  _v5 = $Dungeon$profile_helpers$profile_unlocked(_v6);
+  _r0 = $Dungeon$View$menu$_character_roster_card_state_class$_0(_v1, _v2, _v3, _v4, _v5);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_state_class = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_roster_card_state_class(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_roster_card_locked_class(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    _r0 = "character-roster-card--locked";
+  } else {
+    var _ = x;
+    _r0 = "character-roster-card--locked character-roster-card--preview";
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_locked_class = () => ((a0) => ($Dungeon$View$menu$_character_roster_card_locked_class(a0)));
+
+export function $Dungeon$View$menu$_character_roster_card_unlocked_class(x, x$1) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    var previewed = x$1;
+    var _v1;
+    _v1 = previewed;
+    _r0 = $Dungeon$View$menu$_character_roster_card_preview_class(_v1);
+  } else {
+    var _ = x;
+    var previewed$1 = x$1;
+    var _v2;
+    _v2 = previewed$1;
+    _r0 = $Dungeon$View$menu$_character_roster_card_equipped_class(_v2);
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_unlocked_class = () => ((a0) => ((a1) => ($Dungeon$View$menu$_character_roster_card_unlocked_class(a0, a1))));
+
+export function $Dungeon$View$menu$_character_roster_card_preview_class(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    _r0 = "character-roster-card--idle";
+  } else {
+    var _ = x;
+    _r0 = "character-roster-card--preview";
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_preview_class = () => ((a0) => ($Dungeon$View$menu$_character_roster_card_preview_class(a0)));
+
+export function $Dungeon$View$menu$_character_roster_card_equipped_class(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    _r0 = "character-roster-card--equipped";
+  } else {
+    var _ = x;
+    _r0 = "character-roster-card--equipped character-roster-card--preview";
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_equipped_class = () => ((a0) => ($Dungeon$View$menu$_character_roster_card_equipped_class(a0)));
 
 export function $Dungeon$View$menu$_menu_hero_panel(meta_state, hero_value$1, profile$2) {
   var _r0;
@@ -18034,286 +18917,6 @@ export function $Dungeon$View$menu$_menu_hero_panel(meta_state, hero_value$1, pr
 }
 
 export const Dungeon$View$menu$_menu_hero_panel = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_menu_hero_panel(a0, a1, a2)))));
-
-export function $Dungeon$View$menu$_menu_character_panel(hero_value, profile$1) {
-  var _r0;
-  var _v1;
-  _v1 = "section";
-  var _v2;
-  var _v3;
-  var _v4;
-  _v4 = "class";
-  var _v5;
-  _v5 = "menu-hero-panel";
-  _v3 = ({$: "attr", nam: _v4, val: _v5});
-  var _v6;
-  _v6 = ({$: "nil"});
-  _v2 = ({$: "cons", head: _v3, tail: _v6});
-  var _v7;
-  var _v8;
-  var _v9;
-  _v9 = "p";
-  var _v10;
-  var _v11;
-  var _v12;
-  _v12 = "class";
-  var _v13;
-  _v13 = "menu-hero-panel__name";
-  _v11 = ({$: "attr", nam: _v12, val: _v13});
-  var _v14;
-  _v14 = ({$: "nil"});
-  _v10 = ({$: "cons", head: _v11, tail: _v14});
-  var _v15;
-  var _v16;
-  var _v17;
-  var _v18;
-  _v18 = hero_value;
-  _v17 = $Dungeon$hero_helpers$hero_name(_v18);
-  _v16 = ({$: "text", value: _v17});
-  var _v19;
-  _v19 = ({$: "nil"});
-  _v15 = ({$: "cons", head: _v16, tail: _v19});
-  _v8 = ({$: "node", tag: _v9, attrs: _v10, kids: _v15});
-  var _v20;
-  var _v21;
-  var _v22;
-  _v22 = "div";
-  var _v23;
-  var _v24;
-  var _v25;
-  _v25 = "class";
-  var _v26;
-  _v26 = "menu-hero-panel__portrait menu-hero-panel__portrait--select";
-  _v24 = ({$: "attr", nam: _v25, val: _v26});
-  var _v27;
-  _v27 = ({$: "nil"});
-  _v23 = ({$: "cons", head: _v24, tail: _v27});
-  var _v28;
-  var _v29;
-  var _v30;
-  _v30 = "div";
-  var _v31;
-  var _v32;
-  var _v33;
-  _v33 = "class";
-  var _v34;
-  _v34 = "menu-hero-panel__nav";
-  _v32 = ({$: "attr", nam: _v33, val: _v34});
-  var _v35;
-  _v35 = ({$: "nil"});
-  _v31 = ({$: "cons", head: _v32, tail: _v35});
-  var _v36;
-  var _v37;
-  var _v38;
-  _v38 = "div";
-  var _v39;
-  var _v40;
-  var _v41;
-  _v41 = "class";
-  var _v42;
-  _v42 = "menu-hero-panel__nav-action";
-  _v40 = ({$: "attr", nam: _v41, val: _v42});
-  var _v43;
-  _v43 = ({$: "nil"});
-  _v39 = ({$: "cons", head: _v40, tail: _v43});
-  var _v44;
-  var _v45;
-  var _v46;
-  _v46 = "←";
-  var _v47;
-  var _v48;
-  _v48 = ({$: "left"});
-  _v47 = ({$: "move", dir: _v48});
-  var _v49;
-  _v49 = Dungeon$View$menu$_character_nav_enabled();
-  _v45 = $Dungeon$View$menu$_character_nav_button(_v46, _v47, _v49);
-  var _v50;
-  _v50 = ({$: "nil"});
-  _v44 = ({$: "cons", head: _v45, tail: _v50});
-  _v37 = ({$: "node", tag: _v38, attrs: _v39, kids: _v44});
-  var _v51;
-  var _v52;
-  var _v53;
-  _v53 = "div";
-  var _v54;
-  var _v55;
-  var _v56;
-  _v56 = "class";
-  var _v57;
-  _v57 = "menu-hero-panel__nav-figure";
-  _v55 = ({$: "attr", nam: _v56, val: _v57});
-  var _v58;
-  _v58 = ({$: "nil"});
-  _v54 = ({$: "cons", head: _v55, tail: _v58});
-  var _v59;
-  var _v60;
-  var _v61;
-  _v61 = "img";
-  var _v62;
-  var _v63;
-  var _v64;
-  _v64 = "class";
-  var _v65;
-  _v65 = "menu-hero-panel__image";
-  _v63 = ({$: "attr", nam: _v64, val: _v65});
-  var _v66;
-  var _v67;
-  var _v68;
-  _v68 = "src";
-  var _v69;
-  var _v70;
-  _v70 = hero_value;
-  _v69 = $Dungeon$hero_helpers$hero_sprite(_v70);
-  _v67 = ({$: "attr", nam: _v68, val: _v69});
-  var _v71;
-  var _v72;
-  var _v73;
-  _v73 = "alt";
-  var _v74;
-  var _v75;
-  _v75 = hero_value;
-  _v74 = $Dungeon$hero_helpers$hero_name(_v75);
-  _v72 = ({$: "attr", nam: _v73, val: _v74});
-  var _v76;
-  _v76 = ({$: "nil"});
-  _v71 = ({$: "cons", head: _v72, tail: _v76});
-  _v66 = ({$: "cons", head: _v67, tail: _v71});
-  _v62 = ({$: "cons", head: _v63, tail: _v66});
-  var _v77;
-  _v77 = ({$: "nil"});
-  _v60 = ({$: "node", tag: _v61, attrs: _v62, kids: _v77});
-  var _v78;
-  _v78 = ({$: "nil"});
-  _v59 = ({$: "cons", head: _v60, tail: _v78});
-  _v52 = ({$: "node", tag: _v53, attrs: _v54, kids: _v59});
-  var _v79;
-  var _v80;
-  var _v81;
-  _v81 = "div";
-  var _v82;
-  var _v83;
-  var _v84;
-  _v84 = "class";
-  var _v85;
-  _v85 = "menu-hero-panel__nav-action";
-  _v83 = ({$: "attr", nam: _v84, val: _v85});
-  var _v86;
-  _v86 = ({$: "nil"});
-  _v82 = ({$: "cons", head: _v83, tail: _v86});
-  var _v87;
-  var _v88;
-  var _v89;
-  _v89 = "→";
-  var _v90;
-  var _v91;
-  _v91 = ({$: "right"});
-  _v90 = ({$: "move", dir: _v91});
-  var _v92;
-  _v92 = Dungeon$View$menu$_character_nav_enabled();
-  _v88 = $Dungeon$View$menu$_character_nav_button(_v89, _v90, _v92);
-  var _v93;
-  _v93 = ({$: "nil"});
-  _v87 = ({$: "cons", head: _v88, tail: _v93});
-  _v80 = ({$: "node", tag: _v81, attrs: _v82, kids: _v87});
-  var _v94;
-  _v94 = ({$: "nil"});
-  _v79 = ({$: "cons", head: _v80, tail: _v94});
-  _v51 = ({$: "cons", head: _v52, tail: _v79});
-  _v36 = ({$: "cons", head: _v37, tail: _v51});
-  _v29 = ({$: "node", tag: _v30, attrs: _v31, kids: _v36});
-  var _v95;
-  _v95 = ({$: "nil"});
-  _v28 = ({$: "cons", head: _v29, tail: _v95});
-  _v21 = ({$: "node", tag: _v22, attrs: _v23, kids: _v28});
-  var _v96;
-  var _v97;
-  var _v98;
-  _v98 = hero_value;
-  var _v99;
-  _v99 = profile$1;
-  _v97 = $Dungeon$View$menu$_hero_hud(_v98, _v99);
-  var _v100;
-  var _v101;
-  var _v102;
-  _v102 = "div";
-  var _v103;
-  var _v104;
-  var _v105;
-  _v105 = "class";
-  var _v106;
-  _v106 = "menu-upgrade-row";
-  _v104 = ({$: "attr", nam: _v105, val: _v106});
-  var _v107;
-  _v107 = ({$: "nil"});
-  _v103 = ({$: "cons", head: _v104, tail: _v107});
-  var _v108;
-  var _v109;
-  var _v110;
-  _v110 = "div";
-  var _v111;
-  var _v112;
-  var _v113;
-  _v113 = "class";
-  var _v114;
-  _v114 = "menu-upgrade-row__action";
-  _v112 = ({$: "attr", nam: _v113, val: _v114});
-  var _v115;
-  _v115 = ({$: "nil"});
-  _v111 = ({$: "cons", head: _v112, tail: _v115});
-  var _v116;
-  var _v117;
-  var _v118;
-  _v118 = hero_value;
-  var _v119;
-  _v119 = profile$1;
-  _v117 = $Dungeon$View$menu$_menu_preview_upgrade_button(_v118, _v119);
-  var _v120;
-  _v120 = ({$: "nil"});
-  _v116 = ({$: "cons", head: _v117, tail: _v120});
-  _v109 = ({$: "node", tag: _v110, attrs: _v111, kids: _v116});
-  var _v121;
-  var _v122;
-  var _v123;
-  _v123 = "p";
-  var _v124;
-  var _v125;
-  var _v126;
-  _v126 = "class";
-  var _v127;
-  _v127 = "menu-upgrade-row__meta";
-  _v125 = ({$: "attr", nam: _v126, val: _v127});
-  var _v128;
-  _v128 = ({$: "nil"});
-  _v124 = ({$: "cons", head: _v125, tail: _v128});
-  var _v129;
-  var _v130;
-  var _v131;
-  var _v132;
-  _v132 = hero_value;
-  var _v133;
-  _v133 = profile$1;
-  _v131 = $Dungeon$View$selectors$character_upgrade_cost_text(_v132, _v133);
-  _v130 = ({$: "text", value: _v131});
-  var _v134;
-  _v134 = ({$: "nil"});
-  _v129 = ({$: "cons", head: _v130, tail: _v134});
-  _v122 = ({$: "node", tag: _v123, attrs: _v124, kids: _v129});
-  var _v135;
-  _v135 = ({$: "nil"});
-  _v121 = ({$: "cons", head: _v122, tail: _v135});
-  _v108 = ({$: "cons", head: _v109, tail: _v121});
-  _v101 = ({$: "node", tag: _v102, attrs: _v103, kids: _v108});
-  var _v136;
-  _v136 = ({$: "nil"});
-  _v100 = ({$: "cons", head: _v101, tail: _v136});
-  _v96 = ({$: "cons", head: _v97, tail: _v100});
-  _v20 = ({$: "cons", head: _v21, tail: _v96});
-  _v7 = ({$: "cons", head: _v8, tail: _v20});
-  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v7});
-  return _r0;
-}
-
-export const Dungeon$View$menu$_menu_character_panel = () => ((a0) => ((a1) => ($Dungeon$View$menu$_menu_character_panel(a0, a1))));
 
 export function $Dungeon$View$menu$_hero_hud(hero_value, profile$1) {
   var _r0;
@@ -18527,35 +19130,6 @@ export function $Dungeon$View$menu$_menu_upgrade_row(meta_state, hero_value$1, p
 
 export const Dungeon$View$menu$_menu_upgrade_row = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_menu_upgrade_row(a0, a1, a2)))));
 
-export function $Dungeon$View$menu$_character_nav_enabled() {
-  var _r0;
-  var _v1;
-  var _v2;
-  _v2 = Dungeon$config();
-  _v1 = $Dungeon$hero_helpers$hero_count(_v2);
-  _r0 = $Dungeon$View$menu$_character_nav_enabled_count(_v1);
-  return _r0;
-}
-
-export const Dungeon$View$menu$_character_nav_enabled = () => ($Dungeon$View$menu$_character_nav_enabled());
-
-export function $Dungeon$View$menu$_character_nav_enabled_count(x) {
-  var _r0;
-  if (((x) >>> 0) === 0) {
-    _r0 = 0;
-  } else {
-    if (((x) >>> 0) === 1) {
-      _r0 = 0;
-    } else {
-      var _ = x;
-      _r0 = 1;
-    }
-  }
-  return _r0;
-}
-
-export const Dungeon$View$menu$_character_nav_enabled_count = () => ((a0) => ($Dungeon$View$menu$_character_nav_enabled_count(a0)));
-
 export function $Dungeon$View$menu$_menu_start_button() {
   var _r0;
   var _v1;
@@ -18622,31 +19196,49 @@ export function $Dungeon$View$menu$_menu_upgrade_button(hero_value, profile$1) {
 
 export const Dungeon$View$menu$_menu_upgrade_button = () => ((a0) => ((a1) => ($Dungeon$View$menu$_menu_upgrade_button(a0, a1))));
 
-export function $Dungeon$View$menu$_menu_preview_upgrade_button(hero_value, profile$1) {
+export function $Dungeon$View$menu$_character_upgrade_button(meta_state, hero_value$1, profile$2) {
   var _r0;
   var _v1;
   _v1 = null;
   var _v2;
-  _v2 = ({$: "ignore"});
+  _v2 = ({$: "upgrade"});
   var _v3;
   _v3 = ({$: "medium"});
   var _v4;
   var _v5;
-  _v5 = hero_value;
   var _v6;
-  _v6 = profile$1;
-  _v4 = $Dungeon$View$selectors$character_upgrade_label(_v5, _v6);
   var _v7;
+  _v7 = hero_value$1;
   var _v8;
-  _v8 = 0;
-  _v7 = $Dungeon$View$menu$_fit_button_overrides(_v8);
-  _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v7);
+  _v8 = profile$2;
+  _v6 = $Dungeon$View$selectors$character_upgrade_label(_v7, _v8);
+  var _v9;
+  _v9 = " ";
+  _v5 = (_v6 + _v9);
+  var _v10;
+  var _v11;
+  _v11 = hero_value$1;
+  var _v12;
+  _v12 = profile$2;
+  _v10 = $Dungeon$View$selectors$character_upgrade_cost_text(_v11, _v12);
+  _v4 = (_v5 + _v10);
+  var _v13;
+  var _v14;
+  var _v15;
+  _v15 = meta_state;
+  var _v16;
+  _v16 = hero_value$1;
+  var _v17;
+  _v17 = profile$2;
+  _v14 = $Dungeon$View$selectors$character_upgrade_enabled(_v15, _v16, _v17);
+  _v13 = $Dungeon$View$menu$_action_button_overrides(_v14);
+  _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v13);
   return _r0;
 }
 
-export const Dungeon$View$menu$_menu_preview_upgrade_button = () => ((a0) => ((a1) => ($Dungeon$View$menu$_menu_preview_upgrade_button(a0, a1))));
+export const Dungeon$View$menu$_character_upgrade_button = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_upgrade_button(a0, a1, a2)))));
 
-export function $Dungeon$View$menu$_character_back_button(meta_state) {
+export function $Dungeon$View$menu$_character_back_button() {
   var _r0;
   var _v1;
   _v1 = null;
@@ -18658,15 +19250,13 @@ export function $Dungeon$View$menu$_character_back_button(meta_state) {
   _v4 = "BACK";
   var _v5;
   var _v6;
-  var _v7;
-  _v7 = meta_state;
-  _v6 = $Dungeon$profile_helpers$selection_confirmed(_v7);
-  _v5 = $Dungeon$View$menu$_full_button_overrides(_v6);
+  _v6 = 1;
+  _v5 = $Dungeon$View$menu$_fit_button_overrides(_v6);
   _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v5);
   return _r0;
 }
 
-export const Dungeon$View$menu$_character_back_button = () => ((a0) => ($Dungeon$View$menu$_character_back_button(a0)));
+export const Dungeon$View$menu$_character_back_button = () => ($Dungeon$View$menu$_character_back_button());
 
 export function $Dungeon$View$menu$_character_select_button(meta_state, preview_hero$1, hero_value$2, profile$3) {
   var _r0;
@@ -18703,26 +19293,6 @@ export function $Dungeon$View$menu$_character_select_button(meta_state, preview_
 }
 
 export const Dungeon$View$menu$_character_select_button = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_select_button(a0, a1, a2, a3))))));
-
-export function $Dungeon$View$menu$_character_nav_button(label, evt$1, enabled$2) {
-  var _r0;
-  var _v1;
-  _v1 = null;
-  var _v2;
-  _v2 = evt$1;
-  var _v3;
-  _v3 = ({$: "medium"});
-  var _v4;
-  _v4 = label;
-  var _v5;
-  var _v6;
-  _v6 = enabled$2;
-  _v5 = $Dungeon$View$menu$_fit_button_overrides(_v6);
-  _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v5);
-  return _r0;
-}
-
-export const Dungeon$View$menu$_character_nav_button = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_nav_button(a0, a1, a2)))));
 
 export function $Dungeon$View$menu$_header_characters_action() {
   var _r0;
@@ -18811,6 +19381,23 @@ export function $Dungeon$View$menu$_fit_button_overrides(x) {
 }
 
 export const Dungeon$View$menu$_fit_button_overrides = () => ((a0) => ($Dungeon$View$menu$_fit_button_overrides(a0)));
+
+export function $Dungeon$View$menu$_action_button_overrides(x) {
+  var _r0;
+  if (((x) >>> 0) === 0) {
+    var _v1;
+    _v1 = ({$: "state_disabled"});
+    var _v2;
+    _v2 = ({$: "nil"});
+    _r0 = ({$: "cons", head: _v1, tail: _v2});
+  } else {
+    var _ = x;
+    _r0 = ({$: "nil"});
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_action_button_overrides = () => ((a0) => ($Dungeon$View$menu$_action_button_overrides(a0)));
 
 export function $Dungeon$View$menu$_menu_stat(label, value$1) {
   var _r0;
@@ -19915,6 +20502,24 @@ export function $Dungeon$View$selectors$character_upgrade_cost_text(hero_value, 
 }
 
 export const Dungeon$View$selectors$character_upgrade_cost_text = () => ((a0) => ((a1) => ($Dungeon$View$selectors$character_upgrade_cost_text(a0, a1))));
+
+export function $Dungeon$View$selectors$character_upgrade_enabled(meta_state, hero_value$1, profile$2) {
+  var _r0;
+  var _v1;
+  _v1 = meta_state;
+  var _v2;
+  _v2 = hero_value$1;
+  var _v3;
+  _v3 = profile$2;
+  var _v4;
+  var _v5;
+  _v5 = profile$2;
+  _v4 = $Dungeon$profile_helpers$profile_unlocked(_v5);
+  _r0 = $Dungeon$View$selectors$character_upgrade_enabled$_0(_v1, _v2, _v3, _v4);
+  return _r0;
+}
+
+export const Dungeon$View$selectors$character_upgrade_enabled = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$selectors$character_upgrade_enabled(a0, a1, a2)))));
 
 export function $Dungeon$View$selectors$_character_selected(meta_state, hero_ref$1) {
   var _r0;
@@ -23230,6 +23835,256 @@ export const Midum$Layout$row_between = () => ((a0) => ((a1) => ($Midum$Layout$r
 
 export const Midum$Layout$Override = null;
 
+export function $Dungeon$hero_presentation$hero_presentations() {
+  var _r0;
+  _r0 = $Dungeon$generated_hero_presentation();
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentations = () => ($Dungeon$hero_presentation$hero_presentations());
+
+export function $Dungeon$hero_presentation$hero_presentation_at(hero_ref) {
+  var _r0;
+  var _v1;
+  _v1 = Dungeon$hero_presentation$hero_presentations();
+  var _v2;
+  _v2 = hero_ref;
+  _r0 = $Dungeon$hero_presentation$_hero_presentation_at_from_list(_v1, _v2);
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentation_at = () => ((a0) => ($Dungeon$hero_presentation$hero_presentation_at(a0)));
+
+export function $Dungeon$hero_presentation$_hero_presentation_at_from_list(x, x$1) {
+  while (true) {
+    var _r0;
+    switch (x.$) {
+      case "nil": {
+        var hero_ref = x$1;
+        var _v1;
+        _v1 = "hero";
+        var _v2;
+        _v2 = ({$: "presentation_center"});
+        var _v3;
+        _v3 = "Ultimate";
+        var _v4;
+        _v4 = "assets/item-sword.png";
+        var _v5;
+        _v5 = "";
+        _r0 = ({$: "hero_presentation", hero_id: _v1, name_align: _v2, ultimate_title: _v3, ultimate_icon: _v4, ultimate_description: _v5});
+        break;
+      }
+      default: {
+        switch (x.$) {
+          case "cons": {
+            var _m6 = x.head;
+            var _m7 = x.tail;
+            switch (_m6.$) {
+              case "hero_presentation": {
+                var _m8 = _m6.hero_id;
+                var _m9 = _m6.name_align;
+                var _m10 = _m6.ultimate_title;
+                var _m11 = _m6.ultimate_icon;
+                var _m12 = _m6.ultimate_description;
+                var hero_id = _m8;
+                var name_align$1 = _m9;
+                var ultimate_title$2 = _m10;
+                var ultimate_icon$3 = _m11;
+                var ultimate_description$4 = _m12;
+                var rest$5 = _m7;
+                if (((x$1) >>> 0) === 0) {
+                  var _v13;
+                  _v13 = hero_id;
+                  var _v14;
+                  _v14 = name_align$1;
+                  var _v15;
+                  _v15 = ultimate_title$2;
+                  var _v16;
+                  _v16 = ultimate_icon$3;
+                  var _v17;
+                  _v17 = ultimate_description$4;
+                  _r0 = ({$: "hero_presentation", hero_id: _v13, name_align: _v14, ultimate_title: _v15, ultimate_icon: _v16, ultimate_description: _v17});
+                } else {
+                  var _$6 = x$1;
+                  var _v18;
+                  _v18 = rest$5;
+                  var _v19;
+                  var _v20;
+                  _v20 = _$6;
+                  var _v21;
+                  _v21 = 1;
+                  _v19 = (((_v20) - (_v21)) >>> 0);
+                  x = _v18;
+                  x$1 = _v19;
+                  continue;
+                }
+                break;
+              }
+              default: {
+                throw new Error("EFQ applied");
+                break;
+              }
+            }
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Dungeon$hero_presentation$_hero_presentation_at_from_list = () => ((a0) => ((a1) => ($Dungeon$hero_presentation$_hero_presentation_at_from_list(a0, a1))));
+
+export function $Dungeon$hero_presentation$hero_presentation_name_align(x) {
+  var _r0;
+  switch (x.$) {
+    case "hero_presentation": {
+      var _m1 = x.hero_id;
+      var _m2 = x.name_align;
+      var _m3 = x.ultimate_title;
+      var _m4 = x.ultimate_icon;
+      var _m5 = x.ultimate_description;
+      var hero_id = _m1;
+      var name_align$1 = _m2;
+      var ultimate_title$2 = _m3;
+      var ultimate_icon$3 = _m4;
+      var ultimate_description$4 = _m5;
+      _r0 = name_align$1;
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentation_name_align = () => ((a0) => ($Dungeon$hero_presentation$hero_presentation_name_align(a0)));
+
+export function $Dungeon$hero_presentation$hero_presentation_ultimate_title(x) {
+  var _r0;
+  switch (x.$) {
+    case "hero_presentation": {
+      var _m1 = x.hero_id;
+      var _m2 = x.name_align;
+      var _m3 = x.ultimate_title;
+      var _m4 = x.ultimate_icon;
+      var _m5 = x.ultimate_description;
+      var hero_id = _m1;
+      var name_align$1 = _m2;
+      var ultimate_title$2 = _m3;
+      var ultimate_icon$3 = _m4;
+      var ultimate_description$4 = _m5;
+      _r0 = ultimate_title$2;
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentation_ultimate_title = () => ((a0) => ($Dungeon$hero_presentation$hero_presentation_ultimate_title(a0)));
+
+export function $Dungeon$hero_presentation$hero_presentation_ultimate_icon(x) {
+  var _r0;
+  switch (x.$) {
+    case "hero_presentation": {
+      var _m1 = x.hero_id;
+      var _m2 = x.name_align;
+      var _m3 = x.ultimate_title;
+      var _m4 = x.ultimate_icon;
+      var _m5 = x.ultimate_description;
+      var hero_id = _m1;
+      var name_align$1 = _m2;
+      var ultimate_title$2 = _m3;
+      var ultimate_icon$3 = _m4;
+      var ultimate_description$4 = _m5;
+      _r0 = ultimate_icon$3;
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentation_ultimate_icon = () => ((a0) => ($Dungeon$hero_presentation$hero_presentation_ultimate_icon(a0)));
+
+export function $Dungeon$hero_presentation$hero_presentation_ultimate_description(x) {
+  var _r0;
+  switch (x.$) {
+    case "hero_presentation": {
+      var _m1 = x.hero_id;
+      var _m2 = x.name_align;
+      var _m3 = x.ultimate_title;
+      var _m4 = x.ultimate_icon;
+      var _m5 = x.ultimate_description;
+      var hero_id = _m1;
+      var name_align$1 = _m2;
+      var ultimate_title$2 = _m3;
+      var ultimate_icon$3 = _m4;
+      var ultimate_description$4 = _m5;
+      _r0 = ultimate_description$4;
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$hero_presentation$hero_presentation_ultimate_description = () => ((a0) => ($Dungeon$hero_presentation$hero_presentation_ultimate_description(a0)));
+
+export function $Dungeon$generated_hero_presentation() {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = "adventurer";
+  var _v3;
+  _v3 = ({$: "presentation_center"});
+  var _v4;
+  _v4 = "Ultimate";
+  var _v5;
+  _v5 = "assets/item-sword.png";
+  var _v6;
+  _v6 = "Refills the dungeon with new cards while keeping the hero in place.";
+  _v1 = ({$: "hero_presentation", hero_id: _v2, name_align: _v3, ultimate_title: _v4, ultimate_icon: _v5, ultimate_description: _v6});
+  var _v7;
+  var _v8;
+  var _v9;
+  _v9 = "gato_de_botas";
+  var _v10;
+  _v10 = ({$: "presentation_center"});
+  var _v11;
+  _v11 = "Ultimate";
+  var _v12;
+  _v12 = "assets/item-sword.png";
+  var _v13;
+  _v13 = "Refills the dungeon with new cards while keeping the hero in place.";
+  _v8 = ({$: "hero_presentation", hero_id: _v9, name_align: _v10, ultimate_title: _v11, ultimate_icon: _v12, ultimate_description: _v13});
+  var _v14;
+  _v14 = ({$: "nil"});
+  _v7 = ({$: "cons", head: _v8, tail: _v14});
+  _r0 = ({$: "cons", head: _v1, tail: _v7});
+  return _r0;
+}
+
+export const Dungeon$generated_hero_presentation = () => ($Dungeon$generated_hero_presentation());
+
 export function $Midum$Text$apply_override(_Event, x$1, x$2) {
   var _r0;
   switch (x$1.$) {
@@ -23579,6 +24434,522 @@ export const Midum$Text$body = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Midum
 export const Midum$Text$Override = null;
 
 export const Midum$Text$config$Config = null;
+
+export function $Midum$Card$apply_override(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "card": {
+      var _m1 = x.padding;
+      var _m2 = x.radius;
+      var _m3 = x.background;
+      var _m4 = x.border;
+      var _m5 = x.gradient;
+      var _m6 = x.surface;
+      var padding = _m1;
+      var radius$1 = _m2;
+      var background$2 = _m3;
+      var border$3 = _m4;
+      var gradient$4 = _m5;
+      var surface$5 = _m6;
+      switch (x$1.$) {
+        case "padding_none": {
+          var _v7;
+          _v7 = ({$: "none"});
+          var _v8;
+          _v8 = radius$1;
+          var _v9;
+          _v9 = background$2;
+          var _v10;
+          _v10 = border$3;
+          var _v11;
+          _v11 = gradient$4;
+          var _v12;
+          _v12 = surface$5;
+          _r0 = ({$: "card", padding: _v7, radius: _v8, background: _v9, border: _v10, gradient: _v11, surface: _v12});
+          break;
+        }
+        default: {
+          switch (x$1.$) {
+            case "padding_sm": {
+              var _v13;
+              _v13 = ({$: "sm"});
+              var _v14;
+              _v14 = radius$1;
+              var _v15;
+              _v15 = background$2;
+              var _v16;
+              _v16 = border$3;
+              var _v17;
+              _v17 = gradient$4;
+              var _v18;
+              _v18 = surface$5;
+              _r0 = ({$: "card", padding: _v13, radius: _v14, background: _v15, border: _v16, gradient: _v17, surface: _v18});
+              break;
+            }
+            default: {
+              switch (x$1.$) {
+                case "padding_md": {
+                  var _v19;
+                  _v19 = ({$: "md"});
+                  var _v20;
+                  _v20 = radius$1;
+                  var _v21;
+                  _v21 = background$2;
+                  var _v22;
+                  _v22 = border$3;
+                  var _v23;
+                  _v23 = gradient$4;
+                  var _v24;
+                  _v24 = surface$5;
+                  _r0 = ({$: "card", padding: _v19, radius: _v20, background: _v21, border: _v22, gradient: _v23, surface: _v24});
+                  break;
+                }
+                default: {
+                  switch (x$1.$) {
+                    case "padding_lg": {
+                      var _v25;
+                      _v25 = ({$: "lg"});
+                      var _v26;
+                      _v26 = radius$1;
+                      var _v27;
+                      _v27 = background$2;
+                      var _v28;
+                      _v28 = border$3;
+                      var _v29;
+                      _v29 = gradient$4;
+                      var _v30;
+                      _v30 = surface$5;
+                      _r0 = ({$: "card", padding: _v25, radius: _v26, background: _v27, border: _v28, gradient: _v29, surface: _v30});
+                      break;
+                    }
+                    default: {
+                      switch (x$1.$) {
+                        case "background_none": {
+                          var _v31;
+                          _v31 = padding;
+                          var _v32;
+                          _v32 = radius$1;
+                          var _v33;
+                          _v33 = ({$: "background_off"});
+                          var _v34;
+                          _v34 = border$3;
+                          var _v35;
+                          _v35 = gradient$4;
+                          var _v36;
+                          _v36 = surface$5;
+                          _r0 = ({$: "card", padding: _v31, radius: _v32, background: _v33, border: _v34, gradient: _v35, surface: _v36});
+                          break;
+                        }
+                        default: {
+                          switch (x$1.$) {
+                            case "border_none": {
+                              var _v37;
+                              _v37 = padding;
+                              var _v38;
+                              _v38 = radius$1;
+                              var _v39;
+                              _v39 = background$2;
+                              var _v40;
+                              _v40 = ({$: "border_off"});
+                              var _v41;
+                              _v41 = gradient$4;
+                              var _v42;
+                              _v42 = surface$5;
+                              _r0 = ({$: "card", padding: _v37, radius: _v38, background: _v39, border: _v40, gradient: _v41, surface: _v42});
+                              break;
+                            }
+                            default: {
+                              switch (x$1.$) {
+                                case "radius_square": {
+                                  var _v43;
+                                  _v43 = padding;
+                                  var _v44;
+                                  _v44 = ({$: "square"});
+                                  var _v45;
+                                  _v45 = background$2;
+                                  var _v46;
+                                  _v46 = border$3;
+                                  var _v47;
+                                  _v47 = gradient$4;
+                                  var _v48;
+                                  _v48 = surface$5;
+                                  _r0 = ({$: "card", padding: _v43, radius: _v44, background: _v45, border: _v46, gradient: _v47, surface: _v48});
+                                  break;
+                                }
+                                default: {
+                                  switch (x$1.$) {
+                                    case "radius_rounded": {
+                                      var _v49;
+                                      _v49 = padding;
+                                      var _v50;
+                                      _v50 = ({$: "rounded"});
+                                      var _v51;
+                                      _v51 = background$2;
+                                      var _v52;
+                                      _v52 = border$3;
+                                      var _v53;
+                                      _v53 = gradient$4;
+                                      var _v54;
+                                      _v54 = surface$5;
+                                      _r0 = ({$: "card", padding: _v49, radius: _v50, background: _v51, border: _v52, gradient: _v53, surface: _v54});
+                                      break;
+                                    }
+                                    default: {
+                                      switch (x$1.$) {
+                                        case "gradient": {
+                                          var _v55;
+                                          _v55 = padding;
+                                          var _v56;
+                                          _v56 = radius$1;
+                                          var _v57;
+                                          _v57 = background$2;
+                                          var _v58;
+                                          _v58 = border$3;
+                                          var _v59;
+                                          _v59 = ({$: "gradient_on"});
+                                          var _v60;
+                                          _v60 = surface$5;
+                                          _r0 = ({$: "card", padding: _v55, radius: _v56, background: _v57, border: _v58, gradient: _v59, surface: _v60});
+                                          break;
+                                        }
+                                        default: {
+                                          switch (x$1.$) {
+                                            case "surface_image": {
+                                              var _m61 = x$1.src;
+                                              var _m62 = x$1.left;
+                                              var _m63 = x$1.right;
+                                              var _m64 = x$1.top;
+                                              var _m65 = x$1.bottom;
+                                              var src$6 = _m61;
+                                              var left$7 = _m62;
+                                              var right$8 = _m63;
+                                              var top$9 = _m64;
+                                              var bottom$10 = _m65;
+                                              var _v66;
+                                              _v66 = padding;
+                                              var _v67;
+                                              _v67 = radius$1;
+                                              var _v68;
+                                              _v68 = background$2;
+                                              var _v69;
+                                              _v69 = border$3;
+                                              var _v70;
+                                              _v70 = gradient$4;
+                                              var _v71;
+                                              var _v72;
+                                              _v72 = src$6;
+                                              var _v73;
+                                              _v73 = left$7;
+                                              var _v74;
+                                              _v74 = right$8;
+                                              var _v75;
+                                              _v75 = top$9;
+                                              var _v76;
+                                              _v76 = bottom$10;
+                                              var _v77;
+                                              _v77 = left$7;
+                                              var _v78;
+                                              _v78 = right$8;
+                                              var _v79;
+                                              _v79 = top$9;
+                                              var _v80;
+                                              _v80 = bottom$10;
+                                              _v71 = ({$: "surface_image", src: _v72, source_left: _v73, source_right: _v74, source_top: _v75, source_bottom: _v76, target_left: _v77, target_right: _v78, target_top: _v79, target_bottom: _v80});
+                                              _r0 = ({$: "card", padding: _v66, radius: _v67, background: _v68, border: _v69, gradient: _v70, surface: _v71});
+                                              break;
+                                            }
+                                            default: {
+                                              switch (x$1.$) {
+                                                case "surface_image_sized": {
+                                                  var _m81 = x$1.src;
+                                                  var _m82 = x$1.source_left;
+                                                  var _m83 = x$1.source_right;
+                                                  var _m84 = x$1.source_top;
+                                                  var _m85 = x$1.source_bottom;
+                                                  var _m86 = x$1.target_left;
+                                                  var _m87 = x$1.target_right;
+                                                  var _m88 = x$1.target_top;
+                                                  var _m89 = x$1.target_bottom;
+                                                  var src$6 = _m81;
+                                                  var source_left$7 = _m82;
+                                                  var source_right$8 = _m83;
+                                                  var source_top$9 = _m84;
+                                                  var source_bottom$10 = _m85;
+                                                  var target_left$11 = _m86;
+                                                  var target_right$12 = _m87;
+                                                  var target_top$13 = _m88;
+                                                  var target_bottom$14 = _m89;
+                                                  var _v90;
+                                                  _v90 = padding;
+                                                  var _v91;
+                                                  _v91 = radius$1;
+                                                  var _v92;
+                                                  _v92 = background$2;
+                                                  var _v93;
+                                                  _v93 = border$3;
+                                                  var _v94;
+                                                  _v94 = gradient$4;
+                                                  var _v95;
+                                                  var _v96;
+                                                  _v96 = src$6;
+                                                  var _v97;
+                                                  _v97 = source_left$7;
+                                                  var _v98;
+                                                  _v98 = source_right$8;
+                                                  var _v99;
+                                                  _v99 = source_top$9;
+                                                  var _v100;
+                                                  _v100 = source_bottom$10;
+                                                  var _v101;
+                                                  _v101 = target_left$11;
+                                                  var _v102;
+                                                  _v102 = target_right$12;
+                                                  var _v103;
+                                                  _v103 = target_top$13;
+                                                  var _v104;
+                                                  _v104 = target_bottom$14;
+                                                  _v95 = ({$: "surface_image", src: _v96, source_left: _v97, source_right: _v98, source_top: _v99, source_bottom: _v100, target_left: _v101, target_right: _v102, target_top: _v103, target_bottom: _v104});
+                                                  _r0 = ({$: "card", padding: _v90, radius: _v91, background: _v92, border: _v93, gradient: _v94, surface: _v95});
+                                                  break;
+                                                }
+                                                default: {
+                                                  throw new Error("EFQ applied");
+                                                  break;
+                                                }
+                                              }
+                                              break;
+                                            }
+                                          }
+                                          break;
+                                        }
+                                      }
+                                      break;
+                                    }
+                                  }
+                                  break;
+                                }
+                              }
+                              break;
+                            }
+                          }
+                          break;
+                        }
+                      }
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Card$apply_override = () => ((a0) => ((a1) => ($Midum$Card$apply_override(a0, a1))));
+
+export function $Midum$Card$apply_overrides(cfg, x$1) {
+  while (true) {
+    var _r0;
+    switch (x$1.$) {
+      case "nil": {
+        _r0 = cfg;
+        break;
+      }
+      default: {
+        switch (x$1.$) {
+          case "cons": {
+            var _m1 = x$1.head;
+            var _m2 = x$1.tail;
+            var override$1 = _m1;
+            var rest$2 = _m2;
+            var _v3;
+            var _v4;
+            _v4 = cfg;
+            var _v5;
+            _v5 = override$1;
+            _v3 = $Midum$Card$apply_override(_v4, _v5);
+            var _v6;
+            _v6 = rest$2;
+            cfg = _v3;
+            x$1 = _v6;
+            continue;
+            break;
+          }
+          default: {
+            throw new Error("EFQ applied");
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return _r0;
+  }
+}
+
+export const Midum$Card$apply_overrides = () => ((a0) => ((a1) => ($Midum$Card$apply_overrides(a0, a1))));
+
+export function $Midum$Card$config_with_defaults(x, x$1) {
+  var _r0;
+  switch (x.$) {
+    case "defaults": {
+      var _m1 = x.padding;
+      var _m2 = x.radius;
+      var padding = _m1;
+      var radius$1 = _m2;
+      var overrides$2 = x$1;
+      var _v3;
+      var _v4;
+      _v4 = padding;
+      var _v5;
+      _v5 = radius$1;
+      var _v6;
+      _v6 = ({$: "background_on"});
+      var _v7;
+      _v7 = ({$: "border_on"});
+      var _v8;
+      _v8 = ({$: "gradient_off"});
+      var _v9;
+      _v9 = ({$: "surface_off"});
+      _v3 = ({$: "card", padding: _v4, radius: _v5, background: _v6, border: _v7, gradient: _v8, surface: _v9});
+      var _v10;
+      _v10 = overrides$2;
+      _r0 = $Midum$Card$apply_overrides(_v3, _v10);
+      break;
+    }
+    default: {
+      throw new Error("EFQ applied");
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Midum$Card$config_with_defaults = () => ((a0) => ((a1) => ($Midum$Card$config_with_defaults(a0, a1))));
+
+export function $Midum$Card$config(overrides) {
+  var _r0;
+  var _v1;
+  _v1 = Midum$Config$card_defaults();
+  var _v2;
+  _v2 = overrides;
+  _r0 = $Midum$Card$config_with_defaults(_v1, _v2);
+  return _r0;
+}
+
+export const Midum$Card$config = () => ((a0) => ($Midum$Card$config(a0)));
+
+export function $Midum$Card$primary(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$primary(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$primary = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$primary(a0, a1, a2)))));
+
+export function $Midum$Card$secondary(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$secondary(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$secondary = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$secondary(a0, a1, a2)))));
+
+export function $Midum$Card$neutral(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$neutral(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$neutral = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$neutral(a0, a1, a2)))));
+
+export function $Midum$Card$success(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$success(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$success = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$success(a0, a1, a2)))));
+
+export function $Midum$Card$warning(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$warning(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$warning = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$warning(a0, a1, a2)))));
+
+export function $Midum$Card$danger(_Event, body$1, overrides$2) {
+  var _r0;
+  var _v1;
+  _v1 = _Event;
+  var _v2;
+  _v2 = body$1;
+  var _v3;
+  var _v4;
+  _v4 = overrides$2;
+  _v3 = $Midum$Card$config(_v4);
+  _r0 = $Midum$Internal$DOM$Card$danger(_v1, _v2, _v3);
+  return _r0;
+}
+
+export const Midum$Card$danger = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$danger(a0, a1, a2)))));
+
+export const Midum$Card$Override = null;
+
+export const Midum$Card$config$Config = null;
 
 export function $Midum$Button$apply_override(x, x$1) {
   var _r0;
@@ -26796,522 +28167,6 @@ export function $Dungeon$View$assets_and_labels$_potion_heal_from_list(x, x$1) {
 
 export const Dungeon$View$assets_and_labels$_potion_heal_from_list = () => ((a0) => ((a1) => ($Dungeon$View$assets_and_labels$_potion_heal_from_list(a0, a1))));
 
-export function $Midum$Card$apply_override(x, x$1) {
-  var _r0;
-  switch (x.$) {
-    case "card": {
-      var _m1 = x.padding;
-      var _m2 = x.radius;
-      var _m3 = x.background;
-      var _m4 = x.border;
-      var _m5 = x.gradient;
-      var _m6 = x.surface;
-      var padding = _m1;
-      var radius$1 = _m2;
-      var background$2 = _m3;
-      var border$3 = _m4;
-      var gradient$4 = _m5;
-      var surface$5 = _m6;
-      switch (x$1.$) {
-        case "padding_none": {
-          var _v7;
-          _v7 = ({$: "none"});
-          var _v8;
-          _v8 = radius$1;
-          var _v9;
-          _v9 = background$2;
-          var _v10;
-          _v10 = border$3;
-          var _v11;
-          _v11 = gradient$4;
-          var _v12;
-          _v12 = surface$5;
-          _r0 = ({$: "card", padding: _v7, radius: _v8, background: _v9, border: _v10, gradient: _v11, surface: _v12});
-          break;
-        }
-        default: {
-          switch (x$1.$) {
-            case "padding_sm": {
-              var _v13;
-              _v13 = ({$: "sm"});
-              var _v14;
-              _v14 = radius$1;
-              var _v15;
-              _v15 = background$2;
-              var _v16;
-              _v16 = border$3;
-              var _v17;
-              _v17 = gradient$4;
-              var _v18;
-              _v18 = surface$5;
-              _r0 = ({$: "card", padding: _v13, radius: _v14, background: _v15, border: _v16, gradient: _v17, surface: _v18});
-              break;
-            }
-            default: {
-              switch (x$1.$) {
-                case "padding_md": {
-                  var _v19;
-                  _v19 = ({$: "md"});
-                  var _v20;
-                  _v20 = radius$1;
-                  var _v21;
-                  _v21 = background$2;
-                  var _v22;
-                  _v22 = border$3;
-                  var _v23;
-                  _v23 = gradient$4;
-                  var _v24;
-                  _v24 = surface$5;
-                  _r0 = ({$: "card", padding: _v19, radius: _v20, background: _v21, border: _v22, gradient: _v23, surface: _v24});
-                  break;
-                }
-                default: {
-                  switch (x$1.$) {
-                    case "padding_lg": {
-                      var _v25;
-                      _v25 = ({$: "lg"});
-                      var _v26;
-                      _v26 = radius$1;
-                      var _v27;
-                      _v27 = background$2;
-                      var _v28;
-                      _v28 = border$3;
-                      var _v29;
-                      _v29 = gradient$4;
-                      var _v30;
-                      _v30 = surface$5;
-                      _r0 = ({$: "card", padding: _v25, radius: _v26, background: _v27, border: _v28, gradient: _v29, surface: _v30});
-                      break;
-                    }
-                    default: {
-                      switch (x$1.$) {
-                        case "background_none": {
-                          var _v31;
-                          _v31 = padding;
-                          var _v32;
-                          _v32 = radius$1;
-                          var _v33;
-                          _v33 = ({$: "background_off"});
-                          var _v34;
-                          _v34 = border$3;
-                          var _v35;
-                          _v35 = gradient$4;
-                          var _v36;
-                          _v36 = surface$5;
-                          _r0 = ({$: "card", padding: _v31, radius: _v32, background: _v33, border: _v34, gradient: _v35, surface: _v36});
-                          break;
-                        }
-                        default: {
-                          switch (x$1.$) {
-                            case "border_none": {
-                              var _v37;
-                              _v37 = padding;
-                              var _v38;
-                              _v38 = radius$1;
-                              var _v39;
-                              _v39 = background$2;
-                              var _v40;
-                              _v40 = ({$: "border_off"});
-                              var _v41;
-                              _v41 = gradient$4;
-                              var _v42;
-                              _v42 = surface$5;
-                              _r0 = ({$: "card", padding: _v37, radius: _v38, background: _v39, border: _v40, gradient: _v41, surface: _v42});
-                              break;
-                            }
-                            default: {
-                              switch (x$1.$) {
-                                case "radius_square": {
-                                  var _v43;
-                                  _v43 = padding;
-                                  var _v44;
-                                  _v44 = ({$: "square"});
-                                  var _v45;
-                                  _v45 = background$2;
-                                  var _v46;
-                                  _v46 = border$3;
-                                  var _v47;
-                                  _v47 = gradient$4;
-                                  var _v48;
-                                  _v48 = surface$5;
-                                  _r0 = ({$: "card", padding: _v43, radius: _v44, background: _v45, border: _v46, gradient: _v47, surface: _v48});
-                                  break;
-                                }
-                                default: {
-                                  switch (x$1.$) {
-                                    case "radius_rounded": {
-                                      var _v49;
-                                      _v49 = padding;
-                                      var _v50;
-                                      _v50 = ({$: "rounded"});
-                                      var _v51;
-                                      _v51 = background$2;
-                                      var _v52;
-                                      _v52 = border$3;
-                                      var _v53;
-                                      _v53 = gradient$4;
-                                      var _v54;
-                                      _v54 = surface$5;
-                                      _r0 = ({$: "card", padding: _v49, radius: _v50, background: _v51, border: _v52, gradient: _v53, surface: _v54});
-                                      break;
-                                    }
-                                    default: {
-                                      switch (x$1.$) {
-                                        case "gradient": {
-                                          var _v55;
-                                          _v55 = padding;
-                                          var _v56;
-                                          _v56 = radius$1;
-                                          var _v57;
-                                          _v57 = background$2;
-                                          var _v58;
-                                          _v58 = border$3;
-                                          var _v59;
-                                          _v59 = ({$: "gradient_on"});
-                                          var _v60;
-                                          _v60 = surface$5;
-                                          _r0 = ({$: "card", padding: _v55, radius: _v56, background: _v57, border: _v58, gradient: _v59, surface: _v60});
-                                          break;
-                                        }
-                                        default: {
-                                          switch (x$1.$) {
-                                            case "surface_image": {
-                                              var _m61 = x$1.src;
-                                              var _m62 = x$1.left;
-                                              var _m63 = x$1.right;
-                                              var _m64 = x$1.top;
-                                              var _m65 = x$1.bottom;
-                                              var src$6 = _m61;
-                                              var left$7 = _m62;
-                                              var right$8 = _m63;
-                                              var top$9 = _m64;
-                                              var bottom$10 = _m65;
-                                              var _v66;
-                                              _v66 = padding;
-                                              var _v67;
-                                              _v67 = radius$1;
-                                              var _v68;
-                                              _v68 = background$2;
-                                              var _v69;
-                                              _v69 = border$3;
-                                              var _v70;
-                                              _v70 = gradient$4;
-                                              var _v71;
-                                              var _v72;
-                                              _v72 = src$6;
-                                              var _v73;
-                                              _v73 = left$7;
-                                              var _v74;
-                                              _v74 = right$8;
-                                              var _v75;
-                                              _v75 = top$9;
-                                              var _v76;
-                                              _v76 = bottom$10;
-                                              var _v77;
-                                              _v77 = left$7;
-                                              var _v78;
-                                              _v78 = right$8;
-                                              var _v79;
-                                              _v79 = top$9;
-                                              var _v80;
-                                              _v80 = bottom$10;
-                                              _v71 = ({$: "surface_image", src: _v72, source_left: _v73, source_right: _v74, source_top: _v75, source_bottom: _v76, target_left: _v77, target_right: _v78, target_top: _v79, target_bottom: _v80});
-                                              _r0 = ({$: "card", padding: _v66, radius: _v67, background: _v68, border: _v69, gradient: _v70, surface: _v71});
-                                              break;
-                                            }
-                                            default: {
-                                              switch (x$1.$) {
-                                                case "surface_image_sized": {
-                                                  var _m81 = x$1.src;
-                                                  var _m82 = x$1.source_left;
-                                                  var _m83 = x$1.source_right;
-                                                  var _m84 = x$1.source_top;
-                                                  var _m85 = x$1.source_bottom;
-                                                  var _m86 = x$1.target_left;
-                                                  var _m87 = x$1.target_right;
-                                                  var _m88 = x$1.target_top;
-                                                  var _m89 = x$1.target_bottom;
-                                                  var src$6 = _m81;
-                                                  var source_left$7 = _m82;
-                                                  var source_right$8 = _m83;
-                                                  var source_top$9 = _m84;
-                                                  var source_bottom$10 = _m85;
-                                                  var target_left$11 = _m86;
-                                                  var target_right$12 = _m87;
-                                                  var target_top$13 = _m88;
-                                                  var target_bottom$14 = _m89;
-                                                  var _v90;
-                                                  _v90 = padding;
-                                                  var _v91;
-                                                  _v91 = radius$1;
-                                                  var _v92;
-                                                  _v92 = background$2;
-                                                  var _v93;
-                                                  _v93 = border$3;
-                                                  var _v94;
-                                                  _v94 = gradient$4;
-                                                  var _v95;
-                                                  var _v96;
-                                                  _v96 = src$6;
-                                                  var _v97;
-                                                  _v97 = source_left$7;
-                                                  var _v98;
-                                                  _v98 = source_right$8;
-                                                  var _v99;
-                                                  _v99 = source_top$9;
-                                                  var _v100;
-                                                  _v100 = source_bottom$10;
-                                                  var _v101;
-                                                  _v101 = target_left$11;
-                                                  var _v102;
-                                                  _v102 = target_right$12;
-                                                  var _v103;
-                                                  _v103 = target_top$13;
-                                                  var _v104;
-                                                  _v104 = target_bottom$14;
-                                                  _v95 = ({$: "surface_image", src: _v96, source_left: _v97, source_right: _v98, source_top: _v99, source_bottom: _v100, target_left: _v101, target_right: _v102, target_top: _v103, target_bottom: _v104});
-                                                  _r0 = ({$: "card", padding: _v90, radius: _v91, background: _v92, border: _v93, gradient: _v94, surface: _v95});
-                                                  break;
-                                                }
-                                                default: {
-                                                  throw new Error("EFQ applied");
-                                                  break;
-                                                }
-                                              }
-                                              break;
-                                            }
-                                          }
-                                          break;
-                                        }
-                                      }
-                                      break;
-                                    }
-                                  }
-                                  break;
-                                }
-                              }
-                              break;
-                            }
-                          }
-                          break;
-                        }
-                      }
-                      break;
-                    }
-                  }
-                  break;
-                }
-              }
-              break;
-            }
-          }
-          break;
-        }
-      }
-      break;
-    }
-    default: {
-      throw new Error("EFQ applied");
-      break;
-    }
-  }
-  return _r0;
-}
-
-export const Midum$Card$apply_override = () => ((a0) => ((a1) => ($Midum$Card$apply_override(a0, a1))));
-
-export function $Midum$Card$apply_overrides(cfg, x$1) {
-  while (true) {
-    var _r0;
-    switch (x$1.$) {
-      case "nil": {
-        _r0 = cfg;
-        break;
-      }
-      default: {
-        switch (x$1.$) {
-          case "cons": {
-            var _m1 = x$1.head;
-            var _m2 = x$1.tail;
-            var override$1 = _m1;
-            var rest$2 = _m2;
-            var _v3;
-            var _v4;
-            _v4 = cfg;
-            var _v5;
-            _v5 = override$1;
-            _v3 = $Midum$Card$apply_override(_v4, _v5);
-            var _v6;
-            _v6 = rest$2;
-            cfg = _v3;
-            x$1 = _v6;
-            continue;
-            break;
-          }
-          default: {
-            throw new Error("EFQ applied");
-            break;
-          }
-        }
-        break;
-      }
-    }
-    return _r0;
-  }
-}
-
-export const Midum$Card$apply_overrides = () => ((a0) => ((a1) => ($Midum$Card$apply_overrides(a0, a1))));
-
-export function $Midum$Card$config_with_defaults(x, x$1) {
-  var _r0;
-  switch (x.$) {
-    case "defaults": {
-      var _m1 = x.padding;
-      var _m2 = x.radius;
-      var padding = _m1;
-      var radius$1 = _m2;
-      var overrides$2 = x$1;
-      var _v3;
-      var _v4;
-      _v4 = padding;
-      var _v5;
-      _v5 = radius$1;
-      var _v6;
-      _v6 = ({$: "background_on"});
-      var _v7;
-      _v7 = ({$: "border_on"});
-      var _v8;
-      _v8 = ({$: "gradient_off"});
-      var _v9;
-      _v9 = ({$: "surface_off"});
-      _v3 = ({$: "card", padding: _v4, radius: _v5, background: _v6, border: _v7, gradient: _v8, surface: _v9});
-      var _v10;
-      _v10 = overrides$2;
-      _r0 = $Midum$Card$apply_overrides(_v3, _v10);
-      break;
-    }
-    default: {
-      throw new Error("EFQ applied");
-      break;
-    }
-  }
-  return _r0;
-}
-
-export const Midum$Card$config_with_defaults = () => ((a0) => ((a1) => ($Midum$Card$config_with_defaults(a0, a1))));
-
-export function $Midum$Card$config(overrides) {
-  var _r0;
-  var _v1;
-  _v1 = Midum$Config$card_defaults();
-  var _v2;
-  _v2 = overrides;
-  _r0 = $Midum$Card$config_with_defaults(_v1, _v2);
-  return _r0;
-}
-
-export const Midum$Card$config = () => ((a0) => ($Midum$Card$config(a0)));
-
-export function $Midum$Card$primary(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$primary(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$primary = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$primary(a0, a1, a2)))));
-
-export function $Midum$Card$secondary(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$secondary(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$secondary = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$secondary(a0, a1, a2)))));
-
-export function $Midum$Card$neutral(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$neutral(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$neutral = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$neutral(a0, a1, a2)))));
-
-export function $Midum$Card$success(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$success(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$success = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$success(a0, a1, a2)))));
-
-export function $Midum$Card$warning(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$warning(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$warning = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$warning(a0, a1, a2)))));
-
-export function $Midum$Card$danger(_Event, body$1, overrides$2) {
-  var _r0;
-  var _v1;
-  _v1 = _Event;
-  var _v2;
-  _v2 = body$1;
-  var _v3;
-  var _v4;
-  _v4 = overrides$2;
-  _v3 = $Midum$Card$config(_v4);
-  _r0 = $Midum$Internal$DOM$Card$danger(_v1, _v2, _v3);
-  return _r0;
-}
-
-export const Midum$Card$danger = () => ((a0) => ((a1) => ((a2) => ($Midum$Card$danger(a0, a1, a2)))));
-
-export const Midum$Card$Override = null;
-
-export const Midum$Card$config$Config = null;
-
 export function $Dungeon$View$board$_render_dungeon(meta_state, scene_value$1, run_value$2, ui_value$3) {
   var _r0;
   var hero_value$4;
@@ -27384,34 +28239,30 @@ export function $Dungeon$View$board$_render_dungeon(meta_state, scene_value$1, r
   var _v36;
   var _v37;
   var _v38;
-  _v38 = null;
+  _v38 = scene_value$1;
+  _v37 = $Dungeon$View$board$_board_modal_layer(_v38);
   var _v39;
-  var _v40;
-  _v40 = scene_value$1;
-  _v39 = $Dungeon$View$board$_board_modal(_v40);
-  _v37 = $Midum$Layout$center(_v38, _v39);
-  var _v41;
-  _v41 = ({$: "nil"});
-  _v36 = ({$: "cons", head: _v37, tail: _v41});
+  _v39 = ({$: "nil"});
+  _v36 = ({$: "cons", head: _v37, tail: _v39});
   _v31 = ({$: "cons", head: _v32, tail: _v36});
   _v23 = ({$: "cons", head: _v24, tail: _v31});
   _v8 = ({$: "cons", head: _v9, tail: _v23});
   _v6 = $Midum$Layout$overlay(_v7, _v8);
+  var _v40;
+  var _v41;
+  _v41 = ({$: "width_full"});
   var _v42;
   var _v43;
-  _v43 = ({$: "width_full"});
+  _v43 = ({$: "height_full"});
   var _v44;
   var _v45;
-  _v45 = ({$: "height_full"});
+  _v45 = ({$: "inset_none"});
   var _v46;
-  var _v47;
-  _v47 = ({$: "inset_none"});
-  var _v48;
-  _v48 = ({$: "nil"});
-  _v46 = ({$: "cons", head: _v47, tail: _v48});
+  _v46 = ({$: "nil"});
   _v44 = ({$: "cons", head: _v45, tail: _v46});
   _v42 = ({$: "cons", head: _v43, tail: _v44});
-  _v4 = $Midum$Layout$frame(_v5, _v6, _v42);
+  _v40 = ({$: "cons", head: _v41, tail: _v42});
+  _v4 = $Midum$Layout$frame(_v5, _v6, _v40);
   _r0 = $Dungeon$View$board$_dungeon_shell(_v4);
   return _r0;
 }
@@ -27777,7 +28628,7 @@ export function $Dungeon$View$board$_board_class(x) {
 
 export const Dungeon$View$board$_board_class = () => ((a0) => ($Dungeon$View$board$_board_class(a0)));
 
-export function $Dungeon$View$board$_board_modal(x) {
+export function $Dungeon$View$board$_board_modal_layer(x) {
   var _r0;
   switch (x.$) {
     case "setup": {
@@ -27824,310 +28675,30 @@ export function $Dungeon$View$board$_board_modal(x) {
                       var _m9 = x.run;
                       var run_value = _m9;
                       var _v10;
-                      _v10 = "div";
+                      _v10 = null;
                       var _v11;
                       var _v12;
                       var _v13;
-                      _v13 = "class";
-                      var _v14;
-                      var _v15;
-                      var _v16;
-                      _v16 = run_value;
-                      _v15 = ({$: "resume_prompt", run: _v16});
-                      _v14 = $Dungeon$View$selectors$game_over_modal_class(_v15);
-                      _v12 = ({$: "attr", nam: _v13, val: _v14});
-                      var _v17;
-                      _v17 = ({$: "nil"});
-                      _v11 = ({$: "cons", head: _v12, tail: _v17});
-                      var _v18;
-                      var _v19;
-                      var _v20;
-                      _v20 = null;
-                      var _v21;
-                      var _v22;
-                      _v22 = "div";
-                      var _v23;
-                      var _v24;
-                      var _v25;
-                      _v25 = "class";
-                      var _v26;
-                      _v26 = "game-over-card";
-                      _v24 = ({$: "attr", nam: _v25, val: _v26});
-                      var _v27;
-                      _v27 = ({$: "nil"});
-                      _v23 = ({$: "cons", head: _v24, tail: _v27});
-                      var _v28;
-                      var _v29;
-                      var _v30;
-                      _v30 = "p";
-                      var _v31;
-                      var _v32;
-                      var _v33;
-                      _v33 = "class";
-                      var _v34;
-                      _v34 = "game-over-card__eyebrow";
-                      _v32 = ({$: "attr", nam: _v33, val: _v34});
-                      var _v35;
-                      _v35 = ({$: "nil"});
-                      _v31 = ({$: "cons", head: _v32, tail: _v35});
-                      var _v36;
-                      var _v37;
-                      var _v38;
-                      _v38 = "Dungeon interrompida";
-                      _v37 = ({$: "text", value: _v38});
-                      var _v39;
-                      _v39 = ({$: "nil"});
-                      _v36 = ({$: "cons", head: _v37, tail: _v39});
-                      _v29 = ({$: "node", tag: _v30, attrs: _v31, kids: _v36});
-                      var _v40;
-                      var _v41;
-                      var _v42;
-                      _v42 = "h2";
-                      var _v43;
-                      var _v44;
-                      var _v45;
-                      _v45 = "class";
-                      var _v46;
-                      _v46 = "game-over-card__title";
-                      _v44 = ({$: "attr", nam: _v45, val: _v46});
-                      var _v47;
-                      _v47 = ({$: "nil"});
-                      _v43 = ({$: "cons", head: _v44, tail: _v47});
-                      var _v48;
-                      var _v49;
-                      var _v50;
-                      _v50 = "Retomar partida?";
-                      _v49 = ({$: "text", value: _v50});
-                      var _v51;
-                      _v51 = ({$: "nil"});
-                      _v48 = ({$: "cons", head: _v49, tail: _v51});
-                      _v41 = ({$: "node", tag: _v42, attrs: _v43, kids: _v48});
-                      var _v52;
-                      var _v53;
-                      var _v54;
-                      _v54 = "p";
-                      var _v55;
-                      var _v56;
-                      var _v57;
-                      _v57 = "class";
-                      var _v58;
-                      _v58 = "game-over-card__body";
-                      _v56 = ({$: "attr", nam: _v57, val: _v58});
-                      var _v59;
-                      _v59 = ({$: "nil"});
-                      _v55 = ({$: "cons", head: _v56, tail: _v59});
-                      var _v60;
-                      var _v61;
-                      var _v62;
-                      _v62 = "Voce saiu no meio desta run.";
-                      _v61 = ({$: "text", value: _v62});
-                      var _v63;
-                      _v63 = ({$: "nil"});
-                      _v60 = ({$: "cons", head: _v61, tail: _v63});
-                      _v53 = ({$: "node", tag: _v54, attrs: _v55, kids: _v60});
-                      var _v64;
-                      var _v65;
-                      var _v66;
-                      _v66 = "section";
-                      var _v67;
-                      var _v68;
-                      var _v69;
-                      _v69 = "class";
-                      var _v70;
-                      _v70 = "game-over-card__actions";
-                      _v68 = ({$: "attr", nam: _v69, val: _v70});
-                      var _v71;
-                      _v71 = ({$: "nil"});
-                      _v67 = ({$: "cons", head: _v68, tail: _v71});
-                      var _v72;
-                      var _v73;
-                      var _v74;
-                      _v74 = "div";
-                      var _v75;
-                      var _v76;
-                      var _v77;
-                      _v77 = "class";
-                      var _v78;
-                      _v78 = "menu-secondary-action game-over-card__secondary";
-                      _v76 = ({$: "attr", nam: _v77, val: _v78});
-                      var _v79;
-                      _v79 = ({$: "nil"});
-                      _v75 = ({$: "cons", head: _v76, tail: _v79});
-                      var _v80;
-                      var _v81;
-                      _v81 = Dungeon$View$board$_resume_menu_button();
-                      var _v82;
-                      _v82 = ({$: "nil"});
-                      _v80 = ({$: "cons", head: _v81, tail: _v82});
-                      _v73 = ({$: "node", tag: _v74, attrs: _v75, kids: _v80});
-                      var _v83;
-                      var _v84;
-                      var _v85;
-                      _v85 = "div";
-                      var _v86;
-                      var _v87;
-                      var _v88;
-                      _v88 = "class";
-                      var _v89;
-                      _v89 = "menu-start-action game-over-card__primary";
-                      _v87 = ({$: "attr", nam: _v88, val: _v89});
-                      var _v90;
-                      _v90 = ({$: "nil"});
-                      _v86 = ({$: "cons", head: _v87, tail: _v90});
-                      var _v91;
-                      var _v92;
-                      _v92 = Dungeon$View$board$_resume_dungeon_button();
-                      var _v93;
-                      _v93 = ({$: "nil"});
-                      _v91 = ({$: "cons", head: _v92, tail: _v93});
-                      _v84 = ({$: "node", tag: _v85, attrs: _v86, kids: _v91});
-                      var _v94;
-                      _v94 = ({$: "nil"});
-                      _v83 = ({$: "cons", head: _v84, tail: _v94});
-                      _v72 = ({$: "cons", head: _v73, tail: _v83});
-                      _v65 = ({$: "node", tag: _v66, attrs: _v67, kids: _v72});
-                      var _v95;
-                      _v95 = ({$: "nil"});
-                      _v64 = ({$: "cons", head: _v65, tail: _v95});
-                      _v52 = ({$: "cons", head: _v53, tail: _v64});
-                      _v40 = ({$: "cons", head: _v41, tail: _v52});
-                      _v28 = ({$: "cons", head: _v29, tail: _v40});
-                      _v21 = ({$: "node", tag: _v22, attrs: _v23, kids: _v28});
-                      var _v96;
-                      var _v97;
-                      _v97 = ({$: "padding_md"});
-                      var _v98;
-                      _v98 = ({$: "nil"});
-                      _v96 = ({$: "cons", head: _v97, tail: _v98});
-                      _v19 = $Midum$Card$neutral(_v20, _v21, _v96);
-                      var _v99;
-                      _v99 = ({$: "nil"});
-                      _v18 = ({$: "cons", head: _v19, tail: _v99});
-                      _r0 = ({$: "node", tag: _v10, attrs: _v11, kids: _v18});
+                      _v13 = run_value;
+                      _v12 = ({$: "resume_prompt", run: _v13});
+                      _v11 = $Dungeon$View$board$_resume_prompt_modal(_v12);
+                      _r0 = $Midum$Layout$center(_v10, _v11);
                       break;
                     }
                     default: {
                       switch (x.$) {
                         case "game_over": {
-                          var _m100 = x.run;
-                          var run_value = _m100;
-                          var _v101;
-                          _v101 = "div";
-                          var _v102;
-                          var _v103;
-                          var _v104;
-                          _v104 = "class";
-                          var _v105;
-                          var _v106;
-                          var _v107;
-                          _v107 = run_value;
-                          _v106 = ({$: "game_over", run: _v107});
-                          _v105 = $Dungeon$View$selectors$game_over_modal_class(_v106);
-                          _v103 = ({$: "attr", nam: _v104, val: _v105});
-                          var _v108;
-                          _v108 = ({$: "nil"});
-                          _v102 = ({$: "cons", head: _v103, tail: _v108});
-                          var _v109;
-                          var _v110;
-                          var _v111;
-                          _v111 = null;
-                          var _v112;
-                          var _v113;
-                          _v113 = "div";
-                          var _v114;
-                          var _v115;
-                          var _v116;
-                          _v116 = "class";
-                          var _v117;
-                          _v117 = "game-over-card";
-                          _v115 = ({$: "attr", nam: _v116, val: _v117});
-                          var _v118;
-                          _v118 = ({$: "nil"});
-                          _v114 = ({$: "cons", head: _v115, tail: _v118});
-                          var _v119;
-                          var _v120;
-                          var _v121;
-                          _v121 = "p";
-                          var _v122;
-                          var _v123;
-                          var _v124;
-                          _v124 = "class";
-                          var _v125;
-                          _v125 = "game-over-card__eyebrow";
-                          _v123 = ({$: "attr", nam: _v124, val: _v125});
-                          var _v126;
-                          _v126 = ({$: "nil"});
-                          _v122 = ({$: "cons", head: _v123, tail: _v126});
-                          var _v127;
-                          var _v128;
-                          var _v129;
-                          _v129 = "Run encerrada";
-                          _v128 = ({$: "text", value: _v129});
-                          var _v130;
-                          _v130 = ({$: "nil"});
-                          _v127 = ({$: "cons", head: _v128, tail: _v130});
-                          _v120 = ({$: "node", tag: _v121, attrs: _v122, kids: _v127});
-                          var _v131;
-                          var _v132;
-                          var _v133;
-                          _v133 = "h2";
-                          var _v134;
-                          var _v135;
-                          var _v136;
-                          _v136 = "class";
-                          var _v137;
-                          _v137 = "game-over-card__title";
-                          _v135 = ({$: "attr", nam: _v136, val: _v137});
-                          var _v138;
-                          _v138 = ({$: "nil"});
-                          _v134 = ({$: "cons", head: _v135, tail: _v138});
-                          var _v139;
-                          var _v140;
-                          var _v141;
-                          _v141 = "Game Over";
-                          _v140 = ({$: "text", value: _v141});
-                          var _v142;
-                          _v142 = ({$: "nil"});
-                          _v139 = ({$: "cons", head: _v140, tail: _v142});
-                          _v132 = ({$: "node", tag: _v133, attrs: _v134, kids: _v139});
-                          var _v143;
-                          var _v144;
-                          var _v145;
-                          _v145 = "div";
-                          var _v146;
-                          var _v147;
-                          var _v148;
-                          _v148 = "class";
-                          var _v149;
-                          _v149 = "game-over-card__action";
-                          _v147 = ({$: "attr", nam: _v148, val: _v149});
-                          var _v150;
-                          _v150 = ({$: "nil"});
-                          _v146 = ({$: "cons", head: _v147, tail: _v150});
-                          var _v151;
-                          var _v152;
-                          _v152 = Dungeon$View$board$_game_over_ok_button();
-                          var _v153;
-                          _v153 = ({$: "nil"});
-                          _v151 = ({$: "cons", head: _v152, tail: _v153});
-                          _v144 = ({$: "node", tag: _v145, attrs: _v146, kids: _v151});
-                          var _v154;
-                          _v154 = ({$: "nil"});
-                          _v143 = ({$: "cons", head: _v144, tail: _v154});
-                          _v131 = ({$: "cons", head: _v132, tail: _v143});
-                          _v119 = ({$: "cons", head: _v120, tail: _v131});
-                          _v112 = ({$: "node", tag: _v113, attrs: _v114, kids: _v119});
-                          var _v155;
-                          var _v156;
-                          _v156 = ({$: "padding_md"});
-                          var _v157;
-                          _v157 = ({$: "nil"});
-                          _v155 = ({$: "cons", head: _v156, tail: _v157});
-                          _v110 = $Midum$Card$neutral(_v111, _v112, _v155);
-                          var _v158;
-                          _v158 = ({$: "nil"});
-                          _v109 = ({$: "cons", head: _v110, tail: _v158});
-                          _r0 = ({$: "node", tag: _v101, attrs: _v102, kids: _v109});
+                          var _m14 = x.run;
+                          var run_value = _m14;
+                          var _v15;
+                          _v15 = null;
+                          var _v16;
+                          var _v17;
+                          var _v18;
+                          _v18 = run_value;
+                          _v17 = ({$: "game_over", run: _v18});
+                          _v16 = $Dungeon$View$board$_game_over_modal(_v17);
+                          _r0 = $Midum$Layout$center(_v15, _v16);
                           break;
                         }
                         default: {
@@ -28153,7 +28724,315 @@ export function $Dungeon$View$board$_board_modal(x) {
   return _r0;
 }
 
-export const Dungeon$View$board$_board_modal = () => ((a0) => ($Dungeon$View$board$_board_modal(a0)));
+export const Dungeon$View$board$_board_modal_layer = () => ((a0) => ($Dungeon$View$board$_board_modal_layer(a0)));
+
+export function $Dungeon$View$board$_resume_prompt_modal(scene_value) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  var _v6;
+  _v6 = scene_value;
+  _v5 = $Dungeon$View$selectors$game_over_modal_class(_v6);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v7;
+  _v7 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v7});
+  var _v8;
+  var _v9;
+  var _v10;
+  _v10 = null;
+  var _v11;
+  var _v12;
+  _v12 = "div";
+  var _v13;
+  var _v14;
+  var _v15;
+  _v15 = "class";
+  var _v16;
+  _v16 = "game-over-card";
+  _v14 = ({$: "attr", nam: _v15, val: _v16});
+  var _v17;
+  _v17 = ({$: "nil"});
+  _v13 = ({$: "cons", head: _v14, tail: _v17});
+  var _v18;
+  var _v19;
+  var _v20;
+  _v20 = "p";
+  var _v21;
+  var _v22;
+  var _v23;
+  _v23 = "class";
+  var _v24;
+  _v24 = "game-over-card__eyebrow";
+  _v22 = ({$: "attr", nam: _v23, val: _v24});
+  var _v25;
+  _v25 = ({$: "nil"});
+  _v21 = ({$: "cons", head: _v22, tail: _v25});
+  var _v26;
+  var _v27;
+  var _v28;
+  _v28 = "Dungeon interrompida";
+  _v27 = ({$: "text", value: _v28});
+  var _v29;
+  _v29 = ({$: "nil"});
+  _v26 = ({$: "cons", head: _v27, tail: _v29});
+  _v19 = ({$: "node", tag: _v20, attrs: _v21, kids: _v26});
+  var _v30;
+  var _v31;
+  var _v32;
+  _v32 = "h2";
+  var _v33;
+  var _v34;
+  var _v35;
+  _v35 = "class";
+  var _v36;
+  _v36 = "game-over-card__title";
+  _v34 = ({$: "attr", nam: _v35, val: _v36});
+  var _v37;
+  _v37 = ({$: "nil"});
+  _v33 = ({$: "cons", head: _v34, tail: _v37});
+  var _v38;
+  var _v39;
+  var _v40;
+  _v40 = "Retomar partida?";
+  _v39 = ({$: "text", value: _v40});
+  var _v41;
+  _v41 = ({$: "nil"});
+  _v38 = ({$: "cons", head: _v39, tail: _v41});
+  _v31 = ({$: "node", tag: _v32, attrs: _v33, kids: _v38});
+  var _v42;
+  var _v43;
+  var _v44;
+  _v44 = "p";
+  var _v45;
+  var _v46;
+  var _v47;
+  _v47 = "class";
+  var _v48;
+  _v48 = "game-over-card__body";
+  _v46 = ({$: "attr", nam: _v47, val: _v48});
+  var _v49;
+  _v49 = ({$: "nil"});
+  _v45 = ({$: "cons", head: _v46, tail: _v49});
+  var _v50;
+  var _v51;
+  var _v52;
+  _v52 = "Voce saiu no meio desta run.";
+  _v51 = ({$: "text", value: _v52});
+  var _v53;
+  _v53 = ({$: "nil"});
+  _v50 = ({$: "cons", head: _v51, tail: _v53});
+  _v43 = ({$: "node", tag: _v44, attrs: _v45, kids: _v50});
+  var _v54;
+  var _v55;
+  var _v56;
+  _v56 = "section";
+  var _v57;
+  var _v58;
+  var _v59;
+  _v59 = "class";
+  var _v60;
+  _v60 = "game-over-card__actions";
+  _v58 = ({$: "attr", nam: _v59, val: _v60});
+  var _v61;
+  _v61 = ({$: "nil"});
+  _v57 = ({$: "cons", head: _v58, tail: _v61});
+  var _v62;
+  var _v63;
+  var _v64;
+  _v64 = "div";
+  var _v65;
+  var _v66;
+  var _v67;
+  _v67 = "class";
+  var _v68;
+  _v68 = "menu-secondary-action game-over-card__secondary";
+  _v66 = ({$: "attr", nam: _v67, val: _v68});
+  var _v69;
+  _v69 = ({$: "nil"});
+  _v65 = ({$: "cons", head: _v66, tail: _v69});
+  var _v70;
+  var _v71;
+  _v71 = Dungeon$View$board$_resume_menu_button();
+  var _v72;
+  _v72 = ({$: "nil"});
+  _v70 = ({$: "cons", head: _v71, tail: _v72});
+  _v63 = ({$: "node", tag: _v64, attrs: _v65, kids: _v70});
+  var _v73;
+  var _v74;
+  var _v75;
+  _v75 = "div";
+  var _v76;
+  var _v77;
+  var _v78;
+  _v78 = "class";
+  var _v79;
+  _v79 = "menu-start-action game-over-card__primary";
+  _v77 = ({$: "attr", nam: _v78, val: _v79});
+  var _v80;
+  _v80 = ({$: "nil"});
+  _v76 = ({$: "cons", head: _v77, tail: _v80});
+  var _v81;
+  var _v82;
+  _v82 = Dungeon$View$board$_resume_dungeon_button();
+  var _v83;
+  _v83 = ({$: "nil"});
+  _v81 = ({$: "cons", head: _v82, tail: _v83});
+  _v74 = ({$: "node", tag: _v75, attrs: _v76, kids: _v81});
+  var _v84;
+  _v84 = ({$: "nil"});
+  _v73 = ({$: "cons", head: _v74, tail: _v84});
+  _v62 = ({$: "cons", head: _v63, tail: _v73});
+  _v55 = ({$: "node", tag: _v56, attrs: _v57, kids: _v62});
+  var _v85;
+  _v85 = ({$: "nil"});
+  _v54 = ({$: "cons", head: _v55, tail: _v85});
+  _v42 = ({$: "cons", head: _v43, tail: _v54});
+  _v30 = ({$: "cons", head: _v31, tail: _v42});
+  _v18 = ({$: "cons", head: _v19, tail: _v30});
+  _v11 = ({$: "node", tag: _v12, attrs: _v13, kids: _v18});
+  var _v86;
+  var _v87;
+  _v87 = ({$: "padding_md"});
+  var _v88;
+  _v88 = ({$: "nil"});
+  _v86 = ({$: "cons", head: _v87, tail: _v88});
+  _v9 = $Midum$Card$neutral(_v10, _v11, _v86);
+  var _v89;
+  _v89 = ({$: "nil"});
+  _v8 = ({$: "cons", head: _v9, tail: _v89});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v8});
+  return _r0;
+}
+
+export const Dungeon$View$board$_resume_prompt_modal = () => ((a0) => ($Dungeon$View$board$_resume_prompt_modal(a0)));
+
+export function $Dungeon$View$board$_game_over_modal(scene_value) {
+  var _r0;
+  var _v1;
+  _v1 = "div";
+  var _v2;
+  var _v3;
+  var _v4;
+  _v4 = "class";
+  var _v5;
+  var _v6;
+  _v6 = scene_value;
+  _v5 = $Dungeon$View$selectors$game_over_modal_class(_v6);
+  _v3 = ({$: "attr", nam: _v4, val: _v5});
+  var _v7;
+  _v7 = ({$: "nil"});
+  _v2 = ({$: "cons", head: _v3, tail: _v7});
+  var _v8;
+  var _v9;
+  var _v10;
+  _v10 = null;
+  var _v11;
+  var _v12;
+  _v12 = "div";
+  var _v13;
+  var _v14;
+  var _v15;
+  _v15 = "class";
+  var _v16;
+  _v16 = "game-over-card";
+  _v14 = ({$: "attr", nam: _v15, val: _v16});
+  var _v17;
+  _v17 = ({$: "nil"});
+  _v13 = ({$: "cons", head: _v14, tail: _v17});
+  var _v18;
+  var _v19;
+  var _v20;
+  _v20 = "p";
+  var _v21;
+  var _v22;
+  var _v23;
+  _v23 = "class";
+  var _v24;
+  _v24 = "game-over-card__eyebrow";
+  _v22 = ({$: "attr", nam: _v23, val: _v24});
+  var _v25;
+  _v25 = ({$: "nil"});
+  _v21 = ({$: "cons", head: _v22, tail: _v25});
+  var _v26;
+  var _v27;
+  var _v28;
+  _v28 = "Run encerrada";
+  _v27 = ({$: "text", value: _v28});
+  var _v29;
+  _v29 = ({$: "nil"});
+  _v26 = ({$: "cons", head: _v27, tail: _v29});
+  _v19 = ({$: "node", tag: _v20, attrs: _v21, kids: _v26});
+  var _v30;
+  var _v31;
+  var _v32;
+  _v32 = "h2";
+  var _v33;
+  var _v34;
+  var _v35;
+  _v35 = "class";
+  var _v36;
+  _v36 = "game-over-card__title";
+  _v34 = ({$: "attr", nam: _v35, val: _v36});
+  var _v37;
+  _v37 = ({$: "nil"});
+  _v33 = ({$: "cons", head: _v34, tail: _v37});
+  var _v38;
+  var _v39;
+  var _v40;
+  _v40 = "Game Over";
+  _v39 = ({$: "text", value: _v40});
+  var _v41;
+  _v41 = ({$: "nil"});
+  _v38 = ({$: "cons", head: _v39, tail: _v41});
+  _v31 = ({$: "node", tag: _v32, attrs: _v33, kids: _v38});
+  var _v42;
+  var _v43;
+  var _v44;
+  _v44 = "div";
+  var _v45;
+  var _v46;
+  var _v47;
+  _v47 = "class";
+  var _v48;
+  _v48 = "game-over-card__action";
+  _v46 = ({$: "attr", nam: _v47, val: _v48});
+  var _v49;
+  _v49 = ({$: "nil"});
+  _v45 = ({$: "cons", head: _v46, tail: _v49});
+  var _v50;
+  var _v51;
+  _v51 = Dungeon$View$board$_game_over_ok_button();
+  var _v52;
+  _v52 = ({$: "nil"});
+  _v50 = ({$: "cons", head: _v51, tail: _v52});
+  _v43 = ({$: "node", tag: _v44, attrs: _v45, kids: _v50});
+  var _v53;
+  _v53 = ({$: "nil"});
+  _v42 = ({$: "cons", head: _v43, tail: _v53});
+  _v30 = ({$: "cons", head: _v31, tail: _v42});
+  _v18 = ({$: "cons", head: _v19, tail: _v30});
+  _v11 = ({$: "node", tag: _v12, attrs: _v13, kids: _v18});
+  var _v54;
+  var _v55;
+  _v55 = ({$: "padding_md"});
+  var _v56;
+  _v56 = ({$: "nil"});
+  _v54 = ({$: "cons", head: _v55, tail: _v56});
+  _v9 = $Midum$Card$neutral(_v10, _v11, _v54);
+  var _v57;
+  _v57 = ({$: "nil"});
+  _v8 = ({$: "cons", head: _v9, tail: _v57});
+  _r0 = ({$: "node", tag: _v1, attrs: _v2, kids: _v8});
+  return _r0;
+}
+
+export const Dungeon$View$board$_game_over_modal = () => ((a0) => ($Dungeon$View$board$_game_over_modal(a0)));
 
 export function $Dungeon$View$board$_board_idx(x, y$1) {
   var _r0;
@@ -30865,16 +31744,32 @@ export function $Dungeon$Run$upgrade_hero(config_value, meta_state$1) {
   var _v1;
   _v1 = meta_state$1;
   hero_ref$2 = $Dungeon$profile_helpers$selected_hero(_v1);
-  var hero_value$3;
   var _v2;
   _v2 = config_value;
   var _v3;
-  _v3 = hero_ref$2;
-  hero_value$3 = $Dungeon$hero_helpers$hero_at(_v2, _v3);
-  var profile$4;
+  _v3 = meta_state$1;
   var _v4;
-  _v4 = meta_state$1;
-  profile$4 = $Dungeon$profile_helpers$active_profile(_v4);
+  _v4 = hero_ref$2;
+  _r0 = $Dungeon$Run$upgrade_hero$upgrade_hero_ref(_v2, _v3, _v4);
+  return _r0;
+}
+
+export const Dungeon$Run$upgrade_hero = () => ((a0) => ((a1) => ($Dungeon$Run$upgrade_hero(a0, a1))));
+
+export function $Dungeon$Run$upgrade_hero$upgrade_hero_ref(config_value, meta_state$1, hero_ref$2) {
+  var _r0;
+  var hero_value$3;
+  var _v1;
+  _v1 = config_value;
+  var _v2;
+  _v2 = hero_ref$2;
+  hero_value$3 = $Dungeon$hero_helpers$hero_at(_v1, _v2);
+  var profile$4;
+  var _v3;
+  _v3 = meta_state$1;
+  var _v4;
+  _v4 = hero_ref$2;
+  profile$4 = $Dungeon$profile_helpers$profile_for_hero(_v3, _v4);
   var _v5;
   _v5 = meta_state$1;
   var _v6;
@@ -30895,7 +31790,7 @@ export function $Dungeon$Run$upgrade_hero(config_value, meta_state$1) {
   return _r0;
 }
 
-export const Dungeon$Run$upgrade_hero = () => ((a0) => ((a1) => ($Dungeon$Run$upgrade_hero(a0, a1))));
+export const Dungeon$Run$upgrade_hero$upgrade_hero_ref = () => ((a0) => ((a1) => ((a2) => ($Dungeon$Run$upgrade_hero$upgrade_hero_ref(a0, a1, a2)))));
 
 export function $Dungeon$Run$upgrade_hero$_upgrade_from_step(meta_state, hero_ref$1, profile$2, step$3) {
   var _r0;
@@ -31067,65 +31962,113 @@ export function $Dungeon$App$update_character_select(x, x$1, x$2, x$3, x$4) {
     }
     default: {
       switch (x.$) {
-        case "select_character": {
-          var meta_state = x$1;
-          var preview_hero$1 = x$2;
-          var next_seed_value$2 = x$3;
-          var ui_value$3 = x$4;
-          var _v21;
-          _v21 = Dungeon$config();
+        case "preview_character": {
+          var _m21 = x.ref;
+          var ref = _m21;
+          var meta_state$1 = x$1;
+          var preview_hero$2 = x$2;
+          var next_seed_value$3 = x$3;
+          var ui_value$4 = x$4;
           var _v22;
-          _v22 = meta_state;
+          _v22 = meta_state$1;
           var _v23;
           var _v24;
-          _v24 = Dungeon$config();
           var _v25;
-          _v25 = preview_hero$1;
-          _v23 = $Dungeon$hero_helpers$normalize_hero_ref(_v24, _v25);
+          _v25 = Dungeon$config();
           var _v26;
-          _v26 = next_seed_value$2;
-          _r0 = $Dungeon$App$update_character_select$_select_or_buy_character(_v21, _v22, _v23, _v26);
+          _v26 = ref;
+          _v24 = $Dungeon$hero_helpers$normalize_hero_ref(_v25, _v26);
+          _v23 = ({$: "character_select", preview_hero: _v24});
+          var _v27;
+          _v27 = next_seed_value$3;
+          var _v28;
+          _v28 = ui_value$4;
+          _r0 = $Dungeon$App$state_helpers$_state(_v22, _v23, _v27, _v28);
           break;
         }
         default: {
           switch (x.$) {
-            case "close_character_select": {
+            case "upgrade": {
               var meta_state = x$1;
               var preview_hero$1 = x$2;
               var next_seed_value$2 = x$3;
               var ui_value$3 = x$4;
-              var _v27;
-              var _v28;
-              _v28 = meta_state;
-              _v27 = $Dungeon$profile_helpers$selection_confirmed(_v28);
               var _v29;
               _v29 = meta_state;
               var _v30;
-              _v30 = preview_hero$1;
               var _v31;
-              _v31 = next_seed_value$2;
+              _v31 = Dungeon$config();
               var _v32;
-              _v32 = ui_value$3;
-              _r0 = $Dungeon$App$update_character_select$_close_character_select(_v27, _v29, _v30, _v31, _v32);
+              _v32 = preview_hero$1;
+              _v30 = $Dungeon$hero_helpers$normalize_hero_ref(_v31, _v32);
+              var _v33;
+              _v33 = next_seed_value$2;
+              _r0 = $Dungeon$App$update_character_select$_upgrade_preview_character(_v29, _v30, _v33);
               break;
             }
             default: {
-              var _ = x;
-              var meta_state$1 = x$1;
-              var preview_hero$2 = x$2;
-              var next_seed_value$3 = x$3;
-              var ui_value$4 = x$4;
-              var _v33;
-              _v33 = meta_state$1;
-              var _v34;
-              var _v35;
-              _v35 = preview_hero$2;
-              _v34 = ({$: "character_select", preview_hero: _v35});
-              var _v36;
-              _v36 = next_seed_value$3;
-              var _v37;
-              _v37 = ui_value$4;
-              _r0 = $Dungeon$App$state_helpers$_state(_v33, _v34, _v36, _v37);
+              switch (x.$) {
+                case "select_character": {
+                  var meta_state = x$1;
+                  var preview_hero$1 = x$2;
+                  var next_seed_value$2 = x$3;
+                  var ui_value$3 = x$4;
+                  var _v34;
+                  _v34 = Dungeon$config();
+                  var _v35;
+                  _v35 = meta_state;
+                  var _v36;
+                  var _v37;
+                  _v37 = Dungeon$config();
+                  var _v38;
+                  _v38 = preview_hero$1;
+                  _v36 = $Dungeon$hero_helpers$normalize_hero_ref(_v37, _v38);
+                  var _v39;
+                  _v39 = next_seed_value$2;
+                  _r0 = $Dungeon$App$update_character_select$_select_or_buy_character(_v34, _v35, _v36, _v39);
+                  break;
+                }
+                default: {
+                  switch (x.$) {
+                    case "close_character_select": {
+                      var meta_state = x$1;
+                      var preview_hero$1 = x$2;
+                      var next_seed_value$2 = x$3;
+                      var ui_value$3 = x$4;
+                      var _v40;
+                      _v40 = meta_state;
+                      var _v41;
+                      _v41 = ({$: "setup"});
+                      var _v42;
+                      _v42 = next_seed_value$2;
+                      var _v43;
+                      _v43 = Dungeon$default_ui();
+                      _r0 = $Dungeon$App$state_helpers$_state(_v40, _v41, _v42, _v43);
+                      break;
+                    }
+                    default: {
+                      var _ = x;
+                      var meta_state$1 = x$1;
+                      var preview_hero$2 = x$2;
+                      var next_seed_value$3 = x$3;
+                      var ui_value$4 = x$4;
+                      var _v44;
+                      _v44 = meta_state$1;
+                      var _v45;
+                      var _v46;
+                      _v46 = preview_hero$2;
+                      _v45 = ({$: "character_select", preview_hero: _v46});
+                      var _v47;
+                      _v47 = next_seed_value$3;
+                      var _v48;
+                      _v48 = ui_value$4;
+                      _r0 = $Dungeon$App$state_helpers$_state(_v44, _v45, _v47, _v48);
+                      break;
+                    }
+                  }
+                  break;
+                }
+              }
               break;
             }
           }
@@ -31161,6 +32104,30 @@ export function $Dungeon$App$update_character_select$_select_or_buy_character(co
 }
 
 export const Dungeon$App$update_character_select$_select_or_buy_character = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$App$update_character_select$_select_or_buy_character(a0, a1, a2, a3))))));
+
+export function $Dungeon$App$update_character_select$_upgrade_preview_character(meta_state, hero_ref$1, next_seed_value$2) {
+  var _r0;
+  var _v1;
+  var _v2;
+  _v2 = Dungeon$config();
+  var _v3;
+  _v3 = meta_state;
+  var _v4;
+  _v4 = hero_ref$1;
+  _v1 = $Dungeon$Run$upgrade_hero$upgrade_hero_ref(_v2, _v3, _v4);
+  var _v5;
+  var _v6;
+  _v6 = hero_ref$1;
+  _v5 = ({$: "character_select", preview_hero: _v6});
+  var _v7;
+  _v7 = next_seed_value$2;
+  var _v8;
+  _v8 = Dungeon$default_ui();
+  _r0 = $Dungeon$App$state_helpers$_state(_v1, _v5, _v7, _v8);
+  return _r0;
+}
+
+export const Dungeon$App$update_character_select$_upgrade_preview_character = () => ((a0) => ((a1) => ((a2) => ($Dungeon$App$update_character_select$_upgrade_preview_character(a0, a1, a2)))));
 
 export function $Dungeon$App$update_character_select$_select_or_buy_profile(config_value, meta_state$1, hero_ref$2, next_seed_value$3, profile$4) {
   var _r0;
@@ -31278,45 +32245,6 @@ export function $Dungeon$App$update_character_select$_unlock_character(config_va
 }
 
 export const Dungeon$App$update_character_select$_unlock_character = () => ((a0) => ((a1) => ((a2) => ($Dungeon$App$update_character_select$_unlock_character(a0, a1, a2)))));
-
-export function $Dungeon$App$update_character_select$_close_character_select(x, x$1, x$2, x$3, x$4) {
-  var _r0;
-  if (((x) >>> 0) === 0) {
-    var meta_state = x$1;
-    var preview_hero$1 = x$2;
-    var next_seed_value$2 = x$3;
-    var ui_value$3 = x$4;
-    var _v1;
-    _v1 = meta_state;
-    var _v2;
-    var _v3;
-    _v3 = preview_hero$1;
-    _v2 = ({$: "character_select", preview_hero: _v3});
-    var _v4;
-    _v4 = next_seed_value$2;
-    var _v5;
-    _v5 = ui_value$3;
-    _r0 = $Dungeon$App$state_helpers$_state(_v1, _v2, _v4, _v5);
-  } else {
-    var _ = x;
-    var meta_state$1 = x$1;
-    var preview_hero$2 = x$2;
-    var next_seed_value$3 = x$3;
-    var ui_value$4 = x$4;
-    var _v6;
-    _v6 = meta_state$1;
-    var _v7;
-    _v7 = ({$: "setup"});
-    var _v8;
-    _v8 = next_seed_value$3;
-    var _v9;
-    _v9 = Dungeon$default_ui();
-    _r0 = $Dungeon$App$state_helpers$_state(_v6, _v7, _v8, _v9);
-  }
-  return _r0;
-}
-
-export const Dungeon$App$update_character_select$_close_character_select = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$App$update_character_select$_close_character_select(a0, a1, a2, a3, a4)))))));
 
 export function $Dungeon$App$update_boosters(x, x$1, x$2, x$3, x$4, x$5) {
   var _r0;
@@ -37769,6 +38697,145 @@ export function $Ord$Map$skew$_0(K, V$1, lvl$2, key$3, val$4, ll$5, lk$6, lv$7, 
 
 export const Ord$Map$skew$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ((a5) => ((a6) => ((a7) => ((a8) => ((a9) => ((a10) => ((a11) => ($Ord$Map$skew$_0(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11))))))))))))));
 
+export function $Dungeon$View$menu$_character_roster_items$_0(meta_state, preview_hero$1, hero_ref$2, count$3, x$4) {
+  var _r0;
+  if (((x$4) >>> 0) === 0) {
+    _r0 = ({$: "nil"});
+  } else {
+    var _$4 = x$4;
+    var hero_value$5;
+    var _v1;
+    _v1 = Dungeon$config();
+    var _v2;
+    _v2 = hero_ref$2;
+    hero_value$5 = $Dungeon$hero_helpers$hero_at(_v1, _v2);
+    var profile$6;
+    var _v3;
+    _v3 = meta_state;
+    var _v4;
+    _v4 = hero_ref$2;
+    profile$6 = $Dungeon$profile_helpers$profile_for_hero(_v3, _v4);
+    var _v5;
+    var _v6;
+    _v6 = meta_state;
+    var _v7;
+    _v7 = preview_hero$1;
+    var _v8;
+    _v8 = hero_ref$2;
+    var _v9;
+    _v9 = hero_value$5;
+    var _v10;
+    _v10 = profile$6;
+    _v5 = $Dungeon$View$menu$_character_roster_card(_v6, _v7, _v8, _v9, _v10);
+    var _v11;
+    var _v12;
+    _v12 = meta_state;
+    var _v13;
+    _v13 = preview_hero$1;
+    var _v14;
+    var _v15;
+    _v15 = hero_ref$2;
+    var _v16;
+    _v16 = 1;
+    _v14 = (((_v15) + (_v16)) >>> 0);
+    var _v17;
+    _v17 = count$3;
+    _v11 = $Dungeon$View$menu$_character_roster_items(_v12, _v13, _v14, _v17);
+    _r0 = ({$: "cons", head: _v5, tail: _v11});
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_items$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_roster_items$_0(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$View$menu$_character_equipped$_0(meta_state, hero_ref$1, x$2) {
+  var _r0;
+  if (((x$2) >>> 0) === 0) {
+    _r0 = 0;
+  } else {
+    var _$2 = x$2;
+    var _v1;
+    var _v2;
+    _v2 = meta_state;
+    _v1 = $Dungeon$profile_helpers$selected_hero(_v2);
+    var _v3;
+    _v3 = hero_ref$1;
+    _r0 = (_v1) === (_v3) ? 1 : 0;
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_equipped$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$menu$_character_equipped$_0(a0, a1, a2)))));
+
+export function $Dungeon$View$menu$_character_detail_status_label$_0(meta_state, preview_hero$1, profile$2, x$3) {
+  var _r0;
+  if (((x$3) >>> 0) === 0) {
+    _r0 = "LOCKED";
+  } else {
+    var _$3 = x$3;
+    var _v1;
+    var _v2;
+    _v2 = meta_state;
+    var _v3;
+    _v3 = preview_hero$1;
+    _v1 = $Dungeon$View$menu$_character_equipped(_v2, _v3);
+    _r0 = $Dungeon$View$menu$_character_detail_unlocked_status(_v1);
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_label$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_detail_status_label$_0(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_detail_status_state_class$_0(meta_state, preview_hero$1, profile$2, x$3) {
+  var _r0;
+  if (((x$3) >>> 0) === 0) {
+    _r0 = "character-detail__status--locked";
+  } else {
+    var _$3 = x$3;
+    var _v1;
+    var _v2;
+    _v2 = meta_state;
+    var _v3;
+    _v3 = preview_hero$1;
+    _v1 = $Dungeon$View$menu$_character_equipped(_v2, _v3);
+    _r0 = $Dungeon$View$menu$_character_detail_status_unlocked_class(_v1);
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_detail_status_state_class$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$menu$_character_detail_status_state_class$_0(a0, a1, a2, a3))))));
+
+export function $Dungeon$View$menu$_character_roster_card_state_class$_0(meta_state, preview_hero$1, hero_ref$2, profile$3, x$4) {
+  var _r0;
+  if (((x$4) >>> 0) === 0) {
+    var _v1;
+    var _v2;
+    _v2 = preview_hero$1;
+    var _v3;
+    _v3 = hero_ref$2;
+    _v1 = (_v2) === (_v3) ? 1 : 0;
+    _r0 = $Dungeon$View$menu$_character_roster_card_locked_class(_v1);
+  } else {
+    var _$4 = x$4;
+    var _v4;
+    var _v5;
+    _v5 = meta_state;
+    var _v6;
+    _v6 = hero_ref$2;
+    _v4 = $Dungeon$View$menu$_character_equipped(_v5, _v6);
+    var _v7;
+    var _v8;
+    _v8 = preview_hero$1;
+    var _v9;
+    _v9 = hero_ref$2;
+    _v7 = (_v8) === (_v9) ? 1 : 0;
+    _r0 = $Dungeon$View$menu$_character_roster_card_unlocked_class(_v4, _v7);
+  }
+  return _r0;
+}
+
+export const Dungeon$View$menu$_character_roster_card_state_class$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$View$menu$_character_roster_card_state_class$_0(a0, a1, a2, a3, a4)))))));
+
 export function $Dungeon$View$menu$_menu_upgrade_row$_0(meta_state, hero_value$1, profile$2, x$3) {
   var _r0;
   if (((x$3) >>> 0) === 1) {
@@ -37901,6 +38968,25 @@ export function $Dungeon$View$selectors$character_upgrade_cost_text$_0(hero_valu
 }
 
 export const Dungeon$View$selectors$character_upgrade_cost_text$_0 = () => ((a0) => ((a1) => ((a2) => ($Dungeon$View$selectors$character_upgrade_cost_text$_0(a0, a1, a2)))));
+
+export function $Dungeon$View$selectors$character_upgrade_enabled$_0(meta_state, hero_value$1, profile$2, x$3) {
+  var _r0;
+  if (((x$3) >>> 0) === 0) {
+    _r0 = 0;
+  } else {
+    var _$3 = x$3;
+    var _v1;
+    _v1 = meta_state;
+    var _v2;
+    _v2 = hero_value$1;
+    var _v3;
+    _v3 = profile$2;
+    _r0 = $Dungeon$View$selectors$menu_upgrade_visible(_v1, _v2, _v3);
+  }
+  return _r0;
+}
+
+export const Dungeon$View$selectors$character_upgrade_enabled$_0 = () => ((a0) => ((a1) => ((a2) => ((a3) => ($Dungeon$View$selectors$character_upgrade_enabled$_0(a0, a1, a2, a3))))));
 
 export function $Dungeon$View$selectors$character_primary_label$_0(meta_state, hero_ref$1, hero_value$2, profile$3, x$4) {
   var _r0;
@@ -38271,12 +39357,14 @@ export function $Dungeon$App$update_character_select$_select_or_buy_profile$_0(c
     _v13 = 1;
     _v9 = $Dungeon$profile_helpers$set_selection_confirmed(_v10, _v13);
     var _v14;
-    _v14 = ({$: "setup"});
     var _v15;
-    _v15 = next_seed_value$3;
+    _v15 = hero_ref$2;
+    _v14 = ({$: "character_select", preview_hero: _v15});
     var _v16;
-    _v16 = Dungeon$default_ui();
-    _r0 = $Dungeon$App$state_helpers$_state(_v9, _v14, _v15, _v16);
+    _v16 = next_seed_value$3;
+    var _v17;
+    _v17 = Dungeon$default_ui();
+    _r0 = $Dungeon$App$state_helpers$_state(_v9, _v14, _v16, _v17);
   }
   return _r0;
 }

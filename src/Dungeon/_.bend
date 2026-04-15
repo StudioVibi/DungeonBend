@@ -13,6 +13,22 @@ type HeroDef {
   }
 }
 
+type PresentationAlign {
+  presentation_left{}
+  presentation_center{}
+  presentation_right{}
+}
+
+type HeroPresentation {
+  hero_presentation{
+    hero_id: String,
+    name_align: PresentationAlign,
+    ultimate_title: String,
+    ultimate_icon: String,
+    ultimate_description: String
+  }
+}
+
 type MonsterDef {
   monster_def{name: String, sprite: String, gold_drop: U32, hp_levels: List(U32)}
 }
@@ -241,6 +257,7 @@ type DungeonEvent {
   upgrade{}
   open_character_select{}
   close_character_select{}
+  preview_character{ref: U32}
   select_character{}
   open_boosters{}
   close_boosters{}

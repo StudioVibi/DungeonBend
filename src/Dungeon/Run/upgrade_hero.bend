@@ -6,7 +6,7 @@ import /Dungeon/Deck/counts_pick/nth_upgrade as nth_upgrade
 import /Dungeon/hero_helpers/hero_at as hero_at
 import /Dungeon/hero_helpers/hero_upgrades as hero_upgrades
 import /Dungeon/profile_helpers/selected_hero as selected_hero
-import /Dungeon/profile_helpers/active_profile as active_profile
+import /Dungeon/profile_helpers/profile_for_hero as profile_for_hero
 import /Dungeon/profile_helpers/update_profile as update_profile
 import /Dungeon/profile_helpers/meta_gold as meta_gold
 import /Dungeon/profile_helpers/set_meta_gold as set_meta_gold
@@ -16,8 +16,11 @@ import /Dungeon/profile_helpers/profile_with_level as profile_with_level
 
 def upgrade_hero(config_value: Config, meta_state: Meta) -> Meta:
   hero_ref = selected_hero(meta_state);
+  upgrade_hero_ref(config_value, meta_state, hero_ref)
+
+def upgrade_hero_ref(config_value: Config, meta_state: Meta, hero_ref: U32) -> Meta:
   hero_value = hero_at(config_value, hero_ref);
-  profile = active_profile(meta_state);
+  profile = profile_for_hero(meta_state, hero_ref);
   _upgrade_from_step(meta_state, hero_ref, profile, nth_upgrade(hero_upgrades(hero_value), profile_hero_level(profile)))
 
 def _upgrade_from_step(meta_state: Meta, hero_ref: U32, profile: HeroProfile, step: Upgrade) -> Meta:

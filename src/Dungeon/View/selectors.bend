@@ -257,6 +257,13 @@ def character_upgrade_cost_text(hero_value: HeroDef, profile: HeroProfile) -> St
     case _:
       menu_upgrade_cost_text(hero_value, profile)
 
+def character_upgrade_enabled(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> U32:
+  match profile_unlocked(profile):
+    case 0:
+      0
+    case _:
+      menu_upgrade_visible(meta_state, hero_value, profile)
+
 def _character_selected(meta_state: Meta, hero_ref: U32) -> U32:
   _character_selected_confirmed(selection_confirmed(meta_state), selected_hero(meta_state) === hero_ref)
 
