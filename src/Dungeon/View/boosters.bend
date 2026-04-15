@@ -12,13 +12,13 @@ import /Dungeon/View/selectors/booster_open_enabled as booster_open_enabled
 import /Dungeon/View/selectors/booster_is_last_card as booster_is_last_card
 import /Dungeon/View/selectors/card_copies as card_copies
 import /Dungeon/View/menu/_full_button_overrides as _full_button_overrides
-import /Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
 import /Dungeon/View/assets_and_labels/_card_name as _card_name
 import /Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
 import /Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
 import /Midum/Card/ as Card
 import /Midum/Button/ as Button
 import /Midum/Button/Size
+import /Midum/Layout/ as Layout
 
 def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match reward:
@@ -27,43 +27,72 @@ def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) ->
     case pack_reward{cards}:
       _render_boosters_reveal(meta_state, pack_reward{cards}, reveal_index)
 
+def _boosters_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
+  Layout.shell(
+    DungeonEvent,
+    body,
+    [
+      max_width_px{value: 560n}
+      height_viewport{}
+      overflow_hidden{}
+      safe_area{}
+      inset_px{top: 24n, right: 14n, bottom: 20n, left: 14n}
+      compact_inset_px{top: 20n, right: 12n, bottom: 18n, left: 12n}
+    ]
+  )
+
 def _render_boosters_idle(meta_state: Meta) -> HTML(DungeonEvent):
-  <section class="shell shell--boosters">
-    {_boosters_header(meta_state)}
-    <section class="boosters-stage">
-      <div class="boosters-stage__content">
-        <div class="booster-visual booster-visual--pack">
-          <img class="booster-visual__pack-img" src="assets/booster-pack.png" alt="Booster Pack" />
-        </div>
-      </div>
-    </section>
-    <section class="boosters-actions">
-      {_booster_actions(meta_state)}
-    </section>
-  </section>
+  _boosters_shell(
+    Layout.frame(
+      DungeonEvent,
+      Layout.overlay(DungeonEvent, [
+        Layout.top(DungeonEvent,
+          Layout.frame(
+            DungeonEvent,
+            _boosters_header(meta_state),
+            [width_full{} height_fit{} inset_none{}]
+          )
+        )
+        Layout.center(DungeonEvent, _booster_pack_visual())
+        Layout.bottom(DungeonEvent, _booster_actions(meta_state))
+      ]),
+      [width_full{} height_full{} inset_none{}]
+    )
+  )
+
+def _booster_pack_visual() -> HTML(DungeonEvent):
+  <div class="booster-visual booster-visual--pack">
+    <img class="booster-visual__pack-img" src="assets/booster-pack.png" alt="Booster Pack" />
+  </div>
 
 def _render_boosters_reveal(meta_state: Meta, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   card = _reward_card_at(reward, reveal_index);
-  <section class="shell shell--boosters-reveal">
-    <div class="boosters-reveal__top-spacer"></div>
-    <section class="boosters-stage boosters-stage--reveal">
-      <div class="boosters-stage__content boosters-stage__content--reveal">
-        <div class="booster-reveal-panel">
-          <div class="booster-reveal-panel__visual">
-            {_reveal_card(card)}
-          </div>
-          <div class="booster-reveal-panel__meta">
-            {_reveal_meta(meta_state, card)}
-          </div>
-          <div class="booster-reveal-panel__footer">
-            <div class="booster-reveal-panel__action">
-              {_reveal_action_button(reward, reveal_index)}
-            </div>
-          </div>
-        </div>
+  _boosters_shell(
+    Layout.frame(
+      DungeonEvent,
+      Layout.overlay(DungeonEvent, [
+        Layout.center(DungeonEvent,
+          _booster_reveal_panel(meta_state, card, reward, reveal_index)
+        )
+      ]),
+      [width_full{} height_full{} inset_none{}]
+    )
+  )
+
+def _booster_reveal_panel(meta_state: Meta, card: CardRef, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
+  <div class="booster-reveal-panel">
+    <div class="booster-reveal-panel__visual">
+      {_reveal_card(card)}
+    </div>
+    <div class="booster-reveal-panel__meta">
+      {_reveal_meta(meta_state, card)}
+    </div>
+    <div class="booster-reveal-panel__footer">
+      <div class="booster-reveal-panel__action">
+        {_reveal_action_button(reward, reveal_index)}
       </div>
-    </section>
-  </section>
+    </div>
+  </div>
 
 def _reveal_meta(meta_state: Meta, card: CardRef) -> HTML(DungeonEvent):
   <div class="reveal-meta">
@@ -161,17 +190,27 @@ def _back_button() -> HTML(DungeonEvent):
 def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
   match booster_open_enabled(meta_state):
     case 1:
-      <div class="menu-actions">
-        <div class="menu-secondary-action">
-          {Button.secondary(DungeonEvent, buy_pack{0}, medium{}, "Buy More - " ++ U32.show(active_pack_price()) ++ "g", _fit_button_overrides(booster_buy_enabled(meta_state)))}
-        </div>
-        <div class="menu-start-action">
-          {Button.primary(DungeonEvent, open_pack{0}, large{}, "Open", _full_button_overrides(1))}
-        </div>
-      </div>
+      Layout.frame(
+        DungeonEvent,
+        Layout.group(
+          DungeonEvent,
+          [
+            Button.secondary(DungeonEvent, buy_pack{0}, medium{}, "Buy More - " ++ U32.show(active_pack_price()) ++ "g", _full_button_overrides(booster_buy_enabled(meta_state)))
+            Button.primary(DungeonEvent, open_pack{0}, large{}, "Open", _full_button_overrides(1))
+          ],
+          [direction_column{} gap_sm{} align_stretch{}]
+        ),
+        [width_px{value: 280n} height_fit{} inset_none{}]
+      )
     case _:
-      <div class="menu-actions">
-        <div class="menu-start-action">
-          {Button.primary(DungeonEvent, buy_pack{0}, large{}, "Buy - " ++ U32.show(active_pack_price()) ++ "g", _full_button_overrides(booster_buy_enabled(meta_state)))}
-        </div>
-      </div>
+      Layout.frame(
+        DungeonEvent,
+        Layout.group(
+          DungeonEvent,
+          [
+            Button.primary(DungeonEvent, buy_pack{0}, large{}, "Buy - " ++ U32.show(active_pack_price()) ++ "g", _full_button_overrides(booster_buy_enabled(meta_state)))
+          ],
+          [direction_column{} gap_sm{} align_stretch{}]
+        ),
+        [width_px{value: 280n} height_fit{} inset_none{}]
+      )
