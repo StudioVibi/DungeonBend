@@ -761,9 +761,12 @@ function panelHeader(title, description, actions = []) {
   const copy = document.createElement("div");
   const h2 = document.createElement("h2");
   h2.textContent = title;
-  const p = document.createElement("p");
-  p.textContent = description;
-  copy.append(h2, p);
+  copy.append(h2);
+  if (description) {
+    const p = document.createElement("p");
+    p.textContent = description;
+    copy.append(p);
+  }
 
   const toolbar = document.createElement("div");
   toolbar.className = "toolbar";
@@ -1345,7 +1348,7 @@ function renderHeroUpgrades() {
   }
 
   const fragment = document.createDocumentFragment();
-  fragment.append(panelHeader("Hero Upgrades", "Set how much each hero upgrade costs and how much max HP it unlocks.", actions));
+  fragment.append(panelHeader("Hero Upgrades", "", actions));
   if (state.upgradeView === "compare") {
     fragment.append(renderHeroUpgradeCompare());
   } else {
@@ -1358,37 +1361,80 @@ function renderHeroUpgradeCurve(hero) {
   const fragment = document.createDocumentFragment();
   const layout = document.createElement("div");
   layout.className = "hero-upgrade-layout";
+  const heroName = displayContent(heroNameKey(hero.id), hero.name);
+  const summary = heroCurveSummary(hero);
 
   const heroPicker = document.createElement("section");
-  heroPicker.className = "hero-upgrade-section";
+  heroPicker.className = "hero-upgrade-section hero-upgrade-hero-section";
   const heroPickerTitle = document.createElement("h3");
-  heroPickerTitle.textContent = "Editing hero";
-  const heroSelect = selectInput(
-    state.selectedHeroId,
-    state.data.heroes.map((row) => [row.id, displayContent(heroNameKey(row.id), row.name)]),
-    (value) => {
-      state.selectedHeroId = value;
-      render();
-    }
-  );
-  heroPicker.append(heroPickerTitle, field("Hero", heroSelect));
-  layout.append(heroPicker);
+  heroPickerTitle.textContent = "Editing";
 
-  const summary = heroCurveSummary(hero);
-  const summarySection = document.createElement("section");
-  summarySection.className = "hero-upgrade-section";
-  const summaryTitle = document.createElement("h3");
-  summaryTitle.textContent = "Progression summary";
-  const summaryGrid = document.createElement("div");
-  summaryGrid.className = "grid summary-grid";
-  summaryGrid.append(
-    statPill("Starts", `${hero.base_max_hp} HP`),
-    statPill("Ends", `${summary.finalHp} HP`),
-    statPill("Total Cost", `${summary.totalCost} gold`),
-    statPill("Total Gain", `${summary.hpGain >= 0 ? "+" : ""}${summary.hpGain} HP`)
-  );
-  summarySection.append(summaryTitle, summaryGrid);
-  layout.append(summarySection);
+  const heroPickerControl = document.createElement("details");
+  heroPickerControl.className = "hero-upgrade-picker";
+  const heroPickerSummary = document.createElement("summary");
+  heroPickerSummary.className = "hero-upgrade-picker__summary";
+  const heroSprite = document.createElement("img");
+  heroSprite.className = "hero-upgrade-picker__sprite";
+  heroSprite.src = hero.sprite;
+  heroSprite.alt = "";
+  const heroCopy = document.createElement("div");
+  heroCopy.className = "hero-upgrade-picker__copy";
+  const heroNameNode = document.createElement("strong");
+  heroNameNode.textContent = heroName;
+  const heroIdNode = document.createElement("span");
+  heroIdNode.textContent = hero.id;
+  heroCopy.append(heroNameNode, heroIdNode);
+  const heroPickerMeta = document.createElement("span");
+  heroPickerMeta.className = "hero-upgrade-picker__meta";
+  heroPickerMeta.textContent = "Change hero";
+  heroPickerSummary.append(heroSprite, heroCopy, heroPickerMeta);
+  const heroPickerList = document.createElement("div");
+  heroPickerList.className = "hero-upgrade-picker__list";
+  state.data.heroes.forEach((row) => {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = row.id === hero.id ? "hero-upgrade-picker__option active" : "hero-upgrade-picker__option";
+    const optionSprite = document.createElement("img");
+    optionSprite.src = row.sprite;
+    optionSprite.alt = "";
+    const optionCopy = document.createElement("span");
+    const optionName = document.createElement("strong");
+    optionName.textContent = displayContent(heroNameKey(row.id), row.name);
+    const optionId = document.createElement("small");
+    optionId.textContent = row.id;
+    optionCopy.append(optionName, optionId);
+    option.append(optionSprite, optionCopy);
+    option.addEventListener("click", () => {
+      if (row.id === state.selectedHeroId) {
+        heroPickerControl.removeAttribute("open");
+        return;
+      }
+      state.selectedHeroId = row.id;
+      render();
+    });
+    heroPickerList.append(option);
+  });
+  heroPickerControl.append(heroPickerSummary, heroPickerList);
+
+  const heroSummary = document.createElement("div");
+  heroSummary.className = "hero-upgrade-context-summary";
+  [
+    ["Starts", `${hero.base_max_hp} HP`],
+    ["Ends", `${summary.finalHp} HP`],
+    ["Total cost", `${summary.totalCost} gold`],
+    ["Gain", `${summary.hpGain >= 0 ? "+" : ""}${summary.hpGain} HP`],
+  ].forEach(([label, value]) => {
+    const item = document.createElement("span");
+    const itemLabel = document.createElement("small");
+    itemLabel.textContent = label;
+    const itemValue = document.createElement("strong");
+    itemValue.textContent = value;
+    item.append(itemLabel, itemValue);
+    heroSummary.append(item);
+  });
+
+  heroPicker.append(heroPickerTitle, heroPickerControl, heroSummary);
+  layout.append(heroPicker);
 
   const rows = upgradesForHero(hero.id);
   const tableRows = rows.map((row, index) => ({
@@ -1396,12 +1442,16 @@ function renderHeroUpgradeCurve(hero) {
     previousHp: index === 0 ? hero.base_max_hp : rows[index - 1].max_hp,
   }));
   const curveSection = document.createElement("section");
-  curveSection.className = "hero-upgrade-section";
+  curveSection.className = "hero-upgrade-section hero-upgrade-curve-section";
   const curveTitle = document.createElement("h3");
-  curveTitle.textContent = `Upgrade curve for ${displayContent(heroNameKey(hero.id), hero.name)}`;
+  curveTitle.textContent = `Upgrade curve for ${heroName}`;
+  const curveHint = document.createElement("p");
+  curveHint.className = "hero-upgrade-section-note";
+  curveHint.textContent = "Edit cost and resulting max HP.";
   const wrap = document.createElement("div");
-  wrap.className = "table-wrap";
+  wrap.className = "table-wrap hero-upgrade-table-wrap";
   const table = document.createElement("table");
+  table.className = "hero-upgrade-table";
   const thead = document.createElement("thead");
   const head = document.createElement("tr");
   ["Upgrade", "Cost", "Max HP after upgrade", "HP gained"].forEach((label) => {
@@ -1413,28 +1463,33 @@ function renderHeroUpgradeCurve(hero) {
   const tbody = document.createElement("tbody");
   tableRows.forEach(({ row, previousHp }) => {
     const tr = document.createElement("tr");
-    [
-      `LV ${row.level} -> ${row.level + 1}`,
-      unitNumberInput(row.cost, "gold", (value) => {
-        row.cost = value;
-        normalizeAllHeroUpgradeLevels();
-        markDirty();
-        render();
-      }),
-      unitNumberInput(row.max_hp, "HP", (value) => {
-        row.max_hp = value;
-        normalizeAllHeroUpgradeLevels();
-        markDirty();
-        render();
-      }),
-      `${row.max_hp - previousHp >= 0 ? "+" : ""}${row.max_hp - previousHp}`,
-    ].forEach((value) => {
-      const td = document.createElement("td");
-      if (value instanceof HTMLElement) {
-        td.append(value);
-      } else {
-        td.textContent = value;
-      }
+    const upgradeTd = document.createElement("td");
+    upgradeTd.className = "hero-upgrade-read-cell";
+    upgradeTd.textContent = `LV ${row.level} -> ${row.level + 1}`;
+
+    const costTd = document.createElement("td");
+    costTd.className = "hero-upgrade-edit-cell";
+    costTd.append(unitNumberInput(row.cost, "gold", (value) => {
+      row.cost = value;
+      normalizeAllHeroUpgradeLevels();
+      markDirty();
+      render();
+    }));
+
+    const hpTd = document.createElement("td");
+    hpTd.className = "hero-upgrade-edit-cell";
+    hpTd.append(unitNumberInput(row.max_hp, "HP", (value) => {
+      row.max_hp = value;
+      normalizeAllHeroUpgradeLevels();
+      markDirty();
+      render();
+    }));
+
+    const gainTd = document.createElement("td");
+    gainTd.className = "hero-upgrade-read-cell hero-upgrade-gain-cell";
+    gainTd.textContent = `${row.max_hp - previousHp >= 0 ? "+" : ""}${row.max_hp - previousHp}`;
+
+    [upgradeTd, costTd, hpTd, gainTd].forEach((td) => {
       tr.append(td);
     });
     tbody.append(tr);
@@ -1447,13 +1502,20 @@ function renderHeroUpgradeCurve(hero) {
   const removeButton = addButton("Remove last level", () => removeLastUpgradeLevel(hero.id));
   removeButton.disabled = rows.length <= 1;
   tableActions.append(removeButton);
-  curveSection.append(curveTitle, wrap, tableActions);
+  curveSection.append(curveTitle, curveHint, wrap, tableActions);
   layout.append(curveSection);
 
-  const copySection = document.createElement("section");
-  copySection.className = "hero-upgrade-section";
+  const copySection = document.createElement("details");
+  copySection.className = "hero-upgrade-section hero-upgrade-more-actions";
+  const copySummary = document.createElement("summary");
+  copySummary.textContent = "More actions";
+  const copyBody = document.createElement("div");
+  copyBody.className = "hero-upgrade-more-actions__body";
   const copyTitle = document.createElement("h3");
-  copyTitle.textContent = "Copy another hero's curve";
+  copyTitle.textContent = "Start from another hero's curve";
+  const copyNote = document.createElement("p");
+  copyNote.className = "hero-upgrade-section-note";
+  copyNote.textContent = `Copying replaces ${heroName}'s current upgrade curve.`;
   const copyRow = document.createElement("div");
   copyRow.className = "hero-upgrade-copy-row";
   let copyButton;
@@ -1469,7 +1531,8 @@ function renderHeroUpgradeCurve(hero) {
   copyButton = addButton("Copy curve", () => duplicateCurve(hero.id, sourceSelect.value));
   copyButton.disabled = true;
   copyRow.append(field("Source hero", sourceSelect), copyButton);
-  copySection.append(copyTitle, copyRow);
+  copyBody.append(copyTitle, copyNote, copyRow);
+  copySection.append(copySummary, copyBody);
   layout.append(copySection);
 
   fragment.append(layout);

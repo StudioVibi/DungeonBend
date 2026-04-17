@@ -457,6 +457,193 @@ button.segmented.active {
   font-size: 16px;
 }
 
+.hero-upgrade-section-note {
+  margin: -4px 0 0;
+  color: var(--muted);
+}
+
+.hero-upgrade-hero-section {
+  align-items: start;
+}
+
+.hero-upgrade-picker {
+  position: relative;
+  width: min(100%, 520px);
+}
+
+.hero-upgrade-picker__summary {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 82px;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  list-style: none;
+}
+
+.hero-upgrade-picker__summary::-webkit-details-marker {
+  display: none;
+}
+
+.hero-upgrade-picker[open] .hero-upgrade-picker__summary,
+.hero-upgrade-picker__summary:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(23, 105, 224, 0.14);
+}
+
+.hero-upgrade-picker__sprite {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.hero-upgrade-picker__copy {
+  min-width: 0;
+}
+
+.hero-upgrade-picker__copy strong {
+  display: block;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.hero-upgrade-picker__copy span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.hero-upgrade-picker__meta {
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hero-upgrade-picker__meta::after {
+  content: " v";
+}
+
+.hero-upgrade-picker[open] .hero-upgrade-picker__meta::after {
+  content: " ^";
+}
+
+.hero-upgrade-picker__list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  display: grid;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(28, 31, 35, 0.16);
+}
+
+.hero-upgrade-picker__option {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: #ffffff;
+  text-align: left;
+}
+
+.hero-upgrade-picker__option:hover,
+.hero-upgrade-picker__option.active {
+  background: var(--fill);
+}
+
+.hero-upgrade-picker__option img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.hero-upgrade-picker__option strong,
+.hero-upgrade-picker__option small {
+  display: block;
+}
+
+.hero-upgrade-picker__option small {
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+.hero-upgrade-context-summary {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 2px;
+}
+
+.hero-upgrade-context-summary span {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+}
+
+.hero-upgrade-context-summary small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.hero-upgrade-context-summary strong {
+  font-size: 15px;
+}
+
+.hero-upgrade-table-wrap {
+  border-color: var(--line-strong);
+}
+
+.hero-upgrade-read-cell {
+  padding: 8px 10px;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hero-upgrade-edit-cell {
+  background: #fbfcfd;
+}
+
+.hero-upgrade-table .unit-input {
+  margin: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #fbfcfd;
+}
+
+.hero-upgrade-table .unit-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(23, 105, 224, 0.14);
+}
+
+.hero-upgrade-table .unit-input input {
+  min-width: 80px;
+  padding: 7px 8px;
+  background: #fbfcfd;
+  font-weight: 700;
+}
+
+.hero-upgrade-table .unit-input span {
+  font-size: 12px;
+}
+
 .hero-upgrade-actions,
 .hero-upgrade-copy-row {
   display: flex;
@@ -467,6 +654,21 @@ button.segmented.active {
 
 .hero-upgrade-copy-row .field {
   flex: 1 1 260px;
+}
+
+.hero-upgrade-more-actions summary {
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero-upgrade-more-actions[open] summary {
+  margin-bottom: 10px;
+}
+
+.hero-upgrade-more-actions__body {
+  display: grid;
+  gap: 10px;
 }
 
 .unit-input {
@@ -480,6 +682,21 @@ button.segmented.active {
   color: var(--muted);
   font-weight: 700;
   white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .hero-upgrade-picker__summary {
+    grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .hero-upgrade-picker__sprite {
+    width: 54px;
+    height: 54px;
+  }
+
+  .hero-upgrade-picker__meta {
+    grid-column: 2;
+  }
 }
 
 .invalid-input {
