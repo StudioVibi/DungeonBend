@@ -18,6 +18,6 @@ else
   exit 1
 fi
 
-cp assets/* "$out_assets"/
+cp -R assets/. "$out_assets"/
 touch "$out_dir/.nojekyll"
 printf '%s\n' "Built $out_html"

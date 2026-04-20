@@ -26,6 +26,8 @@ import /Dungeon/View/selectors/ultimate_label as ultimate_label
 import /Dungeon/View/selectors/ultimate_enabled as ultimate_enabled
 import /Dungeon/View/selectors/game_over_modal_class as game_over_modal_class
 import /Dungeon/View/menu/_full_button_overrides as _full_button_overrides
+import /Dungeon/View/assets_and_labels/_dungeon_level_badge_backdrop as _dungeon_level_badge_backdrop
+import /Dungeon/View/assets_and_labels/_dungeon_level_value_backdrop as _dungeon_level_value_backdrop
 import /Dungeon/View/assets_and_labels/_gold_sprite as _gold_sprite
 import /Dungeon/View/cards/_hero_card_values as _hero_card_values
 import /Dungeon/View/cards/_tile_card as _tile_card
@@ -33,6 +35,7 @@ import /Dungeon/Content/ as Content
 import /Midum/Button/ as Button
 import /Midum/Button/Size
 import /Midum/Card/ as Card
+import /Midum/Image/ as Image
 import /Midum/Layout/ as Layout
 
 def _render_dungeon(meta_state: Meta, scene_value: Scene, run_value: Run, ui_value: UiState) -> HTML(DungeonEvent):
@@ -97,8 +100,18 @@ def _dungeon_resource(src: String, alt: String, value: String, role_class: Strin
 
 def _dungeon_level(scene_value: Scene) -> HTML(DungeonEvent):
   <div class="dungeon-level">
-    <span class="dungeon-level__badge">{text{Content.ui_dungeon_level()}}</span>
-    <strong class="dungeon-level__value">{text{dungeon_level_value(scene_value)}}</strong>
+    <div class="dungeon-level__badge-frame">
+      <div class="dungeon-level__badge-art">
+        {Image.view(DungeonEvent, _dungeon_level_badge_backdrop(), "", [])}
+      </div>
+      <span class="dungeon-level__badge-text">{text{Content.ui_dungeon_level()}}</span>
+    </div>
+    <div class="dungeon-level__value-frame">
+      <div class="dungeon-level__value-art">
+        {Image.view(DungeonEvent, _dungeon_level_value_backdrop(), "", [])}
+      </div>
+      <strong class="dungeon-level__value-text">{text{dungeon_level_value(scene_value)}}</strong>
+    </div>
   </div>
 
 def _board_grid(scene_value: Scene, run_value: Run, ui_value: UiState, hero_value: HeroDef) -> HTML(DungeonEvent):

@@ -24,6 +24,12 @@ def _gold_name() -> String:
 def _gold_sprite() -> String:
   "assets/item-gold.png"
 
+def _dungeon_level_badge_backdrop() -> String:
+  "assets/ui/dungeon/dungeon-level.png"
+
+def _dungeon_level_value_backdrop() -> String:
+  "assets/ui/dungeon/paper-back.png"
+
 def _monster_name(ref: U32) -> String:
   _monster_name_from_defs(config(), ref)
 
