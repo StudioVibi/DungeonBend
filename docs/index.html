@@ -214,6 +214,8 @@ export const Dungeon$DamageOverlay = null;
 
 export const Dungeon$DeckCounterFx = null;
 
+export const Dungeon$UltimatePreviewFx = null;
+
 export const Dungeon$UiState = null;
 
 export const Dungeon$DungeonState = null;
@@ -12806,63 +12808,77 @@ export function $Dungeon$View$frame$_screen_root(meta_state, x$1, x$2) {
             }
             default: {
               switch (x$1.$) {
-                case "running": {
-                  var _m10 = x$1.run;
-                  var run_value$1 = _m10;
+                case "ultimate_preview": {
+                  var _m10 = x$1.fx;
+                  var fx$1 = _m10;
                   var ui_value$2 = x$2;
                   var _v11;
-                  _v11 = meta_state;
-                  var _v12;
-                  var _v13;
-                  _v13 = run_value$1;
-                  _v12 = ({$: "running", run: _v13});
-                  var _v14;
-                  _v14 = run_value$1;
-                  var _v15;
-                  _v15 = ui_value$2;
-                  _r0 = $Dungeon$View$board$_render_dungeon(_v11, _v12, _v14, _v15);
+                  _v11 = fx$1;
+                  _r0 = $Dungeon$View$ultimate_preview$_render_ultimate_preview(_v11);
                   break;
                 }
                 default: {
                   switch (x$1.$) {
-                    case "resume_prompt": {
-                      var _m16 = x$1.run;
-                      var run_value$1 = _m16;
+                    case "running": {
+                      var _m12 = x$1.run;
+                      var run_value$1 = _m12;
                       var ui_value$2 = x$2;
+                      var _v13;
+                      _v13 = meta_state;
+                      var _v14;
+                      var _v15;
+                      _v15 = run_value$1;
+                      _v14 = ({$: "running", run: _v15});
+                      var _v16;
+                      _v16 = run_value$1;
                       var _v17;
-                      _v17 = meta_state;
-                      var _v18;
-                      var _v19;
-                      _v19 = run_value$1;
-                      _v18 = ({$: "resume_prompt", run: _v19});
-                      var _v20;
-                      _v20 = run_value$1;
-                      var _v21;
-                      _v21 = ui_value$2;
-                      _r0 = $Dungeon$View$board$_render_dungeon(_v17, _v18, _v20, _v21);
+                      _v17 = ui_value$2;
+                      _r0 = $Dungeon$View$board$_render_dungeon(_v13, _v14, _v16, _v17);
                       break;
                     }
                     default: {
                       switch (x$1.$) {
-                        case "game_over": {
-                          var _m22 = x$1.run;
-                          var run_value$1 = _m22;
+                        case "resume_prompt": {
+                          var _m18 = x$1.run;
+                          var run_value$1 = _m18;
                           var ui_value$2 = x$2;
+                          var _v19;
+                          _v19 = meta_state;
+                          var _v20;
+                          var _v21;
+                          _v21 = run_value$1;
+                          _v20 = ({$: "resume_prompt", run: _v21});
+                          var _v22;
+                          _v22 = run_value$1;
                           var _v23;
-                          _v23 = meta_state;
-                          var _v24;
-                          var _v25;
-                          _v25 = run_value$1;
-                          _v24 = ({$: "game_over", run: _v25});
-                          var _v26;
-                          _v26 = run_value$1;
-                          var _v27;
-                          _v27 = ui_value$2;
-                          _r0 = $Dungeon$View$board$_render_dungeon(_v23, _v24, _v26, _v27);
+                          _v23 = ui_value$2;
+                          _r0 = $Dungeon$View$board$_render_dungeon(_v19, _v20, _v22, _v23);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x$1.$) {
+                            case "game_over": {
+                              var _m24 = x$1.run;
+                              var run_value$1 = _m24;
+                              var ui_value$2 = x$2;
+                              var _v25;
+                              _v25 = meta_state;
+                              var _v26;
+                              var _v27;
+                              _v27 = run_value$1;
+                              _v26 = ({$: "game_over", run: _v27});
+                              var _v28;
+                              _v28 = run_value$1;
+                              var _v29;
+                              _v29 = ui_value$2;
+                              _r0 = $Dungeon$View$board$_render_dungeon(_v25, _v26, _v28, _v29);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -17492,6 +17508,58 @@ export function $Dungeon$View$css$layout_css() {
 
 export const Dungeon$View$css$layout_css = () => ($Dungeon$View$css$layout_css());
 
+export function $Dungeon$View$css$ultimate_preview_css() {
+  var _r0;
+  var _v1;
+  var _v2;
+  var _v3;
+  var _v4;
+  var _v5;
+  var _v6;
+  var _v7;
+  var _v8;
+  var _v9;
+  var _v10;
+  var _v11;
+  _v11 = "";
+  var _v12;
+  _v12 = ".ultimate-preview-scene{position:relative;min-height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:0;background:#ffffff;isolation:isolate;}.ultimate-preview-topbar,.ultimate-preview-footer{position:relative;z-index:3;}.ultimate-preview-topbar{display:flex;align-items:flex-start;justify-content:flex-start;padding:12px 14px 0;}.ultimate-preview-content{position:fixed;inset:0;z-index:1;pointer-events:none;}.ultimate-preview-stage{position:absolute;inset:0;width:100vw;height:100svh;overflow:hidden;border:0;background:#ffffff;box-shadow:none;isolation:isolate;}.ultimate-preview-cutin{position:absolute;inset:0;pointer-events:none;}.ultimate-preview-cutin__trail,.ultimate-preview-cutin__bar,.ultimate-preview-cutin__flash,.ultimate-preview-cutin__hero{position:absolute;opacity:0;will-change:transform,opacity;}.ultimate-preview-cutin__trail{left:-10%;top:50%;width:120%;height:9%;transform:translate3d(-120%,-50%,0) skewX(-18deg);background:linear-gradient(90deg,rgba(44,129,255,0) 0%,rgba(44,129,255,0.14) 24%,rgba(255,255,255,0.52) 50%,rgba(44,129,255,0.14) 76%,rgba(44,129,255,0) 100%);filter:blur(10px);}.ultimate-preview-cutin__bar{left:-12%;top:50%;width:124%;height:28%;transform:translate3d(-128%,-50%,0) skewX(-10deg);border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(10,33,92,0.18);}.ultimate-preview-cutin__bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,17,63,0.18) 0%,rgba(255,255,255,0.08) 24%,rgba(255,255,255,0.18) 50%,rgba(8,17,63,0.12) 100%);mix-blend-mode:screen;}.ultimate-preview-cutin__banner{width:100%;height:100%;object-fit:cover;}.ultimate-preview-cutin__flash{top:50%;left:-18%;width:72%;height:12%;transform:translate3d(-140%,-50%,0) skewX(-18deg);background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 50%,rgba(255,255,255,0) 100%);filter:blur(2px);}.ultimate-preview-cutin__hero{left:5%;bottom:9%;width:min(34vw,340px);transform:translate3d(-48%,16%,0) scale(0.8);transform-origin:left bottom;filter:drop-shadow(0 18px 22px rgba(9,20,58,0.16));}.ultimate-preview-footer{display:grid;justify-items:center;gap:0;padding:0 14px 18px;}.ultimate-preview-footer__action{width:min(100%,320px);}.ultimate-preview-footer__action>.bc-btn{width:100%;}";
+  _v10 = (_v11 + _v12);
+  var _v13;
+  _v13 = ".ultimate-preview-stage--play-a .ultimate-preview-cutin__trail{animation:ultimate-trail-sweep-a 1120ms ease-out both;}.ultimate-preview-stage--play-b .ultimate-preview-cutin__trail{animation:ultimate-trail-sweep-b 1120ms ease-out both;}.ultimate-preview-stage--play-a .ultimate-preview-cutin__bar{animation:ultimate-banner-sweep-a 1120ms cubic-bezier(0.2,0.76,0.18,1) both;}.ultimate-preview-stage--play-b .ultimate-preview-cutin__bar{animation:ultimate-banner-sweep-b 1120ms cubic-bezier(0.2,0.76,0.18,1) both;}.ultimate-preview-stage--play-a .ultimate-preview-cutin__flash{animation:ultimate-flash-sweep-a 1120ms ease-out both;}.ultimate-preview-stage--play-b .ultimate-preview-cutin__flash{animation:ultimate-flash-sweep-b 1120ms ease-out both;}.ultimate-preview-stage--play-a .ultimate-preview-cutin__hero{animation:ultimate-hero-pop-a 1120ms cubic-bezier(0.18,0.8,0.18,1) both;}.ultimate-preview-stage--play-b .ultimate-preview-cutin__hero{animation:ultimate-hero-pop-b 1120ms cubic-bezier(0.18,0.8,0.18,1) both;}";
+  _v9 = (_v10 + _v13);
+  var _v14;
+  _v14 = "@keyframes ultimate-trail-sweep-a{0%{opacity:0;transform:translate3d(-120%,-50%,0) skewX(-18deg) scaleX(0.72);}14%{opacity:0.76;}34%{opacity:1;transform:translate3d(6%,-50%,0) skewX(-18deg) scaleX(1);}68%{opacity:0.64;}100%{opacity:0;transform:translate3d(140%,-50%,0) skewX(-18deg) scaleX(1.1);}}";
+  _v8 = (_v9 + _v14);
+  var _v15;
+  _v15 = "@keyframes ultimate-trail-sweep-b{0%{opacity:0;transform:translate3d(-120%,-50%,0) skewX(-18deg) scaleX(0.72);}14%{opacity:0.76;}34%{opacity:1;transform:translate3d(6%,-50%,0) skewX(-18deg) scaleX(1);}68%{opacity:0.64;}100%{opacity:0;transform:translate3d(140%,-50%,0) skewX(-18deg) scaleX(1.1);}}";
+  _v7 = (_v8 + _v15);
+  var _v16;
+  _v16 = "@keyframes ultimate-banner-sweep-a{0%{opacity:0;transform:translate3d(-128%,-50%,0) skewX(-10deg) scaleX(0.94);}14%{opacity:1;}28%{opacity:1;transform:translate3d(-6%,-50%,0) skewX(-10deg) scaleX(1.02);}66%{opacity:1;transform:translate3d(-2%,-50%,0) skewX(-10deg) scaleX(1.01);}100%{opacity:0;transform:translate3d(112%,-50%,0) skewX(-10deg) scaleX(1.04);}}";
+  _v6 = (_v7 + _v16);
+  var _v17;
+  _v17 = "@keyframes ultimate-banner-sweep-b{0%{opacity:0;transform:translate3d(-128%,-50%,0) skewX(-10deg) scaleX(0.94);}14%{opacity:1;}28%{opacity:1;transform:translate3d(-6%,-50%,0) skewX(-10deg) scaleX(1.02);}66%{opacity:1;transform:translate3d(-2%,-50%,0) skewX(-10deg) scaleX(1.01);}100%{opacity:0;transform:translate3d(112%,-50%,0) skewX(-10deg) scaleX(1.04);}}";
+  _v5 = (_v6 + _v17);
+  var _v18;
+  _v18 = "@keyframes ultimate-flash-sweep-a{0%{opacity:0;transform:translate3d(-140%,-50%,0) skewX(-18deg) scaleX(0.84);}18%{opacity:0;}32%{opacity:0.92;transform:translate3d(16%,-50%,0) skewX(-18deg) scaleX(1);}54%{opacity:0.44;}100%{opacity:0;transform:translate3d(146%,-50%,0) skewX(-18deg) scaleX(1.18);}}";
+  _v4 = (_v5 + _v18);
+  var _v19;
+  _v19 = "@keyframes ultimate-flash-sweep-b{0%{opacity:0;transform:translate3d(-140%,-50%,0) skewX(-18deg) scaleX(0.84);}18%{opacity:0;}32%{opacity:0.92;transform:translate3d(16%,-50%,0) skewX(-18deg) scaleX(1);}54%{opacity:0.44;}100%{opacity:0;transform:translate3d(146%,-50%,0) skewX(-18deg) scaleX(1.18);}}";
+  _v3 = (_v4 + _v19);
+  var _v20;
+  _v20 = "@keyframes ultimate-hero-pop-a{0%{opacity:0;transform:translate3d(-48%,16%,0) scale(0.8) rotate(-8deg);}20%{opacity:0;}38%{opacity:1;transform:translate3d(0,0,0) scale(1.04) rotate(1deg);}72%{opacity:1;transform:translate3d(0,0,0) scale(1) rotate(0deg);}100%{opacity:0;transform:translate3d(18%,4%,0) scale(1.02) rotate(1deg);}}";
+  _v2 = (_v3 + _v20);
+  var _v21;
+  _v21 = "@keyframes ultimate-hero-pop-b{0%{opacity:0;transform:translate3d(-48%,16%,0) scale(0.8) rotate(-8deg);}20%{opacity:0;}38%{opacity:1;transform:translate3d(0,0,0) scale(1.04) rotate(1deg);}72%{opacity:1;transform:translate3d(0,0,0) scale(1) rotate(0deg);}100%{opacity:0;transform:translate3d(18%,4%,0) scale(1.02) rotate(1deg);}}";
+  _v1 = (_v2 + _v21);
+  var _v22;
+  _v22 = "@media (max-width:800px){.ultimate-preview-topbar{padding:10px 12px 0;}.ultimate-preview-cutin__trail{width:132%;height:10%;left:-14%;}.ultimate-preview-cutin__bar{left:-18%;width:136%;height:24%;}.ultimate-preview-cutin__hero{left:2%;bottom:30%;width:min(52vw,210px);}.ultimate-preview-footer{padding:0 12px 16px;}.ultimate-preview-footer__action{width:min(100%,280px);}}";
+  _r0 = (_v1 + _v22);
+  return _r0;
+}
+
+export const Dungeon$View$css$ultimate_preview_css = () => ($Dungeon$View$css$ultimate_preview_css());
+
 export function $Dungeon$View$css$dungeon_topbar_css() {
   var _r0;
   var _v1;
@@ -17595,22 +17663,26 @@ export function $Dungeon$View$css() {
   var _v3;
   var _v4;
   var _v5;
-  _v5 = Dungeon$View$css$base_css();
   var _v6;
-  _v6 = Dungeon$View$css$layout_css();
-  _v4 = (_v5 + _v6);
+  _v6 = Dungeon$View$css$base_css();
   var _v7;
-  _v7 = Dungeon$View$css$dungeon_scene_css();
-  _v3 = (_v4 + _v7);
+  _v7 = Dungeon$View$css$layout_css();
+  _v5 = (_v6 + _v7);
   var _v8;
-  _v8 = Dungeon$View$css$dungeon_topbar_css();
-  _v2 = (_v3 + _v8);
+  _v8 = Dungeon$View$css$ultimate_preview_css();
+  _v4 = (_v5 + _v8);
   var _v9;
-  _v9 = Dungeon$View$css$cards_css();
-  _v1 = (_v2 + _v9);
+  _v9 = Dungeon$View$css$dungeon_scene_css();
+  _v3 = (_v4 + _v9);
   var _v10;
-  _v10 = Dungeon$View$css$fx_css();
-  _r0 = (_v1 + _v10);
+  _v10 = Dungeon$View$css$dungeon_topbar_css();
+  _v2 = (_v3 + _v10);
+  var _v11;
+  _v11 = Dungeon$View$css$cards_css();
+  _v1 = (_v2 + _v11);
+  var _v12;
+  _v12 = Dungeon$View$css$fx_css();
+  _r0 = (_v1 + _v12);
   return _r0;
 }
 
@@ -20632,46 +20704,50 @@ export function $Dungeon$View$menu$_menu_actions_layout() {
   _v3 = null;
   var _v4;
   var _v5;
-  _v5 = Dungeon$View$menu$_menu_boosters_button();
+  _v5 = Dungeon$View$menu$_menu_ultimate_preview_button();
   var _v6;
   var _v7;
-  _v7 = Dungeon$View$menu$_menu_start_button();
+  _v7 = Dungeon$View$menu$_menu_boosters_button();
   var _v8;
-  _v8 = ({$: "nil"});
+  var _v9;
+  _v9 = Dungeon$View$menu$_menu_start_button();
+  var _v10;
+  _v10 = ({$: "nil"});
+  _v8 = ({$: "cons", head: _v9, tail: _v10});
   _v6 = ({$: "cons", head: _v7, tail: _v8});
   _v4 = ({$: "cons", head: _v5, tail: _v6});
-  var _v9;
-  var _v10;
-  _v10 = ({$: "direction_column"});
   var _v11;
   var _v12;
-  _v12 = ({$: "gap_sm"});
+  _v12 = ({$: "direction_column"});
   var _v13;
   var _v14;
-  _v14 = ({$: "align_stretch"});
+  _v14 = ({$: "gap_sm"});
   var _v15;
-  _v15 = ({$: "nil"});
+  var _v16;
+  _v16 = ({$: "align_stretch"});
+  var _v17;
+  _v17 = ({$: "nil"});
+  _v15 = ({$: "cons", head: _v16, tail: _v17});
   _v13 = ({$: "cons", head: _v14, tail: _v15});
   _v11 = ({$: "cons", head: _v12, tail: _v13});
-  _v9 = ({$: "cons", head: _v10, tail: _v11});
-  _v2 = $Midum$Layout$group(_v3, _v4, _v9);
-  var _v16;
-  var _v17;
+  _v2 = $Midum$Layout$group(_v3, _v4, _v11);
   var _v18;
-  _v18 = 280;
-  _v17 = ({$: "width_px", value: _v18});
   var _v19;
   var _v20;
-  _v20 = ({$: "height_fit"});
+  _v20 = 280;
+  _v19 = ({$: "width_px", value: _v20});
   var _v21;
   var _v22;
-  _v22 = ({$: "inset_none"});
+  _v22 = ({$: "height_fit"});
   var _v23;
-  _v23 = ({$: "nil"});
+  var _v24;
+  _v24 = ({$: "inset_none"});
+  var _v25;
+  _v25 = ({$: "nil"});
+  _v23 = ({$: "cons", head: _v24, tail: _v25});
   _v21 = ({$: "cons", head: _v22, tail: _v23});
-  _v19 = ({$: "cons", head: _v20, tail: _v21});
-  _v16 = ({$: "cons", head: _v17, tail: _v19});
-  _r0 = $Midum$Layout$frame(_v1, _v2, _v16);
+  _v18 = ({$: "cons", head: _v19, tail: _v21});
+  _r0 = $Midum$Layout$frame(_v1, _v2, _v18);
   return _r0;
 }
 
@@ -22152,6 +22228,26 @@ export function $Dungeon$View$menu$_menu_boosters_button() {
 
 export const Dungeon$View$menu$_menu_boosters_button = () => ($Dungeon$View$menu$_menu_boosters_button());
 
+export function $Dungeon$View$menu$_menu_ultimate_preview_button() {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  _v2 = ({$: "open_ultimate_preview"});
+  var _v3;
+  _v3 = ({$: "medium"});
+  var _v4;
+  _v4 = "TESTAR FX";
+  var _v5;
+  var _v6;
+  _v6 = 1;
+  _v5 = $Dungeon$View$menu$_full_button_overrides(_v6);
+  _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v5);
+  return _r0;
+}
+
+export const Dungeon$View$menu$_menu_ultimate_preview_button = () => ($Dungeon$View$menu$_menu_ultimate_preview_button());
+
 export function $Dungeon$View$menu$_menu_upgrade_button(hero_value, profile$1) {
   var _r0;
   var _v1;
@@ -22980,36 +23076,47 @@ export function $Dungeon$View$selectors$dungeon_level_value(x) {
             }
             default: {
               switch (x.$) {
-                case "running": {
-                  var _m4 = x.run;
-                  var run_value = _m4;
-                  var _v5;
-                  _v5 = run_value;
-                  _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v5);
+                case "ultimate_preview": {
+                  var _m4 = x.fx;
+                  var fx = _m4;
+                  _r0 = "--";
                   break;
                 }
                 default: {
                   switch (x.$) {
-                    case "resume_prompt": {
-                      var _m6 = x.run;
-                      var run_value = _m6;
-                      var _v7;
-                      _v7 = run_value;
-                      _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v7);
+                    case "running": {
+                      var _m5 = x.run;
+                      var run_value = _m5;
+                      var _v6;
+                      _v6 = run_value;
+                      _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v6);
                       break;
                     }
                     default: {
                       switch (x.$) {
-                        case "game_over": {
-                          var _m8 = x.run;
-                          var run_value = _m8;
-                          var _v9;
-                          _v9 = run_value;
-                          _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v9);
+                        case "resume_prompt": {
+                          var _m7 = x.run;
+                          var run_value = _m7;
+                          var _v8;
+                          _v8 = run_value;
+                          _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v8);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x.$) {
+                            case "game_over": {
+                              var _m9 = x.run;
+                              var run_value = _m9;
+                              var _v10;
+                              _v10 = run_value;
+                              _r0 = $Dungeon$View$selectors$_run_dungeon_level_text(_v10);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -23060,36 +23167,47 @@ export function $Dungeon$View$selectors$remaining_value(x) {
             }
             default: {
               switch (x.$) {
-                case "running": {
-                  var _m4 = x.run;
-                  var run_value = _m4;
-                  var _v5;
-                  _v5 = run_value;
-                  _r0 = $Dungeon$View$selectors$_run_remaining_text(_v5);
+                case "ultimate_preview": {
+                  var _m4 = x.fx;
+                  var fx = _m4;
+                  _r0 = "--/--";
                   break;
                 }
                 default: {
                   switch (x.$) {
-                    case "resume_prompt": {
-                      var _m6 = x.run;
-                      var run_value = _m6;
-                      var _v7;
-                      _v7 = run_value;
-                      _r0 = $Dungeon$View$selectors$_run_remaining_text(_v7);
+                    case "running": {
+                      var _m5 = x.run;
+                      var run_value = _m5;
+                      var _v6;
+                      _v6 = run_value;
+                      _r0 = $Dungeon$View$selectors$_run_remaining_text(_v6);
                       break;
                     }
                     default: {
                       switch (x.$) {
-                        case "game_over": {
-                          var _m8 = x.run;
-                          var run_value = _m8;
-                          var _v9;
-                          _v9 = run_value;
-                          _r0 = $Dungeon$View$selectors$_run_remaining_text(_v9);
+                        case "resume_prompt": {
+                          var _m7 = x.run;
+                          var run_value = _m7;
+                          var _v8;
+                          _v8 = run_value;
+                          _r0 = $Dungeon$View$selectors$_run_remaining_text(_v8);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x.$) {
+                            case "game_over": {
+                              var _m9 = x.run;
+                              var run_value = _m9;
+                              var _v10;
+                              _v10 = run_value;
+                              _r0 = $Dungeon$View$selectors$_run_remaining_text(_v10);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -23140,36 +23258,47 @@ export function $Dungeon$View$selectors$weapon_value(x) {
             }
             default: {
               switch (x.$) {
-                case "running": {
-                  var _m4 = x.run;
-                  var run_value = _m4;
-                  var _v5;
-                  _v5 = run_value;
-                  _r0 = $Dungeon$View$selectors$_run_weapon_text(_v5);
+                case "ultimate_preview": {
+                  var _m4 = x.fx;
+                  var fx = _m4;
+                  _r0 = "--";
                   break;
                 }
                 default: {
                   switch (x.$) {
-                    case "resume_prompt": {
-                      var _m6 = x.run;
-                      var run_value = _m6;
-                      var _v7;
-                      _v7 = run_value;
-                      _r0 = $Dungeon$View$selectors$_run_weapon_text(_v7);
+                    case "running": {
+                      var _m5 = x.run;
+                      var run_value = _m5;
+                      var _v6;
+                      _v6 = run_value;
+                      _r0 = $Dungeon$View$selectors$_run_weapon_text(_v6);
                       break;
                     }
                     default: {
                       switch (x.$) {
-                        case "game_over": {
-                          var _m8 = x.run;
-                          var run_value = _m8;
-                          var _v9;
-                          _v9 = run_value;
-                          _r0 = $Dungeon$View$selectors$_run_weapon_text(_v9);
+                        case "resume_prompt": {
+                          var _m7 = x.run;
+                          var run_value = _m7;
+                          var _v8;
+                          _v8 = run_value;
+                          _r0 = $Dungeon$View$selectors$_run_weapon_text(_v8);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x.$) {
+                            case "game_over": {
+                              var _m9 = x.run;
+                              var run_value = _m9;
+                              var _v10;
+                              _v10 = run_value;
+                              _r0 = $Dungeon$View$selectors$_run_weapon_text(_v10);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -23250,36 +23379,57 @@ export function $Dungeon$View$selectors$ultimate_label(x) {
             }
             default: {
               switch (x.$) {
-                case "running": {
-                  var _m19 = x.run;
-                  var run_value = _m19;
+                case "ultimate_preview": {
+                  var _m19 = x.fx;
+                  var fx = _m19;
                   var _v20;
-                  _v20 = run_value;
-                  _r0 = $Dungeon$View$selectors$_run_ult_label(_v20);
+                  var _v21;
+                  _v21 = Dungeon$Content$ui_ultimate_label();
+                  var _v22;
+                  _v22 = " 0/";
+                  _v20 = (_v21 + _v22);
+                  var _v23;
+                  var _v24;
+                  _v24 = Dungeon$rules$ultimate_charge_required();
+                  _v23 = $U32$show(_v24);
+                  _r0 = (_v20 + _v23);
                   break;
                 }
                 default: {
                   switch (x.$) {
-                    case "resume_prompt": {
-                      var _m21 = x.run;
-                      var run_value = _m21;
-                      var _v22;
-                      _v22 = run_value;
-                      _r0 = $Dungeon$View$selectors$_run_ult_label(_v22);
+                    case "running": {
+                      var _m25 = x.run;
+                      var run_value = _m25;
+                      var _v26;
+                      _v26 = run_value;
+                      _r0 = $Dungeon$View$selectors$_run_ult_label(_v26);
                       break;
                     }
                     default: {
                       switch (x.$) {
-                        case "game_over": {
-                          var _m23 = x.run;
-                          var run_value = _m23;
-                          var _v24;
-                          _v24 = run_value;
-                          _r0 = $Dungeon$View$selectors$_run_ult_label(_v24);
+                        case "resume_prompt": {
+                          var _m27 = x.run;
+                          var run_value = _m27;
+                          var _v28;
+                          _v28 = run_value;
+                          _r0 = $Dungeon$View$selectors$_run_ult_label(_v28);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x.$) {
+                            case "game_over": {
+                              var _m29 = x.run;
+                              var run_value = _m29;
+                              var _v30;
+                              _v30 = run_value;
+                              _r0 = $Dungeon$View$selectors$_run_ult_label(_v30);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -29499,6 +29649,393 @@ export function $Dungeon$View$boosters$_booster_actions(meta_state) {
 
 export const Dungeon$View$boosters$_booster_actions = () => ((a0) => ($Dungeon$View$boosters$_booster_actions(a0)));
 
+export function $Dungeon$View$ultimate_preview$_render_ultimate_preview(fx) {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  var _v3;
+  _v3 = "section";
+  var _v4;
+  var _v5;
+  var _v6;
+  _v6 = "class";
+  var _v7;
+  _v7 = "ultimate-preview-scene";
+  _v5 = ({$: "attr", nam: _v6, val: _v7});
+  var _v8;
+  _v8 = ({$: "nil"});
+  _v4 = ({$: "cons", head: _v5, tail: _v8});
+  var _v9;
+  var _v10;
+  var _v11;
+  _v11 = "header";
+  var _v12;
+  var _v13;
+  var _v14;
+  _v14 = "class";
+  var _v15;
+  _v15 = "topbar topbar--menu ultimate-preview-topbar";
+  _v13 = ({$: "attr", nam: _v14, val: _v15});
+  var _v16;
+  _v16 = ({$: "nil"});
+  _v12 = ({$: "cons", head: _v13, tail: _v16});
+  var _v17;
+  var _v18;
+  var _v19;
+  _v19 = "div";
+  var _v20;
+  var _v21;
+  var _v22;
+  _v22 = "class";
+  var _v23;
+  _v23 = "topbar__back";
+  _v21 = ({$: "attr", nam: _v22, val: _v23});
+  var _v24;
+  _v24 = ({$: "nil"});
+  _v20 = ({$: "cons", head: _v21, tail: _v24});
+  var _v25;
+  var _v26;
+  _v26 = Dungeon$View$ultimate_preview$_ultimate_preview_back_button();
+  var _v27;
+  _v27 = ({$: "nil"});
+  _v25 = ({$: "cons", head: _v26, tail: _v27});
+  _v18 = ({$: "node", tag: _v19, attrs: _v20, kids: _v25});
+  var _v28;
+  _v28 = ({$: "nil"});
+  _v17 = ({$: "cons", head: _v18, tail: _v28});
+  _v10 = ({$: "node", tag: _v11, attrs: _v12, kids: _v17});
+  var _v29;
+  var _v30;
+  var _v31;
+  _v31 = "div";
+  var _v32;
+  var _v33;
+  var _v34;
+  _v34 = "class";
+  var _v35;
+  _v35 = "ultimate-preview-content";
+  _v33 = ({$: "attr", nam: _v34, val: _v35});
+  var _v36;
+  _v36 = ({$: "nil"});
+  _v32 = ({$: "cons", head: _v33, tail: _v36});
+  var _v37;
+  var _v38;
+  var _v39;
+  _v39 = "div";
+  var _v40;
+  var _v41;
+  var _v42;
+  _v42 = "class";
+  var _v43;
+  var _v44;
+  _v44 = fx;
+  _v43 = $Dungeon$View$ultimate_preview$_ultimate_preview_stage_class(_v44);
+  _v41 = ({$: "attr", nam: _v42, val: _v43});
+  var _v45;
+  _v45 = ({$: "nil"});
+  _v40 = ({$: "cons", head: _v41, tail: _v45});
+  var _v46;
+  var _v47;
+  var _v48;
+  _v48 = "div";
+  var _v49;
+  var _v50;
+  var _v51;
+  _v51 = "class";
+  var _v52;
+  _v52 = "ultimate-preview-cutin";
+  _v50 = ({$: "attr", nam: _v51, val: _v52});
+  var _v53;
+  _v53 = ({$: "nil"});
+  _v49 = ({$: "cons", head: _v50, tail: _v53});
+  var _v54;
+  var _v55;
+  var _v56;
+  _v56 = "div";
+  var _v57;
+  var _v58;
+  var _v59;
+  _v59 = "class";
+  var _v60;
+  _v60 = "ultimate-preview-cutin__trail";
+  _v58 = ({$: "attr", nam: _v59, val: _v60});
+  var _v61;
+  _v61 = ({$: "nil"});
+  _v57 = ({$: "cons", head: _v58, tail: _v61});
+  var _v62;
+  _v62 = ({$: "nil"});
+  _v55 = ({$: "node", tag: _v56, attrs: _v57, kids: _v62});
+  var _v63;
+  var _v64;
+  var _v65;
+  _v65 = "div";
+  var _v66;
+  var _v67;
+  var _v68;
+  _v68 = "class";
+  var _v69;
+  _v69 = "ultimate-preview-cutin__bar";
+  _v67 = ({$: "attr", nam: _v68, val: _v69});
+  var _v70;
+  _v70 = ({$: "nil"});
+  _v66 = ({$: "cons", head: _v67, tail: _v70});
+  var _v71;
+  var _v72;
+  var _v73;
+  _v73 = "img";
+  var _v74;
+  var _v75;
+  var _v76;
+  _v76 = "class";
+  var _v77;
+  _v77 = "ultimate-preview-cutin__banner";
+  _v75 = ({$: "attr", nam: _v76, val: _v77});
+  var _v78;
+  var _v79;
+  var _v80;
+  _v80 = "src";
+  var _v81;
+  _v81 = "assets/ui/ultimate/banner-test.png";
+  _v79 = ({$: "attr", nam: _v80, val: _v81});
+  var _v82;
+  var _v83;
+  var _v84;
+  _v84 = "alt";
+  var _v85;
+  _v85 = "";
+  _v83 = ({$: "attr", nam: _v84, val: _v85});
+  var _v86;
+  _v86 = ({$: "nil"});
+  _v82 = ({$: "cons", head: _v83, tail: _v86});
+  _v78 = ({$: "cons", head: _v79, tail: _v82});
+  _v74 = ({$: "cons", head: _v75, tail: _v78});
+  var _v87;
+  _v87 = ({$: "nil"});
+  _v72 = ({$: "node", tag: _v73, attrs: _v74, kids: _v87});
+  var _v88;
+  _v88 = ({$: "nil"});
+  _v71 = ({$: "cons", head: _v72, tail: _v88});
+  _v64 = ({$: "node", tag: _v65, attrs: _v66, kids: _v71});
+  var _v89;
+  var _v90;
+  var _v91;
+  _v91 = "div";
+  var _v92;
+  var _v93;
+  var _v94;
+  _v94 = "class";
+  var _v95;
+  _v95 = "ultimate-preview-cutin__flash";
+  _v93 = ({$: "attr", nam: _v94, val: _v95});
+  var _v96;
+  _v96 = ({$: "nil"});
+  _v92 = ({$: "cons", head: _v93, tail: _v96});
+  var _v97;
+  _v97 = ({$: "nil"});
+  _v90 = ({$: "node", tag: _v91, attrs: _v92, kids: _v97});
+  var _v98;
+  var _v99;
+  var _v100;
+  _v100 = "img";
+  var _v101;
+  var _v102;
+  var _v103;
+  _v103 = "class";
+  var _v104;
+  _v104 = "ultimate-preview-cutin__hero";
+  _v102 = ({$: "attr", nam: _v103, val: _v104});
+  var _v105;
+  var _v106;
+  var _v107;
+  _v107 = "src";
+  var _v108;
+  _v108 = "assets/player-boy.png";
+  _v106 = ({$: "attr", nam: _v107, val: _v108});
+  var _v109;
+  var _v110;
+  var _v111;
+  _v111 = "alt";
+  var _v112;
+  _v112 = "Adventurer";
+  _v110 = ({$: "attr", nam: _v111, val: _v112});
+  var _v113;
+  _v113 = ({$: "nil"});
+  _v109 = ({$: "cons", head: _v110, tail: _v113});
+  _v105 = ({$: "cons", head: _v106, tail: _v109});
+  _v101 = ({$: "cons", head: _v102, tail: _v105});
+  var _v114;
+  _v114 = ({$: "nil"});
+  _v99 = ({$: "node", tag: _v100, attrs: _v101, kids: _v114});
+  var _v115;
+  _v115 = ({$: "nil"});
+  _v98 = ({$: "cons", head: _v99, tail: _v115});
+  _v89 = ({$: "cons", head: _v90, tail: _v98});
+  _v63 = ({$: "cons", head: _v64, tail: _v89});
+  _v54 = ({$: "cons", head: _v55, tail: _v63});
+  _v47 = ({$: "node", tag: _v48, attrs: _v49, kids: _v54});
+  var _v116;
+  _v116 = ({$: "nil"});
+  _v46 = ({$: "cons", head: _v47, tail: _v116});
+  _v38 = ({$: "node", tag: _v39, attrs: _v40, kids: _v46});
+  var _v117;
+  _v117 = ({$: "nil"});
+  _v37 = ({$: "cons", head: _v38, tail: _v117});
+  _v30 = ({$: "node", tag: _v31, attrs: _v32, kids: _v37});
+  var _v118;
+  var _v119;
+  var _v120;
+  _v120 = "div";
+  var _v121;
+  var _v122;
+  var _v123;
+  _v123 = "class";
+  var _v124;
+  _v124 = "ultimate-preview-footer";
+  _v122 = ({$: "attr", nam: _v123, val: _v124});
+  var _v125;
+  _v125 = ({$: "nil"});
+  _v121 = ({$: "cons", head: _v122, tail: _v125});
+  var _v126;
+  var _v127;
+  var _v128;
+  _v128 = "div";
+  var _v129;
+  var _v130;
+  var _v131;
+  _v131 = "class";
+  var _v132;
+  _v132 = "menu-start-action ultimate-preview-footer__action";
+  _v130 = ({$: "attr", nam: _v131, val: _v132});
+  var _v133;
+  _v133 = ({$: "nil"});
+  _v129 = ({$: "cons", head: _v130, tail: _v133});
+  var _v134;
+  var _v135;
+  _v135 = Dungeon$View$ultimate_preview$_ultimate_preview_play_button();
+  var _v136;
+  _v136 = ({$: "nil"});
+  _v134 = ({$: "cons", head: _v135, tail: _v136});
+  _v127 = ({$: "node", tag: _v128, attrs: _v129, kids: _v134});
+  var _v137;
+  _v137 = ({$: "nil"});
+  _v126 = ({$: "cons", head: _v127, tail: _v137});
+  _v119 = ({$: "node", tag: _v120, attrs: _v121, kids: _v126});
+  var _v138;
+  _v138 = ({$: "nil"});
+  _v118 = ({$: "cons", head: _v119, tail: _v138});
+  _v29 = ({$: "cons", head: _v30, tail: _v118});
+  _v9 = ({$: "cons", head: _v10, tail: _v29});
+  _v2 = ({$: "node", tag: _v3, attrs: _v4, kids: _v9});
+  var _v139;
+  var _v140;
+  _v140 = ({$: "height_viewport"});
+  var _v141;
+  var _v142;
+  _v142 = ({$: "overflow_hidden"});
+  var _v143;
+  var _v144;
+  _v144 = ({$: "safe_area"});
+  var _v145;
+  var _v146;
+  _v146 = ({$: "inset_none"});
+  var _v147;
+  _v147 = ({$: "nil"});
+  _v145 = ({$: "cons", head: _v146, tail: _v147});
+  _v143 = ({$: "cons", head: _v144, tail: _v145});
+  _v141 = ({$: "cons", head: _v142, tail: _v143});
+  _v139 = ({$: "cons", head: _v140, tail: _v141});
+  _r0 = $Midum$Layout$shell(_v1, _v2, _v139);
+  return _r0;
+}
+
+export const Dungeon$View$ultimate_preview$_render_ultimate_preview = () => ((a0) => ($Dungeon$View$ultimate_preview$_render_ultimate_preview(a0)));
+
+export function $Dungeon$View$ultimate_preview$_ultimate_preview_stage_class(fx) {
+  var _r0;
+  var _v1;
+  _v1 = "ultimate-preview-stage ";
+  var _v2;
+  var _v3;
+  _v3 = fx;
+  _v2 = $Dungeon$View$ultimate_preview$_ultimate_preview_fx_class(_v3);
+  _r0 = (_v1 + _v2);
+  return _r0;
+}
+
+export const Dungeon$View$ultimate_preview$_ultimate_preview_stage_class = () => ((a0) => ($Dungeon$View$ultimate_preview$_ultimate_preview_stage_class(a0)));
+
+export function $Dungeon$View$ultimate_preview$_ultimate_preview_fx_class(x) {
+  var _r0;
+  switch (x.$) {
+    case "ultimate_preview_idle": {
+      _r0 = "ultimate-preview-stage--idle";
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "ultimate_preview_play_a": {
+          _r0 = "ultimate-preview-stage--play-a";
+          break;
+        }
+        default: {
+          switch (x.$) {
+            case "ultimate_preview_play_b": {
+              _r0 = "ultimate-preview-stage--play-b";
+              break;
+            }
+            default: {
+              throw new Error("EFQ applied");
+              break;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$View$ultimate_preview$_ultimate_preview_fx_class = () => ((a0) => ($Dungeon$View$ultimate_preview$_ultimate_preview_fx_class(a0)));
+
+export function $Dungeon$View$ultimate_preview$_ultimate_preview_back_button() {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  _v2 = ({$: "close_ultimate_preview"});
+  var _v3;
+  _v3 = ({$: "medium"});
+  var _v4;
+  _v4 = Dungeon$Content$ui_menu_back();
+  var _v5;
+  _v5 = ({$: "nil"});
+  _r0 = $Midum$Button$secondary(_v1, _v2, _v3, _v4, _v5);
+  return _r0;
+}
+
+export const Dungeon$View$ultimate_preview$_ultimate_preview_back_button = () => ($Dungeon$View$ultimate_preview$_ultimate_preview_back_button());
+
+export function $Dungeon$View$ultimate_preview$_ultimate_preview_play_button() {
+  var _r0;
+  var _v1;
+  _v1 = null;
+  var _v2;
+  _v2 = ({$: "play_ultimate_preview"});
+  var _v3;
+  _v3 = ({$: "large"});
+  var _v4;
+  _v4 = "TOCAR ANIMACAO";
+  var _v5;
+  _v5 = ({$: "nil"});
+  _r0 = $Midum$Button$primary(_v1, _v2, _v3, _v4, _v5);
+  return _r0;
+}
+
+export const Dungeon$View$ultimate_preview$_ultimate_preview_play_button = () => ($Dungeon$View$ultimate_preview$_ultimate_preview_play_button());
+
 export function $Dungeon$View$board$_render_dungeon(meta_state, scene_value$1, run_value$2, ui_value$3) {
   var _r0;
   var hero_value$4;
@@ -30351,9 +30888,9 @@ export function $Dungeon$View$board$_board_modal_layer(x) {
             }
             default: {
               switch (x.$) {
-                case "running": {
-                  var _m7 = x.run;
-                  var run_value = _m7;
+                case "ultimate_preview": {
+                  var _m7 = x.fx;
+                  var fx = _m7;
                   var _v8;
                   _v8 = "";
                   _r0 = ({$: "text", value: _v8});
@@ -30361,38 +30898,51 @@ export function $Dungeon$View$board$_board_modal_layer(x) {
                 }
                 default: {
                   switch (x.$) {
-                    case "resume_prompt": {
+                    case "running": {
                       var _m9 = x.run;
                       var run_value = _m9;
                       var _v10;
-                      _v10 = null;
-                      var _v11;
-                      var _v12;
-                      var _v13;
-                      _v13 = run_value;
-                      _v12 = ({$: "resume_prompt", run: _v13});
-                      _v11 = $Dungeon$View$board$_resume_prompt_modal(_v12);
-                      _r0 = $Midum$Layout$center(_v10, _v11);
+                      _v10 = "";
+                      _r0 = ({$: "text", value: _v10});
                       break;
                     }
                     default: {
                       switch (x.$) {
-                        case "game_over": {
-                          var _m14 = x.run;
-                          var run_value = _m14;
+                        case "resume_prompt": {
+                          var _m11 = x.run;
+                          var run_value = _m11;
+                          var _v12;
+                          _v12 = null;
+                          var _v13;
+                          var _v14;
                           var _v15;
-                          _v15 = null;
-                          var _v16;
-                          var _v17;
-                          var _v18;
-                          _v18 = run_value;
-                          _v17 = ({$: "game_over", run: _v18});
-                          _v16 = $Dungeon$View$board$_game_over_modal(_v17);
-                          _r0 = $Midum$Layout$center(_v15, _v16);
+                          _v15 = run_value;
+                          _v14 = ({$: "resume_prompt", run: _v15});
+                          _v13 = $Dungeon$View$board$_resume_prompt_modal(_v14);
+                          _r0 = $Midum$Layout$center(_v12, _v13);
                           break;
                         }
                         default: {
-                          throw new Error("EFQ applied");
+                          switch (x.$) {
+                            case "game_over": {
+                              var _m16 = x.run;
+                              var run_value = _m16;
+                              var _v17;
+                              _v17 = null;
+                              var _v18;
+                              var _v19;
+                              var _v20;
+                              _v20 = run_value;
+                              _v19 = ({$: "game_over", run: _v20});
+                              _v18 = $Dungeon$View$board$_game_over_modal(_v19);
+                              _r0 = $Midum$Layout$center(_v17, _v18);
+                              break;
+                            }
+                            default: {
+                              throw new Error("EFQ applied");
+                              break;
+                            }
+                          }
                           break;
                         }
                       }
@@ -34220,9 +34770,9 @@ export function $Dungeon$App$scene_flow$_next_state_scene(evt, x$1) {
                     }
                     default: {
                       switch (_m4.$) {
-                        case "running": {
-                          var _m24 = _m4.run;
-                          var run_value$2 = _m24;
+                        case "ultimate_preview": {
+                          var _m24 = _m4.fx;
+                          var fx$2 = _m24;
                           var next_seed_value$3 = _m5;
                           var ui_value$4 = _m2;
                           var _v25;
@@ -34230,17 +34780,17 @@ export function $Dungeon$App$scene_flow$_next_state_scene(evt, x$1) {
                           var _v26;
                           _v26 = meta_state$1;
                           var _v27;
-                          _v27 = run_value$2;
+                          _v27 = fx$2;
                           var _v28;
                           _v28 = next_seed_value$3;
                           var _v29;
                           _v29 = ui_value$4;
-                          _r0 = $Dungeon$App$update_running(_v25, _v26, _v27, _v28, _v29);
+                          _r0 = $Dungeon$App$update_ultimate_preview(_v25, _v26, _v27, _v28, _v29);
                           break;
                         }
                         default: {
                           switch (_m4.$) {
-                            case "resume_prompt": {
+                            case "running": {
                               var _m30 = _m4.run;
                               var run_value$2 = _m30;
                               var next_seed_value$3 = _m5;
@@ -34255,12 +34805,12 @@ export function $Dungeon$App$scene_flow$_next_state_scene(evt, x$1) {
                               _v34 = next_seed_value$3;
                               var _v35;
                               _v35 = ui_value$4;
-                              _r0 = $Dungeon$App$update_resume_prompt(_v31, _v32, _v33, _v34, _v35);
+                              _r0 = $Dungeon$App$update_running(_v31, _v32, _v33, _v34, _v35);
                               break;
                             }
                             default: {
                               switch (_m4.$) {
-                                case "game_over": {
+                                case "resume_prompt": {
                                   var _m36 = _m4.run;
                                   var run_value$2 = _m36;
                                   var next_seed_value$3 = _m5;
@@ -34275,11 +34825,34 @@ export function $Dungeon$App$scene_flow$_next_state_scene(evt, x$1) {
                                   _v40 = next_seed_value$3;
                                   var _v41;
                                   _v41 = ui_value$4;
-                                  _r0 = $Dungeon$App$update_game_over(_v37, _v38, _v39, _v40, _v41);
+                                  _r0 = $Dungeon$App$update_resume_prompt(_v37, _v38, _v39, _v40, _v41);
                                   break;
                                 }
                                 default: {
-                                  throw new Error("EFQ applied");
+                                  switch (_m4.$) {
+                                    case "game_over": {
+                                      var _m42 = _m4.run;
+                                      var run_value$2 = _m42;
+                                      var next_seed_value$3 = _m5;
+                                      var ui_value$4 = _m2;
+                                      var _v43;
+                                      _v43 = evt;
+                                      var _v44;
+                                      _v44 = meta_state$1;
+                                      var _v45;
+                                      _v45 = run_value$2;
+                                      var _v46;
+                                      _v46 = next_seed_value$3;
+                                      var _v47;
+                                      _v47 = ui_value$4;
+                                      _r0 = $Dungeon$App$update_game_over(_v43, _v44, _v45, _v46, _v47);
+                                      break;
+                                    }
+                                    default: {
+                                      throw new Error("EFQ applied");
+                                      break;
+                                    }
+                                  }
                                   break;
                                 }
                               }
@@ -34558,7 +35131,7 @@ export function $Dungeon$App$update_setup(x, x$1, x$2, x$3) {
             }
             default: {
               switch (x.$) {
-                case "open_boosters": {
+                case "open_ultimate_preview": {
                   var meta_state = x$1;
                   var next_seed_value$1 = x$2;
                   var ui_value$2 = x$3;
@@ -34566,31 +35139,53 @@ export function $Dungeon$App$update_setup(x, x$1, x$2, x$3) {
                   _v17 = meta_state;
                   var _v18;
                   var _v19;
-                  _v19 = ({$: "no_pack_reward"});
+                  _v19 = ({$: "ultimate_preview_idle"});
+                  _v18 = ({$: "ultimate_preview", fx: _v19});
                   var _v20;
-                  _v20 = 0;
-                  _v18 = ({$: "boosters", reward: _v19, reveal_index: _v20});
+                  _v20 = next_seed_value$1;
                   var _v21;
-                  _v21 = next_seed_value$1;
-                  var _v22;
-                  _v22 = Dungeon$default_ui();
-                  _r0 = $Dungeon$App$state_helpers$_state(_v17, _v18, _v21, _v22);
+                  _v21 = Dungeon$default_ui();
+                  _r0 = $Dungeon$App$state_helpers$_state(_v17, _v18, _v20, _v21);
                   break;
                 }
                 default: {
-                  var _ = x;
-                  var meta_state$1 = x$1;
-                  var next_seed_value$2 = x$2;
-                  var ui_value$3 = x$3;
-                  var _v23;
-                  _v23 = meta_state$1;
-                  var _v24;
-                  _v24 = ({$: "setup"});
-                  var _v25;
-                  _v25 = next_seed_value$2;
-                  var _v26;
-                  _v26 = ui_value$3;
-                  _r0 = $Dungeon$App$state_helpers$_state(_v23, _v24, _v25, _v26);
+                  switch (x.$) {
+                    case "open_boosters": {
+                      var meta_state = x$1;
+                      var next_seed_value$1 = x$2;
+                      var ui_value$2 = x$3;
+                      var _v22;
+                      _v22 = meta_state;
+                      var _v23;
+                      var _v24;
+                      _v24 = ({$: "no_pack_reward"});
+                      var _v25;
+                      _v25 = 0;
+                      _v23 = ({$: "boosters", reward: _v24, reveal_index: _v25});
+                      var _v26;
+                      _v26 = next_seed_value$1;
+                      var _v27;
+                      _v27 = Dungeon$default_ui();
+                      _r0 = $Dungeon$App$state_helpers$_state(_v22, _v23, _v26, _v27);
+                      break;
+                    }
+                    default: {
+                      var _ = x;
+                      var meta_state$1 = x$1;
+                      var next_seed_value$2 = x$2;
+                      var ui_value$3 = x$3;
+                      var _v28;
+                      _v28 = meta_state$1;
+                      var _v29;
+                      _v29 = ({$: "setup"});
+                      var _v30;
+                      _v30 = next_seed_value$2;
+                      var _v31;
+                      _v31 = ui_value$3;
+                      _r0 = $Dungeon$App$state_helpers$_state(_v28, _v29, _v30, _v31);
+                      break;
+                    }
+                  }
                   break;
                 }
               }
@@ -37388,6 +37983,93 @@ export function $Dungeon$Boosters$collection$_bonus_deck_from_cards(bonus_deck, 
 }
 
 export const Dungeon$Boosters$collection$_bonus_deck_from_cards = () => ((a0) => ((a1) => ($Dungeon$Boosters$collection$_bonus_deck_from_cards(a0, a1))));
+
+export function $Dungeon$App$update_ultimate_preview(x, x$1, x$2, x$3, x$4) {
+  var _r0;
+  switch (x.$) {
+    case "close_ultimate_preview": {
+      var meta_state = x$1;
+      var fx$1 = x$2;
+      var next_seed_value$2 = x$3;
+      var ui_value$3 = x$4;
+      var _v1;
+      _v1 = meta_state;
+      var _v2;
+      _v2 = ({$: "setup"});
+      var _v3;
+      _v3 = next_seed_value$2;
+      var _v4;
+      _v4 = Dungeon$default_ui();
+      _r0 = $Dungeon$App$state_helpers$_state(_v1, _v2, _v3, _v4);
+      break;
+    }
+    default: {
+      switch (x.$) {
+        case "play_ultimate_preview": {
+          var meta_state = x$1;
+          var fx$1 = x$2;
+          var next_seed_value$2 = x$3;
+          var ui_value$3 = x$4;
+          var _v5;
+          _v5 = meta_state;
+          var _v6;
+          var _v7;
+          var _v8;
+          _v8 = fx$1;
+          _v7 = $Dungeon$App$update_ultimate_preview$_next_preview_fx(_v8);
+          _v6 = ({$: "ultimate_preview", fx: _v7});
+          var _v9;
+          _v9 = next_seed_value$2;
+          var _v10;
+          _v10 = ui_value$3;
+          _r0 = $Dungeon$App$state_helpers$_state(_v5, _v6, _v9, _v10);
+          break;
+        }
+        default: {
+          var _ = x;
+          var meta_state$1 = x$1;
+          var fx$2 = x$2;
+          var next_seed_value$3 = x$3;
+          var ui_value$4 = x$4;
+          var _v11;
+          _v11 = meta_state$1;
+          var _v12;
+          var _v13;
+          _v13 = fx$2;
+          _v12 = ({$: "ultimate_preview", fx: _v13});
+          var _v14;
+          _v14 = next_seed_value$3;
+          var _v15;
+          _v15 = ui_value$4;
+          _r0 = $Dungeon$App$state_helpers$_state(_v11, _v12, _v14, _v15);
+          break;
+        }
+      }
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$App$update_ultimate_preview = () => ((a0) => ((a1) => ((a2) => ((a3) => ((a4) => ($Dungeon$App$update_ultimate_preview(a0, a1, a2, a3, a4)))))));
+
+export function $Dungeon$App$update_ultimate_preview$_next_preview_fx(x) {
+  var _r0;
+  switch (x.$) {
+    case "ultimate_preview_play_a": {
+      _r0 = ({$: "ultimate_preview_play_b"});
+      break;
+    }
+    default: {
+      var _ = x;
+      _r0 = ({$: "ultimate_preview_play_a"});
+      break;
+    }
+  }
+  return _r0;
+}
+
+export const Dungeon$App$update_ultimate_preview$_next_preview_fx = () => ((a0) => ($Dungeon$App$update_ultimate_preview$_next_preview_fx(a0)));
 
 export function $Dungeon$App$update_running$_state_from_swipe(x, x$1, x$2, x$3, x$4) {
   var _r0;

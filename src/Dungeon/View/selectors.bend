@@ -111,6 +111,8 @@ def dungeon_level_value(scene_value: Scene) -> String:
       "--"
     case boosters{reward, reveal_index}:
       "--"
+    case ultimate_preview{fx}:
+      "--"
     case running{run_value}:
       _run_dungeon_level_text(run_value)
     case resume_prompt{run_value}:
@@ -125,6 +127,8 @@ def remaining_value(scene_value: Scene) -> String:
     case character_select{preview_hero}:
       "--/--"
     case boosters{reward, reveal_index}:
+      "--/--"
+    case ultimate_preview{fx}:
       "--/--"
     case running{run_value}:
       _run_remaining_text(run_value)
@@ -141,6 +145,8 @@ def weapon_value(scene_value: Scene) -> String:
       "--"
     case boosters{reward, reveal_index}:
       "--"
+    case ultimate_preview{fx}:
+      "--"
     case running{run_value}:
       _run_weapon_text(run_value)
     case resume_prompt{run_value}:
@@ -155,6 +161,8 @@ def ultimate_label(scene_value: Scene) -> String:
     case character_select{preview_hero}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
     case boosters{reward, reveal_index}:
+      Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
+    case ultimate_preview{fx}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
     case running{run_value}:
       _run_ult_label(run_value)

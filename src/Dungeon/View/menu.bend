@@ -109,6 +109,7 @@ def _menu_actions_layout() -> HTML(DungeonEvent):
     Layout.group(
       DungeonEvent,
       [
+        _menu_ultimate_preview_button()
         _menu_boosters_button()
         _menu_start_button()
       ],
@@ -393,6 +394,15 @@ def _menu_boosters_button() -> HTML(DungeonEvent):
     open_boosters{},
     medium{},
     Content.ui_menu_boosters(),
+    _full_button_overrides(1)
+  )
+
+def _menu_ultimate_preview_button() -> HTML(DungeonEvent):
+  Button.secondary(
+    DungeonEvent,
+    open_ultimate_preview{},
+    medium{},
+    "TESTAR FX",
     _full_button_overrides(1)
   )
 

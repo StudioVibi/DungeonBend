@@ -201,6 +201,7 @@ type Scene {
   setup{}
   character_select{preview_hero: U32}
   boosters{reward: PackReward, reveal_index: U32}
+  ultimate_preview{fx: UltimatePreviewFx}
   running{run: Run}
   resume_prompt{run: Run}
   game_over{run: Run}
@@ -255,6 +256,12 @@ type DeckCounterFx {
   deck_counter_playing{state: Midum/Image/State}
 }
 
+type UltimatePreviewFx {
+  ultimate_preview_idle{}
+  ultimate_preview_play_a{}
+  ultimate_preview_play_b{}
+}
+
 type UiState {
   ui_state{hp_fx: HpFx, dmg_fx: DmgFx, impact: Impact, damage_overlay: DamageOverlay, deck_counter_fx: DeckCounterFx}
 }
@@ -268,6 +275,8 @@ type DungeonEvent {
   upgrade{}
   open_character_select{}
   close_character_select{}
+  open_ultimate_preview{}
+  close_ultimate_preview{}
   preview_character{ref: U32}
   select_character{}
   open_boosters{}
@@ -277,6 +286,7 @@ type DungeonEvent {
   prev_reward{}
   next_reward{}
   done_reward{}
+  play_ultimate_preview{}
   ultimate{}
   move{dir: Direction}
   damage_tick{}

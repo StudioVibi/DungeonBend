@@ -10,6 +10,7 @@ import /Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
 import /Dungeon/View/menu/_render_menu as _render_menu
 import /Dungeon/View/menu/_render_character_select as _render_character_select
 import /Dungeon/View/boosters/_render_boosters as _render_boosters
+import /Dungeon/View/ultimate_preview/_render_ultimate_preview as _render_ultimate_preview
 import /Dungeon/View/board/_render_dungeon as _render_dungeon
 import /Midum/screen as screen
 
@@ -39,6 +40,8 @@ def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTM
       _render_character_select(meta_state, preview_hero)
     case boosters{reward, reveal_index}:
       _render_boosters(meta_state, reward, reveal_index)
+    case ultimate_preview{fx}:
+      _render_ultimate_preview(fx)
     case running{run_value}:
       _render_dungeon(meta_state, running{run_value}, run_value, ui_value)
     case resume_prompt{run_value}:

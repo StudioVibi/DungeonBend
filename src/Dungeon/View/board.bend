@@ -166,6 +166,8 @@ def _board_modal_layer(scene_value: Scene) -> HTML(DungeonEvent):
       text{""}
     case boosters{reward, reveal_index}:
       text{""}
+    case ultimate_preview{fx}:
+      text{""}
     case running{run_value}:
       text{""}
     case resume_prompt{run_value}:
