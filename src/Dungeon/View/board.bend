@@ -168,6 +168,8 @@ def _board_modal_layer(scene_value: Scene) -> HTML(DungeonEvent):
       text{""}
     case ultimate_preview{fx}:
       text{""}
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      text{""}
     case running{run_value}:
       text{""}
     case resume_prompt{run_value}:
@@ -216,7 +218,7 @@ def _board_idx(x: U32, y: U32) -> U32:
 
 def _board_card_at(run_value: Run, ui_value: UiState, hero_value: HeroDef, idx: U32, pos: Nat/V2) -> HTML(DungeonEvent):
   match run_value ui_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge} ui_state{hp_fx, dmg_fx, impact, damage_overlay, deck_counter_fx}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref} ui_state{hp_fx, dmg_fx, impact, damage_overlay, deck_counter_fx}:
       _board_card_identity(hero_index === idx, hero_value, hero_hp, hero_max_hp, weapon, hp_fx, dmg_fx, board_get(board_value, idx), pos, damage_overlay)
 
 def _board_card_identity(is_hero: U32, hero_value: HeroDef, hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx, tile_value: Tile, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(DungeonEvent):

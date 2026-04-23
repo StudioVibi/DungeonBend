@@ -8,7 +8,7 @@ import /Dungeon/Board/indexing/board_get as board_get
 
 def run_core_string(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       String/join(
         [
           U32.show(dungeon_level),
@@ -18,14 +18,15 @@ def run_core_string(run_value: Run) -> String:
           U32.show(remaining),
           U32.show(capacity),
           U32.show(seed),
-          U32.show(ult_charge)
+          U32.show(ult_charge),
+          U32.show(hero_ref)
         ],
         "~"
       )
 
 def run_weapon_string(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       _weapon_string(weapon_value)
 
 def _weapon_string(weapon_value: Weapon) -> String:
@@ -37,7 +38,7 @@ def _weapon_string(weapon_value: Weapon) -> String:
 
 def run_board_string(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       String/join(_board_tile_strings(board_value, 0), ";")
 
 def _board_tile_strings(board_value: Board, idx: U32) -> List(String):
@@ -62,12 +63,12 @@ def _tile_string(tile_value: Tile) -> String:
 
 def run_blueprint_string(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       deck_entries_string(deck_blueprint)
 
 def run_counts_string(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       deck_entries_string(draw_counts)
 
 def deck_entries_string(entries: List(DeckEntry)) -> String:

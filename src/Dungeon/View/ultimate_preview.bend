@@ -1,12 +1,17 @@
 import /HTML/
+import /Dungeon/Meta as Meta
 import /Dungeon/UltimatePreviewFx as UltimatePreviewFx
 import /Dungeon/DungeonEvent as DungeonEvent
 import /Dungeon/Content/ as Content
+import /Dungeon/profile_helpers/selected_hero as selected_hero
+import /Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
+import /Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
 import /Midum/Button/ as Button
 import /Midum/Button/Size
 import /Midum/Layout/ as Layout
 
-def _render_ultimate_preview(fx: UltimatePreviewFx) -> HTML(DungeonEvent):
+def _render_ultimate_preview(meta_state: Meta, fx: UltimatePreviewFx) -> HTML(DungeonEvent):
+  spec = cutin_spec_for_hero_ref(selected_hero(meta_state));
   Layout.shell(
     DungeonEvent,
     <section class="ultimate-preview-scene">
@@ -16,16 +21,7 @@ def _render_ultimate_preview(fx: UltimatePreviewFx) -> HTML(DungeonEvent):
         </div>
       </header>
       <div class="ultimate-preview-content">
-        <div class={_ultimate_preview_stage_class(fx)}>
-          <div class="ultimate-preview-cutin">
-            <div class="ultimate-preview-cutin__trail"></div>
-            <div class="ultimate-preview-cutin__bar">
-              <img class="ultimate-preview-cutin__banner" src="assets/ui/ultimate/banner-test.png" alt="" />
-            </div>
-            <div class="ultimate-preview-cutin__flash"></div>
-            <img class="ultimate-preview-cutin__hero" src="assets/player-boy.png" alt="Adventurer" />
-          </div>
-        </div>
+        {_render_ultimate_cutin(spec, _ultimate_preview_stage_class(fx))}
       </div>
       <div class="ultimate-preview-footer">
         <div class="menu-start-action ultimate-preview-footer__action">
@@ -42,16 +38,13 @@ def _render_ultimate_preview(fx: UltimatePreviewFx) -> HTML(DungeonEvent):
   )
 
 def _ultimate_preview_stage_class(fx: UltimatePreviewFx) -> String:
-  "ultimate-preview-stage " ++ _ultimate_preview_fx_class(fx)
-
-def _ultimate_preview_fx_class(fx: UltimatePreviewFx) -> String:
   match fx:
     case ultimate_preview_idle{}:
-      "ultimate-preview-stage--idle"
+      "ultimate-cutin-stage--idle"
     case ultimate_preview_play_a{}:
-      "ultimate-preview-stage--play-a"
+      "ultimate-cutin-stage--play-a"
     case ultimate_preview_play_b{}:
-      "ultimate-preview-stage--play-b"
+      "ultimate-cutin-stage--play-b"
 
 def _ultimate_preview_back_button() -> HTML(DungeonEvent):
   Button.secondary(

@@ -56,7 +56,7 @@ def hero_menu_max_hp_text(hero_value: HeroDef, profile: HeroProfile) -> String:
 
 def _run_dungeon_level(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       dungeon_level
 
 def _two_digit_value(value: U32) -> String:
@@ -71,7 +71,7 @@ def _run_dungeon_level_text(run_value: Run) -> String:
 
 def _run_remaining_text(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       U32.show(remaining) ++ "/" ++ U32.show(capacity)
 
 def _weapon_value_from_weapon(weapon_value: Weapon) -> String:
@@ -83,17 +83,17 @@ def _weapon_value_from_weapon(weapon_value: Weapon) -> String:
 
 def _run_weapon_text(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       _weapon_value_from_weapon(weapon)
 
 def _run_ult_label(run_value: Run) -> String:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       Content.ui_ultimate_label() ++ " " ++ U32.show(ult_charge) ++ "/" ++ U32.show(ultimate_charge_required())
 
 def _run_ult_ready(run_value: Run) -> U32:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       _run_ult_ready_flag(ult_charge < ultimate_charge_required())
 
 def _run_ult_ready_flag(charge_lt_required: U32) -> U32:
@@ -113,6 +113,8 @@ def dungeon_level_value(scene_value: Scene) -> String:
       "--"
     case ultimate_preview{fx}:
       "--"
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      _run_dungeon_level_text(run_value)
     case running{run_value}:
       _run_dungeon_level_text(run_value)
     case resume_prompt{run_value}:
@@ -130,6 +132,8 @@ def remaining_value(scene_value: Scene) -> String:
       "--/--"
     case ultimate_preview{fx}:
       "--/--"
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      _run_remaining_text(run_value)
     case running{run_value}:
       _run_remaining_text(run_value)
     case resume_prompt{run_value}:
@@ -147,6 +151,8 @@ def weapon_value(scene_value: Scene) -> String:
       "--"
     case ultimate_preview{fx}:
       "--"
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      _run_weapon_text(run_value)
     case running{run_value}:
       _run_weapon_text(run_value)
     case resume_prompt{run_value}:
@@ -164,6 +170,8 @@ def ultimate_label(scene_value: Scene) -> String:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
     case ultimate_preview{fx}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      _run_ult_label(run_value)
     case running{run_value}:
       _run_ult_label(run_value)
     case resume_prompt{run_value}:

@@ -11,6 +11,7 @@ import /Dungeon/App/update_character_select as update_character_select
 import /Dungeon/App/update_boosters as update_boosters
 import /Dungeon/App/update_ultimate_preview as update_ultimate_preview
 import /Dungeon/App/update_running as update_running
+import /Dungeon/App/update_ultimate_cinematic as update_ultimate_cinematic
 import /Dungeon/App/update_resume_prompt as update_resume_prompt
 import /Dungeon/App/update_game_over as update_game_over
 import /Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
@@ -25,6 +26,8 @@ def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
       update_boosters(evt, meta_state, reward, reveal_index, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, ultimate_preview{fx}, next_seed_value}, ui_value}:
       update_ultimate_preview(evt, meta_state, fx, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, ultimate_cinematic{run_value, ticks_remaining}, next_seed_value}, ui_value}:
+      update_ultimate_cinematic(evt, meta_state, run_value, ticks_remaining, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, running{run_value}, next_seed_value}, ui_value}:
       update_running(evt, meta_state, run_value, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, resume_prompt{run_value}, next_seed_value}, ui_value}:

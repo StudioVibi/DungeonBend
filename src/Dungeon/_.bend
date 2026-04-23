@@ -184,7 +184,8 @@ type Run {
     remaining: U32,
     capacity: U32,
     seed: U32,
-    ult_charge: U32
+    ult_charge: U32,
+    hero_ref: U32
   }
 }
 
@@ -202,6 +203,7 @@ type Scene {
   character_select{preview_hero: U32}
   boosters{reward: PackReward, reveal_index: U32}
   ultimate_preview{fx: UltimatePreviewFx}
+  ultimate_cinematic{run: Run, ticks_remaining: U32}
   running{run: Run}
   resume_prompt{run: Run}
   game_over{run: Run}
@@ -260,6 +262,19 @@ type UltimatePreviewFx {
   ultimate_preview_idle{}
   ultimate_preview_play_a{}
   ultimate_preview_play_b{}
+}
+
+type UltimateCutinSpec {
+  ultimate_cutin_spec{
+    banner_src: String,
+    character_src: String,
+    desktop_y_offset: String,
+    mobile_y_offset: String,
+    character_width: String,
+    band_height: String,
+    duration_ticks: U32,
+    sound_placeholder: String
+  }
 }
 
 type UiState {

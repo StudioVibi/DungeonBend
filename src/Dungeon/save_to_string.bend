@@ -29,6 +29,8 @@ def save_to_string(state: DungeonState) -> String:
 
 def _saved_scene_kind(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      "1"
     case running{run_value}:
       "1"
     case resume_prompt{run_value}:
@@ -38,6 +40,8 @@ def _saved_scene_kind(scene_value: Scene) -> String:
 
 def _saved_run_core(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      run_core_string(run_value)
     case running{run_value}:
       run_core_string(run_value)
     case resume_prompt{run_value}:
@@ -47,6 +51,8 @@ def _saved_run_core(scene_value: Scene) -> String:
 
 def _saved_run_weapon(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      run_weapon_string(run_value)
     case running{run_value}:
       run_weapon_string(run_value)
     case resume_prompt{run_value}:
@@ -56,6 +62,8 @@ def _saved_run_weapon(scene_value: Scene) -> String:
 
 def _saved_run_board(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      run_board_string(run_value)
     case running{run_value}:
       run_board_string(run_value)
     case resume_prompt{run_value}:
@@ -65,6 +73,8 @@ def _saved_run_board(scene_value: Scene) -> String:
 
 def _saved_run_blueprint(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      run_blueprint_string(run_value)
     case running{run_value}:
       run_blueprint_string(run_value)
     case resume_prompt{run_value}:
@@ -74,6 +84,8 @@ def _saved_run_blueprint(scene_value: Scene) -> String:
 
 def _saved_run_counts(scene_value: Scene) -> String:
   match scene_value:
+    case ultimate_cinematic{run_value, ticks_remaining}:
+      run_counts_string(run_value)
     case running{run_value}:
       run_counts_string(run_value)
     case resume_prompt{run_value}:

@@ -16,13 +16,14 @@ def _keep_run(meta_state: Meta, run_value: Run) -> SwipeResult:
 
 def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: Direction) -> SwipeResult:
   match run_value:
-    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge}:
+    case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
       _apply_swipe_target(
         config_value,
         meta_state,
         dungeon_level,
         hero_hp,
         hero_max_hp,
+        hero_ref,
         hero_index,
         weapon_value,
         board_value,
@@ -36,10 +37,10 @@ def apply_swipe(config_value: Config, meta_state: Meta, run_value: Run, dir: Dir
         adjacent_pos(hero_index, dir)
       )
 
-def _apply_swipe_target(config_value: Config, meta_state: Meta, dungeon_level: U32, hero_hp: U32, hero_max_hp: U32, hero_index: U32, weapon_value: Weapon, board_value: Board, deck_blueprint: List(DeckEntry), draw_counts: List(DeckEntry), remaining: U32, capacity: U32, seed: U32, ult_charge: U32, dir: Direction, target: Maybe(Nat/V2)) -> SwipeResult:
+def _apply_swipe_target(config_value: Config, meta_state: Meta, dungeon_level: U32, hero_hp: U32, hero_max_hp: U32, hero_ref: U32, hero_index: U32, weapon_value: Weapon, board_value: Board, deck_blueprint: List(DeckEntry), draw_counts: List(DeckEntry), remaining: U32, capacity: U32, seed: U32, ult_charge: U32, dir: Direction, target: Maybe(Nat/V2)) -> SwipeResult:
   match target:
     case none{}:
-      _keep_run(meta_state, run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge})
+      _keep_run(meta_state, run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref})
     case some{target_pos}:
       _apply_to_tile(
         config_value,
@@ -47,6 +48,7 @@ def _apply_swipe_target(config_value: Config, meta_state: Meta, dungeon_level: U
         dungeon_level,
         hero_hp,
         hero_max_hp,
+        hero_ref,
         hero_index,
         weapon_value,
         board_value,

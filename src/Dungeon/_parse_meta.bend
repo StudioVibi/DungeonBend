@@ -39,21 +39,25 @@ def _parse_sections(parts: List(String)) -> DungeonEvent:
       no_save{}
 
 def _parse_sections_head(head: String, rest: List(String)) -> DungeonEvent:
-  match String/eq(head, "v4"):
+  match String/eq(head, "v5"):
     case true{}:
-      _parse_v4_sections(rest)
+      _parse_v5_sections(rest)
     case false{}:
-      match String/eq(head, "v3"):
+      match String/eq(head, "v4"):
         case true{}:
-          _parse_v3_sections(rest)
+          no_save{}
         case false{}:
-          match String/eq(head, "v2"):
+          match String/eq(head, "v3"):
             case true{}:
-              _parse_v2_sections(rest)
+              _parse_v3_sections(rest)
             case false{}:
-              _parse_legacy_sections(head, rest)
+              match String/eq(head, "v2"):
+                case true{}:
+                  _parse_v2_sections(rest)
+                case false{}:
+                  _parse_legacy_sections(head, rest)
 
-def _parse_v4_sections(parts: List(String)) -> DungeonEvent:
+def _parse_v5_sections(parts: List(String)) -> DungeonEvent:
   match parts:
     case selected_str<>rest:
       match rest:
