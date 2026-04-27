@@ -1,22 +1,21 @@
-import /Dungeon/Meta as Meta
-import /Dungeon/SavedScene as SavedScene
-import /Dungeon/Scene as Scene
-import /Dungeon/GameState as GameState
-import /Dungeon/UiState as UiState
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/DungeonState as DungeonState
-import /Dungeon/default_ui as default_ui
-import /Dungeon/App/update_setup as update_setup
-import /Dungeon/App/update_character_select as update_character_select
-import /Dungeon/App/update_boosters as update_boosters
-import /Dungeon/App/update_ultimate_preview as update_ultimate_preview
-import /Dungeon/App/update_running as update_running
-import /Dungeon/App/update_paused as update_paused
-import /Dungeon/App/update_ultimate_cinematic as update_ultimate_cinematic
-import /Dungeon/App/update_resume_prompt as update_resume_prompt
-import /Dungeon/App/update_game_over as update_game_over
-import /Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
-
+import Dungeon/Meta as Meta
+import Dungeon/SavedScene as SavedScene
+import Dungeon/Scene as Scene
+import Dungeon/GameState as GameState
+import Dungeon/UiState as UiState
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/DungeonState as DungeonState
+import Dungeon/default_ui as default_ui
+import Dungeon/App/update_setup as update_setup
+import Dungeon/App/update_character_select as update_character_select
+import Dungeon/App/update_boosters as update_boosters
+import Dungeon/App/update_ultimate_preview as update_ultimate_preview
+import Dungeon/App/update_running as update_running
+import Dungeon/App/update_paused as update_paused
+import Dungeon/App/update_ultimate_cinematic as update_ultimate_cinematic
+import Dungeon/App/update_resume_prompt as update_resume_prompt
+import Dungeon/App/update_game_over as update_game_over
+import Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
 def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match state:
     case dungeon{game_state{meta_state, setup{}, next_seed_value}, ui_value}:

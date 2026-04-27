@@ -1,21 +1,20 @@
-import /HTML/
-import /Dungeon/Meta as Meta
-import /Dungeon/Run as Run
-import /Dungeon/Scene as Scene
-import /Dungeon/UiState as UiState
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/App/key_event as key_event
-import /Dungeon/View/css as css
-import /Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
-import /Dungeon/View/menu/_render_menu as _render_menu
-import /Dungeon/View/menu/_render_character_select as _render_character_select
-import /Dungeon/View/boosters/_render_boosters as _render_boosters
-import /Dungeon/View/ultimate_preview/_render_ultimate_preview as _render_ultimate_preview
-import /Dungeon/View/board/_render_dungeon as _render_dungeon
-import /Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
-import /Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
-import /Midum/screen as screen
-
+import HTML
+import Dungeon/Meta as Meta
+import Dungeon/Run as Run
+import Dungeon/Scene as Scene
+import Dungeon/UiState as UiState
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/App/key_event as key_event
+import Dungeon/View/css as css
+import Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
+import Dungeon/View/menu/_render_menu as _render_menu
+import Dungeon/View/menu/_render_character_select as _render_character_select
+import Dungeon/View/boosters/_render_boosters as _render_boosters
+import Dungeon/View/ultimate_preview/_render_ultimate_preview as _render_ultimate_preview
+import Dungeon/View/board/_render_dungeon as _render_dungeon
+import Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
+import Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
+import Midum/screen as screen
 def _frame(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
   screen(
     DungeonEvent,

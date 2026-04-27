@@ -1,19 +1,18 @@
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/HeroProfile as HeroProfile
-import /Dungeon/Meta as Meta
-import /Dungeon/Config as Config
-import /Dungeon/Deck/counts_pick/nth_upgrade as nth_upgrade
-import /Dungeon/hero_helpers/hero_at as hero_at
-import /Dungeon/hero_helpers/hero_upgrades as hero_upgrades
-import /Dungeon/profile_helpers/selected_hero as selected_hero
-import /Dungeon/profile_helpers/profile_for_hero as profile_for_hero
-import /Dungeon/profile_helpers/update_profile as update_profile
-import /Dungeon/profile_helpers/meta_gold as meta_gold
-import /Dungeon/profile_helpers/set_meta_gold as set_meta_gold
-import /Dungeon/profile_helpers/profile_unlocked as profile_unlocked
-import /Dungeon/profile_helpers/profile_hero_level as profile_hero_level
-import /Dungeon/profile_helpers/profile_with_level as profile_with_level
-
+import Dungeon/Upgrade as Upgrade
+import Dungeon/HeroProfile as HeroProfile
+import Dungeon/Meta as Meta
+import Dungeon/Config as Config
+import Dungeon/Deck/counts_pick/nth_upgrade as nth_upgrade
+import Dungeon/hero_helpers/hero_at as hero_at
+import Dungeon/hero_helpers/hero_upgrades as hero_upgrades
+import Dungeon/profile_helpers/selected_hero as selected_hero
+import Dungeon/profile_helpers/profile_for_hero as profile_for_hero
+import Dungeon/profile_helpers/update_profile as update_profile
+import Dungeon/profile_helpers/meta_gold as meta_gold
+import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
+import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
+import Dungeon/profile_helpers/profile_hero_level as profile_hero_level
+import Dungeon/profile_helpers/profile_with_level as profile_with_level
 def upgrade_hero(config_value: Config, meta_state: Meta) -> Meta:
   hero_ref = selected_hero(meta_state);
   upgrade_hero_ref(config_value, meta_state, hero_ref)

@@ -1,7 +1,6 @@
-import /HTML/
-import /Dungeon/UltimateCutinSpec as UltimateCutinSpec
-import /Dungeon/DungeonEvent as DungeonEvent
-
+import HTML
+import Dungeon/UltimateCutinSpec as UltimateCutinSpec
+import Dungeon/DungeonEvent as DungeonEvent
 def _render_ultimate_cutin(spec: UltimateCutinSpec, stage_fx_class: String) -> HTML(DungeonEvent):
   node{
     "div",

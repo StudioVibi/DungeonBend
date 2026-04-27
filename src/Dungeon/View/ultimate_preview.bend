@@ -1,15 +1,14 @@
-import /HTML/
-import /Dungeon/Meta as Meta
-import /Dungeon/UltimatePreviewFx as UltimatePreviewFx
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/Content/ as Content
-import /Dungeon/profile_helpers/selected_hero as selected_hero
-import /Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
-import /Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
-import /Midum/Button/ as Button
-import /Midum/Button/Size
-import /Midum/Layout/ as Layout
-
+import HTML
+import Dungeon/Meta as Meta
+import Dungeon/UltimatePreviewFx as UltimatePreviewFx
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/Content as Content
+import Dungeon/profile_helpers/selected_hero as selected_hero
+import Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
+import Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
+import Midum/Button as Button
+import Midum/Button/Size
+import Midum/Layout as Layout
 def _render_ultimate_preview(meta_state: Meta, fx: UltimatePreviewFx) -> HTML(DungeonEvent):
   spec = cutin_spec_for_hero_ref(selected_hero(meta_state));
   Layout.shell(

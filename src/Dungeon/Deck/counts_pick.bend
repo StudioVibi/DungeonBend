@@ -1,11 +1,10 @@
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/SwordDef as SwordDef
-import /Dungeon/PotionDef as PotionDef
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/CardRef as CardRef
-import /Dungeon/_PickResult as _PickResult
-
+import Dungeon/Upgrade as Upgrade
+import Dungeon/MonsterDef as MonsterDef
+import Dungeon/SwordDef as SwordDef
+import Dungeon/PotionDef as PotionDef
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/CardRef as CardRef
+import Dungeon/_PickResult as _PickResult
 def _next_seed_value(value: U32) -> U32:
   match value:
     case 0:

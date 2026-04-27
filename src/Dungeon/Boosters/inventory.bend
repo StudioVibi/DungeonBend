@@ -1,5 +1,4 @@
-import /Dungeon/PackInventoryEntry as PackInventoryEntry
-
+import Dungeon/PackInventoryEntry as PackInventoryEntry
 def _pack_entry_count(entry: PackInventoryEntry) -> U32:
   match entry:
     case pack_inventory_entry{ref, count}:

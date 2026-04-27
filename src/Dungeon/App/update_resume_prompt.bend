@@ -1,13 +1,12 @@
-import /Dungeon/Meta as Meta
-import /Dungeon/Run as Run
-import /Dungeon/Scene as Scene
-import /Dungeon/UiState as UiState
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/DungeonState as DungeonState
-import /Dungeon/default_ui as default_ui
-import /Dungeon/App/state_helpers/_state as _state
-import /Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
-
+import Dungeon/Meta as Meta
+import Dungeon/Run as Run
+import Dungeon/Scene as Scene
+import Dungeon/UiState as UiState
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/DungeonState as DungeonState
+import Dungeon/default_ui as default_ui
+import Dungeon/App/state_helpers/_state as _state
+import Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
 def update_resume_prompt(evt: DungeonEvent, meta_state: Meta, run_value: Run, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case damage_tick{}:

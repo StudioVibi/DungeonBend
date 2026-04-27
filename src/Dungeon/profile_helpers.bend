@@ -1,11 +1,10 @@
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/PackInventoryEntry as PackInventoryEntry
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/HeroProfile as HeroProfile
-import /Dungeon/Meta as Meta
-import /Dungeon/Config as Config
-import /Dungeon/hero_helpers/hero_starts_unlocked as hero_starts_unlocked
-
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/PackInventoryEntry as PackInventoryEntry
+import Dungeon/HeroDef as HeroDef
+import Dungeon/HeroProfile as HeroProfile
+import Dungeon/Meta as Meta
+import Dungeon/Config as Config
+import Dungeon/hero_helpers/hero_starts_unlocked as hero_starts_unlocked
 def default_hero_profile() -> HeroProfile:
   hero_profile{0, 0}
 

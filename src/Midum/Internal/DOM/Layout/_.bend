@@ -3,8 +3,8 @@
 # Layout owns placement and simple grouping. The public API remains one
 # primitive, while the DOM renderer maps each closed choice to a CSS class.
 
-import /HTML/
-import /Midum/Internal/DOM/Layout/Arrangement
+import HTML
+import Midum/Internal/DOM/Layout/Arrangement
 import Nat/show as show_nat
 
 def position_class(position: Midum/Layout/Position) -> String:

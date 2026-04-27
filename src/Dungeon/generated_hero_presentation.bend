@@ -1,5 +1,5 @@
-import /Dungeon/HeroPresentation as HeroPresentation
-import /Dungeon/PresentationAlign as PresentationAlign
+import Dungeon/HeroPresentation as HeroPresentation
+import Dungeon/PresentationAlign as PresentationAlign
 
 def generated_hero_presentation() -> List(HeroPresentation):
   [

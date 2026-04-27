@@ -1,5 +1,4 @@
-import /Dungeon/monster_damage_frames/frames as damage_frames
-
+import Dungeon/monster_damage_frames/frames as damage_frames
 def clip() -> Midum/Image/Animation:
   animation{
     frames: damage_frames(),

@@ -1,17 +1,16 @@
-import /U32/ as U32
-import /Dungeon/Config as Config
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/SwordDef as SwordDef
-import /Dungeon/PotionDef as PotionDef
-import /Dungeon/CardRef as CardRef
-import /Dungeon/Tile as Tile
-import /Dungeon/config as config
-import /Dungeon/hero_helpers/hero_at as hero_at
-import /Dungeon/hero_helpers/hero_name as hero_name
-import /Dungeon/hero_helpers/hero_sprite as hero_sprite
-import /Dungeon/Content/ as Content
-
+import U32 as U32
+import Dungeon/Config as Config
+import Dungeon/HeroDef as HeroDef
+import Dungeon/MonsterDef as MonsterDef
+import Dungeon/SwordDef as SwordDef
+import Dungeon/PotionDef as PotionDef
+import Dungeon/CardRef as CardRef
+import Dungeon/Tile as Tile
+import Dungeon/config as config
+import Dungeon/hero_helpers/hero_at as hero_at
+import Dungeon/hero_helpers/hero_name as hero_name
+import Dungeon/hero_helpers/hero_sprite as hero_sprite
+import Dungeon/Content as Content
 def _hero_name() -> String:
   hero_name(hero_at(config(), 0))
 

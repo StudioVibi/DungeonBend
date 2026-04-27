@@ -1,11 +1,10 @@
-import /Dungeon/CardRef as CardRef
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/HeroProfile as HeroProfile
-import /Dungeon/Meta as Meta
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/PackDef as PackDef
-
+import Dungeon/CardRef as CardRef
+import Dungeon/HeroDef as HeroDef
+import Dungeon/Upgrade as Upgrade
+import Dungeon/HeroProfile as HeroProfile
+import Dungeon/Meta as Meta
+import Dungeon/MonsterDef as MonsterDef
+import Dungeon/PackDef as PackDef
 # === Dungeon System — laws mirroring design-rules.md §"Dungeon System" ===
 #
 # This file formalizes the affirmative rules from design-rules.md that

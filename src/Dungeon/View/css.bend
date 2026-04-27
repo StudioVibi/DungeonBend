@@ -1,6 +1,5 @@
-import /Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
-import /Dungeon/View/assets_and_labels/_menu_home_bg as _menu_home_bg
-
+import Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
+import Dungeon/View/assets_and_labels/_menu_home_bg as _menu_home_bg
 def base_css() -> String:
   ""
   ++ ":root{--bg:#ffffff;--surface:#f2f2f2;--surface-strong:#e3e3e3;--surface-border:#d2d2d2;--text:#111111;--text-muted:#555555;--accent:#202020;--danger:#c21c1c;--shadow:0 16px 40px rgba(17,17,17,0.08);--radius-lg:28px;--radius-md:20px;--radius-sm:14px;--header-icon-size:34px;--header-icon-gap:7px;--header-icon-size-mobile:30px;--header-icon-gap-mobile:6px;--dungeon-topbar-gap:80px;--dungeon-topbar-gap-mobile:6px;--dungeon-bg-fallback:#081516;--dungeon-level-value-offset-y:-8px;--deck-counter-width:75px;--deck-counter-anchor-height:40px;--deck-counter-anchor-height-mobile:36px;--deck-counter-visual-bottom:-16px;--deck-counter-visual-bottom-mobile:-15px;}"

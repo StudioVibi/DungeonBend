@@ -1,13 +1,13 @@
-import /Dungeon/Config as Config
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/Upgrade as Upgrade
-import /Dungeon/MonsterDef as MonsterDef
-import /Dungeon/SwordDef as SwordDef
-import /Dungeon/PotionDef as PotionDef
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/CardRef as CardRef
-import /Dungeon/PackPoolEntry as PackPoolEntry
-import /Dungeon/PackDef as PackDef
+import Dungeon/Config as Config
+import Dungeon/HeroDef as HeroDef
+import Dungeon/Upgrade as Upgrade
+import Dungeon/MonsterDef as MonsterDef
+import Dungeon/SwordDef as SwordDef
+import Dungeon/PotionDef as PotionDef
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/CardRef as CardRef
+import Dungeon/PackPoolEntry as PackPoolEntry
+import Dungeon/PackDef as PackDef
 
 def generated_config() -> Config:
   config{

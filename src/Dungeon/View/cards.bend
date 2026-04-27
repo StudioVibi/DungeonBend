@@ -1,23 +1,22 @@
-import /HTML/
-import /U32/ as U32
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/Weapon as Weapon
-import /Dungeon/Tile as Tile
-import /Dungeon/DamageOverlay as DamageOverlay
-import /Dungeon/HpFx as HpFx
-import /Dungeon/DmgFx as DmgFx
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/Board/indexing/same_pos as same_pos
-import /Midum/Card/ as Card
-import /Midum/Image/ as Image
-import /Dungeon/hero_helpers/hero_name as hero_name
-import /Dungeon/hero_helpers/hero_sprite as hero_sprite
-import /Dungeon/View/assets_and_labels/_tile_name as _tile_name
-import /Dungeon/View/assets_and_labels/_tile_sprite as _tile_sprite
-import /Dungeon/View/assets_and_labels/_tile_badge as _tile_badge
-import /Dungeon/monster_damage_animation/clip as monster_damage_clip
-import /Dungeon/Content/ as Content
-
+import HTML
+import U32 as U32
+import Dungeon/HeroDef as HeroDef
+import Dungeon/Weapon as Weapon
+import Dungeon/Tile as Tile
+import Dungeon/DamageOverlay as DamageOverlay
+import Dungeon/HpFx as HpFx
+import Dungeon/DmgFx as DmgFx
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/Board/indexing/same_pos as same_pos
+import Midum/Card as Card
+import Midum/Image as Image
+import Dungeon/hero_helpers/hero_name as hero_name
+import Dungeon/hero_helpers/hero_sprite as hero_sprite
+import Dungeon/View/assets_and_labels/_tile_name as _tile_name
+import Dungeon/View/assets_and_labels/_tile_sprite as _tile_sprite
+import Dungeon/View/assets_and_labels/_tile_badge as _tile_badge
+import Dungeon/monster_damage_animation/clip as monster_damage_clip
+import Dungeon/Content as Content
 def _hero_card_values(hero_value: HeroDef, hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx) -> HTML(DungeonEvent):
   Card.neutral(
     DungeonEvent,

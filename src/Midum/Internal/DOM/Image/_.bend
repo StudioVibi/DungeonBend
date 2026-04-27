@@ -1,7 +1,7 @@
 # Internal DOM image renderer for Midum.
 
-import /HTML/
-import /String/is_empty as string_is_empty
+import HTML
+import String/is_empty as string_is_empty
 import Nat/show as show_nat
 
 def css_nat(value: Nat) -> String:

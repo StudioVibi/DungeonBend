@@ -1,11 +1,10 @@
-import /U32/ as U32
-import /Dungeon/Run as Run
-import /Dungeon/Weapon as Weapon
-import /Dungeon/Board as Board
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/Tile as Tile
-import /Dungeon/Board/indexing/board_get as board_get
-
+import U32 as U32
+import Dungeon/Run as Run
+import Dungeon/Weapon as Weapon
+import Dungeon/Board as Board
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/Tile as Tile
+import Dungeon/Board/indexing/board_get as board_get
 def run_core_string(run_value: Run) -> String:
   match run_value:
     case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon_value, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:

@@ -1,49 +1,48 @@
-import /HTML/
-import /U32/ as U32
-import /Dungeon/HeroDef as HeroDef
-import /Dungeon/HeroProfile as HeroProfile
-import /Dungeon/HeroPresentation as HeroPresentation
-import /Dungeon/Meta as Meta
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/config as config
-import /Dungeon/hero_helpers/hero_at as hero_at
-import /Dungeon/hero_helpers/hero_base_max_hp as hero_base_max_hp
-import /Dungeon/hero_helpers/hero_count as hero_count
-import /Dungeon/hero_helpers/hero_name as hero_name
-import /Dungeon/hero_helpers/hero_sprite as hero_sprite
-import /Dungeon/hero_presentation/hero_presentation_at as hero_presentation_at
-import /Dungeon/hero_presentation/hero_presentation_lore as hero_presentation_lore
-import /Dungeon/hero_presentation/hero_presentation_ultimate_description as hero_presentation_ultimate_description
-import /Dungeon/hero_presentation/hero_presentation_ultimate_icon as hero_presentation_ultimate_icon
-import /Dungeon/hero_presentation/hero_presentation_ultimate_title as hero_presentation_ultimate_title
-import /Dungeon/profile_helpers/selected_hero as selected_hero
-import /Dungeon/profile_helpers/selection_confirmed as selection_confirmed
-import /Dungeon/profile_helpers/active_profile as active_profile
-import /Dungeon/profile_helpers/profile_for_hero as profile_for_hero
-import /Dungeon/profile_helpers/profile_unlocked as profile_unlocked
-import /Dungeon/View/selectors/meta_gold as meta_gold
-import /Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import /Dungeon/View/selectors/hero_level_progress_text as hero_level_progress_text
-import /Dungeon/View/selectors/hero_level_ratio_text as hero_level_ratio_text
-import /Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
-import /Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
-import /Dungeon/View/selectors/start_enabled as start_enabled
-import /Dungeon/View/selectors/menu_upgrade_visible as menu_upgrade_visible
-import /Dungeon/View/selectors/character_upgrade_maxed as character_upgrade_maxed
-import /Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_enabled
-import /Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
-import /Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
-import /Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
-import /Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
-import /Dungeon/Content/ as Content
-import /Dungeon/View/topbar_stats/gold_stat as gold_stat
-import /Midum/Button/ as Button
-import /Midum/Button/Size
-import /Midum/Card/ as Card
-import /Midum/Layout/ as Layout
-import /Midum/Text/ as Text
-import /Midum/Text/Align
-
+import HTML
+import U32 as U32
+import Dungeon/HeroDef as HeroDef
+import Dungeon/HeroProfile as HeroProfile
+import Dungeon/HeroPresentation as HeroPresentation
+import Dungeon/Meta as Meta
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/config as config
+import Dungeon/hero_helpers/hero_at as hero_at
+import Dungeon/hero_helpers/hero_base_max_hp as hero_base_max_hp
+import Dungeon/hero_helpers/hero_count as hero_count
+import Dungeon/hero_helpers/hero_name as hero_name
+import Dungeon/hero_helpers/hero_sprite as hero_sprite
+import Dungeon/hero_presentation/hero_presentation_at as hero_presentation_at
+import Dungeon/hero_presentation/hero_presentation_lore as hero_presentation_lore
+import Dungeon/hero_presentation/hero_presentation_ultimate_description as hero_presentation_ultimate_description
+import Dungeon/hero_presentation/hero_presentation_ultimate_icon as hero_presentation_ultimate_icon
+import Dungeon/hero_presentation/hero_presentation_ultimate_title as hero_presentation_ultimate_title
+import Dungeon/profile_helpers/selected_hero as selected_hero
+import Dungeon/profile_helpers/selection_confirmed as selection_confirmed
+import Dungeon/profile_helpers/active_profile as active_profile
+import Dungeon/profile_helpers/profile_for_hero as profile_for_hero
+import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
+import Dungeon/View/selectors/meta_gold as meta_gold
+import Dungeon/View/selectors/meta_pack_total as meta_pack_total
+import Dungeon/View/selectors/hero_level_progress_text as hero_level_progress_text
+import Dungeon/View/selectors/hero_level_ratio_text as hero_level_ratio_text
+import Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
+import Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
+import Dungeon/View/selectors/start_enabled as start_enabled
+import Dungeon/View/selectors/menu_upgrade_visible as menu_upgrade_visible
+import Dungeon/View/selectors/character_upgrade_maxed as character_upgrade_maxed
+import Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_enabled
+import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
+import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
+import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
+import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/Content as Content
+import Dungeon/View/topbar_stats/gold_stat as gold_stat
+import Midum/Button as Button
+import Midum/Button/Size
+import Midum/Card as Card
+import Midum/Layout as Layout
+import Midum/Text as Text
+import Midum/Text/Align
 def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
     <header class="topbar topbar--menu-home topbar--menu-home-desktop">

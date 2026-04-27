@@ -1,24 +1,23 @@
-import /Dungeon/Weapon as Weapon
-import /Dungeon/Tile as Tile
-import /Dungeon/Board as Board
-import /Dungeon/Run as Run
-import /Dungeon/RunAdvance as RunAdvance
-import /Dungeon/Direction as Direction
-import /Dungeon/UiState as UiState
-import /Dungeon/HpFx as HpFx
-import /Dungeon/DmgFx as DmgFx
-import /Dungeon/Impact as Impact
-import /Dungeon/ImpactFx as ImpactFx
-import /Dungeon/DamageOverlay as DamageOverlay
-import /Dungeon/DeckCounterFx as DeckCounterFx
-import /Dungeon/Board/indexing/adjacent_pos as adjacent_pos
-import /Dungeon/Board/indexing/board_get_pos as board_get_pos
-import /Dungeon/monster_damage_animation/clip as monster_damage_clip
-import /Dungeon/deck_counter_animation/clip as deck_counter_clip
-import /Dungeon/rules/ultimate_charge_required as ultimate_charge_required
-import /Dungeon/rules/ultimate_charge_per_move as ultimate_charge_per_move
-import /Midum/Image/ as Image
-
+import Dungeon/Weapon as Weapon
+import Dungeon/Tile as Tile
+import Dungeon/Board as Board
+import Dungeon/Run as Run
+import Dungeon/RunAdvance as RunAdvance
+import Dungeon/Direction as Direction
+import Dungeon/UiState as UiState
+import Dungeon/HpFx as HpFx
+import Dungeon/DmgFx as DmgFx
+import Dungeon/Impact as Impact
+import Dungeon/ImpactFx as ImpactFx
+import Dungeon/DamageOverlay as DamageOverlay
+import Dungeon/DeckCounterFx as DeckCounterFx
+import Dungeon/Board/indexing/adjacent_pos as adjacent_pos
+import Dungeon/Board/indexing/board_get_pos as board_get_pos
+import Dungeon/monster_damage_animation/clip as monster_damage_clip
+import Dungeon/deck_counter_animation/clip as deck_counter_clip
+import Dungeon/rules/ultimate_charge_required as ultimate_charge_required
+import Dungeon/rules/ultimate_charge_per_move as ultimate_charge_per_move
+import Midum/Image as Image
 def _hero_hp(run_value: Run) -> U32:
   match run_value:
     case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:

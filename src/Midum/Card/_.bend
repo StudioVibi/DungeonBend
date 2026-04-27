@@ -3,15 +3,14 @@
 # Cards stay renderer-neutral. The current renderer lives under
 # /Midum/Internal/DOM/.
 
-import /HTML/
-import /Midum/Config/card_defaults as current_card_defaults
-import /Midum/Internal/DOM/Card/danger as dom_danger
-import /Midum/Internal/DOM/Card/neutral as dom_neutral
-import /Midum/Internal/DOM/Card/primary as dom_primary
-import /Midum/Internal/DOM/Card/secondary as dom_secondary
-import /Midum/Internal/DOM/Card/success as dom_success
-import /Midum/Internal/DOM/Card/warning as dom_warning
-
+import HTML
+import Midum/Config/card_defaults as current_card_defaults
+import Midum/Internal/DOM/Card/danger as dom_danger
+import Midum/Internal/DOM/Card/neutral as dom_neutral
+import Midum/Internal/DOM/Card/primary as dom_primary
+import Midum/Internal/DOM/Card/secondary as dom_secondary
+import Midum/Internal/DOM/Card/success as dom_success
+import Midum/Internal/DOM/Card/warning as dom_warning
 def apply_override(cfg: Midum/Card/Config, override: Midum/Card/Override) -> Midum/Card/Config:
   match cfg override:
     case card{padding, radius, background, border, gradient, surface} padding_none{}:

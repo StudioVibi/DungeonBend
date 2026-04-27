@@ -1,12 +1,11 @@
-import /String/ as String
-import /Dungeon/Run as Run
-import /Dungeon/Weapon as Weapon
-import /Dungeon/Board as Board
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/Tile as Tile
-import /Dungeon/Board/indexing/empty_board as empty_board
-import /Dungeon/Board/indexing/board_set as board_set
-
+import String as String
+import Dungeon/Run as Run
+import Dungeon/Weapon as Weapon
+import Dungeon/Board as Board
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/Tile as Tile
+import Dungeon/Board/indexing/empty_board as empty_board
+import Dungeon/Board/indexing/board_set as board_set
 def parse_saved_run(core: String, weapon: String, board_snapshot: String, blueprint: String, draw_counts: String) -> Maybe(Run):
   _parse_run_core(String/split(core, '~'), weapon, board_snapshot, blueprint, draw_counts)
 
@@ -300,10 +299,14 @@ def _parse_saved_deck_entries_head(is_empty: Bool, part: String, rest: List(Stri
     case true{}:
       _parse_saved_deck_entries_empty(rest)
     case false{}:
-      match _parse_saved_deck_entry(String/split(part, '~')) _parse_saved_deck_entries(rest):
-        case some{entry} some{rest_entries}:
-          some{entry<>rest_entries}
-        case _ _:
+      match _parse_saved_deck_entry(String/split(part, '~')):
+        case some{entry}:
+          match _parse_saved_deck_entries(rest):
+            case some{rest_entries}:
+              some{entry<>rest_entries}
+            case _:
+              none{}
+        case _:
           none{}
 
 def _parse_saved_deck_entries_empty(rest: List(String)) -> Maybe(List(DeckEntry)):

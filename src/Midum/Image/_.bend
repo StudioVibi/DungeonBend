@@ -3,9 +3,9 @@
 # Images stay renderer-neutral. The current renderer lives under
 # /Midum/Internal/DOM/.
 
-import /HTML/
-import /List/length
-import /Midum/Internal/DOM/Image/render as dom_render
+import HTML
+import List/length
+import Midum/Internal/DOM/Image/render as dom_render
 import Nat/add as nat_add
 import Nat/compare as compare_nat
 import Nat/div as div_nat

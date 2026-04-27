@@ -1,5 +1,4 @@
-import /Dungeon/UltimateCutinSpec as UltimateCutinSpec
-
+import Dungeon/UltimateCutinSpec as UltimateCutinSpec
 def adventurer() -> UltimateCutinSpec:
   ultimate_cutin_spec{
     "assets/ui/ultimate/banner-test.png",

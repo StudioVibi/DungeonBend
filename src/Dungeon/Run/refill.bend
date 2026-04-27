@@ -1,11 +1,10 @@
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/Board as Board
-import /Dungeon/BoardDraw as BoardDraw
-import /Dungeon/DrawResult as DrawResult
-import /Dungeon/Config as Config
-import /Dungeon/Deck/spawn_and_draw/draw_tile as draw_tile
-import /Dungeon/Board/indexing/board_set as board_set
-
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/Board as Board
+import Dungeon/BoardDraw as BoardDraw
+import Dungeon/DrawResult as DrawResult
+import Dungeon/Config as Config
+import Dungeon/Deck/spawn_and_draw/draw_tile as draw_tile
+import Dungeon/Board/indexing/board_set as board_set
 def _draw_into_slot(board_value: Board, slot: U32, result: DrawResult) -> BoardDraw:
   match result:
     case draw_result{tile, next_counts, next_remaining, next_seed, next_level}:

@@ -217,6 +217,10 @@ function fail(message: string): never {
   throw new Error(`Dungeon data error: ${message}`);
 }
 
+function bendImport(specifier: string, alias?: string): string {
+  return alias === undefined ? `import ${specifier}` : `import ${specifier} as ${alias}`;
+}
+
 async function readJson<T>(cwd: string, relPath: string): Promise<T> {
   return (await Bun.file(path.resolve(cwd, relPath)).json()) as T;
 }
@@ -905,16 +909,16 @@ export function renderConfigModule(data: GameData): string {
   });
 
   return [
-    "import /Dungeon/Config as Config",
-    "import /Dungeon/HeroDef as HeroDef",
-    "import /Dungeon/Upgrade as Upgrade",
-    "import /Dungeon/MonsterDef as MonsterDef",
-    "import /Dungeon/SwordDef as SwordDef",
-    "import /Dungeon/PotionDef as PotionDef",
-    "import /Dungeon/DeckEntry as DeckEntry",
-    "import /Dungeon/CardRef as CardRef",
-    "import /Dungeon/PackPoolEntry as PackPoolEntry",
-    "import /Dungeon/PackDef as PackDef",
+    bendImport("Dungeon/Config", "Config"),
+    bendImport("Dungeon/HeroDef", "HeroDef"),
+    bendImport("Dungeon/Upgrade", "Upgrade"),
+    bendImport("Dungeon/MonsterDef", "MonsterDef"),
+    bendImport("Dungeon/SwordDef", "SwordDef"),
+    bendImport("Dungeon/PotionDef", "PotionDef"),
+    bendImport("Dungeon/DeckEntry", "DeckEntry"),
+    bendImport("Dungeon/CardRef", "CardRef"),
+    bendImport("Dungeon/PackPoolEntry", "PackPoolEntry"),
+    bendImport("Dungeon/PackDef", "PackDef"),
     "",
     "def generated_config() -> Config:",
     "  config{",
@@ -991,8 +995,8 @@ export function renderHeroPresentationModule(data: GameData): string {
   });
 
   return [
-    "import /Dungeon/HeroPresentation as HeroPresentation",
-    "import /Dungeon/PresentationAlign as PresentationAlign",
+    bendImport("Dungeon/HeroPresentation", "HeroPresentation"),
+    bendImport("Dungeon/PresentationAlign", "PresentationAlign"),
     "",
     "def generated_hero_presentation() -> List(HeroPresentation):",
     `  ${bendList(presentations, 2)}`,

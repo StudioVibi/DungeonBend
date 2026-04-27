@@ -1,6 +1,5 @@
-import /Dungeon/CombatOutcome as CombatOutcome
-import /Dungeon/Weapon as Weapon
-
+import Dungeon/CombatOutcome as CombatOutcome
+import Dungeon/Weapon as Weapon
 # === Combat System — laws mirroring design-rules.md §"Combat System" ===
 #
 # NOTE: The "Combat System" section in design-rules.md is currently

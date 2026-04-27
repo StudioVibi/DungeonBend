@@ -1,12 +1,237 @@
+import { spawn } from "node:child_process";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import * as process from "node:process";
 import { pathToFileURL } from "node:url";
 import { generateDungeonConfig as generateDungeonData } from "./dungeon-data.ts";
 
-async function loadPatchedBend(cwd: string) {
-  const bendSrcDir = path.resolve(cwd, "../Bend2/bend-ts/src");
-  const patchedRoot = path.resolve(process.env.TMPDIR ?? "/tmp", `dungeonbend-bend-ts-src-${process.pid}`);
+const LEGACY_BEND2_COMMIT = process.env.LEGACY_BEND2_COMMIT ?? "c0f5d521";
+
+type StageWorkspace = {
+  root: string;
+  legacyRoot: string;
+  srcDir: string;
+};
+
+function patchAppRuntime(html: string): string {
+  const childPatchBuggy = [
+    "    var nxt = __app_patch(kid, prev.kids[i], next.kids[i], dispatch, kidSvg);",
+    "    if (nxt !== kid) {",
+    "      dom.replaceChild(nxt, kid);",
+    "    }",
+  ].join("\n");
+
+  const childPatchFixed = [
+    "    var nxt = __app_patch(kid, prev.kids[i], next.kids[i], dispatch, kidSvg);",
+    "    if (nxt !== kid && kid.parentNode === dom) {",
+    "      dom.replaceChild(nxt, kid);",
+    "    }",
+  ].join("\n");
+
+  const replaceBuggy = [
+    "function __app_replace(dom, view, dispatch, svg) {",
+    "  var nxt = __app_mount(view, dispatch, svg);",
+    "  __app_dispose(dom);",
+    "  dom.replaceWith(nxt);",
+    "  return nxt;",
+    "}",
+  ].join("\n");
+
+  const replaceFixed = [
+    "function __app_replace(dom, view, dispatch, svg) {",
+    "  var nxt = __app_mount(view, dispatch, svg);",
+    "  __app_dispose(dom);",
+    "  return nxt;",
+    "}",
+  ].join("\n");
+
+  const stepBuggy = [
+    "    dom  = __app_patch(dom, view, next, step, false);",
+    "    view = next;",
+  ].join("\n");
+
+  const stepFixed = [
+    "    dom  = __app_patch(dom, view, next, step, false);",
+    "    if (dom.parentNode !== root) {",
+    "      root.replaceChildren(dom);",
+    "    }",
+    "    view = next;",
+  ].join("\n");
+
+  let out = html;
+  out = out.replace(/#_\$(\d+)/g, (_match, suffix) => `_discard_$${suffix}`);
+  if (out.includes(childPatchBuggy)) {
+    out = out.replace(childPatchBuggy, childPatchFixed);
+  }
+  if (out.includes(replaceBuggy)) {
+    out = out.replace(replaceBuggy, replaceFixed);
+  }
+  if (out.includes(stepBuggy)) {
+    out = out.replace(stepBuggy, stepFixed);
+  }
+
+  const globalKeyPatch = [
+    "document.addEventListener(\"keydown\", function(e) {",
+    "  var page = document.querySelector(\".page\");",
+    "  if (page && e.target !== page) {",
+    "    page.dispatchEvent(new KeyboardEvent(\"keydown\", {",
+    "      key: e.key, code: e.code, keyCode: e.keyCode,",
+    "      bubbles: false, cancelable: true",
+    "    }));",
+    "    e.preventDefault();",
+    "  }",
+    "});",
+  ].join("\n");
+
+  out = out.replace("</script>", globalKeyPatch + "\n</script>");
+  return out;
+}
+
+function usage(): never {
+  console.error("usage: bun scripts/build.ts <input.bend> <output.html>");
+  process.exit(1);
+}
+
+async function pathExists(target: string): Promise<boolean> {
+  try {
+    await fs.access(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function shellQuote(value: string): string {
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+}
+
+async function runShell(command: string): Promise<void> {
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn("sh", ["-lc", command], {
+      stdio: ["ignore", "ignore", "pipe"],
+    });
+    let stderr = "";
+    child.stderr.on("data", chunk => {
+      stderr += String(chunk);
+    });
+    child.on("error", reject);
+    child.on("close", code => {
+      if (code === 0) {
+        resolve();
+        return;
+      }
+      reject(new Error(stderr || `shell command failed with exit code ${code ?? 1}`));
+    });
+  });
+}
+
+async function extractLegacySnapshot(bendRoot: string, legacyRoot: string): Promise<void> {
+  await fs.rm(legacyRoot, { recursive: true, force: true });
+  await fs.mkdir(legacyRoot, { recursive: true });
+  await runShell(
+    `git -C ${shellQuote(bendRoot)} archive --format=tar ${shellQuote(LEGACY_BEND2_COMMIT)} bend-ts/src prelude | tar -xf - -C ${shellQuote(legacyRoot)}`,
+  );
+}
+
+async function patchLegacyStageSources(srcDir: string): Promise<void> {
+  const rewrites = [
+    {
+      file: path.join(srcDir, "main.bend"),
+      remove: 'import App/Cmd/store_get as store_get\n',
+      replace: [
+        [
+          'store_get(DungeonEvent, "dungeon_meta", _parse_meta, no_save{})',
+          'store_get{"dungeon_meta", _parse_meta, no_save{}}',
+        ],
+      ],
+    },
+    {
+      file: path.join(srcDir, "Dungeon/App/_.bend"),
+      remove: 'import App/Cmd/store_get as store_get\n',
+      replace: [
+        [
+          'store_get(DungeonEvent, "dungeon_meta", _parse_meta, no_save{})',
+          'store_get{"dungeon_meta", _parse_meta, no_save{}}',
+        ],
+      ],
+    },
+    {
+      file: path.join(srcDir, "Dungeon/App/persistence.bend"),
+      remove: 'import App/Cmd/store_set as store_set\n',
+      replace: [
+        [
+          'store_set(DungeonEvent, "dungeon_meta", save_to_string(next_state), no_save{})',
+          'store_set{"dungeon_meta", save_to_string(next_state)}',
+        ],
+      ],
+    },
+  ];
+
+  for (const rewrite of rewrites) {
+    if (!(await pathExists(rewrite.file))) {
+      continue;
+    }
+    let source = await fs.readFile(rewrite.file, "utf8");
+    source = source.replace(rewrite.remove, "");
+    for (const [from, to] of rewrite.replace) {
+      source = source.replace(from, to);
+    }
+    await fs.writeFile(rewrite.file, source);
+  }
+
+  const bendFiles = [...new Bun.Glob("**/*.bend").scanSync({ cwd: srcDir })].sort();
+  for (const relFile of bendFiles) {
+    const file = path.join(srcDir, relFile);
+    const source = await fs.readFile(file, "utf8");
+    const next = source.replace(
+      /^import\s+([^\s]+)(?:\s+as\s+([^\s]+))?\s*$/gmu,
+      (_match, rawSpec: string, rawAlias?: string) => {
+        const spec = rawSpec.replace(/^\/+|\/+$/g, "");
+        const inferredAlias = spec.slice(spec.lastIndexOf("/") + 1);
+        const alias = rawAlias ?? inferredAlias;
+        const needsDirImport =
+          spec === "App" ||
+          spec === "HTML" ||
+          spec === "U32" ||
+          spec === "Nat" ||
+          spec === "String" ||
+          source.includes(`${alias}.`);
+        const legacySpec = `/${spec}${needsDirImport ? "/" : ""}`;
+        if ((spec === "App" || spec === "HTML") && needsDirImport) {
+          return `import ${legacySpec}`;
+        }
+        if (rawAlias !== undefined || alias !== inferredAlias) {
+          return `import ${legacySpec} as ${alias}`;
+        }
+        return `import ${legacySpec}`;
+      },
+    );
+    if (next !== source) {
+      await fs.writeFile(file, next);
+    }
+  }
+}
+
+async function createStageWorkspace(cwd: string, bendRoot: string): Promise<StageWorkspace> {
+  const tmpBase = process.env.TMPDIR ?? "/tmp";
+  const root = await fs.mkdtemp(path.join(tmpBase, "dungeonbend-legacy-"));
+  const srcDir = path.join(root, "src");
+  const dataDir = path.join(root, "data");
+  const legacyRoot = path.join(root, "legacy-bend2");
+
+  await fs.copyFile(path.join(cwd, "bend.json"), path.join(root, "bend.json"));
+  await fs.cp(path.join(cwd, "src"), srcDir, { recursive: true });
+  await fs.cp(path.join(cwd, "data"), dataDir, { recursive: true });
+  await generateDungeonData(root);
+  await patchLegacyStageSources(srcDir);
+  await extractLegacySnapshot(bendRoot, legacyRoot);
+
+  return { root, legacyRoot, srcDir };
+}
+
+async function loadPatchedLegacyBend(legacyRoot: string): Promise<any> {
+  const bendSrcDir = path.join(legacyRoot, "bend-ts/src");
+  const patchedRoot = path.join(legacyRoot, "patched-bend-ts-src");
   const typeAnalysisPath = path.join(patchedRoot, "Compile/ToJS/TypeAnalysis.ts");
   const compilerPath = path.join(patchedRoot, "Compile/ToJS/Compiler.ts");
   const originalForceType = `export function force_type(book: Core.Book, typ: Core.Term | null): Core.Term | null {
@@ -98,6 +323,39 @@ async function loadPatchedBend(cwd: string) {
     throw err;
   }
 }`;
+  const patchedNativeType = `export function native_type(book: Core.Book | null, typ: Core.Term | null): "char" | "string" | "vector" | null {
+  if (book === null) {
+    return null;
+  }
+  try {
+    var typ = force_type(book, typ);
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+  if (typ === null || typ.$ !== "ADT") {
+    return null;
+  }
+  try {
+    if (adt_is_char(book, typ)) {
+      return "char";
+    }
+    if (adt_is_string(book, typ)) {
+      return "string";
+    }
+    if (adt_is_vector(book, typ)) {
+      return "vector";
+    }
+  } catch (err) {
+    if (err instanceof RangeError) {
+      return null;
+    }
+    throw err;
+  }
+  return null;
+}`;
   const patchedEmitStringCtr = `function emit_string_ctr(st: Types.EmitState, dst: string, trm: Core.Ctr, ctx: Types.EmitCtx): void {
   function unwrap(tm: Core.Term): Core.Term {
     while (tm.$ === "Ann" || tm.$ === "Red") {
@@ -139,39 +397,6 @@ async function loadPatchedBend(cwd: string) {
   Emit.emit_set(st, dst, "(" + hed + " + " + rst + ")");
 }`;
   const emitStringCtrPattern = /function emit_string_ctr\(st: Types\.EmitState, dst: string, trm: Core\.Ctr, ctx: Types\.EmitCtx\): void \{[\s\S]*?\n\}/;
-  const patchedNativeType = `export function native_type(book: Core.Book | null, typ: Core.Term | null): "char" | "string" | "vector" | null {
-  if (book === null) {
-    return null;
-  }
-  try {
-    var typ = force_type(book, typ);
-  } catch (err) {
-    if (err instanceof RangeError) {
-      return null;
-    }
-    throw err;
-  }
-  if (typ === null || typ.$ !== "ADT") {
-    return null;
-  }
-  try {
-    if (adt_is_char(book, typ)) {
-      return "char";
-    }
-    if (adt_is_string(book, typ)) {
-      return "string";
-    }
-    if (adt_is_vector(book, typ)) {
-      return "vector";
-    }
-  } catch (err) {
-    if (err instanceof RangeError) {
-      return null;
-    }
-    throw err;
-  }
-  return null;
-}`;
 
   await fs.rm(patchedRoot, { recursive: true, force: true });
   await fs.cp(bendSrcDir, patchedRoot, { recursive: true });
@@ -179,141 +404,84 @@ async function loadPatchedBend(cwd: string) {
   const typeAnalysisSource = await fs.readFile(typeAnalysisPath, "utf8");
   const compilerSource = await fs.readFile(compilerPath, "utf8");
   if (!typeAnalysisSource.includes(originalForceType)) {
-    throw new Error("Could not locate Bend TypeAnalysis.force_type for patching");
+    throw new Error("Could not locate legacy Bend TypeAnalysis.force_type for patching");
   }
   if (!typeAnalysisSource.includes(originalNativeType)) {
-    throw new Error("Could not locate Bend TypeAnalysis.native_type for patching");
+    throw new Error("Could not locate legacy Bend TypeAnalysis.native_type for patching");
   }
   if (!typeAnalysisSource.includes(originalCtrFlds)) {
-    throw new Error("Could not locate Bend TypeAnalysis.ctr_flds for patching");
+    throw new Error("Could not locate legacy Bend TypeAnalysis.ctr_flds for patching");
   }
   if (!emitStringCtrPattern.test(compilerSource)) {
-    throw new Error("Could not locate Bend Compiler.emit_string_ctr for patching");
+    throw new Error("Could not locate legacy Bend Compiler.emit_string_ctr for patching");
   }
+
   await fs.writeFile(
     typeAnalysisPath,
     typeAnalysisSource
       .replace(originalForceType, patchedForceType)
       .replace(originalNativeType, patchedNativeType)
-      .replace(originalCtrFlds, patchedCtrFlds)
+      .replace(originalCtrFlds, patchedCtrFlds),
   );
   await fs.writeFile(compilerPath, compilerSource.replace(emitStringCtrPattern, patchedEmitStringCtr));
 
   return import(`${pathToFileURL(path.join(patchedRoot, "Bend.ts")).href}?ts=${Date.now()}`);
 }
 
-function patchAppRuntime(html: string): string {
-  const childPatchBuggy = [
-    "    var nxt = __app_patch(kid, prev.kids[i], next.kids[i], dispatch, kidSvg);",
-    "    if (nxt !== kid) {",
-      "      dom.replaceChild(nxt, kid);",
-    "    }",
-  ].join("\n");
+async function main(): Promise<void> {
+  const input = process.argv[2];
+  const output = process.argv[3];
 
-  const childPatchFixed = [
-    "    var nxt = __app_patch(kid, prev.kids[i], next.kids[i], dispatch, kidSvg);",
-    "    if (nxt !== kid && kid.parentNode === dom) {",
-    "      dom.replaceChild(nxt, kid);",
-    "    }",
-  ].join("\n");
-
-  const replaceBuggy = [
-    "function __app_replace(dom, view, dispatch, svg) {",
-    "  var nxt = __app_mount(view, dispatch, svg);",
-    "  __app_dispose(dom);",
-    "  dom.replaceWith(nxt);",
-    "  return nxt;",
-    "}",
-  ].join("\n");
-
-  const replaceFixed = [
-    "function __app_replace(dom, view, dispatch, svg) {",
-    "  var nxt = __app_mount(view, dispatch, svg);",
-    "  __app_dispose(dom);",
-    "  return nxt;",
-    "}",
-  ].join("\n");
-
-  const stepBuggy = [
-    "    dom  = __app_patch(dom, view, next, step, false);",
-    "    view = next;",
-  ].join("\n");
-
-  const stepFixed = [
-    "    dom  = __app_patch(dom, view, next, step, false);",
-    "    if (dom.parentNode !== root) {",
-    "      root.replaceChildren(dom);",
-    "    }",
-    "    view = next;",
-  ].join("\n");
-
-  let out = html;
-  // Bend's JS backend sometimes emits discard bindings such as `var #_$5 = x$4;`
-  // which are invalid identifiers in JS and crash the app before first render.
-  out = out.replace(/#_\$(\d+)/g, (_match, suffix) => `_discard_$${suffix}`);
-  if (out.includes(childPatchBuggy)) {
-    out = out.replace(childPatchBuggy, childPatchFixed);
+  if (input === undefined || output === undefined) {
+    usage();
   }
-  if (out.includes(replaceBuggy)) {
-    out = out.replace(replaceBuggy, replaceFixed);
-  }
-  if (out.includes(stepBuggy)) {
-    out = out.replace(stepBuggy, stepFixed);
-  }
-  // Inject a global keydown listener so arrow keys work without clicking the
-  // board first.  The listener finds the .page element and, if it is not
-  // already the event target, re-dispatches the key event on it.
-  const globalKeyPatch = [
-    "document.addEventListener(\"keydown\", function(e) {",
-    "  var page = document.querySelector(\".page\");",
-    "  if (page && e.target !== page) {",
-    "    page.dispatchEvent(new KeyboardEvent(\"keydown\", {",
-    "      key: e.key, code: e.code, keyCode: e.keyCode,",
-    "      bubbles: false, cancelable: true",
-    "    }));",
-    "    e.preventDefault();",
-    "  }",
-    "});",
-  ].join("\n");
 
-  out = out.replace("</script>", globalKeyPatch + "\n</script>");
+  const cwd = process.cwd();
+  const bendRoot = path.resolve(cwd, process.env.BEND_REPO_DIR ?? "../Bend2");
+  const outputFile = path.resolve(cwd, output);
+  const keepStage = process.env.KEEP_DUNGEONBEND_STAGE === "1";
+  let workspace: StageWorkspace | null = null;
 
-  return out;
+  try {
+    workspace = await createStageWorkspace(cwd, bendRoot);
+    const stagedInput = path.join(workspace.root, path.relative(cwd, path.resolve(cwd, input)));
+    const preludeDir = path.join(workspace.legacyRoot, "prelude");
+    const Bend = await loadPatchedLegacyBend(workspace.legacyRoot);
+
+    const loaded = Bend.Loader.load_book(stagedInput, {
+      prelude_dir: preludeDir,
+      strict: true,
+    });
+    const ok = Bend.Core.check_book(loaded.book, {
+      show_ok: false,
+      write: process.stderr.write.bind(process.stderr),
+    });
+
+    if (!ok) {
+      process.exit(1);
+    }
+
+    const html = patchAppRuntime(Bend.ToJS.page(loaded.book, {
+      main_name: loaded.main,
+      title: path.basename(stagedInput, ".bend"),
+    }));
+
+    await fs.mkdir(path.dirname(outputFile), { recursive: true });
+    await Bun.write(outputFile, html);
+  } finally {
+    if (workspace !== null && !keepStage) {
+      await fs.rm(workspace.root, { recursive: true, force: true });
+    }
+  }
 }
 
-function usage(): never {
-  console.error("usage: bun scripts/build.ts <input.bend> <output.html>");
+try {
+  await main();
+} catch (error) {
+  if (error instanceof Error && error.stack !== undefined) {
+    console.error(error.stack);
+  } else {
+    console.error(String(error));
+  }
   process.exit(1);
 }
-
-const input = process.argv[2];
-const output = process.argv[3];
-
-if (input === undefined || output === undefined) {
-  usage();
-}
-
-const cwd = process.cwd();
-const file = path.resolve(cwd, input);
-const out = path.resolve(cwd, output);
-const preludeDir = path.resolve(cwd, process.env.BEND_PRELUDE_DIR ?? "../Bend2/prelude");
-
-await generateDungeonData(cwd);
-const Bend = await loadPatchedBend(cwd);
-
-const loaded = Bend.Loader.load_book(file, { prelude_dir: preludeDir, strict: true });
-const ok = Bend.Core.check_book(loaded.book, {
-  show_ok: false,
-  write: process.stderr.write.bind(process.stderr),
-});
-
-if (!ok) {
-  process.exit(1);
-}
-
-const html = patchAppRuntime(Bend.ToJS.page(loaded.book, {
-  main_name: loaded.main,
-  title: path.basename(file, ".bend"),
-}));
-
-await Bun.write(out, html);

@@ -1,8 +1,7 @@
-import /Dungeon/CardRef as CardRef
-import /Dungeon/PackDef as PackDef
-import /Dungeon/PackPoolEntry as PackPoolEntry
-import /Dungeon/PackReward as PackReward
-
+import Dungeon/CardRef as CardRef
+import Dungeon/PackDef as PackDef
+import Dungeon/PackPoolEntry as PackPoolEntry
+import Dungeon/PackReward as PackReward
 # === Booster Pack — laws mirroring design-rules.md §"Booster Pack" ===
 #
 # These laws encode the affirmative rules about booster packs. Types

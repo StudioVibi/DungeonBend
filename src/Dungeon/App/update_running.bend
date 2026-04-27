@@ -1,24 +1,23 @@
-import /Dungeon/DeckEntry as DeckEntry
-import /Dungeon/Weapon as Weapon
-import /Dungeon/BoardDraw as BoardDraw
-import /Dungeon/Meta as Meta
-import /Dungeon/Run as Run
-import /Dungeon/RunAdvance as RunAdvance
-import /Dungeon/SwipeResult as SwipeResult
-import /Dungeon/Direction as Direction
-import /Dungeon/Scene as Scene
-import /Dungeon/UiState as UiState
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/DungeonState as DungeonState
-import /Dungeon/config as config
-import /Dungeon/Run/apply_swipe as apply_swipe
-import /Dungeon/App/state_helpers/_state as _state
-import /Dungeon/App/ui_fx/_next_ui_from_turn as _next_ui_from_turn
-import /Dungeon/App/ui_fx/_advance_with_charge as _advance_with_charge
-import /Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
-import /Dungeon/UltimateCutins/duration_ticks_for_hero_ref as duration_ticks_for_hero_ref
-import /Dungeon/rules/ultimate_charge_required as ultimate_charge_required
-
+import Dungeon/DeckEntry as DeckEntry
+import Dungeon/Weapon as Weapon
+import Dungeon/BoardDraw as BoardDraw
+import Dungeon/Meta as Meta
+import Dungeon/Run as Run
+import Dungeon/RunAdvance as RunAdvance
+import Dungeon/SwipeResult as SwipeResult
+import Dungeon/Direction as Direction
+import Dungeon/Scene as Scene
+import Dungeon/UiState as UiState
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/DungeonState as DungeonState
+import Dungeon/config as config
+import Dungeon/Run/apply_swipe as apply_swipe
+import Dungeon/App/state_helpers/_state as _state
+import Dungeon/App/ui_fx/_next_ui_from_turn as _next_ui_from_turn
+import Dungeon/App/ui_fx/_advance_with_charge as _advance_with_charge
+import Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
+import Dungeon/UltimateCutins/duration_ticks_for_hero_ref as duration_ticks_for_hero_ref
+import Dungeon/rules/ultimate_charge_required as ultimate_charge_required
 def _state_from_swipe(result: SwipeResult, current_run: Run, next_seed_value: U32, current_ui: UiState, dir: Direction) -> DungeonState:
   match result:
     case swipe_result{next_meta, next_advance}:

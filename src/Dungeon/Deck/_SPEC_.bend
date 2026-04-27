@@ -1,5 +1,4 @@
-import /Dungeon/DeckEntry as DeckEntry
-
+import Dungeon/DeckEntry as DeckEntry
 # === Deck — laws mirroring design-rules.md §"Deck" ===
 #
 # The deck represents the player's card inventory. Types referenced

@@ -1,29 +1,28 @@
-import /HTML/
-import /U32/ as U32
-import /Dungeon/CardRef as CardRef
-import /Dungeon/Meta as Meta
-import /Dungeon/PackReward as PackReward
-import /Dungeon/DungeonEvent as DungeonEvent
-import /Dungeon/View/selectors/meta_gold as meta_gold
-import /Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import /Dungeon/View/selectors/active_pack_price as active_pack_price
-import /Dungeon/View/selectors/booster_buy_enabled as booster_buy_enabled
-import /Dungeon/View/selectors/booster_open_enabled as booster_open_enabled
-import /Dungeon/View/selectors/booster_is_last_card as booster_is_last_card
-import /Dungeon/View/selectors/card_copies as card_copies
-import /Dungeon/View/menu/_full_button_overrides as _full_button_overrides
-import /Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
-import /Dungeon/View/assets_and_labels/_card_name as _card_name
-import /Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
-import /Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
-import /Dungeon/Content/ as Content
-import /Dungeon/View/topbar_stats/gold_stat as gold_stat
-import /Dungeon/View/topbar_stats/stat as topbar_stat
-import /Midum/Card/ as Card
-import /Midum/Button/ as Button
-import /Midum/Button/Size
-import /Midum/Layout/ as Layout
-
+import HTML
+import U32 as U32
+import Dungeon/CardRef as CardRef
+import Dungeon/Meta as Meta
+import Dungeon/PackReward as PackReward
+import Dungeon/DungeonEvent as DungeonEvent
+import Dungeon/View/selectors/meta_gold as meta_gold
+import Dungeon/View/selectors/meta_pack_total as meta_pack_total
+import Dungeon/View/selectors/active_pack_price as active_pack_price
+import Dungeon/View/selectors/booster_buy_enabled as booster_buy_enabled
+import Dungeon/View/selectors/booster_open_enabled as booster_open_enabled
+import Dungeon/View/selectors/booster_is_last_card as booster_is_last_card
+import Dungeon/View/selectors/card_copies as card_copies
+import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
+import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/View/assets_and_labels/_card_name as _card_name
+import Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
+import Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
+import Dungeon/Content as Content
+import Dungeon/View/topbar_stats/gold_stat as gold_stat
+import Dungeon/View/topbar_stats/stat as topbar_stat
+import Midum/Card as Card
+import Midum/Button as Button
+import Midum/Button/Size
+import Midum/Layout as Layout
 def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match reward:
     case no_pack_reward{}:

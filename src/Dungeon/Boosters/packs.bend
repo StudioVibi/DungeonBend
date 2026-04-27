@@ -1,7 +1,6 @@
-import /Dungeon/Config as Config
-import /Dungeon/PackDef as PackDef
-import /Dungeon/PackPoolEntry as PackPoolEntry
-
+import Dungeon/Config as Config
+import Dungeon/PackDef as PackDef
+import Dungeon/PackPoolEntry as PackPoolEntry
 def active_pack(config_value: Config) -> PackDef:
   match config_value:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:

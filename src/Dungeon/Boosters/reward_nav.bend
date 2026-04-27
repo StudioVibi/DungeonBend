@@ -1,6 +1,5 @@
-import /Dungeon/CardRef as CardRef
-import /Dungeon/PackReward as PackReward
-
+import Dungeon/CardRef as CardRef
+import Dungeon/PackReward as PackReward
 def reward_count(reward: PackReward) -> U32:
   match reward:
     case no_pack_reward{}:

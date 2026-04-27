@@ -3,7 +3,7 @@
 # This module maps concrete card{...} values to the current DOM renderer and
 # theme tracks.
 
-import /HTML/
+import HTML
 import Nat/is_zero as is_zero_nat
 import Nat/show as show_nat
 

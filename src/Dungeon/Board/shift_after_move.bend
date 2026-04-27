@@ -1,11 +1,10 @@
-import /Dungeon/Board as Board
-import /Dungeon/Tile as Tile
-import /Dungeon/Direction as Direction
-import /Dungeon/Board/indexing/board_pos as board_pos
-import /Dungeon/Board/indexing/board_get_pos as board_get_pos
-import /Dungeon/Board/indexing/board_set_pos as board_set_pos
-import /Dungeon/Board/indexing/back_pos as back_pos
-
+import Dungeon/Board as Board
+import Dungeon/Tile as Tile
+import Dungeon/Direction as Direction
+import Dungeon/Board/indexing/board_pos as board_pos
+import Dungeon/Board/indexing/board_get_pos as board_get_pos
+import Dungeon/Board/indexing/board_set_pos as board_set_pos
+import Dungeon/Board/indexing/back_pos as back_pos
 def _shift_after_move_back(board_value: Board, board1: Board, hero_pos: Nat/V2, back: Maybe(Nat/V2), spawn: Tile) -> Board:
   match back:
     case none{}:
