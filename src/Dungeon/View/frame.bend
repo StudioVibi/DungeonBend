@@ -40,7 +40,7 @@ def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTM
       _render_menu(meta_state)
     case character_select{preview_hero}:
       _render_character_select(meta_state, preview_hero)
-    case boosters{reward, reveal_index}:
+    case boosters{reward, reveal_index, return_to}:
       _render_boosters(meta_state, reward, reveal_index)
     case ultimate_preview{fx}:
       _render_ultimate_preview(meta_state, fx)

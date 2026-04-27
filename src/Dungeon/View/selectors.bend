@@ -48,6 +48,25 @@ def hero_display_level(profile: HeroProfile) -> String:
 def hero_menu_level_text(profile: HeroProfile) -> String:
   Content.ui_hero_level_prefix_short() ++ hero_display_level(profile)
 
+def hero_level_progress_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  Content.ui_hero_level_prefix_short() ++ hero_level_ratio_text(hero_value, profile)
+
+def hero_level_ratio_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  _two_digit_value(profile_hero_level(profile) + 1) ++ "/" ++ _two_digit_value(hero_visible_max_level(hero_value))
+
+def hero_base_hp_text(hero_value: HeroDef) -> String:
+  U32.show(hero_base_max_hp(hero_value))
+
+def hero_visible_max_level(hero_value: HeroDef) -> U32:
+  1 + _upgrade_count(hero_upgrades(hero_value))
+
+def _upgrade_count(upgrades: List(Upgrade)) -> U32:
+  match upgrades:
+    case []:
+      0
+    case upgrade{cost, max_hp}<>rest:
+      1 + _upgrade_count(rest)
+
 def hero_menu_current_hp_text(hero_value: HeroDef, profile: HeroProfile) -> String:
   hero_menu_max_hp_text(hero_value, profile)
 
@@ -109,7 +128,7 @@ def dungeon_level_value(scene_value: Scene) -> String:
       "--"
     case character_select{preview_hero}:
       "--"
-    case boosters{reward, reveal_index}:
+    case boosters{reward, reveal_index, return_to}:
       "--"
     case ultimate_preview{fx}:
       "--"
@@ -128,7 +147,7 @@ def remaining_value(scene_value: Scene) -> String:
       "--/--"
     case character_select{preview_hero}:
       "--/--"
-    case boosters{reward, reveal_index}:
+    case boosters{reward, reveal_index, return_to}:
       "--/--"
     case ultimate_preview{fx}:
       "--/--"
@@ -147,7 +166,7 @@ def weapon_value(scene_value: Scene) -> String:
       "--"
     case character_select{preview_hero}:
       "--"
-    case boosters{reward, reveal_index}:
+    case boosters{reward, reveal_index, return_to}:
       "--"
     case ultimate_preview{fx}:
       "--"
@@ -166,7 +185,7 @@ def ultimate_label(scene_value: Scene) -> String:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
     case character_select{preview_hero}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
-    case boosters{reward, reveal_index}:
+    case boosters{reward, reveal_index, return_to}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
     case ultimate_preview{fx}:
       Content.ui_ultimate_label() ++ " 0/" ++ U32.show(ultimate_charge_required())
@@ -294,6 +313,26 @@ def character_upgrade_enabled(meta_state: Meta, hero_value: HeroDef, profile: He
       0
     case _:
       menu_upgrade_visible(meta_state, hero_value, profile)
+
+def character_upgrade_maxed(hero_value: HeroDef, profile: HeroProfile) -> U32:
+  _character_upgrade_maxed_cost(next_upgrade_cost(hero_value, profile))
+
+def _character_upgrade_maxed_cost(cost: U32) -> U32:
+  match cost:
+    case 0:
+      1
+    case _:
+      0
+
+def character_upgrade_price_text(hero_value: HeroDef, profile: HeroProfile) -> String:
+  _character_upgrade_price_text_cost(next_upgrade_cost(hero_value, profile))
+
+def _character_upgrade_price_text_cost(cost: U32) -> String:
+  match cost:
+    case 0:
+      ""
+    case _:
+      U32.show(cost)
 
 def _character_selected(meta_state: Meta, hero_ref: U32) -> U32:
   _character_selected_confirmed(selection_confirmed(meta_state), selected_hero(meta_state) === hero_ref)

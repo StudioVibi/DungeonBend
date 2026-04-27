@@ -16,6 +16,7 @@ import /Dungeon/generated_content/ui_booster_done as generated_ui_booster_done
 import /Dungeon/generated_content/ui_booster_next as generated_ui_booster_next
 import /Dungeon/generated_content/ui_booster_open as generated_ui_booster_open
 import /Dungeon/generated_content/ui_booster_pack_alt as generated_ui_booster_pack_alt
+import /Dungeon/generated_content/ui_character_booster_hint as generated_ui_character_booster_hint
 import /Dungeon/generated_content/ui_character_buy as generated_ui_character_buy
 import /Dungeon/generated_content/ui_character_equipped as generated_ui_character_equipped
 import /Dungeon/generated_content/ui_character_locked as generated_ui_character_locked
@@ -101,6 +102,9 @@ def ui_booster_open() -> String:
 
 def ui_booster_pack_alt() -> String:
   generated_ui_booster_pack_alt()
+
+def ui_character_booster_hint() -> String:
+  generated_ui_character_booster_hint()
 
 def ui_character_buy() -> String:
   generated_ui_character_buy()

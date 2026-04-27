@@ -22,8 +22,8 @@ def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
       update_setup(evt, meta_state, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, character_select{preview_hero}, next_seed_value}, ui_value}:
       update_character_select(evt, meta_state, preview_hero, next_seed_value, ui_value)
-    case dungeon{game_state{meta_state, boosters{reward, reveal_index}, next_seed_value}, ui_value}:
-      update_boosters(evt, meta_state, reward, reveal_index, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, boosters{reward, reveal_index, return_to}, next_seed_value}, ui_value}:
+      update_boosters(evt, meta_state, reward, reveal_index, return_to, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, ultimate_preview{fx}, next_seed_value}, ui_value}:
       update_ultimate_preview(evt, meta_state, fx, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, ultimate_cinematic{run_value, ticks_remaining}, next_seed_value}, ui_value}:

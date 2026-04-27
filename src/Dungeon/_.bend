@@ -24,6 +24,7 @@ type HeroPresentation {
   hero_presentation{
     hero_id: String,
     name_align: PresentationAlign,
+    lore: String,
     ultimate_title: String,
     ultimate_icon: String,
     ultimate_description: String
@@ -198,10 +199,15 @@ type SwipeResult {
   swipe_result{meta: Meta, next: RunAdvance}
 }
 
+type BoosterReturn {
+  booster_return_setup{}
+  booster_return_character_select{preview_hero: U32}
+}
+
 type Scene {
   setup{}
   character_select{preview_hero: U32}
-  boosters{reward: PackReward, reveal_index: U32}
+  boosters{reward: PackReward, reveal_index: U32, return_to: BoosterReturn}
   ultimate_preview{fx: UltimatePreviewFx}
   ultimate_cinematic{run: Run, ticks_remaining: U32}
   running{run: Run}

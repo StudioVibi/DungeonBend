@@ -41,6 +41,7 @@ const staticContentKeys = [
   "ui.upgrade.upgradePrefix",
   "ui.upgrade.maxShort",
   "ui.character.locked",
+  "ui.character.boosterHint",
   "ui.character.preview",
   "ui.character.equipped",
   "ui.character.buy",
@@ -93,6 +94,7 @@ const staticContentDefaults = {
   "ui.upgrade.upgradePrefix": "Upgrade - ",
   "ui.upgrade.maxShort": "MAX",
   "ui.character.locked": "LOCKED",
+  "ui.character.boosterHint": "Unlock more heroes through booster packs.",
   "ui.character.preview": "PREVIEW",
   "ui.character.equipped": "EQUIPPED",
   "ui.character.buy": "BUY",
@@ -429,6 +431,10 @@ function heroNameKey(heroId) {
   return `hero.${heroId}.name`;
 }
 
+function heroLoreKey(heroId) {
+  return `hero.${heroId}.lore`;
+}
+
 function heroUltimateTitleKey(heroId) {
   return `hero.${heroId}.ultimateTitle`;
 }
@@ -467,6 +473,7 @@ function requiredContentKeys() {
   const keys = new Set(staticContentKeys);
   state.data.heroes.forEach((hero) => {
     keys.add(heroNameKey(hero.id));
+    keys.add(heroLoreKey(hero.id));
     keys.add(heroUltimateTitleKey(hero.id));
     keys.add(heroUltimateDescKey(hero.id));
   });
@@ -486,6 +493,7 @@ function ensureContentKey(key, fallback) {
 function repairMissingContent(mark = false) {
   state.data.heroes.forEach((hero) => {
     ensureContentKey(heroNameKey(hero.id), hero.name || hero.id);
+    ensureContentKey(heroLoreKey(hero.id), "Short hero lore.");
     ensureContentKey(heroUltimateTitleKey(hero.id), "Ultimate");
     ensureContentKey(heroUltimateDescKey(hero.id), "Refills the dungeon with new cards while keeping the hero in place.");
   });
@@ -675,6 +683,7 @@ function ensureHeroBundle(hero) {
   ensureHeroPresentation(hero.id);
   ensureHeroUpgrade(hero);
   ensureContentKey(heroNameKey(hero.id), hero.name || "New Hero");
+  ensureContentKey(heroLoreKey(hero.id), "Short hero lore.");
   ensureContentKey(heroUltimateTitleKey(hero.id), "Ultimate");
   ensureContentKey(heroUltimateDescKey(hero.id), "Refills the dungeon with new cards while keeping the hero in place.");
   updateLegacyNamesFromContent();
@@ -1170,6 +1179,7 @@ function renameHeroId(hero, nextId) {
     state.data.rules.starting_selected_hero_id = nextId;
   }
   moveContentKey(heroNameKey(previousId), heroNameKey(nextId), hero.name || nextId);
+  moveContentKey(heroLoreKey(previousId), heroLoreKey(nextId), "Short hero lore.");
   moveContentKey(heroUltimateTitleKey(previousId), heroUltimateTitleKey(nextId), "Ultimate");
   moveContentKey(heroUltimateDescKey(previousId), heroUltimateDescKey(nextId), "Refills the dungeon with new cards while keeping the hero in place.");
   if (state.selectedHeroId === previousId) {
@@ -1268,6 +1278,7 @@ function renderHeroes() {
         render();
       }, { disabled: state.locks.heroes.has(hero.id) })),
       field("display name", textInput(displayContent(heroNameKey(hero.id), hero.name), (value) => setContent(heroNameKey(hero.id), value))),
+      field("lore", textInput(displayContent(heroLoreKey(hero.id), "Short hero lore."), (value) => setContent(heroLoreKey(hero.id), value))),
       field("sprite", spriteInlineInput(hero.sprite, (value) => {
         hero.sprite = value;
         markDirty();
