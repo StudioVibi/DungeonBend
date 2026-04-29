@@ -5,6 +5,6 @@
   "starting_selection_confirmed": true,
   "starting_dungeon_level": 1,
   "dungeon_level_increment_per_refill": 1,
-  "ultimate_charge_required": 6,
+  "ultimate_charge_required": 8,
   "ultimate_charge_per_move": 1
 }

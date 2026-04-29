@@ -180,7 +180,9 @@ def _boosters_header(meta_state: Meta) -> HTML(DungeonEvent):
   </header>
 
 def _back_button() -> HTML(DungeonEvent):
-  Button.secondary(DungeonEvent, close_boosters{}, medium{}, Content.ui_booster_back(), [])
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
+    {Button.secondary(DungeonEvent, close_boosters{}, medium{}, Content.ui_booster_back(), [])}
+  </div>
 
 def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
   match booster_open_enabled(meta_state):
@@ -190,7 +192,9 @@ def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
           {Layout.group(
             DungeonEvent,
             [
-              Button.secondary(DungeonEvent, buy_pack{0}, medium{}, Content.ui_booster_buy_more_prefix() ++ U32.show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state)))
+              <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
+                {Button.secondary(DungeonEvent, buy_pack{0}, medium{}, Content.ui_booster_buy_more_prefix() ++ U32.show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state)))}
+              </div>
               Button.primary(DungeonEvent, open_pack{0}, large{}, Content.ui_booster_open(), _full_button_overrides(1))
             ],
             [direction_column{} gap_sm{} align_stretch{}]

@@ -436,30 +436,36 @@ def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroPr
       text{""}
 
 def _menu_start_button() -> HTML(DungeonEvent):
-  Button.primary(
-    DungeonEvent,
-    start{},
-    large{},
-    Content.ui_menu_start(),
-    _full_button_overrides(start_enabled(setup{}))
-  )
+  <div class="menu-play-btn-wrap menu-play-btn-wrap--full">
+    {Button.primary(
+      DungeonEvent,
+      start{},
+      large{},
+      Content.ui_menu_start(),
+      _full_button_overrides(start_enabled(setup{}))
+    )}
+  </div>
 
 def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
-  <button class="bc-btn bc-btn-secondary bc-btn-rounded bc-btn-medium bc-btn-full menu-booster-cta" type="button" on_click={open_boosters{}}>
-    <span class="bc-btn-content">
-      <span class="bc-btn-label">{text{Content.ui_menu_boosters()}}</span>
-    </span>
-    <span class="menu-booster-cta__count">{text{meta_pack_total(meta_state)}}</span>
-  </button>
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
+    <button class="bc-btn bc-btn-secondary bc-btn-rounded bc-btn-medium bc-btn-full menu-booster-cta" type="button" on_click={open_boosters{}}>
+      <span class="bc-btn-content">
+        <span class="bc-btn-label">{text{Content.ui_menu_boosters()}}</span>
+      </span>
+      <span class="menu-booster-cta__count">{text{meta_pack_total(meta_state)}}</span>
+    </button>
+  </div>
 
 def _menu_deck_button() -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    ignore{},
-    medium{},
-    "DUNGEON DECK",
-    _full_button_overrides(0)
-  )
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
+    {Button.secondary(
+      DungeonEvent,
+      ignore{},
+      medium{},
+      "DUNGEON DECK",
+      _full_button_overrides(0)
+    )}
+  </div>
 
 def _menu_upgrade_button() -> HTML(DungeonEvent):
   Button.secondary(
@@ -471,40 +477,48 @@ def _menu_upgrade_button() -> HTML(DungeonEvent):
   )
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    upgrade{},
-    medium{},
-    Content.ui_upgrade_upgrade(),
-    _action_button_overrides(character_upgrade_enabled(meta_state, hero_value, profile))
-  )
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
+    {Button.secondary(
+      DungeonEvent,
+      upgrade{},
+      medium{},
+      Content.ui_upgrade_upgrade(),
+      _action_button_overrides(character_upgrade_enabled(meta_state, hero_value, profile))
+    )}
+  </div>
 
 def _character_booster_button() -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    open_boosters{},
-    medium{},
-    Content.ui_menu_boosters(),
-    _full_button_overrides(1)
-  )
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
+    {Button.secondary(
+      DungeonEvent,
+      open_boosters{},
+      medium{},
+      Content.ui_menu_boosters(),
+      _full_button_overrides(1)
+    )}
+  </div>
 
 def _character_back_button() -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    close_character_select{},
-    medium{},
-    Content.ui_menu_back(),
-    _fit_button_overrides(1)
-  )
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
+    {Button.secondary(
+      DungeonEvent,
+      close_character_select{},
+      medium{},
+      Content.ui_menu_back(),
+      _fit_button_overrides(1)
+    )}
+  </div>
 
 def _header_characters_action() -> HTML(DungeonEvent):
-  Button.secondary(
-    DungeonEvent,
-    open_character_select{},
-    small{},
-    Content.ui_menu_characters(),
-    _fit_button_overrides(1)
-  )
+  <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
+    {Button.secondary(
+      DungeonEvent,
+      open_character_select{},
+      small{},
+      Content.ui_menu_characters(),
+      _fit_button_overrides(1)
+    )}
+  </div>
 
 def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:

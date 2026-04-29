@@ -17,7 +17,7 @@ def generated_dungeon_level_increment_per_refill() -> U32:
   1
 
 def generated_ultimate_charge_required() -> U32:
-  6
+  8
 
 def generated_ultimate_charge_per_move() -> U32:
   1
