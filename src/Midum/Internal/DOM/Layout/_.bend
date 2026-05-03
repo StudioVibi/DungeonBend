@@ -3,8 +3,8 @@
 # Layout owns placement and simple grouping. The public API remains one
 # primitive, while the DOM renderer maps each closed choice to a CSS class.
 
-import HTML
-import Midum/Internal/DOM/Layout/Arrangement
+import HTML as HTML
+import Midum/Internal/DOM/Layout/Arrangement as Arrangement
 import Nat/show as show_nat
 
 def position_class(position: Midum/Layout/Position) -> String:
@@ -201,16 +201,16 @@ def shell_attrs(Event: Type, cfg: Midum/Layout/ShellConfig) -> List(HTML/Attr(Ev
   match cfg:
     case shell_layout{width, max_width, height, overflow, safe_area, inset, compact_inset}:
       [
-        attr{"class", shell_class(height, overflow, safe_area)}
-        style{"width", frame_width_style(width)}
-        style{"max-width", max_width_style(max_width)}
-        style{"--bc-layout-shell-inset-top", edge_top_style(inset)}
-        style{"--bc-layout-shell-inset-right", edge_right_style(inset)}
-        style{"--bc-layout-shell-inset-bottom", edge_bottom_style(inset)}
-        style{"--bc-layout-shell-inset-left", edge_left_style(inset)}
-        style{"--bc-layout-shell-compact-inset-top", compact_top_style(inset, compact_inset)}
-        style{"--bc-layout-shell-compact-inset-right", compact_right_style(inset, compact_inset)}
-        style{"--bc-layout-shell-compact-inset-bottom", compact_bottom_style(inset, compact_inset)}
+        attr{"class", shell_class(height, overflow, safe_area)},
+        style{"width", frame_width_style(width)},
+        style{"max-width", max_width_style(max_width)},
+        style{"--bc-layout-shell-inset-top", edge_top_style(inset)},
+        style{"--bc-layout-shell-inset-right", edge_right_style(inset)},
+        style{"--bc-layout-shell-inset-bottom", edge_bottom_style(inset)},
+        style{"--bc-layout-shell-inset-left", edge_left_style(inset)},
+        style{"--bc-layout-shell-compact-inset-top", compact_top_style(inset, compact_inset)},
+        style{"--bc-layout-shell-compact-inset-right", compact_right_style(inset, compact_inset)},
+        style{"--bc-layout-shell-compact-inset-bottom", compact_bottom_style(inset, compact_inset)},
         style{"--bc-layout-shell-compact-inset-left", compact_left_style(inset, compact_inset)}
       ]
 

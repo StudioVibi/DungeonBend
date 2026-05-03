@@ -1,6 +1,6 @@
 # Internal DOM image renderer for Midum.
 
-import HTML
+import HTML as HTML
 import String/is_empty as string_is_empty
 import Nat/show as show_nat
 

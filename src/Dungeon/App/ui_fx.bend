@@ -17,7 +17,11 @@ import Dungeon/monster_damage_animation/clip as monster_damage_clip
 import Dungeon/deck_counter_animation/clip as deck_counter_clip
 import Dungeon/rules/ultimate_charge_required as ultimate_charge_required
 import Dungeon/rules/ultimate_charge_per_move as ultimate_charge_per_move
-import Midum/Image as Image
+import Midum/Image/step as image_step
+
+def _reset_image_state() -> Midum/Image/State:
+  state{elapsed_ms: 0n, finished: false{}}
+
 def _hero_hp(run_value: Run) -> U32:
   match run_value:
     case run{dungeon_level, hero_hp, hero_max_hp, hero_index, weapon, board_value, deck_blueprint, draw_counts, remaining, capacity, seed, ult_charge, hero_ref}:
@@ -220,7 +224,7 @@ def _damage_overlay_from_impact(prev_tile: Tile, current_overlay: DamageOverlay,
     case no_impact{}:
       current_overlay
     case impact{pos, trigger}:
-      damage_overlay{pos, trigger, prev_tile, Image.reset_state()}
+      damage_overlay{pos, trigger, prev_tile, _reset_image_state()}
 
 def _damage_overlay_from_target_tile(target_pos: Nat/V2, prev_tile: Tile, next_tile: Tile, current_overlay: DamageOverlay, current_impact: Impact) -> DamageOverlay:
   _damage_overlay_from_impact(prev_tile, current_overlay, _impact_from_target_tile(target_pos, prev_tile, next_tile, current_impact))
@@ -243,7 +247,7 @@ def _step_damage_overlay(current_overlay: DamageOverlay) -> DamageOverlay:
     case no_damage_overlay{}:
       no_damage_overlay{}
     case damage_overlay{pos, trigger, base_tile, overlay_state}:
-      match Image.step(monster_damage_clip(), 125n, overlay_state):
+      match image_step(monster_damage_clip(), 125n, overlay_state):
         case step{state: next_state, cycled, finished_now}:
           match finished_now:
             case true{}:
@@ -256,7 +260,7 @@ def _next_deck_counter_fx_move(did_move: U32, current_fx: DeckCounterFx) -> Deck
     case 0:
       current_fx
     case _:
-      deck_counter_playing{Image.reset_state()}
+      deck_counter_playing{_reset_image_state()}
 
 def _next_deck_counter_fx(current_run: Run, next_run: Run, current_fx: DeckCounterFx) -> DeckCounterFx:
   _next_deck_counter_fx_move(_run_moved(current_run, next_run), current_fx)
@@ -266,7 +270,7 @@ def _step_deck_counter_fx(current_fx: DeckCounterFx) -> DeckCounterFx:
     case deck_counter_idle{}:
       deck_counter_idle{}
     case deck_counter_playing{current_state}:
-      match Image.step(deck_counter_clip(), 125n, current_state):
+      match image_step(deck_counter_clip(), 125n, current_state):
         case step{state: next_state, cycled, finished_now}:
           match finished_now:
             case true{}:

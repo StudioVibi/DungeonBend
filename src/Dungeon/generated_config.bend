@@ -117,7 +117,7 @@ def generated_config_base_deck_chunk_0() -> List(DeckEntry):
 
 def generated_config_packs_chunk_0() -> List(PackDef):
   [
-    pack_def{"Starter Booster", 100, 4, 0, generated_pack_0_pool_chunk_0()}
+    pack_def{"Starter Booster", 10, 4, 0, generated_pack_0_pool_chunk_0()}
   ]
 
 def generated_config() -> Config:

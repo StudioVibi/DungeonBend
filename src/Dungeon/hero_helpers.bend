@@ -1,6 +1,7 @@
 import Dungeon/Upgrade as Upgrade
 import Dungeon/HeroDef as HeroDef
 import Dungeon/Config as Config
+
 def hero_count(config_value: Config) -> U32:
   match config_value:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:

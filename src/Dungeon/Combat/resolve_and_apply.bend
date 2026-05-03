@@ -5,6 +5,7 @@ import Dungeon/CombatResult as CombatResult
 import Dungeon/Config as Config
 import Dungeon/Board/indexing/board_set as board_set
 import Dungeon/Deck/counts_pick/monster_gold as monster_gold
+
 def _resolve_unarmed(monsters: List(MonsterDef), board_value: Board, hero_hp: U32, target_idx: U32, monster_ref: U32, monster_hp: U32) -> CombatResult:
   _resolve_unarmed_hit(hero_hp > monster_hp, monsters, board_value, hero_hp, target_idx, monster_ref, monster_hp)
 

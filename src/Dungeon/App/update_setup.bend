@@ -9,6 +9,7 @@ import Dungeon/App/state_helpers/_state as _state
 import Dungeon/App/state_helpers/_start as _start
 import Dungeon/hero_helpers/normalize_hero_ref as normalize_hero_ref
 import Dungeon/profile_helpers/selected_hero as selected_hero
+
 def update_setup(evt: DungeonEvent, meta_state: Meta, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case start{}:

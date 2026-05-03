@@ -3,9 +3,10 @@
 # Text stays renderer-neutral. The current renderer lives under
 # /Midum/Internal/DOM/.
 
-import HTML
-import Midum/Text/Interaction
+import HTML as HTML
+import Midum/Text/Interaction as Interaction
 import Midum/Internal/DOM/Text/render as dom_render
+
 def apply_override(Event: Type, cfg: Midum/Text/Config(Event), override: Midum/Text/Override(Event)) -> Midum/Text/Config(Event):
   match cfg override:
     case copy{content, variant, align, interaction, color} link{href}:

@@ -13,6 +13,7 @@ import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
 import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/profile_helpers/profile_hero_level as profile_hero_level
 import Dungeon/profile_helpers/profile_with_level as profile_with_level
+
 def upgrade_hero(config_value: Config, meta_state: Meta) -> Meta:
   hero_ref = selected_hero(meta_state);
   upgrade_hero_ref(config_value, meta_state, hero_ref)

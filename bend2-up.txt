@@ -1,0 +1,124 @@
+DungeonBend2 / branch "leon" - mapa estrutural ligado ao update de Bend2
+
+Escopo
+- Mudancas estruturais que aparecem junto do update de compatibilidade com o Bend2 mais novo.
+- Foco em build, geracao, organizacao de modulos e pontos do runtime afetados.
+- Sem orientar port, sem checklist de execucao, sem leitura de UI como prioridade.
+
+Blocos de mudanca
+
+1. Build / toolchain
+- `scripts/build.sh`
+- `scripts/build.ts`
+- `scripts/generate-dungeon-view-css.ts`
+
+Caracteristicas
+- deteccao de mais de um layout local do repo `../Bend2`
+- passo extra de geracao antes do build
+- geracao de CSS derivado da view
+- patches aplicados no JS final gerado
+
+2. Geracao de dados para Bend
+- `scripts/dungeon-data.ts`
+- `src/Dungeon/generated_*.bend`
+
+Caracteristicas
+- listas grandes passam a ser emitidas em blocos auxiliares
+- entrada dos mesmos JSONs, mas com forma de codigo gerado diferente
+- dependencia explicita de helpers de lista
+
+3. Novos modulos base no grafo de imports
+- `src/Content/_.bend`
+- `src/Nat/V2/_.bend`
+- `src/Nat/V2/Map/*`
+- `src/Nat/is_zero.bend`
+- `src/String/to_u32.bend`
+- `src/Dungeon/View/u32_grid.bend`
+
+Relacionados ao layout antigo
+- `src/Dungeon/Board/_.bend`
+- `src/Dungeon/Run/_.bend`
+
+Leitura estrutural
+- entrada de modulos utilitarios novos
+- reducao de dependencia em agregadores antigos
+- reorganizacao do grafo de imports de `Dungeon/*`
+
+4. Refactor de sintaxe / imports Bend
+- `src/Dungeon/**`
+- `src/Midum/**`
+
+Padrao visivel
+- imports mais explicitos com alias
+- ajuste de chamadas e nomes qualificados
+- pequenas mudancas de forma para parser / lowering do Bend2 atual
+
+5. Camada Midum / DOM
+- `src/Midum/Button/_.bend`
+- `src/Midum/Card/_.bend`
+- `src/Midum/Image/_.bend`
+- `src/Midum/Layout/_.bend`
+- `src/Midum/Text/_.bend`
+- `src/Midum/Internal/DOM/*`
+
+Leitura estrutural
+- superficie de componentes base muda junto do port
+- views do jogo passam a depender dessa camada ja no formato novo
+
+6. View do jogo misturada com adaptacao estrutural
+- `src/Dungeon/View/menu.bend`
+- `src/Dungeon/View/css.bend`
+- `src/Dungeon/View/board.bend`
+- `src/Dungeon/View/boosters.bend`
+- `src/Dungeon/View/render.bend`
+- `src/Dungeon/View/selectors.bend`
+- `src/Dungeon/View/assets_and_labels.bend`
+
+Leitura estrutural
+- arquivos de view concentram adaptacao de imports, helpers e organizacao
+- nesse bloco convivem mudancas necessarias ao Bend2 e mudancas visuais paralelas
+
+7. App / state / fluxo
+- `src/Dungeon/App/_.bend`
+- `src/Dungeon/App/on_event.bend`
+- `src/Dungeon/App/persistence.bend`
+- `src/Dungeon/App/scene_flow.bend`
+- `src/Dungeon/App/state_helpers.bend`
+- `src/Dungeon/App/update_boosters.bend`
+- `src/Dungeon/App/update_character_select.bend`
+- `src/Dungeon/App/update_running.bend`
+- `src/Dungeon/App/use_ultimate.bend`
+
+Leitura estrutural
+- fluxo de cena, persistencia e atualizacao de estado acompanham o runtime novo
+- parte das alteracoes conversa com patches feitos no build
+
+8. Runtime JS gerado
+- `scripts/build.ts`
+
+Caracteristicas
+- patches em substituicao de DOM
+- ajuste em funcoes de replace do app runtime
+- normalizacao de identificadores invalidos
+- injecao de listener global de teclado
+
+9. Dados / assets tocados no mesmo conjunto
+- `data/`
+- `assets/`
+- `docs/assets/`
+- `data/editor/booster_metadata.json`
+
+Leitura estrutural
+- esse bloco aparece junto do port, mas nao representa sozinho a mudanca de compatibilidade
+- parte dele e derivado de build ou de geracao
+
+Arquivos-centro do update
+- `scripts/build.sh`
+- `scripts/build.ts`
+- `scripts/dungeon-data.ts`
+- `src/Content/_.bend`
+- `src/Nat/V2/_.bend`
+- `src/String/to_u32.bend`
+- `src/Dungeon/View/u32_grid.bend`
+- `src/Midum/_.bend`
+- `src/Dungeon/View/_.bend`

@@ -3,8 +3,8 @@
 # Images stay renderer-neutral. The current renderer lives under
 # /Midum/Internal/DOM/.
 
-import HTML
-import List/length
+import HTML as HTML
+import List/length as length
 import Midum/Internal/DOM/Image/render as dom_render
 import Nat/add as nat_add
 import Nat/compare as compare_nat
@@ -12,7 +12,8 @@ import Nat/div as div_nat
 import Nat/max as max_nat
 import Nat/mod as mod_nat
 import Nat/mul as mul_nat
-import Nat/pred as pred_nat
+import Nat/predecessor as pred_nat
+import U32/to_nat as u32_to_nat
 
 def with_width(cfg: Midum/Image/Config, next_width: Midum/Image/Size) -> Midum/Image/Config:
   match cfg:
@@ -75,7 +76,7 @@ def nth_or_empty(xs: List(String), idx: Nat) -> String:
 def frame_count(animation: Midum/Image/Animation) -> Nat:
   match animation:
     case animation{frames, fps, playback}:
-      List/length(String, frames)
+      u32_to_nat(length(String, frames))
 
 def frame_ms(animation: Midum/Image/Animation) -> Nat:
   match animation:
@@ -112,7 +113,7 @@ def current_frame_index(count: Nat, ms: Nat, playback: Midum/Image/Playback, sta
 def current_src(animation: Midum/Image/Animation, state: Midum/Image/State) -> String:
   match animation:
     case animation{frames, fps, playback}:
-      count = List/length(String, frames)
+      count = u32_to_nat(length(String, frames))
       ms = frame_ms(animation)
       nth_or_empty(frames, current_frame_index(count, ms, playback, state))
 
@@ -168,7 +169,7 @@ def step_checked(count: Nat, ms: Nat, playback: Midum/Image/Playback, delta_ms: 
 def step(animation: Midum/Image/Animation, delta_ms: Nat, state: Midum/Image/State) -> Midum/Image/Step:
   match animation:
     case animation{frames, fps, playback}:
-      count = List/length(String, frames)
+      count = u32_to_nat(length(String, frames))
       ms = frame_ms(animation)
       step_checked(count, ms, playback, delta_ms, state)
 

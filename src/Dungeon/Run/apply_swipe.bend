@@ -10,6 +10,7 @@ import Dungeon/Run/apply_to_tile/_apply_to_tile as _apply_to_tile
 import Dungeon/Board/indexing/adjacent_pos as adjacent_pos
 import Dungeon/Board/indexing/board_index as board_index
 import Dungeon/Board/indexing/board_get_pos as board_get_pos
+
 def _keep_run(meta_state: Meta, run_value: Run) -> SwipeResult:
   swipe_result{meta_state, keep_running{run_value}}
 

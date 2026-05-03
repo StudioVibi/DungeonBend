@@ -1,1 +1,1 @@
-import Dungeon/Combat/resolve_and_apply
+import Dungeon/Combat/resolve_and_apply as resolve_and_apply

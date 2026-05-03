@@ -3,7 +3,8 @@
 # This module maps concrete inline button{...} values to the current DOM
 # renderer and theme tracks.
 
-import HTML
+import HTML as HTML
+
 def primary(Event: Type, evt: Event, cfg: Midum/Button/Config) -> HTML(Event):
   button(Event, evt, cfg, "bc-btn-primary")
 

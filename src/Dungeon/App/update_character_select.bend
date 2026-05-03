@@ -14,6 +14,7 @@ import Dungeon/profile_helpers/profile_for_hero as profile_for_hero
 import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/profile_helpers/set_selected_hero as set_selected_hero
 import Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
+
 def update_character_select(evt: DungeonEvent, meta_state: Meta, preview_hero: U32, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case move{left{}}:

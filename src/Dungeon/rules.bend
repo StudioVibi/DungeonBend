@@ -6,6 +6,7 @@ import Dungeon/generated_rules/generated_starting_dungeon_level as generated_sta
 import Dungeon/generated_rules/generated_dungeon_level_increment_per_refill as generated_dungeon_level_increment_per_refill
 import Dungeon/generated_rules/generated_ultimate_charge_required as generated_ultimate_charge_required
 import Dungeon/generated_rules/generated_ultimate_charge_per_move as generated_ultimate_charge_per_move
+
 def initial_seed_value() -> U32:
   generated_initial_seed()
 

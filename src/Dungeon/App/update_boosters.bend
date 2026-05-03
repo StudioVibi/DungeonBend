@@ -25,6 +25,7 @@ import Dungeon/profile_helpers/meta_pack_inventory as meta_pack_inventory
 import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
 import Dungeon/profile_helpers/set_meta_bonus_deck as set_meta_bonus_deck
 import Dungeon/profile_helpers/set_meta_pack_inventory as set_meta_pack_inventory
+
 def update_boosters(evt: DungeonEvent, meta_state: Meta, reward: PackReward, reveal_index: U32, return_to: BoosterReturn, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case close_boosters{}:

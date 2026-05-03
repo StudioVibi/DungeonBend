@@ -3,7 +3,7 @@
     {
       "id": "starter_booster",
       "name": "Starter Booster",
-      "price": 100,
+      "price": 10,
       "reveal_count": 4,
       "allow_duplicates": false
     }

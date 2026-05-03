@@ -17,6 +17,7 @@ import Dungeon/profile_helpers/selected_hero as selected_hero
 import Dungeon/profile_helpers/active_profile as active_profile
 import Dungeon/profile_helpers/meta_bonus_deck as meta_bonus_deck
 import Dungeon/profile_helpers/profile_hero_level as profile_hero_level
+
 def _start_from_board(hero_max: U32, blueprint: List(DeckEntry), capacity: U32, hero_ref: U32, stage: BoardDraw) -> Run:
   match stage:
     case board_draw{board_value, next_counts, next_remaining, next_seed_value, next_level}:

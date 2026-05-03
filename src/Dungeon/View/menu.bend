@@ -1,5 +1,4 @@
-import HTML
-import U32 as U32
+import HTML as HTML
 import Dungeon/HeroDef as HeroDef
 import Dungeon/HeroProfile as HeroProfile
 import Dungeon/HeroPresentation as HeroPresentation
@@ -37,12 +36,16 @@ import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Midum/Button as Button
-import Midum/Button/Size
-import Midum/Card as Card
-import Midum/Layout as Layout
-import Midum/Text as Text
-import Midum/Text/Align
+import Midum/Button/primary as button_primary
+import Midum/Button/secondary as button_secondary
+import Midum/Card/neutral as card_neutral
+import Midum/Layout/frame as layout_frame
+import Midum/Layout/shell as layout_shell
+import Midum/Text/body as text_body
+import Midum/Text/h2 as text_h2
+import Midum/Text/label as text_label
+import Midum/Text/Align as Align
+
 def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
     <header class="topbar topbar--menu-home topbar--menu-home-desktop">
@@ -66,7 +69,7 @@ def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
   profile = active_profile(meta_state);
   <div class="menu-home-page">
     {_menu_shell(
-      Layout.frame(
+      layout_frame(
         DungeonEvent,
         <div class="menu-home-scene">
           {_menu_screen_frame(
@@ -79,27 +82,27 @@ def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
             _menu_actions_layout(meta_state)
           )}
         </div>,
-        [width_full{} height_full{} inset_none{}]
+        [width_full{}, height_full{}, inset_none{}]
       )
     )}
   </div>
 
 def _menu_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
-  Layout.shell(
+  layout_shell(
     DungeonEvent,
     body,
     [
-      max_width_px{value: 1080n}
-      height_viewport{}
-      overflow_hidden{}
-      safe_area{}
-      inset_px{top: 24n, right: 14n, bottom: 20n, left: 14n}
+      max_width_px{value: 1080n},
+      height_viewport{},
+      overflow_hidden{},
+      safe_area{},
+      inset_px{top: 24n, right: 14n, bottom: 20n, left: 14n},
       compact_inset_px{top: 20n, right: 12n, bottom: 18n, left: 12n}
     ]
   )
 
 def _menu_actions_layout(meta_state: Meta) -> HTML(DungeonEvent):
-  Layout.frame(
+  layout_frame(
     DungeonEvent,
     <section class="menu-actions">
       <div class="menu-actions__booster">
@@ -114,7 +117,7 @@ def _menu_actions_layout(meta_state: Meta) -> HTML(DungeonEvent):
         </div>
       </div>
     </section>,
-    [width_full{} height_fit{} inset_none{}]
+    [width_full{}, height_fit{}, inset_none{}]
   )
 
 def _render_character_select(meta_state: Meta, preview_hero: U32) -> HTML(DungeonEvent):
@@ -122,7 +125,7 @@ def _render_character_select(meta_state: Meta, preview_hero: U32) -> HTML(Dungeo
   profile = profile_for_hero(meta_state, preview_hero);
   presentation = hero_presentation_at(preview_hero);
   _character_select_shell(
-    Layout.frame(
+    layout_frame(
       DungeonEvent,
       _menu_screen_frame(
         _character_select_header(meta_state),
@@ -133,20 +136,20 @@ def _render_character_select(meta_state: Meta, preview_hero: U32) -> HTML(Dungeo
         </section>,
         _character_mobile_footer()
       ),
-      [width_full{} height_full{} inset_none{}]
+      [width_full{}, height_full{}, inset_none{}]
     )
   )
 
 def _character_select_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
-  Layout.shell(
+  layout_shell(
     DungeonEvent,
     body,
     [
-      max_width_px{value: 1080n}
-      height_viewport{}
-      overflow_hidden{}
-      safe_area{}
-      inset_px{top: 24n, right: 14n, bottom: 20n, left: 14n}
+      max_width_px{value: 1080n},
+      height_viewport{},
+      overflow_hidden{},
+      safe_area{},
+      inset_px{top: 24n, right: 14n, bottom: 20n, left: 14n},
       compact_inset_px{top: 20n, right: 12n, bottom: 18n, left: 12n}
     ]
   )
@@ -212,12 +215,12 @@ def _character_info_column(meta_state: Meta, preview_hero: U32, hero_value: Hero
 
 def _character_detail_name(hero_value: HeroDef) -> HTML(DungeonEvent):
   <div class="character-detail__name-outline">
-    {Text.h2(DungeonEvent, left{}, hero_name(hero_value), [])}
+    {text_h2(DungeonEvent, left{}, hero_name(hero_value), [])}
   </div>
 
 def _character_detail_lore(presentation: HeroPresentation) -> HTML(DungeonEvent):
   <div class="character-detail__lore">
-    {Text.body(DungeonEvent, left{}, hero_presentation_lore(presentation), [])}
+    {text_body(DungeonEvent, left{}, hero_presentation_lore(presentation), [])}
   </div>
 
 def _character_stats_row(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
@@ -249,11 +252,11 @@ def _character_locked_slot(profile: HeroProfile) -> HTML(DungeonEvent):
 
 def _character_ultimate_block(presentation: HeroPresentation) -> HTML(DungeonEvent):
   <section class="character-ultimate">
-    {Text.label(DungeonEvent, left{}, hero_presentation_ultimate_title(presentation), [])}
+    {text_label(DungeonEvent, left{}, hero_presentation_ultimate_title(presentation), [])}
     <div class="character-ultimate__body">
       <img class="character-ultimate__icon" src={hero_presentation_ultimate_icon(presentation)} alt={hero_presentation_ultimate_title(presentation)} />
       <div class="character-ultimate__description">
-        {Text.body(DungeonEvent, left{}, hero_presentation_ultimate_description(presentation), [])}
+        {text_body(DungeonEvent, left{}, hero_presentation_ultimate_description(presentation), [])}
       </div>
     </div>
   </section>
@@ -316,7 +319,7 @@ def _character_roster_items(meta_state: Meta, preview_hero: U32, hero_ref: U32, 
 
 def _character_roster_card(meta_state: Meta, preview_hero: U32, hero_ref: U32, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <button class={_character_roster_card_class(meta_state, preview_hero, hero_ref, profile)} type="button" on_click={preview_character{hero_ref}}>
-    {Card.neutral(
+    {card_neutral(
       DungeonEvent,
       <span class="character-roster-card__content">
         <span class="character-roster-card__image-wrap">
@@ -411,7 +414,7 @@ def _menu_home_info(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEv
 def _menu_home_hud(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="hero-hud hero-hud--menu-home">
     <div class="hero-hud__level">
-      {Text.label(DungeonEvent, left{}, hero_menu_level_text(profile), [])}
+      {text_label(DungeonEvent, left{}, hero_menu_level_text(profile), [])}
     </div>
     <div class="hero-hud__hp">
       <div class="hero-hud__heart">
@@ -437,7 +440,7 @@ def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroPr
 
 def _menu_start_button() -> HTML(DungeonEvent):
   <div class="menu-play-btn-wrap menu-play-btn-wrap--full">
-    {Button.primary(
+    {button_primary(
       DungeonEvent,
       start{},
       large{},
@@ -458,7 +461,7 @@ def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
 
 def _menu_deck_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {Button.secondary(
+    {button_secondary(
       DungeonEvent,
       ignore{},
       medium{},
@@ -468,7 +471,7 @@ def _menu_deck_button() -> HTML(DungeonEvent):
   </div>
 
 def _menu_upgrade_button() -> HTML(DungeonEvent):
-  Button.secondary(
+  button_secondary(
     DungeonEvent,
     open_character_select{},
     medium{},
@@ -478,7 +481,7 @@ def _menu_upgrade_button() -> HTML(DungeonEvent):
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {Button.secondary(
+    {button_secondary(
       DungeonEvent,
       upgrade{},
       medium{},
@@ -489,7 +492,7 @@ def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: He
 
 def _character_booster_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {Button.secondary(
+    {button_secondary(
       DungeonEvent,
       open_boosters{},
       medium{},
@@ -500,7 +503,7 @@ def _character_booster_button() -> HTML(DungeonEvent):
 
 def _character_back_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {Button.secondary(
+    {button_secondary(
       DungeonEvent,
       close_character_select{},
       medium{},
@@ -511,7 +514,7 @@ def _character_back_button() -> HTML(DungeonEvent):
 
 def _header_characters_action() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {Button.secondary(
+    {button_secondary(
       DungeonEvent,
       open_character_select{},
       small{},
@@ -523,7 +526,7 @@ def _header_characters_action() -> HTML(DungeonEvent):
 def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:
     case 0:
-      [width_full{} state_disabled{}]
+      [width_full{}, state_disabled{}]
     case _:
       [width_full{}]
 
@@ -535,7 +538,7 @@ def _fit_button_overrides(enabled: U32) -> List(Midum/Button/Override):
       []
 
 def _menu_upgrade_button_overrides() -> List(Midum/Button/Override):
-  [icon_left{src: _menu_upgrade_icon()} shape_square{}]
+  [icon_left{src: _menu_upgrade_icon()}, shape_square{}]
 
 def _action_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:

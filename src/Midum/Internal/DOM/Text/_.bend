@@ -2,7 +2,8 @@
 #
 # This module maps concrete text config values to the current DOM renderer.
 
-import HTML
+import HTML as HTML
+
 def align_class(align: Midum/Text/Align) -> String:
   match align:
     case left{}:

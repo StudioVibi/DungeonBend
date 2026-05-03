@@ -5,6 +5,7 @@ import Dungeon/HeroProfile as HeroProfile
 import Dungeon/Meta as Meta
 import Dungeon/MonsterDef as MonsterDef
 import Dungeon/PackDef as PackDef
+
 # === Dungeon System — laws mirroring design-rules.md §"Dungeon System" ===
 #
 # This file formalizes the affirmative rules from design-rules.md that

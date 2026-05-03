@@ -3,7 +3,7 @@
 # The public API stays renderer-neutral. Today, screen() is implemented by the
 # internal DOM renderer.
 
-import HTML
+import HTML as HTML
 import Midum/Config/palette as current_palette
 import Midum/Config/style as current_style
 import Midum/Internal/DOM/Button/base_css as button_base_css
@@ -23,6 +23,7 @@ import Midum/Internal/DOM/Theme/base_css as theme_base_css
 import Midum/Internal/DOM/Theme/orange_css as theme_orange_css
 import Midum/Internal/DOM/Theme/olive_css as theme_olive_css
 import Midum/Internal/DOM/Theme/root_class as root_class
+
 def screen(Event: Type, body: HTML(Event)) -> HTML(Event):
   <main class={"bc-font-ui " ++ root_class(current_palette(), current_style())}>
     <style>{text{theme_base_css()}}</style>

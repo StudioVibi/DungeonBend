@@ -1,4 +1,3 @@
-import U32 as U32
 import Nat as Nat
 import Nat/V2/Map/fill as map_fill
 import Nat/V2/Map/get as map_get
@@ -6,8 +5,9 @@ import Nat/V2/Map/set as map_set
 import Dungeon/Board as Board
 import Dungeon/Tile as Tile
 import Dungeon/Direction as Direction
+
 def board_xy_pos(x: U32, y: U32) -> Nat/V2:
-  v2{U32.to_nat(x), U32.to_nat(y)}
+  v2{U32/to_nat(x), U32/to_nat(y)}
 
 def board_pos(idx: U32) -> Nat/V2:
   match idx:
