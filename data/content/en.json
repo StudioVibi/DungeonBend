@@ -11,10 +11,10 @@
   "monster.spider.name": "Spider",
   "monster.venom_spider.name": "Venom Spider",
   "monster.orc.name": "Orc",
-  "weapon.sword_1.name": "Sword",
-  "weapon.sword_2.name": "Sword",
-  "weapon.sword_3.name": "Sword",
-  "potion.potion_1.name": "Potion",
+  "weapon.sword_1.name": "Sword A",
+  "weapon.sword_2.name": "Sword S",
+  "weapon.sword_3.name": "Sword S+",
+  "potion.potion_1.name": "Health Potion",
   "booster.starter_booster.name": "Starter Booster",
   "fallback.monster.name": "Monster",
   "fallback.weapon.name": "Sword",
@@ -70,5 +70,7 @@
   "ui.gameOver.title": "Game Over",
   "ui.gameOver.ok": "OK",
   "ui.gameOver.resumeDungeon": "Resume dungeon",
-  "ui.gameOver.mainMenu": "Main menu"
+  "ui.gameOver.mainMenu": "Main menu",
+  "potion.potion_2.name": "Big Health Potion",
+  "potion.potion_3.name": "Giant Health Potion"
 }

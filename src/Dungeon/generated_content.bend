@@ -53,7 +53,13 @@ def monster_venom_spider_name() -> String:
   "Venom Spider"
 
 def potion_potion_1_name() -> String:
-  "Potion"
+  "Health Potion"
+
+def potion_potion_2_name() -> String:
+  "Big Health Potion"
+
+def potion_potion_3_name() -> String:
+  "Giant Health Potion"
 
 def stat_dmg() -> String:
   "DMG"
@@ -206,11 +212,11 @@ def ui_upgrade_upgrade_prefix() -> String:
   "Upgrade - "
 
 def weapon_sword_1_name() -> String:
-  "Sword"
+  "Sword A"
 
 def weapon_sword_2_name() -> String:
-  "Sword"
+  "Sword S"
 
 def weapon_sword_3_name() -> String:
-  "Sword"
+  "Sword S+"
 

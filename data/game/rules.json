@@ -1,7 +1,7 @@
 {
   "initial_seed": 1,
   "starting_gold": 0,
-  "starting_selected_hero_id": "adventurer",
+  "starting_selected_hero_id": "gato_de_botas",
   "starting_selection_confirmed": true,
   "starting_dungeon_level": 1,
   "dungeon_level_increment_per_refill": 1,
