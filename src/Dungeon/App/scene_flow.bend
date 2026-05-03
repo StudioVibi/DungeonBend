@@ -16,6 +16,7 @@ import Dungeon/App/update_ultimate_cinematic as update_ultimate_cinematic
 import Dungeon/App/update_resume_prompt as update_resume_prompt
 import Dungeon/App/update_game_over as update_game_over
 import Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
+
 def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
   match state:
     case dungeon{game_state{meta_state, setup{}, next_seed_value}, ui_value}:

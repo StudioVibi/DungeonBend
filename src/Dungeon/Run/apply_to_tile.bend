@@ -14,6 +14,7 @@ import Dungeon/Board/shift_after_move as shift_after_move
 import Dungeon/Combat/resolve_and_apply/resolve_monster as resolve_monster
 import Dungeon/profile_helpers/meta_gold as meta_gold
 import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
+
 def _min_u32(a: U32, b: U32) -> U32:
   _min_u32_flag(a < b, a, b)
 

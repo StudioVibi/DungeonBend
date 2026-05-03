@@ -18,6 +18,7 @@ import Dungeon/App/ui_fx/_advance_with_charge as _advance_with_charge
 import Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
 import Dungeon/UltimateCutins/duration_ticks_for_hero_ref as duration_ticks_for_hero_ref
 import Dungeon/rules/ultimate_charge_required as ultimate_charge_required
+
 def _state_from_swipe(result: SwipeResult, current_run: Run, next_seed_value: U32, current_ui: UiState, dir: Direction) -> DungeonState:
   match result:
     case swipe_result{next_meta, next_advance}:

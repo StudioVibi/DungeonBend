@@ -1,6 +1,7 @@
-import HTML
+import HTML as HTML
 import Dungeon/UltimateCutinSpec as UltimateCutinSpec
 import Dungeon/DungeonEvent as DungeonEvent
+
 def _render_ultimate_cutin(spec: UltimateCutinSpec, stage_fx_class: String) -> HTML(DungeonEvent):
   node{
     "div",
@@ -12,10 +13,10 @@ def _ultimate_cutin_attrs(stage_fx_class: String, spec: UltimateCutinSpec) -> Li
   match spec:
     case ultimate_cutin_spec{banner_src, character_src, desktop_y_offset, mobile_y_offset, character_width, band_height, duration_ticks, sound_placeholder}:
       [
-        attr{"class", "ultimate-cutin-stage " ++ stage_fx_class}
-        style{"--ultimate-cutin-band-height", band_height}
-        style{"--ultimate-cutin-character-width", character_width}
-        style{"--ultimate-cutin-desktop-y-offset", desktop_y_offset}
+        attr{"class", "ultimate-cutin-stage " ++ stage_fx_class},
+        style{"--ultimate-cutin-band-height", band_height},
+        style{"--ultimate-cutin-character-width", character_width},
+        style{"--ultimate-cutin-desktop-y-offset", desktop_y_offset},
         style{"--ultimate-cutin-mobile-y-offset", mobile_y_offset}
       ]
 

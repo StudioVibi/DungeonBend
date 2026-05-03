@@ -3,7 +3,7 @@
 # The public surface stays renderer-neutral. The current renderer lives under
 # /Midum/Internal/DOM/.
 
-import HTML
+import HTML as HTML
 import Midum/Config/button_defaults as current_button_defaults
 import Midum/Internal/DOM/Button/primary as dom_primary
 import Midum/Internal/DOM/Button/neutral as dom_neutral
@@ -11,6 +11,7 @@ import Midum/Internal/DOM/Button/secondary as dom_secondary
 import Midum/Internal/DOM/Button/success as dom_success
 import Midum/Internal/DOM/Button/warning as dom_warning
 import Midum/Internal/DOM/Button/danger as dom_danger
+
 def apply_override(cfg: Midum/Button/Config, override: Midum/Button/Override) -> Midum/Button/Config:
   match cfg override:
     case button{text, icon, shape, size, width, state} icon_off{}:

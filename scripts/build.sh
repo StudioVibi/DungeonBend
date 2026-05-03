@@ -4,10 +4,21 @@ set -eu
 out_dir="${OUT_DIR:-dist}"
 out_html="$out_dir/index.html"
 out_assets="$out_dir/assets"
+bend_dir="${BEND_DIR:-../Bend2}"
 
 mkdir -p "$out_assets"
 
-bun scripts/build.ts src/main.bend "$out_html"
+bun -e 'import { generateDungeonConfig } from "./scripts/dungeon-data.ts"; await generateDungeonConfig(process.cwd());'
+bun scripts/generate-dungeon-view-css.ts
+
+if [ -f "$bend_dir/bend/src/Bend.ts" ] || [ -f "$bend_dir/bend-ts/src/Bend.ts" ]; then
+  bun scripts/build.ts src/main.bend "$out_html"
+elif command -v bend >/dev/null 2>&1; then
+  bend src/main.bend --to-web > "$out_html"
+else
+  echo "Bend2 CLI not found. Set BEND_DIR, install bend globally, or keep ../Bend2 next to this repo with bend/src or bend-ts/src." >&2
+  exit 1
+fi
 
 cp -R assets/. "$out_assets"/
 touch "$out_dir/.nojekyll"

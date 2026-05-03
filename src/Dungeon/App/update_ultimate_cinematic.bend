@@ -5,6 +5,7 @@ import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/DungeonState as DungeonState
 import Dungeon/App/state_helpers/_state as _state
 import Dungeon/App/use_ultimate as use_ultimate
+
 def _advance_ultimate_cinematic(meta_state: Meta, run_value: Run, ticks_remaining: U32, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   _advance_ultimate_cinematic_done(ticks_remaining < 2, meta_state, run_value, ticks_remaining, next_seed_value, ui_value)
 

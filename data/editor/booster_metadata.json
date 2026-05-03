@@ -1,5 +1,6 @@
 {
   "pack_colors": {
     "starter_booster": "green"
-  }
+  },
+  "disabled_pool_rows": []
 }

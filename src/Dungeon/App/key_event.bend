@@ -1,4 +1,5 @@
 import Dungeon/DungeonEvent as DungeonEvent
+
 def key_event(key: U32) -> DungeonEvent:
   match key:
     case 27:

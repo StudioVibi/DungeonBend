@@ -1,4 +1,3 @@
-import U32 as U32
 import Dungeon/Scene as Scene
 import Dungeon/GameState as GameState
 import Dungeon/UiState as UiState
@@ -9,13 +8,14 @@ import Dungeon/run_snapshot_to_string/run_weapon_string as run_weapon_string
 import Dungeon/run_snapshot_to_string/run_board_string as run_board_string
 import Dungeon/run_snapshot_to_string/run_blueprint_string as run_blueprint_string
 import Dungeon/run_snapshot_to_string/run_counts_string as run_counts_string
+
 def save_to_string(state: DungeonState) -> String:
   match state:
     case dungeon{game_state{meta_state, scene_value, next_seed}, ui_value}:
       String/join(
         [
           meta_to_string(meta_state),
-          U32.show(next_seed),
+          U32/show(next_seed),
           _saved_scene_kind(scene_value),
           _saved_run_core(scene_value),
           _saved_run_weapon(scene_value),

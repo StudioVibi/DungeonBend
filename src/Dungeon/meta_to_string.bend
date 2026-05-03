@@ -1,4 +1,3 @@
-import U32 as U32
 import Dungeon/Meta as Meta
 import Dungeon/Config as Config
 import Dungeon/HeroDef as HeroDef
@@ -15,6 +14,7 @@ import Dungeon/Boosters/inventory/pack_inventory_count as pack_inventory_count
 import Dungeon/profile_helpers/default_profile_for_hero as default_profile_for_hero
 import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/profile_helpers/profile_hero_level as profile_hero_level
+
 def meta_to_string(meta_state: Meta) -> String:
   _meta_to_string_from_config(config(), meta_state)
 
@@ -24,9 +24,9 @@ def _meta_to_string_from_config(config_value: Config, meta_state: Meta) -> Strin
       String/join(
         [
           "v5",
-          U32.show(selected_hero_ref),
-          U32.show(selection_confirmed_value),
-          U32.show(gold),
+          U32/show(selected_hero_ref),
+          U32/show(selection_confirmed_value),
+          U32/show(gold),
           String/join(_monster_bonus_counts(monsters, bonus_deck, 0), ","),
           String/join(_sword_bonus_counts(swords, bonus_deck, 0), ","),
           String/join(_potion_bonus_counts(potions, bonus_deck, 0), ","),
@@ -48,8 +48,8 @@ def _profile_strings(heroes: List(HeroDef), profiles: List(HeroProfile), hero_re
 def _profile_string(profile: HeroProfile) -> String:
   String/join(
     [
-      U32.show(profile_unlocked(profile)),
-      U32.show(profile_hero_level(profile))
+      U32/show(profile_unlocked(profile)),
+      U32/show(profile_hero_level(profile))
     ],
     "~"
   )
@@ -59,25 +59,25 @@ def _monster_bonus_counts(monsters: List(MonsterDef), bonus_deck: List(DeckEntry
     case []:
       []
     case monster_def{name, sprite, gold_drop, hp_levels}<>rest:
-      U32.show(deck_count_for_card(bonus_deck, monster_card{idx}))<>_monster_bonus_counts(rest, bonus_deck, idx + 1)
+      U32/show(deck_count_for_card(bonus_deck, monster_card{idx}))<>_monster_bonus_counts(rest, bonus_deck, idx + 1)
 
 def _sword_bonus_counts(swords: List(SwordDef), bonus_deck: List(DeckEntry), idx: U32) -> List(String):
   match swords:
     case []:
       []
     case sword_def{name, sprite, dmg}<>rest:
-      U32.show(deck_count_for_card(bonus_deck, sword_card{idx}))<>_sword_bonus_counts(rest, bonus_deck, idx + 1)
+      U32/show(deck_count_for_card(bonus_deck, sword_card{idx}))<>_sword_bonus_counts(rest, bonus_deck, idx + 1)
 
 def _potion_bonus_counts(potions: List(PotionDef), bonus_deck: List(DeckEntry), idx: U32) -> List(String):
   match potions:
     case []:
       []
     case potion_def{name, sprite, heal}<>rest:
-      U32.show(deck_count_for_card(bonus_deck, potion_card{idx}))<>_potion_bonus_counts(rest, bonus_deck, idx + 1)
+      U32/show(deck_count_for_card(bonus_deck, potion_card{idx}))<>_potion_bonus_counts(rest, bonus_deck, idx + 1)
 
 def _pack_inventory_counts(packs: List(PackDef), pack_inventory: List(PackInventoryEntry), idx: U32) -> List(String):
   match packs:
     case []:
       []
     case pack_def{name, price, reveal_count, allow_duplicates, pool}<>rest:
-      U32.show(pack_inventory_count(pack_inventory, idx))<>_pack_inventory_counts(rest, pack_inventory, idx + 1)
+      U32/show(pack_inventory_count(pack_inventory, idx))<>_pack_inventory_counts(rest, pack_inventory, idx + 1)

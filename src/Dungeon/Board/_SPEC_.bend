@@ -1,6 +1,7 @@
 import Dungeon/Direction as Direction
 import Dungeon/Board/indexing/board_pos as board_pos
 import Dungeon/Board/indexing/adjacent_pos as adjacent_pos
+
 # === Scene Setup / Movement — laws mirroring design-rules.md
 # §"Dungeon Scene Setup" ===
 #

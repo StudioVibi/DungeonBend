@@ -1,6 +1,7 @@
 import Dungeon/HeroPresentation as HeroPresentation
 import Dungeon/PresentationAlign as PresentationAlign
 import Dungeon/generated_hero_presentation as generated_hero_presentation
+
 def hero_presentations() -> List(HeroPresentation):
   generated_hero_presentation()
 

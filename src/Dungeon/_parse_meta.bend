@@ -27,6 +27,7 @@ import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
 import Dungeon/profile_helpers/set_meta_bonus_deck as set_meta_bonus_deck
 import Dungeon/profile_helpers/set_meta_pack_inventory as set_meta_pack_inventory
 import Dungeon/profile_helpers/update_profile as update_profile
+
 def _parse_meta(s: String) -> DungeonEvent:
   _parse_sections(String/split(s, '|'))
 

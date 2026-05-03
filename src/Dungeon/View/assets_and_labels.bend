@@ -1,4 +1,3 @@
-import U32 as U32
 import Dungeon/Config as Config
 import Dungeon/HeroDef as HeroDef
 import Dungeon/MonsterDef as MonsterDef
@@ -11,6 +10,7 @@ import Dungeon/hero_helpers/hero_at as hero_at
 import Dungeon/hero_helpers/hero_name as hero_name
 import Dungeon/hero_helpers/hero_sprite as hero_sprite
 import Dungeon/Content as Content
+
 def _hero_name() -> String:
   hero_name(hero_at(config(), 0))
 
@@ -186,13 +186,13 @@ def _tile_badge(tile: Tile) -> String:
     case none{}:
       ""
     case monster{ref, hp}:
-      Content.stat_hp() ++ " " ++ U32.show(hp)
+      Content.stat_hp() ++ " " ++ U32/show(hp)
     case sword{ref, dmg}:
-      Content.stat_dmg() ++ " " ++ U32.show(dmg)
+      Content.stat_dmg() ++ " " ++ U32/show(dmg)
     case potion{ref, heal}:
-      Content.stat_heal() ++ " " ++ U32.show(heal)
+      Content.stat_heal() ++ " " ++ U32/show(heal)
     case gold{amount}:
-      Content.stat_gold() ++ " " ++ U32.show(amount)
+      Content.stat_gold() ++ " " ++ U32/show(amount)
 
 def _card_name(card: CardRef) -> String:
   match card:
@@ -275,7 +275,7 @@ def _monster_hp_range_from_list(monsters: List(MonsterDef), ref: U32) -> String:
     case monster_def{name, sprite, gold_drop, hp_levels}<>rest:
       match ref:
         case 0:
-          U32.show(_first_hp(hp_levels)) ++ " - " ++ U32.show(_last_hp(hp_levels, 1))
+          U32/show(_first_hp(hp_levels)) ++ " - " ++ U32/show(_last_hp(hp_levels, 1))
         case _:
           _monster_hp_range_from_list(rest, ref - 1)
 
@@ -284,9 +284,9 @@ def _card_stat_range(card: CardRef) -> String:
     case monster_card{ref}:
       Content.stat_hp() ++ ": " ++ _monster_hp_range(ref)
     case sword_card{ref}:
-      Content.stat_dmg() ++ ": " ++ U32.show(_sword_damage_value(ref))
+      Content.stat_dmg() ++ ": " ++ U32/show(_sword_damage_value(ref))
     case potion_card{ref}:
-      Content.stat_heal() ++ ": " ++ U32.show(_potion_heal_value(ref))
+      Content.stat_heal() ++ ": " ++ U32/show(_potion_heal_value(ref))
     case hero_card{}:
       ""
 

@@ -5,6 +5,7 @@ import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/DungeonState as DungeonState
 import Dungeon/default_ui as default_ui
 import Dungeon/App/state_helpers/_state as _state
+
 def update_ultimate_preview(evt: DungeonEvent, meta_state: Meta, fx: UltimatePreviewFx, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case close_ultimate_preview{}:

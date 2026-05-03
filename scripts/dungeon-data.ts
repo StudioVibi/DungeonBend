@@ -217,10 +217,6 @@ function fail(message: string): never {
   throw new Error(`Dungeon data error: ${message}`);
 }
 
-function bendImport(specifier: string, alias?: string): string {
-  return alias === undefined ? `import ${specifier}` : `import ${specifier} as ${alias}`;
-}
-
 async function readJson<T>(cwd: string, relPath: string): Promise<T> {
   return (await Bun.file(path.resolve(cwd, relPath)).json()) as T;
 }
@@ -714,6 +710,8 @@ function indent(size: number): string {
   return " ".repeat(size);
 }
 
+const BEND_LIST_CHUNK_SIZE = 16;
+
 function bendList(items: string[], size: number): string {
   if (items.length === 0) {
     return "[]";
@@ -721,6 +719,64 @@ function bendList(items: string[], size: number): string {
   const outer = indent(size);
   const inner = indent(size + 2);
   return `[\n${items.map((item) => `${inner}${item}`).join(",\n")}\n${outer}]`;
+}
+
+function chunkItems<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+  return chunks;
+}
+
+type RenderedListHelpers = {
+  defs: string[];
+  expr: string;
+};
+
+function renderTypedListHelpers(baseName: string, itemType: string, items: string[]): RenderedListHelpers {
+  if (items.length === 0) {
+    return {
+      defs: [],
+      expr: "[]",
+    };
+  }
+
+  const defs: string[] = [];
+  const chunkNames = chunkItems(items, BEND_LIST_CHUNK_SIZE).map((chunk, chunkIndex) => {
+    const name = `${baseName}_chunk_${chunkIndex}`;
+    defs.push(`def ${name}() -> List(${itemType}):`);
+    defs.push(`  ${bendList(chunk, 2)}`);
+    defs.push("");
+    return name;
+  });
+
+  let currentNames = chunkNames;
+  let depth = 0;
+
+  while (currentNames.length > 1) {
+    const nextNames: string[] = [];
+    for (let index = 0; index < currentNames.length; index += 2) {
+      const left = currentNames[index];
+      const right = currentNames[index + 1];
+      if (right === undefined) {
+        nextNames.push(left);
+        continue;
+      }
+      const name = `${baseName}_join_${depth}_${Math.floor(index / 2)}`;
+      defs.push(`def ${name}() -> List(${itemType}):`);
+      defs.push(`  append(${itemType}, ${left}(), ${right}())`);
+      defs.push("");
+      nextNames.push(name);
+    }
+    currentNames = nextNames;
+    depth += 1;
+  }
+
+  return {
+    defs,
+    expr: `${currentNames[0]}()`,
+  };
 }
 
 function contentFunctionName(key: string): string {
@@ -804,6 +860,7 @@ function heroUpgradesFor(data: GameData, heroId: string): RawHeroUpgrade[] {
 export function renderConfigModule(data: GameData): string {
   assertValidGameData(data);
   const cardIndexes = buildCardIndexes(data);
+  const helperDefs: string[] = [];
 
   const heroes = data.heroes.map((hero, index) => {
     const heroId = validateString(hero.id, `heroes[${index}].id`);
@@ -816,7 +873,9 @@ export function renderConfigModule(data: GameData): string {
       validatePositiveInt(upgrade.max_hp, `hero_upgrades["${heroId}"][${upgradeIndex}].max_hp`);
       return `upgrade{${upgrade.cost}, ${upgrade.max_hp}}`;
     });
-    return `hero_def{${bendString(heroId)}, ${bendString(heroName)}, ${bendString(hero.sprite)}, ${hero.base_max_hp}, ${hero.unlock_cost}, ${hero.starts_unlocked ? 1 : 0}, ${bendList(upgrades, 6)}}`;
+    const renderedUpgrades = renderTypedListHelpers(`generated_hero_${index}_upgrades`, "Upgrade", upgrades);
+    helperDefs.push(...renderedUpgrades.defs);
+    return `hero_def{${bendString(heroId)}, ${bendString(heroName)}, ${bendString(hero.sprite)}, ${hero.base_max_hp}, ${hero.unlock_cost}, ${hero.starts_unlocked ? 1 : 0}, ${renderedUpgrades.expr}}`;
   });
 
   const monsterDefs = data.monsters.map((monster, index) => {
@@ -827,7 +886,9 @@ export function renderConfigModule(data: GameData): string {
     const hpLevels = monster.hp_by_level.map((value, levelIndex) =>
       String(validatePositiveInt(value, `monsters[${index}].hp_by_level[${levelIndex}]`))
     );
-    return `monster_def{${bendString(monsterName)}, ${bendString(monster.sprite)}, ${monster.gold_drop}, ${bendList(hpLevels, 6)}}`;
+    const renderedHpLevels = renderTypedListHelpers(`generated_monster_${index}_hp_levels`, "U32", hpLevels);
+    helperDefs.push(...renderedHpLevels.defs);
+    return `monster_def{${bendString(monsterName)}, ${bendString(monster.sprite)}, ${monster.gold_drop}, ${renderedHpLevels.expr}}`;
   });
 
   const swordDefs = data.weapons.map((weapon, index) => {
@@ -905,29 +966,49 @@ export function renderConfigModule(data: GameData): string {
       }
       return `pack_pool_entry{${renderCardRef(card)}, ${entry.weight}}`;
     });
-    return `pack_def{${bendString(packName)}, ${pack.price}, ${pack.reveal_count}, ${pack.allow_duplicates ? 1 : 0}, ${bendList(renderedPool, 6)}}`;
+    const renderedPackPool = renderTypedListHelpers(`generated_pack_${index}_pool`, "PackPoolEntry", renderedPool);
+    helperDefs.push(...renderedPackPool.defs);
+    return `pack_def{${bendString(packName)}, ${pack.price}, ${pack.reveal_count}, ${pack.allow_duplicates ? 1 : 0}, ${renderedPackPool.expr}}`;
   });
 
+  const renderedHeroes = renderTypedListHelpers("generated_config_heroes", "HeroDef", heroes);
+  const renderedMonsters = renderTypedListHelpers("generated_config_monsters", "MonsterDef", monsterDefs);
+  const renderedSwords = renderTypedListHelpers("generated_config_swords", "SwordDef", swordDefs);
+  const renderedPotions = renderTypedListHelpers("generated_config_potions", "PotionDef", potionDefs);
+  const renderedBaseDeck = renderTypedListHelpers("generated_config_base_deck", "DeckEntry", baseDeck);
+  const renderedPacks = renderTypedListHelpers("generated_config_packs", "PackDef", packs);
+
+  helperDefs.push(
+    ...renderedHeroes.defs,
+    ...renderedMonsters.defs,
+    ...renderedSwords.defs,
+    ...renderedPotions.defs,
+    ...renderedBaseDeck.defs,
+    ...renderedPacks.defs
+  );
+
   return [
-    bendImport("Dungeon/Config", "Config"),
-    bendImport("Dungeon/HeroDef", "HeroDef"),
-    bendImport("Dungeon/Upgrade", "Upgrade"),
-    bendImport("Dungeon/MonsterDef", "MonsterDef"),
-    bendImport("Dungeon/SwordDef", "SwordDef"),
-    bendImport("Dungeon/PotionDef", "PotionDef"),
-    bendImport("Dungeon/DeckEntry", "DeckEntry"),
-    bendImport("Dungeon/CardRef", "CardRef"),
-    bendImport("Dungeon/PackPoolEntry", "PackPoolEntry"),
-    bendImport("Dungeon/PackDef", "PackDef"),
+    "import Dungeon/Config as Config",
+    "import Dungeon/HeroDef as HeroDef",
+    "import Dungeon/Upgrade as Upgrade",
+    "import Dungeon/MonsterDef as MonsterDef",
+    "import Dungeon/SwordDef as SwordDef",
+    "import Dungeon/PotionDef as PotionDef",
+    "import Dungeon/DeckEntry as DeckEntry",
+    "import Dungeon/CardRef as CardRef",
+    "import Dungeon/PackPoolEntry as PackPoolEntry",
+    "import Dungeon/PackDef as PackDef",
+    "import List/append as append",
     "",
+    ...helperDefs,
     "def generated_config() -> Config:",
     "  config{",
-    `    ${bendList(heroes, 4)},`,
-    `    ${bendList(monsterDefs, 4)},`,
-    `    ${bendList(swordDefs, 4)},`,
-    `    ${bendList(potionDefs, 4)},`,
-    `    ${bendList(baseDeck, 4)},`,
-    `    ${bendList(packs, 4)},`,
+    `    ${renderedHeroes.expr},`,
+    `    ${renderedMonsters.expr},`,
+    `    ${renderedSwords.expr},`,
+    `    ${renderedPotions.expr},`,
+    `    ${renderedBaseDeck.expr},`,
+    `    ${renderedPacks.expr},`,
     `    ${data.rules.starting_dungeon_level}`,
     "  }",
     "",
@@ -993,13 +1074,16 @@ export function renderHeroPresentationModule(data: GameData): string {
     const ultimateDesc = requireContent(data, heroUltimateDescKey(hero.id));
     return `hero_presentation{${bendString(hero.id)}, ${renderPresentationAlign(presentation.name_align, `presentation["${hero.id}"].name_align`)}, ${bendString(lore)}, ${bendString(ultimateTitle)}, ${bendString(presentation.ultimate_icon)}, ${bendString(ultimateDesc)}}`;
   });
+  const renderedPresentations = renderTypedListHelpers("generated_hero_presentation_items", "HeroPresentation", presentations);
 
   return [
-    bendImport("Dungeon/HeroPresentation", "HeroPresentation"),
-    bendImport("Dungeon/PresentationAlign", "PresentationAlign"),
+    "import Dungeon/HeroPresentation as HeroPresentation",
+    "import Dungeon/PresentationAlign as PresentationAlign",
+    "import List/append as append",
     "",
+    ...renderedPresentations.defs,
     "def generated_hero_presentation() -> List(HeroPresentation):",
-    `  ${bendList(presentations, 2)}`,
+    `  ${renderedPresentations.expr}`,
     "",
   ].join("\n");
 }

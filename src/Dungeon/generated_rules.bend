@@ -5,7 +5,7 @@ def generated_starting_gold() -> U32:
   0
 
 def generated_starting_selected_hero() -> U32:
-  0
+  1
 
 def generated_starting_selection_confirmed() -> U32:
   1

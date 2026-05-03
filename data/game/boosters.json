@@ -3,35 +3,50 @@
     {
       "id": "starter_booster",
       "name": "Starter Booster",
-      "price": 1,
-      "reveal_count": 3,
+      "price": 10,
+      "reveal_count": 4,
       "allow_duplicates": false
     }
   ],
   "pool": [
     {
       "pack_id": "starter_booster",
-      "card_id": "venom_spider",
-      "weight": 1
+      "card_id": "spider",
+      "weight": 4
     },
     {
       "pack_id": "starter_booster",
       "card_id": "orc",
-      "weight": 1
+      "weight": 4
     },
     {
       "pack_id": "starter_booster",
       "card_id": "sword_1",
-      "weight": 1
+      "weight": 3
     },
     {
       "pack_id": "starter_booster",
       "card_id": "sword_2",
+      "weight": 2
+    },
+    {
+      "pack_id": "starter_booster",
+      "card_id": "sword_3",
       "weight": 1
     },
     {
       "pack_id": "starter_booster",
       "card_id": "potion_1",
+      "weight": 3
+    },
+    {
+      "pack_id": "starter_booster",
+      "card_id": "potion_2",
+      "weight": 2
+    },
+    {
+      "pack_id": "starter_booster",
+      "card_id": "potion_3",
       "weight": 1
     }
   ]

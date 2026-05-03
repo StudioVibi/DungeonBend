@@ -3,6 +3,7 @@ import Dungeon/DeckEntry as DeckEntry
 import Dungeon/PackReward as PackReward
 import Dungeon/Deck/counts_pick/card_ref_entry as card_ref_entry
 import Dungeon/Deck/counts_pick/add_deck_entry as add_deck_entry
+
 def bonus_deck_after_reward(bonus_deck: List(DeckEntry), reward: PackReward) -> List(DeckEntry):
   match reward:
     case no_pack_reward{}:

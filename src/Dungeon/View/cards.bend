@@ -1,5 +1,4 @@
-import HTML
-import U32 as U32
+import HTML as HTML
 import Dungeon/HeroDef as HeroDef
 import Dungeon/Weapon as Weapon
 import Dungeon/Tile as Tile
@@ -8,8 +7,8 @@ import Dungeon/HpFx as HpFx
 import Dungeon/DmgFx as DmgFx
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/Board/indexing/same_pos as same_pos
-import Midum/Card as Card
-import Midum/Image as Image
+import Midum/Card/neutral as card_neutral
+import Midum/Image/animated as image_animated
 import Dungeon/hero_helpers/hero_name as hero_name
 import Dungeon/hero_helpers/hero_sprite as hero_sprite
 import Dungeon/View/assets_and_labels/_tile_name as _tile_name
@@ -17,11 +16,12 @@ import Dungeon/View/assets_and_labels/_tile_sprite as _tile_sprite
 import Dungeon/View/assets_and_labels/_tile_badge as _tile_badge
 import Dungeon/monster_damage_animation/clip as monster_damage_clip
 import Dungeon/Content as Content
+
 def _hero_card_values(hero_value: HeroDef, hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx) -> HTML(DungeonEvent):
-  Card.neutral(
+  card_neutral(
     DungeonEvent,
     <div class={_hero_card_class(dmg_fx)} data-dmg={_hero_damage_attr(weapon_value)}>
-      <div class={_hero_hp_badge_class(hp_fx)}>{text{Content.stat_hp() ++ " " ++ U32.show(hero_hp) ++ "/" ++ U32.show(hero_max_hp)}}</div>
+      <div class={_hero_hp_badge_class(hp_fx)}>{text{Content.stat_hp() ++ " " ++ U32/show(hero_hp) ++ "/" ++ U32/show(hero_max_hp)}}</div>
       <div class="card__art-wrap">
         <img class="card__art" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
       </div>
@@ -60,15 +60,15 @@ def _hero_damage_attr(weapon_value: Weapon) -> String:
     case no_weapon{}:
       ""
     case weapon{ref, dmg}:
-      Content.stat_dmg() ++ " " ++ U32.show(dmg)
+      Content.stat_dmg() ++ " " ++ U32/show(dmg)
 
 def _monster_fx_overrides() -> List(Midum/Image/Override):
-  [width_px{value: 112n} height_px{value: 112n} fit_contain{} sampling_pixelated{}]
+  [width_px{value: 112n}, height_px{value: 112n}, fit_contain{}, sampling_pixelated{}]
 
 def _tile_card(tile: Tile, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(DungeonEvent):
   match tile:
     case none{}:
-      Card.neutral(
+      card_neutral(
         DungeonEvent,
         <div class="card card--empty">
           <div class="card__empty">{text{Content.card_empty()}}</div>
@@ -85,7 +85,7 @@ def _tile_card(tile: Tile, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(D
       _standard_tile_card(gold{amount}, "card card--tile card--gold", pos, damage_overlay)
 
 def _standard_card_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
-  Card.neutral(DungeonEvent, body, [padding_none{}])
+  card_neutral(DungeonEvent, body, [padding_none{}])
 
 def _overlay_art_tile(tile: Tile, base_tile: Tile) -> Tile:
   match tile:
@@ -115,7 +115,7 @@ def _damage_overlay_layer(pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(Du
           text{""}
         case _:
           <div class="card__art-layer card__art-layer--fx">
-            {Image.animated(DungeonEvent, overlay_state, monster_damage_clip(), "", _monster_fx_overrides())}
+            {image_animated(DungeonEvent, overlay_state, monster_damage_clip(), "", _monster_fx_overrides())}
           </div>
 
 def _tile_card_body(tile: Tile, class_name: String, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(DungeonEvent):
