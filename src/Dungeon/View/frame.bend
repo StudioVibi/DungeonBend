@@ -36,7 +36,7 @@ def _frame(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
 def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTML(DungeonEvent):
   match scene_value:
     case setup{}:
-      _render_menu(meta_state)
+      _render_menu(meta_state, ui_value)
     case character_select{preview_hero}:
       _render_character_select(meta_state, preview_hero)
     case boosters{reward, reveal_index, return_to}:

@@ -15,6 +15,7 @@ import Dungeon/Board/indexing/adjacent_pos as adjacent_pos
 import Dungeon/Board/indexing/board_get_pos as board_get_pos
 import Dungeon/monster_damage_animation/clip as monster_damage_clip
 import Dungeon/deck_counter_animation/clip as deck_counter_clip
+import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/rules/ultimate_charge_required as ultimate_charge_required
 import Dungeon/rules/ultimate_charge_per_move as ultimate_charge_per_move
 import Midum/Image/step as image_step
@@ -278,26 +279,33 @@ def _step_deck_counter_fx(current_fx: DeckCounterFx) -> DeckCounterFx:
             case false{}:
               deck_counter_playing{next_state}
 
+def _step_menu_background_state(current_state: Midum/Image/State) -> Midum/Image/State:
+  match image_step(menu_background_clip(), 125n, current_state):
+    case step{state: next_state, cycled, finished_now}:
+      next_state
+
 def _step_ui_fx(ui_value: UiState) -> UiState:
   match ui_value:
-    case ui_state{current_hp_fx, current_dmg_fx, current_impact, current_damage_overlay, current_deck_counter_fx}:
+    case ui_state{current_hp_fx, current_dmg_fx, current_impact, current_damage_overlay, current_deck_counter_fx, current_menu_background_state}:
       ui_state{
         current_hp_fx,
         current_dmg_fx,
         current_impact,
         _step_damage_overlay(current_damage_overlay),
-        _step_deck_counter_fx(current_deck_counter_fx)
+        _step_deck_counter_fx(current_deck_counter_fx),
+        _step_menu_background_state(current_menu_background_state)
       }
 
 def _next_ui_from_turn(current_run: Run, next_run: Run, current_ui: UiState, dir: Direction) -> UiState:
   match current_ui:
-    case ui_state{current_hp_fx, current_dmg_fx, current_impact, current_damage_overlay, current_deck_counter_fx}:
+    case ui_state{current_hp_fx, current_dmg_fx, current_impact, current_damage_overlay, current_deck_counter_fx, current_menu_background_state}:
       ui_state{
         _next_hp_fx(current_run, next_run, current_hp_fx),
         _next_dmg_fx(current_run, next_run, current_dmg_fx),
         _impact_from_turn(current_run, next_run, dir, current_impact),
         _damage_overlay_from_turn(current_run, next_run, dir, current_damage_overlay, current_impact),
-        _next_deck_counter_fx(current_run, next_run, current_deck_counter_fx)
+        _next_deck_counter_fx(current_run, next_run, current_deck_counter_fx),
+        current_menu_background_state
       }
 
 def _advance_with_charge(current_run: Run, advance: RunAdvance) -> RunAdvance:

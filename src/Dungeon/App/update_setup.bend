@@ -7,11 +7,14 @@ import Dungeon/config as config
 import Dungeon/default_ui as default_ui
 import Dungeon/App/state_helpers/_state as _state
 import Dungeon/App/state_helpers/_start as _start
+import Dungeon/App/ui_fx/_step_ui_fx as _step_ui_fx
 import Dungeon/hero_helpers/normalize_hero_ref as normalize_hero_ref
 import Dungeon/profile_helpers/selected_hero as selected_hero
 
 def update_setup(evt: DungeonEvent, meta_state: Meta, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
+    case damage_tick{}:
+      _state(meta_state, setup{}, next_seed_value, _step_ui_fx(ui_value))
     case start{}:
       _start(meta_state, next_seed_value)
     case open_character_select{}:

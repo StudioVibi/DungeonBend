@@ -285,7 +285,14 @@ type UltimateCutinSpec {
 }
 
 type UiState {
-  ui_state{hp_fx: HpFx, dmg_fx: DmgFx, impact: Impact, damage_overlay: DamageOverlay, deck_counter_fx: DeckCounterFx}
+  ui_state{
+    hp_fx: HpFx,
+    dmg_fx: DmgFx,
+    impact: Impact,
+    damage_overlay: DamageOverlay,
+    deck_counter_fx: DeckCounterFx,
+    menu_background_state: Midum/Image/State
+  }
 }
 
 type DungeonState {

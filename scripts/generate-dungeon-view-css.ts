@@ -90,6 +90,10 @@ function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack
   return output;
 }
 
+function rewriteCssAssetUrls(renderedCss: string): string {
+  return renderedCss.replace(/url\((["']?)assets\//g, 'url($1../');
+}
+
 async function main() {
   const rootDir = process.cwd();
   const cssModulePath = path.join(rootDir, "src", "Dungeon", "View", "css.bend");
@@ -106,7 +110,7 @@ async function main() {
     ...parseStringDefs(cssModule),
   ]);
 
-  const renderedCss = renderDef("css", defs, new Map(), []);
+  const renderedCss = rewriteCssAssetUrls(renderDef("css", defs, new Map(), []));
 
   await mkdir(path.dirname(outPath), { recursive: true });
   await writeFile(

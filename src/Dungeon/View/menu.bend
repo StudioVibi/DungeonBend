@@ -3,6 +3,7 @@ import Dungeon/HeroDef as HeroDef
 import Dungeon/HeroProfile as HeroProfile
 import Dungeon/HeroPresentation as HeroPresentation
 import Dungeon/Meta as Meta
+import Dungeon/UiState as UiState
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/config as config
 import Dungeon/hero_helpers/hero_at as hero_at
@@ -34,11 +35,13 @@ import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_
 import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
 import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Midum/Button/primary as button_primary
 import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
+import Midum/Image/animated as image_animated
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/shell as layout_shell
 import Midum/Text/body as text_body
@@ -63,28 +66,43 @@ def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
     </header>
   </div>
 
-def _render_menu(meta_state: Meta) -> HTML(DungeonEvent):
+def _menu_background_image_overrides() -> List(Midum/Image/Override):
+  [fit_cover{}]
+
+def _menu_background(ui_value: UiState) -> HTML(DungeonEvent):
+  match ui_value:
+    case ui_state{hp_fx, dmg_fx, impact, damage_overlay, deck_counter_fx, menu_background_state}:
+      <div class="menu-home-bg" aria-hidden="true">
+        {image_animated(DungeonEvent, menu_background_state, menu_background_clip(), "", _menu_background_image_overrides())}
+      </div>
+
+def _render_menu(meta_state: Meta, ui_value: UiState) -> HTML(DungeonEvent):
   hero_ref = selected_hero(meta_state);
   hero_value = hero_at(config(), hero_ref);
   profile = active_profile(meta_state);
-  <div class="menu-home-page">
-    {_menu_shell(
-      layout_frame(
-        DungeonEvent,
-        <div class="menu-home-scene">
-          {_menu_screen_frame(
-            _menu_header(meta_state),
-            <section class="menu-stage menu-stage--home">
-              <div class="menu-stage__content menu-stage__content--home">
-                {_menu_home(meta_state, hero_value, profile)}
-              </div>
-            </section>,
-            _menu_actions_layout(meta_state)
-          )}
-        </div>,
-        [width_full{}, height_full{}, inset_none{}]
-      )
-    )}
+  <div every_ms={125, damage_tick{}}>
+    <div class="menu-home-page">
+      {_menu_background(ui_value)}
+      <div class="menu-home-page__content">
+        {_menu_shell(
+          layout_frame(
+            DungeonEvent,
+            <div class="menu-home-scene">
+              {_menu_screen_frame(
+                _menu_header(meta_state),
+                <section class="menu-stage menu-stage--home">
+                  <div class="menu-stage__content menu-stage__content--home">
+                    {_menu_home(meta_state, hero_value, profile)}
+                  </div>
+                </section>,
+                _menu_actions_layout(meta_state)
+              )}
+            </div>,
+            [width_full{}, height_full{}, inset_none{}]
+          )
+        )}
+      </div>
+    </div>
   </div>
 
 def _menu_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
