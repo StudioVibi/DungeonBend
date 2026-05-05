@@ -10,5 +10,6 @@ type Config {
     size: Midum/Button/Size,
     width: Midum/Button/Width,
     state: Midum/Button/State,
+    catoon_palette: Maybe(Midum/Button/CatoonPalette),
   }
 }

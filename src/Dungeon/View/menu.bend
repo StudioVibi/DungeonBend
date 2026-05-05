@@ -38,7 +38,7 @@ import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Midum/Button/primary as button_primary
+import Midum/Button/catoon as button_catoon
 import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
 import Midum/Image/animated as image_animated
@@ -458,23 +458,25 @@ def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroPr
 
 def _menu_start_button() -> HTML(DungeonEvent):
   <div class="menu-play-btn-wrap menu-play-btn-wrap--full">
-    {button_primary(
+    {button_catoon(
       DungeonEvent,
       start{},
       large{},
       Content.ui_menu_start(),
-      _full_button_overrides(start_enabled(setup{}))
+      _play_full_button_overrides(start_enabled(setup{}))
     )}
   </div>
 
 def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    <button class="bc-btn bc-btn-secondary bc-btn-rounded bc-btn-medium bc-btn-full menu-booster-cta" type="button" on_click={open_boosters{}}>
-      <span class="bc-btn-content">
-        <span class="bc-btn-label">{text{Content.ui_menu_boosters()}}</span>
-      </span>
-      <span class="menu-booster-cta__count">{text{meta_pack_total(meta_state)}}</span>
-    </button>
+    <span class="bc-btn-catoon-wrap">
+      <button class="bc-btn bc-btn-secondary bc-btn-catoon bc-btn-rounded bc-btn-medium bc-btn-full menu-booster-cta" style={_club_catoon_palette_style()} type="button" on_click={open_boosters{}}>
+        <span class="bc-btn-content">
+          <span class="bc-btn-label">{text{Content.ui_menu_boosters()}}</span>
+        </span>
+        <span class="menu-booster-cta__count">{text{meta_pack_total(meta_state)}}</span>
+      </button>
+    </span>
   </div>
 
 def _menu_deck_button() -> HTML(DungeonEvent):
@@ -540,6 +542,19 @@ def _header_characters_action() -> HTML(DungeonEvent):
       _fit_button_overrides(1)
     )}
   </div>
+
+def _play_catoon_palette() -> Midum/Button/Override:
+  catoon_palette{light: "#f2ed61", mid: "#e4c149", dark: "#af5c2a"}
+
+def _club_catoon_palette_style() -> String:
+  "--bc-catoon-light:#465466;--bc-catoon-mid:#2b3440;--bc-catoon-dark:#212934;"
+
+def _play_full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
+  match enabled:
+    case 0:
+      [_play_catoon_palette(), width_full{}, state_disabled{}]
+    case _:
+      [_play_catoon_palette(), width_full{}]
 
 def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:

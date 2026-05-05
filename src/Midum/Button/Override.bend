@@ -14,4 +14,5 @@ type Override {
   width_full{}
   state_enabled{}
   state_disabled{}
+  catoon_palette{light: String, mid: String, dark: String}
 }
