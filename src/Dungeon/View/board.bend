@@ -199,6 +199,10 @@ def _board_modal_layer(scene_value: Scene) -> HTML(DungeonEvent):
       layout_center(DungeonEvent, _resume_prompt_modal(scene_value))
     case game_over{run_value}:
       layout_center(DungeonEvent, _game_over_modal(scene_value))
+    case deck_list{mode}:
+      text{""}
+    case deck_detail{deck_id, draft, picker, detail_mode}:
+      text{""}
 
 def _pause_modal(scene_value: Scene) -> HTML(DungeonEvent):
   <div class={game_over_modal_class(scene_value)}>

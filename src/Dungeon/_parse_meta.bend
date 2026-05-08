@@ -8,6 +8,7 @@ import Dungeon/SwordDef as SwordDef
 import Dungeon/PotionDef as PotionDef
 import Dungeon/PackDef as PackDef
 import Dungeon/DeckEntry as DeckEntry
+import Dungeon/DeckRecord as DeckRecord
 import Dungeon/CardRef as CardRef
 import Dungeon/PackReward as PackReward
 import Dungeon/PackInventoryEntry as PackInventoryEntry
@@ -27,6 +28,8 @@ import Dungeon/profile_helpers/set_meta_gold as set_meta_gold
 import Dungeon/profile_helpers/set_meta_bonus_deck as set_meta_bonus_deck
 import Dungeon/profile_helpers/set_meta_pack_inventory as set_meta_pack_inventory
 import Dungeon/profile_helpers/update_profile as update_profile
+import Dungeon/Deck/deck_records/initial_deck_id as initial_deck_id
+import Dungeon/Deck/deck_records/initial_deck_name as initial_deck_name
 
 def _parse_meta(s: String) -> DungeonEvent:
   _parse_sections(String/split(s, '|'))
@@ -39,23 +42,278 @@ def _parse_sections(parts: List(String)) -> DungeonEvent:
       no_save{}
 
 def _parse_sections_head(head: String, rest: List(String)) -> DungeonEvent:
-  match String/eq(head, "v5"):
+  match String/eq(head, "v6"):
     case true{}:
-      _parse_v5_sections(rest)
+      _parse_v6_sections(rest)
     case false{}:
-      match String/eq(head, "v4"):
+      match String/eq(head, "v5"):
         case true{}:
-          no_save{}
+          _parse_v5_sections(rest)
         case false{}:
-          match String/eq(head, "v3"):
+          match String/eq(head, "v4"):
             case true{}:
-              _parse_v3_sections(rest)
+              no_save{}
             case false{}:
-              match String/eq(head, "v2"):
+              match String/eq(head, "v3"):
                 case true{}:
-                  _parse_v2_sections(rest)
+                  _parse_v3_sections(rest)
                 case false{}:
-                  _parse_legacy_sections(head, rest)
+                  match String/eq(head, "v2"):
+                    case true{}:
+                      _parse_v2_sections(rest)
+                    case false{}:
+                      _parse_legacy_sections(head, rest)
+
+def _initial_decks_for_config(cfg: Config) -> List(DeckRecord):
+  match cfg:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
+      [deck_record{initial_deck_id(), initial_deck_name(), deck}]
+
+def _parse_v6_sections(parts: List(String)) -> DungeonEvent:
+  match parts:
+    case selected_str<>rest:
+      match rest:
+        case confirmed_str<>rest1:
+          match rest1:
+            case gold_str<>rest2:
+              match rest2:
+                case monster_str<>rest3:
+                  match rest3:
+                    case sword_str<>rest4:
+                      match rest4:
+                        case potion_str<>rest5:
+                          match rest5:
+                            case pack_str<>rest6:
+                              match rest6:
+                                case profiles_str<>rest7:
+                                  match rest7:
+                                    case next_seed_str<>rest8:
+                                      match rest8:
+                                        case scene_kind_str<>rest9:
+                                          match rest9:
+                                            case run_core_str<>rest10:
+                                              match rest10:
+                                                case run_weapon_str<>rest11:
+                                                  match rest11:
+                                                    case run_board_str<>rest12:
+                                                      match rest12:
+                                                        case run_blueprint_str<>rest13:
+                                                          match rest13:
+                                                            case run_counts_str<>rest14:
+                                                              match rest14:
+                                                                case active_id_str<>rest15:
+                                                                  match rest15:
+                                                                    case next_id_str<>rest16:
+                                                                      match rest16:
+                                                                        case decks_str<>rest17:
+                                                                          match rest17:
+                                                                            case []:
+                                                                              _build_v6(
+                                                                                config(),
+                                                                                String/to_u32(selected_str),
+                                                                                String/to_u32(confirmed_str),
+                                                                                String/to_u32(gold_str),
+                                                                                String/split(monster_str, ','),
+                                                                                String/split(sword_str, ','),
+                                                                                String/split(potion_str, ','),
+                                                                                String/split(pack_str, ','),
+                                                                                String/split(profiles_str, ';'),
+                                                                                String/to_u32(next_seed_str),
+                                                                                _parse_saved_scene_v4(
+                                                                                  String/to_u32(scene_kind_str),
+                                                                                  run_core_str,
+                                                                                  run_weapon_str,
+                                                                                  run_board_str,
+                                                                                  run_blueprint_str,
+                                                                                  run_counts_str
+                                                                                ),
+                                                                                String/to_u32(active_id_str),
+                                                                                String/to_u32(next_id_str),
+                                                                                String/split(decks_str, ';')
+                                                                              )
+                                                                            case _:
+                                                                              no_save{}
+                                                                        case _:
+                                                                          no_save{}
+                                                                    case _:
+                                                                      no_save{}
+                                                                case _:
+                                                                  no_save{}
+                                                            case _:
+                                                              no_save{}
+                                                        case _:
+                                                          no_save{}
+                                                    case _:
+                                                      no_save{}
+                                                case _:
+                                                  no_save{}
+                                            case _:
+                                              no_save{}
+                                        case _:
+                                          no_save{}
+                                    case _:
+                                      no_save{}
+                                case _:
+                                  no_save{}
+                            case _:
+                              no_save{}
+                        case _:
+                          no_save{}
+                    case _:
+                      no_save{}
+                case _:
+                  no_save{}
+            case _:
+              no_save{}
+        case _:
+          no_save{}
+    case _:
+      no_save{}
+
+def _build_v6(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe: Maybe(U32), gold_maybe: Maybe(U32), monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), profile_parts: List(String), next_seed_maybe: Maybe(U32), saved_scene: SavedScene, active_id_maybe: Maybe(U32), next_id_maybe: Maybe(U32), deck_parts: List(String)) -> DungeonEvent:
+  match config_value gold_maybe:
+    case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} some{gold}:
+      base : Meta = meta{
+        _selected_hero_value(config_value, selected_maybe),
+        _selection_confirmed_value(confirmed_maybe),
+        gold,
+        _merge_bonus_sections(
+          _parse_monster_bonus(monsters, monster_counts, 0),
+          _parse_sword_bonus(swords, sword_counts, 0),
+          _parse_potion_bonus(potions, potion_counts, 0)
+        ),
+        _parse_pack_inventory(booster_packs, pack_counts, 0),
+        default_hero_profiles(config_value),
+        _ensure_initial_deck(_parse_deck_records(monsters, swords, potions, deck_parts)),
+        _value_or(active_id_maybe, initial_deck_id()),
+        _value_or(next_id_maybe, initial_deck_id() + 1)
+      };
+      with_profiles = _parse_v3_profiles_list(heroes, profile_parts, base, 0);
+      loaded{with_profiles, saved_scene, _saved_next_seed_value(next_seed_maybe)}
+    case _:
+      no_save{}
+
+def _value_or(value_maybe: Maybe(U32), fallback: U32) -> U32:
+  match value_maybe:
+    case some{v}:
+      v
+    case none{}:
+      fallback
+
+def _ensure_initial_deck(records: List(DeckRecord)) -> List(DeckRecord):
+  match _has_initial_deck(records):
+    case 1:
+      records
+    case _:
+      _prepend_initial(records)
+
+def _prepend_initial(records: List(DeckRecord)) -> List(DeckRecord):
+  match _initial_decks_for_config(config()):
+    case []:
+      records
+    case head<>rest:
+      head<>records
+
+def _has_initial_deck(records: List(DeckRecord)) -> U32:
+  match records:
+    case []:
+      0
+    case current<>rest:
+      _has_initial_match(_record_id(current) === initial_deck_id(), rest)
+
+def _has_initial_match(matched: U32, rest: List(DeckRecord)) -> U32:
+  match matched:
+    case 1:
+      1
+    case _:
+      _has_initial_deck(rest)
+
+def _record_id(record: DeckRecord) -> U32:
+  match record:
+    case deck_record{id, name, entries}:
+      id
+
+def _parse_deck_records(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), parts: List(String)) -> List(DeckRecord):
+  match parts:
+    case []:
+      []
+    case current<>rest:
+      _parse_deck_record_or_skip(monsters, swords, potions, current, rest)
+
+def _parse_deck_record_or_skip(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), part: String, rest: List(String)) -> List(DeckRecord):
+  match _parse_deck_record(monsters, swords, potions, String/split(part, '~')):
+    case some{record}:
+      record<>_parse_deck_records(monsters, swords, potions, rest)
+    case none{}:
+      _parse_deck_records(monsters, swords, potions, rest)
+
+def _parse_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), segs: List(String)) -> Maybe(DeckRecord):
+  match segs:
+    case id_str<>rest:
+      match rest:
+        case name_str<>rest1:
+          match rest1:
+            case mon_str<>rest2:
+              match rest2:
+                case sw_str<>rest3:
+                  match rest3:
+                    case pot_str<>rest4:
+                      match rest4:
+                        case hero_str<>rest5:
+                          match rest5:
+                            case []:
+                              _build_deck_record(
+                                monsters,
+                                swords,
+                                potions,
+                                String/to_u32(id_str),
+                                name_str,
+                                String/split(mon_str, ','),
+                                String/split(sw_str, ','),
+                                String/split(pot_str, ','),
+                                String/to_u32(hero_str)
+                              )
+                            case _:
+                              none{}
+                        case _:
+                          none{}
+                    case _:
+                      none{}
+                case _:
+                  none{}
+            case _:
+              none{}
+        case _:
+          none{}
+    case _:
+      none{}
+
+def _build_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), id_maybe: Maybe(U32), name: String, mon_counts: List(String), sw_counts: List(String), pot_counts: List(String), hero_maybe: Maybe(U32)) -> Maybe(DeckRecord):
+  match id_maybe:
+    case some{id}:
+      entries = _merge_bonus_sections(
+        _parse_monster_bonus(monsters, mon_counts, 0),
+        _parse_sword_bonus(swords, sw_counts, 0),
+        _parse_potion_bonus(potions, pot_counts, 0)
+      );
+      with_hero = _append_hero_entry(entries, _value_or(hero_maybe, 0));
+      some{deck_record{id, name, with_hero}}
+    case none{}:
+      none{}
+
+def _append_hero_entry(entries: List(DeckEntry), hero_count: U32) -> List(DeckEntry):
+  match hero_count:
+    case 0:
+      entries
+    case _:
+      _append_one(entries, hero_entry{hero_count})
+
+def _append_one(entries: List(DeckEntry), entry: DeckEntry) -> List(DeckEntry):
+  match entries:
+    case []:
+      [entry]
+    case head<>rest:
+      head<>_append_one(rest, entry)
 
 def _parse_v5_sections(parts: List(String)) -> DungeonEvent:
   match parts:
@@ -349,23 +607,23 @@ def _parse_profile(config_value: Config, hl_maybe: Maybe(U32), gold_maybe: Maybe
 def _load_legacy_profile(config_value: Config, hero_level: U32, gold: U32, monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), saved_scene: SavedScene) -> DungeonEvent:
   match config_value:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      loaded{
-        update_profile(
-          meta{
-            0,
-            1,
-            gold,
-            _merge_bonus_sections(
-              _parse_monster_bonus(monsters, monster_counts, 0),
-              _parse_sword_bonus(swords, sword_counts, 0),
-              _parse_potion_bonus(potions, potion_counts, 0)
-            ),
-            _parse_pack_inventory(booster_packs, pack_counts, 0),
-            default_hero_profiles(config_value)
-          },
-          0,
-          hero_profile{1, hero_level}
+      base : Meta = meta{
+        0,
+        1,
+        gold,
+        _merge_bonus_sections(
+          _parse_monster_bonus(monsters, monster_counts, 0),
+          _parse_sword_bonus(swords, sword_counts, 0),
+          _parse_potion_bonus(potions, potion_counts, 0)
         ),
+        _parse_pack_inventory(booster_packs, pack_counts, 0),
+        default_hero_profiles(config_value),
+        _initial_decks_for_config(config_value),
+        initial_deck_id(),
+        initial_deck_id() + 1
+      };
+      loaded{
+        update_profile(base, 0, hero_profile{1, hero_level}),
         saved_scene,
         initial_seed()
       }
@@ -373,24 +631,23 @@ def _load_legacy_profile(config_value: Config, hero_level: U32, gold: U32, monst
 def _parse_v4(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe: Maybe(U32), gold_maybe: Maybe(U32), monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), profile_parts: List(String), next_seed_maybe: Maybe(U32), saved_scene: SavedScene) -> DungeonEvent:
   match config_value gold_maybe:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} some{gold}:
-      loaded{
-        _parse_v3_profiles_list(
-          heroes,
-          profile_parts,
-          meta{
-            _selected_hero_value(config_value, selected_maybe),
-            _selection_confirmed_value(confirmed_maybe),
-            gold,
-            _merge_bonus_sections(
-              _parse_monster_bonus(monsters, monster_counts, 0),
-              _parse_sword_bonus(swords, sword_counts, 0),
-              _parse_potion_bonus(potions, potion_counts, 0)
-            ),
-            _parse_pack_inventory(booster_packs, pack_counts, 0),
-            default_hero_profiles(config_value)
-          },
-          0
+      base : Meta = meta{
+        _selected_hero_value(config_value, selected_maybe),
+        _selection_confirmed_value(confirmed_maybe),
+        gold,
+        _merge_bonus_sections(
+          _parse_monster_bonus(monsters, monster_counts, 0),
+          _parse_sword_bonus(swords, sword_counts, 0),
+          _parse_potion_bonus(potions, potion_counts, 0)
         ),
+        _parse_pack_inventory(booster_packs, pack_counts, 0),
+        default_hero_profiles(config_value),
+        _initial_decks_for_config(config_value),
+        initial_deck_id(),
+        initial_deck_id() + 1
+      };
+      loaded{
+        _parse_v3_profiles_list(heroes, profile_parts, base, 0),
         saved_scene,
         _saved_next_seed_value(next_seed_maybe)
       }
@@ -400,24 +657,23 @@ def _parse_v4(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe:
 def _parse_v3(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe: Maybe(U32), gold_maybe: Maybe(U32), monster_counts: List(String), sword_counts: List(String), potion_counts: List(String), pack_counts: List(String), profile_parts: List(String), saved_scene: SavedScene) -> DungeonEvent:
   match config_value gold_maybe:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} some{gold}:
-      loaded{
-        _parse_v3_profiles_list(
-          heroes,
-          profile_parts,
-          meta{
-            _selected_hero_value(config_value, selected_maybe),
-            _selection_confirmed_value(confirmed_maybe),
-            gold,
-            _merge_bonus_sections(
-              _parse_monster_bonus(monsters, monster_counts, 0),
-              _parse_sword_bonus(swords, sword_counts, 0),
-              _parse_potion_bonus(potions, potion_counts, 0)
-            ),
-            _parse_pack_inventory(booster_packs, pack_counts, 0),
-            default_hero_profiles(config_value)
-          },
-          0
+      base : Meta = meta{
+        _selected_hero_value(config_value, selected_maybe),
+        _selection_confirmed_value(confirmed_maybe),
+        gold,
+        _merge_bonus_sections(
+          _parse_monster_bonus(monsters, monster_counts, 0),
+          _parse_sword_bonus(swords, sword_counts, 0),
+          _parse_potion_bonus(potions, potion_counts, 0)
         ),
+        _parse_pack_inventory(booster_packs, pack_counts, 0),
+        default_hero_profiles(config_value),
+        _initial_decks_for_config(config_value),
+        initial_deck_id(),
+        initial_deck_id() + 1
+      };
+      loaded{
+        _parse_v3_profiles_list(heroes, profile_parts, base, 0),
         saved_scene,
         initial_seed()
       }
@@ -428,25 +684,19 @@ def _parse_v2(config_value: Config, selected_maybe: Maybe(U32), confirmed_maybe:
   match config_value:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
       selected_ref = _selected_hero_value(config_value, selected_maybe);
+      base : Meta = meta{
+        selected_ref,
+        _selection_confirmed_value(confirmed_maybe),
+        0,
+        [],
+        [],
+        default_hero_profiles(config_value),
+        _initial_decks_for_config(config_value),
+        initial_deck_id(),
+        initial_deck_id() + 1
+      };
       loaded{
-        _parse_v2_profiles_list(
-          monsters,
-          swords,
-          potions,
-          booster_packs,
-          heroes,
-          profile_parts,
-          meta{
-            selected_ref,
-            _selection_confirmed_value(confirmed_maybe),
-            0,
-            [],
-            [],
-            default_hero_profiles(config_value)
-          },
-          selected_ref,
-          0
-        ),
+        _parse_v2_profiles_list(monsters, swords, potions, booster_packs, heroes, profile_parts, base, selected_ref, 0),
         saved_scene,
         initial_seed()
       }

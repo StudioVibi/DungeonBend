@@ -149,6 +149,57 @@ type HeroProfile {
   }
 }
 
+type DeckRecord {
+  deck_record{
+    id: U32,
+    name: String,
+    entries: List(DeckEntry)
+  }
+}
+
+type DeckQuotas {
+  deck_quotas{
+    monsters: U32,
+    swords: U32,
+    potions: U32,
+    hero: U32,
+    total: U32
+  }
+}
+
+type DeckCategory {
+  cat_monsters{}
+  cat_swords{}
+  cat_potions{}
+  cat_hero{}
+}
+
+type DeckDraft {
+  deck_draft{
+    deck_id: U32,
+    name: String,
+    entries: List(DeckEntry),
+    dirty: U32
+  }
+}
+
+type DeckListMode {
+  deck_list_view{}
+  deck_list_edit{selected_ids: List(U32)}
+  deck_list_confirm_delete{selected_ids: List(U32)}
+}
+
+type DeckPickerMode {
+  picker_none{}
+  picker_open{category: DeckCategory}
+}
+
+type DeckDetailMode {
+  detail_view{}
+  detail_confirm_discard{}
+  detail_pending_delete{card: CardRef}
+}
+
 type Meta {
   meta{
     selected_hero: U32,
@@ -156,7 +207,10 @@ type Meta {
     gold: U32,
     bonus_deck: List(DeckEntry),
     pack_inventory: List(PackInventoryEntry),
-    hero_profiles: List(HeroProfile)
+    hero_profiles: List(HeroProfile),
+    decks: List(DeckRecord),
+    active_deck_id: U32,
+    next_deck_id: U32
   }
 }
 
@@ -214,6 +268,8 @@ type Scene {
   paused{run: Run}
   resume_prompt{run: Run}
   game_over{run: Run}
+  deck_list{mode: DeckListMode}
+  deck_detail{deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode}
 }
 
 type SavedScene {
@@ -326,6 +382,26 @@ type DungeonEvent {
   ignore{}
   loaded{meta: Meta, saved_scene: SavedScene, next_seed: U32}
   no_save{}
+  open_deck_list{}
+  close_deck_list{}
+  enter_deck_edit_mode{}
+  exit_deck_edit_mode{}
+  toggle_deck_select{deck_id: U32}
+  request_delete_decks{}
+  confirm_delete_decks{}
+  cancel_delete_decks{}
+  create_new_deck{}
+  open_deck_detail{deck_id: U32}
+  close_deck_detail{}
+  request_close_deck_detail{}
+  discard_deck_changes{}
+  cancel_discard_deck_changes{}
+  add_card_to_deck{card: CardRef}
+  remove_card_from_deck{card: CardRef}
+  save_deck_changes{}
+  set_active_deck{deck_id: U32}
+  open_category_picker{category: DeckCategory}
+  close_category_picker{}
 }
 
 type _PickResult {

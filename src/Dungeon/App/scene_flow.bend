@@ -15,6 +15,8 @@ import Dungeon/App/update_paused as update_paused
 import Dungeon/App/update_ultimate_cinematic as update_ultimate_cinematic
 import Dungeon/App/update_resume_prompt as update_resume_prompt
 import Dungeon/App/update_game_over as update_game_over
+import Dungeon/App/update_deck_list as update_deck_list
+import Dungeon/App/update_deck_detail as update_deck_detail
 import Dungeon/profile_helpers/set_selection_confirmed as set_selection_confirmed
 
 def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
@@ -37,6 +39,10 @@ def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
       update_resume_prompt(evt, meta_state, run_value, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, game_over{run_value}, next_seed_value}, ui_value}:
       update_game_over(evt, meta_state, run_value, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, deck_list{mode}, next_seed_value}, ui_value}:
+      update_deck_list(evt, meta_state, mode, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value}, ui_value}:
+      update_deck_detail(evt, meta_state, deck_id, draft, picker, detail_mode, next_seed_value, ui_value)
 
 def _restore_saved_scene(saved_scene: SavedScene) -> Scene:
   match saved_scene:

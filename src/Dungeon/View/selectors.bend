@@ -141,6 +141,10 @@ def dungeon_level_value(scene_value: Scene) -> String:
       _run_dungeon_level_text(run_value)
     case game_over{run_value}:
       _run_dungeon_level_text(run_value)
+    case deck_list{mode}:
+      "--"
+    case deck_detail{deck_id, draft, picker, detail_mode}:
+      "--"
 
 def remaining_value(scene_value: Scene) -> String:
   match scene_value:
@@ -162,6 +166,10 @@ def remaining_value(scene_value: Scene) -> String:
       _run_remaining_text(run_value)
     case game_over{run_value}:
       _run_remaining_text(run_value)
+    case deck_list{mode}:
+      "--/--"
+    case deck_detail{deck_id, draft, picker, detail_mode}:
+      "--/--"
 
 def weapon_value(scene_value: Scene) -> String:
   match scene_value:
@@ -183,6 +191,10 @@ def weapon_value(scene_value: Scene) -> String:
       _run_weapon_text(run_value)
     case game_over{run_value}:
       _run_weapon_text(run_value)
+    case deck_list{mode}:
+      "--"
+    case deck_detail{deck_id, draft, picker, detail_mode}:
+      "--"
 
 def ultimate_label(scene_value: Scene) -> String:
   match scene_value:
@@ -204,6 +216,10 @@ def ultimate_label(scene_value: Scene) -> String:
       _run_ult_label(run_value)
     case game_over{run_value}:
       _run_ult_label(run_value)
+    case deck_list{mode}:
+      Content.ui_ultimate_label() ++ " 0/" ++ U32/show(ultimate_charge_required())
+    case deck_detail{deck_id, draft, picker, detail_mode}:
+      Content.ui_ultimate_label() ++ " 0/" ++ U32/show(ultimate_charge_required())
 
 def ultimate_enabled(scene_value: Scene) -> U32:
   match scene_value:
