@@ -158,7 +158,7 @@ def _set_active_visible(valid: U32, dirty: U32, is_active: U32) -> U32:
 
 def _body(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
   <section class={_stage_class(picker)}>
-    <div class="deck-detail-stage__content">
+    <div class="deck-stage__content">
       {_main_layout(meta_state, draft, picker, detail_mode)}
     </div>
     {_modal_layer(detail_mode)}
@@ -167,12 +167,13 @@ def _body(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mod
 def _stage_class(picker: DeckPickerMode) -> String:
   match picker:
     case picker_open{category}:
-      "deck-detail-stage deck-detail-stage--picker-open"
+      "deck-stage deck-stage--picker-open"
     case picker_none{}:
-      "deck-detail-stage"
+      "deck-stage"
 
 def _main_layout(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
   <section class="deck-detail">
+    {_title_row(draft)}
     <div class={_main_class(picker)}>
       {_deck_panel(meta_state, draft, picker, detail_mode)}
     </div>
@@ -180,6 +181,16 @@ def _main_layout(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, det
       {_pool_panel(meta_state, draft, picker, detail_mode)}
     </aside>
   </section>
+
+def _title_row(draft: DeckDraft) -> HTML(DungeonEvent):
+  q = deck_quotas_default();
+  entries = draft_entries(draft);
+  total_q = quotas_total(q);
+  count_text = U32/show(deck_total_count(entries)) ++ "/" ++ U32/show(total_q);
+  <div class="deck-detail__title-row">
+    <h2 class="deck-detail__deck-name">{text{draft_name(draft)}}</h2>
+    <span class="deck-detail__deck-count">{text{"DECK " ++ count_text}}</span>
+  </div>
 
 def _main_class(picker: DeckPickerMode) -> String:
   match picker:
@@ -198,13 +209,7 @@ def _side_class(picker: DeckPickerMode) -> String:
 def _deck_panel(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
   q = deck_quotas_default();
   entries = draft_entries(draft);
-  total_q = quotas_total(q);
-  count_text = U32/show(deck_total_count(entries)) ++ "/" ++ U32/show(total_q);
   <div class="deck-detail__deck-panel">
-    <div class="deck-detail__title-row">
-      <h2 class="deck-detail__deck-name">{text{draft_name(draft)}}</h2>
-      <span class="deck-detail__deck-count">{text{"DECK " ++ count_text}}</span>
-    </div>
     {_section(meta_state, entries, q, cat_monsters{}, picker, detail_mode)}
     {_section(meta_state, entries, q, cat_swords{}, picker, detail_mode)}
     {_section(meta_state, entries, q, cat_potions{}, picker, detail_mode)}

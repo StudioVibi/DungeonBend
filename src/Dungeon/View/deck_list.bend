@@ -39,8 +39,8 @@ def _render_deck_list(meta_state: Meta, mode: DeckListMode) -> HTML(DungeonEvent
         _trailing(meta_state, mode),
         _trailing(meta_state, mode),
         [],
-        <section class="deck-list-stage">
-          <div class="deck-list-stage__content">
+        <section class="deck-stage">
+          <div class="deck-stage__content">
             {_grid(meta_state, mode)}
           </div>
           {_modal_layer(mode)}
