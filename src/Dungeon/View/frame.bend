@@ -55,10 +55,10 @@ def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTM
       _render_dungeon(meta_state, resume_prompt{run_value}, run_value, ui_value)
     case game_over{run_value}:
       _render_dungeon(meta_state, game_over{run_value}, run_value, ui_value)
-    case deck_list{mode}:
-      _render_deck_list(meta_state, mode)
-    case deck_detail{deck_id, draft, picker, detail_mode}:
-      _render_deck_detail(meta_state, deck_id, draft, picker, detail_mode)
+    case deck_list{mode, sleeve_picker}:
+      _render_deck_list(meta_state, mode, sleeve_picker)
+    case deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker}:
+      _render_deck_detail(meta_state, deck_id, draft, picker, detail_mode, sleeve_picker)
 
 def _render_ultimate_cinematic_scene(meta_state: Meta, run_value: Run, ticks_remaining: U32, ui_value: UiState) -> HTML(DungeonEvent):
   <div class="screen-root-stack">

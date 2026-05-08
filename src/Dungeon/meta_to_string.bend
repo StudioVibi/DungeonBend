@@ -17,7 +17,9 @@ import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/profile_helpers/profile_hero_level as profile_hero_level
 import Dungeon/Deck/deck_records/deck_record_id as deck_record_id
 import Dungeon/Deck/deck_records/deck_record_name as deck_record_name
+import Dungeon/Deck/deck_records/deck_record_sleeve as deck_record_sleeve
 import Dungeon/Deck/deck_records/deck_record_entries as deck_record_entries
+import Dungeon/Deck/sleeves/sleeve_code as sleeve_code
 
 def meta_to_string(meta_state: Meta) -> String:
   _meta_to_string_from_config(config(), meta_state)
@@ -27,7 +29,7 @@ def _meta_to_string_from_config(config_value: Config, meta_state: Meta) -> Strin
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level} meta{selected_hero_ref, selection_confirmed_value, gold, bonus_deck, pack_inventory, hero_profiles, decks, active_deck_id, next_deck_id}:
       String/join(
         [
-          "v6",
+          "v7",
           U32/show(selected_hero_ref),
           U32/show(selection_confirmed_value),
           U32/show(gold),
@@ -102,6 +104,7 @@ def _deck_record_string(monsters: List(MonsterDef), swords: List(SwordDef), poti
     [
       U32/show(deck_record_id(record)),
       _sanitize_name(deck_record_name(record)),
+      sleeve_code(deck_record_sleeve(record)),
       String/join(_monster_bonus_counts(monsters, entries, 0), ","),
       String/join(_sword_bonus_counts(swords, entries, 0), ","),
       String/join(_potion_bonus_counts(potions, entries, 0), ","),

@@ -3,6 +3,8 @@ import Dungeon/Meta as Meta
 import Dungeon/Scene as Scene
 import Dungeon/UiState as UiState
 import Dungeon/DeckListMode as DeckListMode
+import Dungeon/DeckSleeve as DeckSleeve
+import Dungeon/DeckSleevePicker as DeckSleevePicker
 import Dungeon/DeckRecord as DeckRecord
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/config as config
@@ -10,9 +12,12 @@ import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
 import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
 import Dungeon/View/deck_chrome/render as deck_chrome
+import Dungeon/View/deck_sleeve_picker/render_card_control as render_card_control
 import Dungeon/View/selectors/meta_gold as meta_gold_text
+import Dungeon/View/assets_and_labels/_deck_cover_sprite_for_sleeve as _deck_cover_sprite_for_sleeve
 import Midum/Button/primary as button_primary
 import Midum/Button/secondary as button_secondary
+import Midum/Image/view as image_view
 import Midum/Card/neutral as card_neutral
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/shell as layout_shell
@@ -21,6 +26,7 @@ import Dungeon/profile_helpers/meta_active_deck_id as meta_active_deck_id
 import Dungeon/Deck/deck_records/initial_deck_id as initial_deck_id
 import Dungeon/Deck/deck_records/deck_record_id as deck_record_id
 import Dungeon/Deck/deck_records/deck_record_name as deck_record_name
+import Dungeon/Deck/deck_records/deck_record_sleeve as deck_record_sleeve
 import Dungeon/Deck/deck_records/deck_record_entries as deck_record_entries
 import Dungeon/Deck/deck_records/list_contains_id as list_contains_id
 import Dungeon/Deck/deck_records/list_size as list_size
@@ -29,7 +35,7 @@ import Dungeon/Deck/deck_validation/deck_total_count as deck_total_count
 import Dungeon/Deck/quotas/deck_quotas_default as deck_quotas_default
 import Dungeon/Deck/quotas/quotas_total as quotas_total
 
-def _render_deck_list(meta_state: Meta, mode: DeckListMode) -> HTML(DungeonEvent):
+def _render_deck_list(meta_state: Meta, mode: DeckListMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   _shell(
     layout_frame(
       DungeonEvent,
@@ -41,7 +47,7 @@ def _render_deck_list(meta_state: Meta, mode: DeckListMode) -> HTML(DungeonEvent
         [],
         <section class="deck-stage">
           <div class="deck-stage__content">
-            {_grid(meta_state, mode)}
+            {_grid(meta_state, mode, sleeve_picker)}
           </div>
           {_modal_layer(mode)}
         </section>
@@ -102,11 +108,11 @@ def _show_edit_toggle_mode(mode: DeckListMode) -> U32:
     case _:
       1
 
-def _grid(meta_state: Meta, mode: DeckListMode) -> HTML(DungeonEvent):
+def _grid(meta_state: Meta, mode: DeckListMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   <section class="deck-list">
     <div class="deck-list__grid">
       {_create_card(mode)}
-      {..._deck_cards(meta_decks(meta_state), meta_active_deck_id(meta_state), mode)}
+      {..._deck_cards(meta_decks(meta_state), meta_active_deck_id(meta_state), mode, sleeve_picker)}
     </div>
     {_delete_action(mode)}
   </section>
@@ -121,27 +127,29 @@ def _create_card(mode: DeckListMode) -> HTML(DungeonEvent):
     case _:
       text{""}
 
-def _deck_cards(records: List(DeckRecord), active_id: U32, mode: DeckListMode) -> List(HTML(DungeonEvent)):
+def _deck_cards(records: List(DeckRecord), active_id: U32, mode: DeckListMode, sleeve_picker: DeckSleevePicker) -> List(HTML(DungeonEvent)):
   match records:
     case []:
       []
     case current<>rest:
-      _deck_card(current, active_id, mode)<>_deck_cards(rest, active_id, mode)
+      _deck_card(current, active_id, mode, sleeve_picker)<>_deck_cards(rest, active_id, mode, sleeve_picker)
 
-def _deck_card(record: DeckRecord, active_id: U32, mode: DeckListMode) -> HTML(DungeonEvent):
+def _deck_card(record: DeckRecord, active_id: U32, mode: DeckListMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   id = deck_record_id(record);
   is_active = id === active_id;
   is_initial = id === initial_deck_id();
   selected = _is_selected_in_mode(mode, id);
   cls = _deck_card_class(is_active, is_initial, selected);
+  sleeve = deck_record_sleeve(record);
   <div class={cls}>
     <button class="deck-list-card__body" type="button" on_click={_card_click_event(mode, id)}>
       <span class="deck-list-card__cover">
-        <span class="deck-list-card__cover-text">{text{deck_record_name(record)}}</span>
+        {image_view(DungeonEvent, _deck_cover_sprite_for_sleeve(sleeve), deck_record_name(record), [])}
       </span>
       <span class="deck-list-card__name">{text{deck_record_name(record)}}</span>
       <span class="deck-list-card__count">{text{_count_text(record)}}</span>
     </button>
+    {_sleeve_control(mode, id, sleeve, sleeve_picker)}
     {_select_bullet(mode, id, is_initial)}
     {_active_badge(is_active)}
   </div>
@@ -224,6 +232,27 @@ def _active_badge(is_active: U32) -> HTML(DungeonEvent):
       text{""}
     case _:
       <span class="deck-list-card__active-badge">{text{"ACTIVE"}}</span>
+
+def _sleeve_control(mode: DeckListMode, deck_id: U32, sleeve: DeckSleeve, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
+  match _show_sleeve_control(mode):
+    case 0:
+      text{""}
+    case _:
+      render_card_control(deck_id, sleeve, _is_sleeve_picker_open(sleeve_picker, deck_id))
+
+def _show_sleeve_control(mode: DeckListMode) -> U32:
+  match mode:
+    case deck_list_view{}:
+      1
+    case _:
+      0
+
+def _is_sleeve_picker_open(sleeve_picker: DeckSleevePicker, deck_id: U32) -> U32:
+  match sleeve_picker:
+    case sleeve_picker_open{open_id}:
+      open_id === deck_id
+    case sleeve_picker_closed{}:
+      0
 
 def _delete_action(mode: DeckListMode) -> HTML(DungeonEvent):
   match mode:

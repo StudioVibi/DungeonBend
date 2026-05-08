@@ -5,6 +5,7 @@ import Dungeon/UiState as UiState
 import Dungeon/DeckDraft as DeckDraft
 import Dungeon/DeckPickerMode as DeckPickerMode
 import Dungeon/DeckDetailMode as DeckDetailMode
+import Dungeon/DeckSleevePicker as DeckSleevePicker
 import Dungeon/DeckEntry as DeckEntry
 import Dungeon/DeckCategory as DeckCategory
 import Dungeon/DeckQuotas as DeckQuotas
@@ -19,6 +20,7 @@ import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
 import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
 import Dungeon/View/deck_chrome/render as deck_chrome
+import Dungeon/View/deck_sleeve_picker/render_detail_control as render_detail_control
 import Dungeon/View/selectors/meta_gold as meta_gold_text
 import Dungeon/View/deck_card_tile/render_tile as render_tile
 import Dungeon/View/deck_card_tile/render_empty as render_empty
@@ -31,6 +33,7 @@ import Dungeon/profile_helpers/meta_decks as meta_decks
 import Dungeon/profile_helpers/meta_active_deck_id as meta_active_deck_id
 import Dungeon/Deck/draft_ops/draft_id as draft_id
 import Dungeon/Deck/draft_ops/draft_name as draft_name
+import Dungeon/Deck/draft_ops/draft_sleeve as draft_sleeve
 import Dungeon/Deck/draft_ops/draft_entries as draft_entries
 import Dungeon/Deck/draft_ops/draft_dirty as draft_dirty
 import Dungeon/Deck/draft_ops/can_add_card as can_add_card
@@ -47,7 +50,7 @@ import Dungeon/Deck/card_collection/filter_entries_by_category as filter_entries
 import Dungeon/Deck/deck_validation/is_deck_valid as is_deck_valid
 import Dungeon/Deck/deck_validation/deck_total_count as deck_total_count
 
-def _render_deck_detail(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
+def _render_deck_detail(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   _shell(
     layout_frame(
       DungeonEvent,
@@ -57,7 +60,7 @@ def _render_deck_detail(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker
         _trailing(meta_state),
         _mobile_title(meta_state, draft, picker),
         _actions(meta_state, deck_id, draft, picker),
-        _body(meta_state, draft, picker, detail_mode)
+        _body(meta_state, draft, picker, detail_mode, sleeve_picker)
       ),
       [width_full{}, height_full{}, inset_none{}]
     )
@@ -156,10 +159,10 @@ def _set_active_visible(valid: U32, dirty: U32, is_active: U32) -> U32:
     case _:
       _and(valid, _not(dirty))
 
-def _body(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
+def _body(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   <section class={_stage_class(picker)}>
     <div class="deck-stage__content">
-      {_main_layout(meta_state, draft, picker, detail_mode)}
+      {_main_layout(meta_state, draft, picker, detail_mode, sleeve_picker)}
     </div>
     {_modal_layer(detail_mode)}
   </section>
@@ -171,9 +174,9 @@ def _stage_class(picker: DeckPickerMode) -> String:
     case picker_none{}:
       "deck-stage"
 
-def _main_layout(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
+def _main_layout(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   <section class="deck-detail">
-    {_title_row(draft)}
+    {_title_row(draft, sleeve_picker)}
     <div class={_main_class(picker)}>
       {_deck_panel(meta_state, draft, picker, detail_mode)}
     </div>
@@ -182,15 +185,25 @@ def _main_layout(meta_state: Meta, draft: DeckDraft, picker: DeckPickerMode, det
     </aside>
   </section>
 
-def _title_row(draft: DeckDraft) -> HTML(DungeonEvent):
+def _title_row(draft: DeckDraft, sleeve_picker: DeckSleevePicker) -> HTML(DungeonEvent):
   q = deck_quotas_default();
   entries = draft_entries(draft);
   total_q = quotas_total(q);
   count_text = U32/show(deck_total_count(entries)) ++ "/" ++ U32/show(total_q);
   <div class="deck-detail__title-row">
-    <h2 class="deck-detail__deck-name">{text{draft_name(draft)}}</h2>
+    <div class="deck-detail__deck-name-row">
+      <h2 class="deck-detail__deck-name">{text{draft_name(draft)}}</h2>
+      {render_detail_control(draft_id(draft), draft_sleeve(draft), _is_sleeve_picker_open(sleeve_picker, draft_id(draft)))}
+    </div>
     <span class="deck-detail__deck-count">{text{"DECK " ++ count_text}}</span>
   </div>
+
+def _is_sleeve_picker_open(sleeve_picker: DeckSleevePicker, deck_id: U32) -> U32:
+  match sleeve_picker:
+    case sleeve_picker_open{open_id}:
+      open_id === deck_id
+    case sleeve_picker_closed{}:
+      0
 
 def _main_class(picker: DeckPickerMode) -> String:
   match picker:

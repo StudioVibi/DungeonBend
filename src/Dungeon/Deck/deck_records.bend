@@ -1,5 +1,6 @@
 import Dungeon/DeckEntry as DeckEntry
 import Dungeon/DeckRecord as DeckRecord
+import Dungeon/DeckSleeve as DeckSleeve
 
 def initial_deck_id() -> U32:
   0
@@ -12,28 +13,38 @@ def is_initial_deck(deck_id: U32) -> U32:
 
 def deck_record_id(record: DeckRecord) -> U32:
   match record:
-    case deck_record{id, name, entries}:
+    case deck_record{id, name, sleeve, entries}:
       id
 
 def deck_record_name(record: DeckRecord) -> String:
   match record:
-    case deck_record{id, name, entries}:
+    case deck_record{id, name, sleeve, entries}:
       name
+
+def deck_record_sleeve(record: DeckRecord) -> DeckSleeve:
+  match record:
+    case deck_record{id, name, sleeve, entries}:
+      sleeve
 
 def deck_record_entries(record: DeckRecord) -> List(DeckEntry):
   match record:
-    case deck_record{id, name, entries}:
+    case deck_record{id, name, sleeve, entries}:
       entries
 
 def deck_record_with_name(record: DeckRecord, next_name: String) -> DeckRecord:
   match record:
-    case deck_record{id, name, entries}:
-      deck_record{id, next_name, entries}
+    case deck_record{id, name, sleeve, entries}:
+      deck_record{id, next_name, sleeve, entries}
+
+def deck_record_with_sleeve(record: DeckRecord, next_sleeve: DeckSleeve) -> DeckRecord:
+  match record:
+    case deck_record{id, name, sleeve, entries}:
+      deck_record{id, name, next_sleeve, entries}
 
 def deck_record_with_entries(record: DeckRecord, next_entries: List(DeckEntry)) -> DeckRecord:
   match record:
-    case deck_record{id, name, entries}:
-      deck_record{id, name, next_entries}
+    case deck_record{id, name, sleeve, entries}:
+      deck_record{id, name, sleeve, next_entries}
 
 def find_deck(records: List(DeckRecord), deck_id: U32) -> Maybe(DeckRecord):
   match records:

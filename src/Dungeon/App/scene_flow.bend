@@ -39,10 +39,10 @@ def _next_state_scene(evt: DungeonEvent, state: DungeonState) -> DungeonState:
       update_resume_prompt(evt, meta_state, run_value, next_seed_value, ui_value)
     case dungeon{game_state{meta_state, game_over{run_value}, next_seed_value}, ui_value}:
       update_game_over(evt, meta_state, run_value, next_seed_value, ui_value)
-    case dungeon{game_state{meta_state, deck_list{mode}, next_seed_value}, ui_value}:
-      update_deck_list(evt, meta_state, mode, next_seed_value, ui_value)
-    case dungeon{game_state{meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value}, ui_value}:
-      update_deck_detail(evt, meta_state, deck_id, draft, picker, detail_mode, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, deck_list{mode, sleeve_picker}, next_seed_value}, ui_value}:
+      update_deck_list(evt, meta_state, mode, sleeve_picker, next_seed_value, ui_value)
+    case dungeon{game_state{meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker}, next_seed_value}, ui_value}:
+      update_deck_detail(evt, meta_state, deck_id, draft, picker, detail_mode, sleeve_picker, next_seed_value, ui_value)
 
 def _restore_saved_scene(saved_scene: SavedScene) -> Scene:
   match saved_scene:

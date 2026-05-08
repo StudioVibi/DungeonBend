@@ -8,6 +8,8 @@ import Dungeon/DeckDraft as DeckDraft
 import Dungeon/DeckListMode as DeckListMode
 import Dungeon/DeckPickerMode as DeckPickerMode
 import Dungeon/DeckDetailMode as DeckDetailMode
+import Dungeon/DeckSleeve as DeckSleeve
+import Dungeon/DeckSleevePicker as DeckSleevePicker
 import Dungeon/DeckCategory as DeckCategory
 import Dungeon/CardRef as CardRef
 import Dungeon/config as config
@@ -19,11 +21,15 @@ import Dungeon/profile_helpers/set_meta_active_deck_id as set_meta_active_deck_i
 import Dungeon/Deck/deck_records/replace_deck as replace_deck
 import Dungeon/Deck/deck_records/append_deck as append_deck
 import Dungeon/Deck/deck_records/find_deck as find_deck
+import Dungeon/Deck/deck_records/deck_record_with_sleeve as deck_record_with_sleeve
 import Dungeon/Deck/deck_validation/is_deck_valid as is_deck_valid
 import Dungeon/Deck/draft_ops/draft_id as draft_id
 import Dungeon/Deck/draft_ops/draft_entries as draft_entries
 import Dungeon/Deck/draft_ops/draft_dirty as draft_dirty
+import Dungeon/Deck/draft_ops/draft_name as draft_name
+import Dungeon/Deck/draft_ops/draft_sleeve as draft_sleeve
 import Dungeon/Deck/draft_ops/draft_to_record as draft_to_record
+import Dungeon/Deck/draft_ops/draft_with_sleeve as draft_with_sleeve
 import Dungeon/Deck/draft_ops/can_add_card as can_add_card
 import Dungeon/Deck/draft_ops/add_card as add_card
 import Dungeon/Deck/draft_ops/remove_card as remove_card
@@ -32,16 +38,16 @@ import Dungeon/Deck/quotas/deck_quotas_default as deck_quotas_default
 import Dungeon/Deck/quotas/category_count as category_count
 import Dungeon/Deck/quotas/quota_for_category as quota_for_category
 
-def update_deck_detail(evt: DungeonEvent, meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, next_seed_value: U32, ui_value: UiState) -> DungeonState:
+def update_deck_detail(evt: DungeonEvent, meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, sleeve_picker: DeckSleevePicker, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match evt:
     case request_close_deck_detail{}:
       _request_close(meta_state, deck_id, draft, picker, next_seed_value, ui_value)
     case close_deck_detail{}:
-      _state(meta_state, deck_list{deck_list_view{}}, next_seed_value, default_ui())
+      _state(meta_state, deck_list{deck_list_view{}, sleeve_picker_closed{}}, next_seed_value, default_ui())
     case discard_deck_changes{}:
-      _state(meta_state, deck_list{deck_list_view{}}, next_seed_value, default_ui())
+      _state(meta_state, deck_list{deck_list_view{}, sleeve_picker_closed{}}, next_seed_value, default_ui())
     case cancel_discard_deck_changes{}:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_view{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
     case add_card_to_deck{card}:
       _try_add(meta_state, deck_id, draft, picker, card, next_seed_value, ui_value)
     case remove_card_from_deck{card, occurrence}:
@@ -51,37 +57,43 @@ def update_deck_detail(evt: DungeonEvent, meta_state: Meta, deck_id: U32, draft:
     case set_active_deck{target_id}:
       _try_set_active(meta_state, deck_id, draft, picker, detail_mode, target_id, next_seed_value, ui_value)
     case open_category_picker{category}:
-      _state(meta_state, deck_detail{deck_id, draft, picker_open{category}, detail_view{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker_open{category}, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
     case close_category_picker{}:
-      _state(meta_state, deck_detail{deck_id, draft, picker_none{}, detail_view{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker_none{}, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
+    case toggle_deck_sleeve_picker{target_id}:
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, _next_sleeve_picker(sleeve_picker, target_id)}, next_seed_value, ui_value)
+    case close_deck_sleeve_picker{}:
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, ui_value)
+    case set_deck_sleeve{target_id, sleeve}:
+      _set_sleeve(meta_state, deck_id, draft, picker, detail_mode, target_id, sleeve, next_seed_value, ui_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker}, next_seed_value, ui_value)
 
 def _request_close(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match draft_dirty(draft):
     case 0:
-      _state(meta_state, deck_list{deck_list_view{}}, next_seed_value, default_ui())
+      _state(meta_state, deck_list{deck_list_view{}, sleeve_picker_closed{}}, next_seed_value, default_ui())
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_confirm_discard{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_confirm_discard{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _try_add(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, card: CardRef, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match can_add_card(config(), meta_state, draft, card):
     case 1:
       _apply_add(meta_state, deck_id, draft, card, next_seed_value, ui_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_view{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _apply_add(meta_state: Meta, deck_id: U32, draft: DeckDraft, card: CardRef, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   next_draft = add_card(draft, card);
   next_picker = _next_picker_after_add(next_draft, card);
-  _state(meta_state, deck_detail{deck_id, next_draft, next_picker, detail_view{}}, next_seed_value, ui_value)
+  _state(meta_state, deck_detail{deck_id, next_draft, next_picker, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _try_remove(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, card: CardRef, occurrence: U32, next_seed_value: U32, ui_value: UiState) -> DungeonState:
   match _is_armed_for(detail_mode, card, occurrence):
     case 1:
-      _state(meta_state, deck_detail{deck_id, remove_card(draft, card), picker, detail_view{}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, remove_card(draft, card), picker, detail_view{}, sleeve_picker_closed{}}, next_seed_value, ui_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_pending_delete{card, occurrence}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_pending_delete{card, occurrence}, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _is_armed_for(detail_mode: DeckDetailMode, card: CardRef, occurrence: U32) -> U32:
   match detail_mode:
@@ -125,18 +137,18 @@ def _try_save(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPick
     case 1:
       _apply_save(meta_state, deck_id, draft, picker, detail_mode, next_seed_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _apply_save(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, next_seed_value: U32) -> DungeonState:
   next_record = draft_to_record(draft);
   next_decks = _upsert_deck(meta_decks(meta_state), next_record);
   next_meta = set_meta_decks(meta_state, next_decks);
-  reset_draft : DeckDraft = deck_draft{deck_id, _draft_name(draft), draft_entries(draft), 0};
-  _state(next_meta, deck_detail{deck_id, reset_draft, picker, detail_mode}, next_seed_value, default_ui())
+  reset_draft : DeckDraft = deck_draft{deck_id, _draft_name(draft), draft_sleeve(draft), draft_entries(draft), 0};
+  _state(next_meta, deck_detail{deck_id, reset_draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, default_ui())
 
 def _draft_name(draft: DeckDraft) -> String:
   match draft:
-    case deck_draft{id, name, entries, dirty}:
+    case deck_draft{id, name, sleeve, entries, dirty}:
       name
 
 def _upsert_deck(records: List(DeckRecord), next_record: DeckRecord) -> List(DeckRecord):
@@ -148,7 +160,7 @@ def _upsert_deck(records: List(DeckRecord), next_record: DeckRecord) -> List(Dec
 
 def _record_id_of(record: DeckRecord) -> U32:
   match record:
-    case deck_record{id, name, entries}:
+    case deck_record{id, name, sleeve, entries}:
       id
 
 def _try_set_active(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, target_id: U32, next_seed_value: U32, ui_value: UiState) -> DungeonState:
@@ -156,11 +168,43 @@ def _try_set_active(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: De
     case 0:
       _set_active_if_valid(meta_state, deck_id, draft, picker, detail_mode, target_id, next_seed_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, ui_value)
 
 def _set_active_if_valid(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, target_id: U32, next_seed_value: U32) -> DungeonState:
   match find_deck(meta_decks(meta_state), target_id):
     case some{record}:
-      _state(set_meta_active_deck_id(meta_state, target_id), deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value, default_ui())
+      _state(set_meta_active_deck_id(meta_state, target_id), deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, default_ui())
     case none{}:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode}, next_seed_value, default_ui())
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, default_ui())
+
+def _next_sleeve_picker(current: DeckSleevePicker, deck_id: U32) -> DeckSleevePicker:
+  match current:
+    case sleeve_picker_open{open_id}:
+      match open_id === deck_id:
+        case 1:
+          sleeve_picker_closed{}
+        case _:
+          sleeve_picker_open{deck_id}
+    case sleeve_picker_closed{}:
+      sleeve_picker_open{deck_id}
+
+def _set_sleeve(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, target_id: U32, sleeve: DeckSleeve, next_seed_value: U32, ui_value: UiState) -> DungeonState:
+  next_meta = _save_sleeve_meta(meta_state, draft, target_id, sleeve);
+  next_draft = _save_sleeve_draft(draft, target_id, sleeve);
+  _state(next_meta, deck_detail{deck_id, next_draft, picker, detail_mode, sleeve_picker_closed{}}, next_seed_value, default_ui())
+
+def _save_sleeve_meta(meta_state: Meta, draft: DeckDraft, target_id: U32, sleeve: DeckSleeve) -> Meta:
+  match find_deck(meta_decks(meta_state), target_id):
+    case some{record}:
+      updated = deck_record_with_sleeve(record, sleeve);
+      set_meta_decks(meta_state, replace_deck(meta_decks(meta_state), updated))
+    case none{}:
+      created : DeckRecord = deck_record{target_id, draft_name(draft), sleeve, []};
+      set_meta_decks(meta_state, append_deck(meta_decks(meta_state), created))
+
+def _save_sleeve_draft(draft: DeckDraft, target_id: U32, sleeve: DeckSleeve) -> DeckDraft:
+  match draft_id(draft) === target_id:
+    case 1:
+      draft_with_sleeve(draft, sleeve)
+    case _:
+      draft

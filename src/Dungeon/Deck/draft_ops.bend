@@ -1,11 +1,13 @@
 import Dungeon/DeckDraft as DeckDraft
 import Dungeon/DeckEntry as DeckEntry
 import Dungeon/DeckRecord as DeckRecord
+import Dungeon/DeckSleeve as DeckSleeve
 import Dungeon/DeckCategory as DeckCategory
 import Dungeon/DeckQuotas as DeckQuotas
 import Dungeon/CardRef as CardRef
 import Dungeon/Meta as Meta
 import Dungeon/Config as Config
+import Dungeon/Deck/sleeves/default_sleeve as default_sleeve
 import Dungeon/Deck/counts_pick/card_ref_entry as card_ref_entry
 import Dungeon/Deck/counts_pick/add_deck_entry as add_deck_entry
 import Dungeon/Deck/counts_pick/deck_count_for_card as deck_count_for_card
@@ -17,46 +19,56 @@ import Dungeon/Deck/card_collection/available_for_add as available_for_add
 
 def draft_from_record(record: DeckRecord) -> DeckDraft:
   match record:
-    case deck_record{id, name, entries}:
-      deck_draft{id, name, entries, 0}
+    case deck_record{id, name, sleeve, entries}:
+      deck_draft{id, name, sleeve, entries, 0}
 
 def empty_draft(deck_id: U32, name: String) -> DeckDraft:
-  deck_draft{deck_id, name, [], 0}
+  deck_draft{deck_id, name, default_sleeve(), [], 0}
 
 def draft_id(draft: DeckDraft) -> U32:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
       deck_id
 
 def draft_name(draft: DeckDraft) -> String:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
       name
+
+def draft_sleeve(draft: DeckDraft) -> DeckSleeve:
+  match draft:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
+      sleeve
 
 def draft_entries(draft: DeckDraft) -> List(DeckEntry):
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
       entries
 
 def draft_dirty(draft: DeckDraft) -> U32:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
       dirty
 
 def draft_with_entries(draft: DeckDraft, next_entries: List(DeckEntry)) -> DeckDraft:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
-      deck_draft{deck_id, name, next_entries, 1}
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
+      deck_draft{deck_id, name, sleeve, next_entries, 1}
 
 def draft_with_name(draft: DeckDraft, next_name: String) -> DeckDraft:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
-      deck_draft{deck_id, next_name, entries, 1}
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
+      deck_draft{deck_id, next_name, sleeve, entries, 1}
+
+def draft_with_sleeve(draft: DeckDraft, next_sleeve: DeckSleeve) -> DeckDraft:
+  match draft:
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
+      deck_draft{deck_id, name, next_sleeve, entries, dirty}
 
 def draft_to_record(draft: DeckDraft) -> DeckRecord:
   match draft:
-    case deck_draft{deck_id, name, entries, dirty}:
-      deck_record{deck_id, name, entries}
+    case deck_draft{deck_id, name, sleeve, entries, dirty}:
+      deck_record{deck_id, name, sleeve, entries}
 
 def can_add_card(cfg: Config, meta_state: Meta, draft: DeckDraft, card: CardRef) -> U32:
   q = quotas_from_config(cfg);

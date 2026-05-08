@@ -9,6 +9,7 @@ import Dungeon/PotionDef as PotionDef
 import Dungeon/PackDef as PackDef
 import Dungeon/DeckEntry as DeckEntry
 import Dungeon/DeckRecord as DeckRecord
+import Dungeon/DeckSleeve as DeckSleeve
 import Dungeon/CardRef as CardRef
 import Dungeon/PackReward as PackReward
 import Dungeon/PackInventoryEntry as PackInventoryEntry
@@ -30,6 +31,8 @@ import Dungeon/profile_helpers/set_meta_pack_inventory as set_meta_pack_inventor
 import Dungeon/profile_helpers/update_profile as update_profile
 import Dungeon/Deck/deck_records/initial_deck_id as initial_deck_id
 import Dungeon/Deck/deck_records/initial_deck_name as initial_deck_name
+import Dungeon/Deck/sleeves/default_sleeve as default_sleeve
+import Dungeon/Deck/sleeves/sleeve_from_code as sleeve_from_code
 
 def _parse_meta(s: String) -> DungeonEvent:
   _parse_sections(String/split(s, '|'))
@@ -42,32 +45,36 @@ def _parse_sections(parts: List(String)) -> DungeonEvent:
       no_save{}
 
 def _parse_sections_head(head: String, rest: List(String)) -> DungeonEvent:
-  match String/eq(head, "v6"):
+  match String/eq(head, "v7"):
     case true{}:
       _parse_v6_sections(rest)
     case false{}:
-      match String/eq(head, "v5"):
+      match String/eq(head, "v6"):
         case true{}:
-          _parse_v5_sections(rest)
+          _parse_v6_sections(rest)
         case false{}:
-          match String/eq(head, "v4"):
+          match String/eq(head, "v5"):
             case true{}:
-              no_save{}
+              _parse_v5_sections(rest)
             case false{}:
-              match String/eq(head, "v3"):
+              match String/eq(head, "v4"):
                 case true{}:
-                  _parse_v3_sections(rest)
+                  no_save{}
                 case false{}:
-                  match String/eq(head, "v2"):
+                  match String/eq(head, "v3"):
                     case true{}:
-                      _parse_v2_sections(rest)
+                      _parse_v3_sections(rest)
                     case false{}:
-                      _parse_legacy_sections(head, rest)
+                      match String/eq(head, "v2"):
+                        case true{}:
+                          _parse_v2_sections(rest)
+                        case false{}:
+                          _parse_legacy_sections(head, rest)
 
 def _initial_decks_for_config(cfg: Config) -> List(DeckRecord):
   match cfg:
     case config{heroes, monsters, swords, potions, deck, booster_packs, starting_dungeon_level}:
-      [deck_record{initial_deck_id(), initial_deck_name(), deck}]
+      [deck_record{initial_deck_id(), initial_deck_name(), default_sleeve(), deck}]
 
 def _parse_v6_sections(parts: List(String)) -> DungeonEvent:
   match parts:
@@ -230,7 +237,7 @@ def _has_initial_match(matched: U32, rest: List(DeckRecord)) -> U32:
 
 def _record_id(record: DeckRecord) -> U32:
   match record:
-    case deck_record{id, name, entries}:
+    case deck_record{id, name, sleeve, entries}:
       id
 
 def _parse_deck_records(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), parts: List(String)) -> List(DeckRecord):
@@ -253,14 +260,31 @@ def _parse_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potio
       match rest:
         case name_str<>rest1:
           match rest1:
-            case mon_str<>rest2:
+            case third_str<>rest2:
               match rest2:
-                case sw_str<>rest3:
+                case fourth_str<>rest3:
                   match rest3:
-                    case pot_str<>rest4:
+                    case fifth_str<>rest4:
                       match rest4:
-                        case hero_str<>rest5:
+                        case sixth_str<>rest5:
                           match rest5:
+                            case seventh_str<>rest6:
+                              match rest6:
+                                case []:
+                                  _build_deck_record(
+                                    monsters,
+                                    swords,
+                                    potions,
+                                    String/to_u32(id_str),
+                                    name_str,
+                                    sleeve_from_code(third_str),
+                                    String/split(fourth_str, ','),
+                                    String/split(fifth_str, ','),
+                                    String/split(sixth_str, ','),
+                                    String/to_u32(seventh_str)
+                                  )
+                                case _:
+                                  none{}
                             case []:
                               _build_deck_record(
                                 monsters,
@@ -268,10 +292,11 @@ def _parse_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potio
                                 potions,
                                 String/to_u32(id_str),
                                 name_str,
-                                String/split(mon_str, ','),
-                                String/split(sw_str, ','),
-                                String/split(pot_str, ','),
-                                String/to_u32(hero_str)
+                                default_sleeve(),
+                                String/split(third_str, ','),
+                                String/split(fourth_str, ','),
+                                String/split(fifth_str, ','),
+                                String/to_u32(sixth_str)
                               )
                             case _:
                               none{}
@@ -288,7 +313,7 @@ def _parse_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potio
     case _:
       none{}
 
-def _build_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), id_maybe: Maybe(U32), name: String, mon_counts: List(String), sw_counts: List(String), pot_counts: List(String), hero_maybe: Maybe(U32)) -> Maybe(DeckRecord):
+def _build_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potions: List(PotionDef), id_maybe: Maybe(U32), name: String, sleeve: DeckSleeve, mon_counts: List(String), sw_counts: List(String), pot_counts: List(String), hero_maybe: Maybe(U32)) -> Maybe(DeckRecord):
   match id_maybe:
     case some{id}:
       entries = _merge_bonus_sections(
@@ -297,7 +322,7 @@ def _build_deck_record(monsters: List(MonsterDef), swords: List(SwordDef), potio
         _parse_potion_bonus(potions, pot_counts, 0)
       );
       with_hero = _append_hero_entry(entries, _value_or(hero_maybe, 0));
-      some{deck_record{id, name, with_hero}}
+      some{deck_record{id, name, sleeve, with_hero}}
     case none{}:
       none{}
 
