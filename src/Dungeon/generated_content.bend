@@ -170,7 +170,7 @@ def ui_menu_characters() -> String:
   "Characters"
 
 def ui_menu_start() -> String:
-  "Start 14"
+  "Start"
 
 def ui_pause_body() -> String:
   "Your run is on hold. Resume when you're ready."
