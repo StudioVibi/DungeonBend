@@ -7,6 +7,7 @@ import HTML as HTML
 import Midum/Config/palette as current_palette
 import Midum/Config/style as current_style
 import Midum/Internal/DOM/Button/base_css as button_base_css
+import Midum/Internal/DOM/Button/catoon_css as button_catoon_css
 import Midum/Internal/DOM/Button/role_css as button_role_css
 import Midum/Internal/DOM/Button/style_css as button_style_css
 import Midum/Internal/DOM/Card/base_css as card_base_css
@@ -43,6 +44,7 @@ def screen(Event: Type, body: HTML(Event)) -> HTML(Event):
     <style>{text{button_base_css()}}</style>
     <style>{text{button_role_css()}}</style>
     <style>{text{button_style_css()}}</style>
+    <style>{text{button_catoon_css()}}</style>
     <style>{text{text_css()}}</style>
     {body}
   </main>

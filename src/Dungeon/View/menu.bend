@@ -38,6 +38,7 @@ import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
+import Midum/Button/catoon_dark as button_catoon_dark
 import Midum/Button/catoon_dark_counter as button_catoon_dark_counter
 import Midum/Button/catoon_yellow as button_catoon_yellow
 import Midum/Button/secondary as button_secondary
@@ -482,7 +483,7 @@ def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
 
 def _menu_deck_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_secondary(
+    {button_catoon_dark(
       DungeonEvent,
       ignore{},
       medium{},
@@ -502,7 +503,7 @@ def _menu_upgrade_button() -> HTML(DungeonEvent):
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_secondary(
+    {button_catoon_dark(
       DungeonEvent,
       upgrade{},
       medium{},
@@ -513,7 +514,7 @@ def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: He
 
 def _character_booster_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_secondary(
+    {button_catoon_dark(
       DungeonEvent,
       open_boosters{},
       medium{},
@@ -524,7 +525,7 @@ def _character_booster_button() -> HTML(DungeonEvent):
 
 def _character_back_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_secondary(
+    {button_catoon_dark(
       DungeonEvent,
       close_character_select{},
       medium{},
@@ -535,7 +536,7 @@ def _character_back_button() -> HTML(DungeonEvent):
 
 def _header_characters_action() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_secondary(
+    {button_catoon_dark(
       DungeonEvent,
       open_character_select{},
       small{},
