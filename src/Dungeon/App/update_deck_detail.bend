@@ -44,8 +44,8 @@ def update_deck_detail(evt: DungeonEvent, meta_state: Meta, deck_id: U32, draft:
       _state(meta_state, deck_detail{deck_id, draft, picker, detail_view{}}, next_seed_value, ui_value)
     case add_card_to_deck{card}:
       _try_add(meta_state, deck_id, draft, picker, card, next_seed_value, ui_value)
-    case remove_card_from_deck{card}:
-      _try_remove(meta_state, deck_id, draft, picker, detail_mode, card, next_seed_value, ui_value)
+    case remove_card_from_deck{card, occurrence}:
+      _try_remove(meta_state, deck_id, draft, picker, detail_mode, card, occurrence, next_seed_value, ui_value)
     case save_deck_changes{}:
       _try_save(meta_state, deck_id, draft, picker, detail_mode, next_seed_value, ui_value)
     case set_active_deck{target_id}:
@@ -76,19 +76,26 @@ def _apply_add(meta_state: Meta, deck_id: U32, draft: DeckDraft, card: CardRef, 
   next_picker = _next_picker_after_add(next_draft, card);
   _state(meta_state, deck_detail{deck_id, next_draft, next_picker, detail_view{}}, next_seed_value, ui_value)
 
-def _try_remove(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, card: CardRef, next_seed_value: U32, ui_value: UiState) -> DungeonState:
-  match _is_armed_for(detail_mode, card):
+def _try_remove(meta_state: Meta, deck_id: U32, draft: DeckDraft, picker: DeckPickerMode, detail_mode: DeckDetailMode, card: CardRef, occurrence: U32, next_seed_value: U32, ui_value: UiState) -> DungeonState:
+  match _is_armed_for(detail_mode, card, occurrence):
     case 1:
       _state(meta_state, deck_detail{deck_id, remove_card(draft, card), picker, detail_view{}}, next_seed_value, ui_value)
     case _:
-      _state(meta_state, deck_detail{deck_id, draft, picker, detail_pending_delete{card}}, next_seed_value, ui_value)
+      _state(meta_state, deck_detail{deck_id, draft, picker, detail_pending_delete{card, occurrence}}, next_seed_value, ui_value)
 
-def _is_armed_for(detail_mode: DeckDetailMode, card: CardRef) -> U32:
+def _is_armed_for(detail_mode: DeckDetailMode, card: CardRef, occurrence: U32) -> U32:
   match detail_mode:
-    case detail_pending_delete{armed}:
-      _card_ref_eq(armed, card)
+    case detail_pending_delete{armed, armed_occurrence}:
+      _and(_card_ref_eq(armed, card), armed_occurrence === occurrence)
     case _:
       0
+
+def _and(a: U32, b: U32) -> U32:
+  match a:
+    case 0:
+      0
+    case _:
+      b
 
 def _card_ref_eq(left: CardRef, right: CardRef) -> U32:
   match left right:

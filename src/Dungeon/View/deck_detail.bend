@@ -312,29 +312,29 @@ def _filled_slots(entries: List(DeckEntry), detail_mode: DeckDetailMode) -> List
       _concat_html(_entry_to_tiles(current, detail_mode), _filled_slots(rest, detail_mode))
 
 def _entry_to_tiles(entry: DeckEntry, detail_mode: DeckDetailMode) -> List(HTML(DungeonEvent)):
-  _repeat_tile(entry_card_ref(entry), entry_count(entry), detail_mode)
+  _repeat_tile(entry_card_ref(entry), entry_count(entry), 0, detail_mode)
 
-def _repeat_tile(card: CardRef, count: U32, detail_mode: DeckDetailMode) -> List(HTML(DungeonEvent)):
+def _repeat_tile(card: CardRef, count: U32, occurrence: U32, detail_mode: DeckDetailMode) -> List(HTML(DungeonEvent)):
   match count:
     case 0:
       []
     case _:
-      _filled_tile(card, detail_mode)<>_repeat_tile(card, count - 1, detail_mode)
+      _filled_tile(card, occurrence, detail_mode)<>_repeat_tile(card, count - 1, occurrence + 1, detail_mode)
 
-def _filled_tile(card: CardRef, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
-  render_tile(card, _filled_modifier(detail_mode, card), "", remove_card_from_deck{card})
+def _filled_tile(card: CardRef, occurrence: U32, detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
+  render_tile(card, _filled_modifier(detail_mode, card, occurrence), "", remove_card_from_deck{card, occurrence})
 
-def _filled_modifier(detail_mode: DeckDetailMode, card: CardRef) -> String:
-  match _is_armed(detail_mode, card):
+def _filled_modifier(detail_mode: DeckDetailMode, card: CardRef, occurrence: U32) -> String:
+  match _is_armed(detail_mode, card, occurrence):
     case 0:
       " deck-tile--filled"
     case _:
       " deck-tile--filled deck-tile--armed"
 
-def _is_armed(detail_mode: DeckDetailMode, card: CardRef) -> U32:
+def _is_armed(detail_mode: DeckDetailMode, card: CardRef, occurrence: U32) -> U32:
   match detail_mode:
-    case detail_pending_delete{armed}:
-      _card_ref_eq_local(armed, card)
+    case detail_pending_delete{armed, armed_occurrence}:
+      _and(_card_ref_eq_local(armed, card), armed_occurrence === occurrence)
     case _:
       0
 
@@ -548,7 +548,7 @@ def _modal_layer(detail_mode: DeckDetailMode) -> HTML(DungeonEvent):
       text{""}
     case detail_confirm_discard{}:
       _discard_modal()
-    case detail_pending_delete{card}:
+    case detail_pending_delete{card, occurrence}:
       text{""}
 
 def _discard_modal() -> HTML(DungeonEvent):

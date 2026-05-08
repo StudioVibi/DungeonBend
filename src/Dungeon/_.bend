@@ -197,7 +197,7 @@ type DeckPickerMode {
 type DeckDetailMode {
   detail_view{}
   detail_confirm_discard{}
-  detail_pending_delete{card: CardRef}
+  detail_pending_delete{card: CardRef, occurrence: U32}
 }
 
 type Meta {
@@ -397,7 +397,7 @@ type DungeonEvent {
   discard_deck_changes{}
   cancel_discard_deck_changes{}
   add_card_to_deck{card: CardRef}
-  remove_card_from_deck{card: CardRef}
+  remove_card_from_deck{card: CardRef, occurrence: U32}
   save_deck_changes{}
   set_active_deck{deck_id: U32}
   open_category_picker{category: DeckCategory}
