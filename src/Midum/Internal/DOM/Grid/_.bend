@@ -2,13 +2,10 @@
 
 import HTML as HTML
 import Nat/add as nat_add
+import Nat/compare as compare_nat
 import Nat/div as nat_div
-import Nat/eq as nat_eq
-import Nat/ge as nat_ge
-import Nat/le as nat_le
 import Nat/mul as nat_mul
 import Nat/show as show_nat
-import Nat/sub as nat_sub
 
 MAX_PERSPECTIVE : Nat = 60n
 BASE_ROW_HEIGHT_WEIGHT : Nat = 100n
@@ -27,6 +24,36 @@ VIEWBOX_BOTTOM_PAD : Nat = 110n
 
 def nat_px(value: Nat) -> String:
   show_nat(value) ++ "px"
+
+def nat_eq(left: Nat, right: Nat) -> Bool:
+  match compare_nat(left, right):
+    case eq{}:
+      true{}
+    case _:
+      false{}
+
+def nat_ge(left: Nat, right: Nat) -> Bool:
+  match compare_nat(left, right):
+    case lt{}:
+      false{}
+    case _:
+      true{}
+
+def nat_le(left: Nat, right: Nat) -> Bool:
+  match compare_nat(left, right):
+    case gt{}:
+      false{}
+    case _:
+      true{}
+
+def nat_sub(left: Nat, right: Nat) -> Nat:
+  match left right:
+    case left 0n:
+      left
+    case 0n right:
+      0n
+    case 1n+left_rest 1n+right_rest:
+      nat_sub(left_rest, right_rest)
 
 def nat_min(a: Nat, b: Nat) -> Nat:
   match nat_le(a, b):

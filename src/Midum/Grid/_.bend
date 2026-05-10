@@ -4,10 +4,17 @@
 
 import HTML as HTML
 import Midum/Internal/DOM/Grid/render as dom_render
-import Nat/ge as nat_ge
+import Nat/compare as compare_nat
 
 MAX_PERSPECTIVE : Nat = 60n
 MAX_TRANSFER : Nat = 60n
+
+def nat_ge(left: Nat, right: Nat) -> Bool:
+  match compare_nat(left, right):
+    case lt{}:
+      false{}
+    case _:
+      true{}
 
 def clamp(max_value: Nat, value: Nat) -> Nat:
   match nat_ge(value, max_value):
