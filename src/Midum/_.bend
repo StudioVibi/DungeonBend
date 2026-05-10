@@ -17,6 +17,7 @@ import Midum/Internal/DOM/Card/surface_script_1 as card_surface_script_1
 import Midum/Internal/DOM/Card/surface_script_2 as card_surface_script_2
 import Midum/Internal/DOM/Card/surface_script_3 as card_surface_script_3
 import Midum/Internal/DOM/Card/style_css as card_style_css
+import Midum/Internal/DOM/Grid/base_css as grid_css
 import Midum/Internal/DOM/Image/base_css as image_css
 import Midum/Internal/DOM/Layout/css as layout_css
 import Midum/Internal/DOM/Text/css as text_css
@@ -31,6 +32,7 @@ def screen(Event: Type, body: HTML(Event)) -> HTML(Event):
     <style>{text{theme_orange_css()}}</style>
     <style>{text{theme_olive_css()}}</style>
     <style>{text{layout_css()}}</style>
+    <style>{text{grid_css()}}</style>
     <style>{text{image_css()}}</style>
     <style>{text{card_base_css()}}</style>
     <style>{text{card_role_css()}}</style>
