@@ -167,10 +167,10 @@ def _board_grid(scene_value: Scene, run_value: Run, ui_value: UiState, hero_valu
         _board_grid_cell(run_value, ui_value, hero_value, 2, 2)
       ],
       [
-        perspective{value: 15n},
-        grid_gap_x{value: 0n},
-        grid_gap_y{value: 110n},
-        max_transfer{value: 35n}
+        perspective{value: 16n},
+        grid_gap_x{value: 43n},
+        grid_gap_y{value: 120n},
+        max_transfer{value: 40n}
       ]
     )}
   </div>
@@ -301,8 +301,8 @@ def _board_grid_cell(run_value: Run, ui_value: UiState, hero_value: HeroDef, x: 
     DungeonEvent,
     _board_slot(run_value, ui_value, hero_value, x, y),
     [
-      trap_border_color{value: "transparent"},
-      trap_border_width_px{value: 0n},
+      trap_border_color{value: "rgba(255,255,255,0.82)"},
+      trap_border_width_px{value: 1n},
       trap_fill_color{value: "transparent"}
     ]
   )
