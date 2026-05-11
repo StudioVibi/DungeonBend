@@ -5,6 +5,9 @@
 
 import HTML as HTML
 import Midum/Config/button_defaults as current_button_defaults
+import Midum/Internal/DOM/Button/catoon_dark as dom_catoon_dark
+import Midum/Internal/DOM/Button/catoon_dark_counter as dom_catoon_dark_counter
+import Midum/Internal/DOM/Button/catoon_yellow as dom_catoon_yellow
 import Midum/Internal/DOM/Button/primary as dom_primary
 import Midum/Internal/DOM/Button/neutral as dom_neutral
 import Midum/Internal/DOM/Button/secondary as dom_secondary
@@ -52,6 +55,21 @@ def config(text: String, size: Midum/Button/Size, overrides: List(Midum/Button/O
 
 def primary(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
   dom_primary(Event, evt, config(text, size, overrides))
+
+def catoon_yellow(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
+  dom_catoon_yellow(Event, evt, config(text, size, overrides))
+
+def catoon_dark(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
+  dom_catoon_dark(Event, evt, config(text, size, overrides))
+
+def catoon_dark_counter(Event: Type, evt: Event, size: Midum/Button/Size, text: String, count: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
+  dom_catoon_dark_counter(Event, evt, config(text, size, overrides), count)
+
+def catoon(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
+  catoon_yellow(Event, evt, size, text, overrides)
+
+def catoon_secondary(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
+  catoon_dark(Event, evt, size, text, overrides)
 
 def secondary(Event: Type, evt: Event, size: Midum/Button/Size, text: String, overrides: List(Midum/Button/Override)) -> HTML(Event):
   dom_secondary(Event, evt, config(text, size, overrides))

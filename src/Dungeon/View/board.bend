@@ -25,7 +25,6 @@ import Dungeon/View/selectors/ultimate_label as ultimate_label
 import Dungeon/View/selectors/ultimate_enabled as ultimate_enabled
 import Dungeon/View/selectors/game_over_modal_class as game_over_modal_class
 import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
-import Dungeon/View/u32_grid as u32_grid
 import Dungeon/View/assets_and_labels/_dungeon_level_badge_backdrop as _dungeon_level_badge_backdrop
 import Dungeon/View/assets_and_labels/_dungeon_level_value_backdrop as _dungeon_level_value_backdrop
 import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
@@ -37,6 +36,8 @@ import Dungeon/Content as Content
 import Midum/Button/primary as button_primary
 import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
+import Midum/Grid/cell as grid_cell
+import Midum/Grid/view as grid_view
 import Midum/Image/view as image_view
 import Midum/Image/animated as image_animated
 import Midum/Layout/bottom as layout_bottom
@@ -151,8 +152,28 @@ def _dungeon_level(scene_value: Scene) -> HTML(DungeonEvent):
   </div>
 
 def _board_grid(scene_value: Scene, run_value: Run, ui_value: UiState, hero_value: HeroDef) -> HTML(DungeonEvent):
-  cells = u32_grid(DungeonEvent, 3, 3, _board_slot(run_value, ui_value, hero_value));
-  <div class={_board_class(scene_value)}>{...cells}</div>
+  <div class={_board_class(scene_value)}>
+    {grid_view(
+      DungeonEvent,
+      [
+        _board_grid_cell(run_value, ui_value, hero_value, 0, 0),
+        _board_grid_cell(run_value, ui_value, hero_value, 1, 0),
+        _board_grid_cell(run_value, ui_value, hero_value, 2, 0),
+        _board_grid_cell(run_value, ui_value, hero_value, 0, 1),
+        _board_grid_cell(run_value, ui_value, hero_value, 1, 1),
+        _board_grid_cell(run_value, ui_value, hero_value, 2, 1),
+        _board_grid_cell(run_value, ui_value, hero_value, 0, 2),
+        _board_grid_cell(run_value, ui_value, hero_value, 1, 2),
+        _board_grid_cell(run_value, ui_value, hero_value, 2, 2)
+      ],
+      [
+        perspective{value: 16n},
+        grid_gap_x{value: 43n},
+        grid_gap_y{value: 120n},
+        max_transfer{value: 40n}
+      ]
+    )}
+  </div>
 
 def _ultimate_action(scene_value: Scene) -> HTML(DungeonEvent):
   <div class="ultimate-action">
@@ -278,6 +299,17 @@ def _board_card_identity(is_hero: U32, hero_value: HeroDef, hero_hp: U32, hero_m
 
 def _board_slot(run_value: Run, ui_value: UiState, hero_value: HeroDef, x: U32, y: U32) -> HTML(DungeonEvent):
   _board_slot_at(run_value, ui_value, hero_value, _board_idx(x, y), board_xy_pos(x, y))
+
+def _board_grid_cell(run_value: Run, ui_value: UiState, hero_value: HeroDef, x: U32, y: U32) -> Midum/Grid/Cell(DungeonEvent):
+  grid_cell(
+    DungeonEvent,
+    _board_slot(run_value, ui_value, hero_value, x, y),
+    [
+      trap_border_color{value: "rgba(255,255,255,0.82)"},
+      trap_border_width_px{value: 1n},
+      trap_fill_color{value: "transparent"}
+    ]
+  )
 
 def _board_slot_at(run_value: Run, ui_value: UiState, hero_value: HeroDef, idx: U32, pos: Nat/V2) -> HTML(DungeonEvent):
   match ui_value:
