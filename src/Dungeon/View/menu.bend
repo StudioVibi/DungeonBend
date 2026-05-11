@@ -485,10 +485,10 @@ def _menu_deck_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
     {button_catoon_dark(
       DungeonEvent,
-      ignore{},
+      open_deck_list{},
       medium{},
-      "DUNGEON DECK",
-      _full_button_overrides(0)
+      "EDIT DECKS",
+      _full_button_overrides(1)
     )}
   </div>
 

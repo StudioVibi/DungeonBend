@@ -11,6 +11,8 @@ import Dungeon/View/menu/_render_character_select as _render_character_select
 import Dungeon/View/boosters/_render_boosters as _render_boosters
 import Dungeon/View/ultimate_preview/_render_ultimate_preview as _render_ultimate_preview
 import Dungeon/View/board/_render_dungeon as _render_dungeon
+import Dungeon/View/deck_list/_render_deck_list as _render_deck_list
+import Dungeon/View/deck_detail/_render_deck_detail as _render_deck_detail
 import Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
 import Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
 import Midum/screen as screen
@@ -53,6 +55,10 @@ def _screen_root(meta_state: Meta, scene_value: Scene, ui_value: UiState) -> HTM
       _render_dungeon(meta_state, resume_prompt{run_value}, run_value, ui_value)
     case game_over{run_value}:
       _render_dungeon(meta_state, game_over{run_value}, run_value, ui_value)
+    case deck_list{mode, sleeve_picker}:
+      _render_deck_list(meta_state, mode, sleeve_picker)
+    case deck_detail{deck_id, draft, picker, detail_mode, sleeve_picker}:
+      _render_deck_detail(meta_state, deck_id, draft, picker, detail_mode, sleeve_picker)
 
 def _render_ultimate_cinematic_scene(meta_state: Meta, run_value: Run, ticks_remaining: U32, ui_value: UiState) -> HTML(DungeonEvent):
   <div class="screen-root-stack">

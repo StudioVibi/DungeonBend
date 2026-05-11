@@ -23,5 +23,7 @@ def update_setup(evt: DungeonEvent, meta_state: Meta, next_seed_value: U32, ui_v
       _state(meta_state, ultimate_preview{ultimate_preview_idle{}}, next_seed_value, default_ui())
     case open_boosters{}:
       _state(meta_state, boosters{no_pack_reward{}, 0, booster_return_setup{}}, next_seed_value, default_ui())
+    case open_deck_list{}:
+      _state(meta_state, deck_list{deck_list_view{}, sleeve_picker_closed{}}, next_seed_value, default_ui())
     case _:
       _state(meta_state, setup{}, next_seed_value, ui_value)

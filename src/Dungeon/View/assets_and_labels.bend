@@ -4,6 +4,7 @@ import Dungeon/MonsterDef as MonsterDef
 import Dungeon/SwordDef as SwordDef
 import Dungeon/PotionDef as PotionDef
 import Dungeon/CardRef as CardRef
+import Dungeon/DeckSleeve as DeckSleeve
 import Dungeon/Tile as Tile
 import Dungeon/config as config
 import Dungeon/hero_helpers/hero_at as hero_at
@@ -40,6 +41,19 @@ def _menu_home_bg() -> String:
 
 def _menu_upgrade_icon() -> String:
   "assets/ui/menu/upgrade-icon.png"
+
+def _deck_cover_sprite() -> String:
+  "assets/ui/menu/deck-blue.png"
+
+def _deck_cover_chromatic_sprite() -> String:
+  "assets/ui/menu/deck-cromatico.png"
+
+def _deck_cover_sprite_for_sleeve(sleeve: DeckSleeve) -> String:
+  match sleeve:
+    case sleeve_blue{}:
+      _deck_cover_sprite()
+    case sleeve_chromatic{}:
+      _deck_cover_chromatic_sprite()
 
 def _monster_name(ref: U32) -> String:
   _monster_name_from_defs(config(), ref)

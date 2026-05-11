@@ -16,7 +16,14 @@
       "Bash(sips -g pixelWidth -g pixelHeight /tmp/old-deck2.png)",
       "Bash(sips -g pixelWidth -g pixelHeight /tmp/old-deck7.png)",
       "Bash(git show *)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Read(//Users/isabellaherman/Documents/HOC/Bend2/**)",
+      "Bash(python3 -m http.server 8765)",
+      "Bash(echo \"PID=$!\")",
+      "Bash(curl -s http://localhost:8765/ -o /tmp/deck-page.html)",
+      "Bash(curl -s -o /tmp/deck-page.html http://localhost:8765/)",
+      "Bash(kill 72936)",
+      "Bash(awk '/\\\\.deck-chrome/,/^}/' /Users/isabellaherman/Documents/HOC/DungeonBend/assets/generated/dungeon-view.css)"
     ]
   }
 }
