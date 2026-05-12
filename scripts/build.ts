@@ -843,12 +843,13 @@ function patchAppRuntime(html: string): string {
 }
 
 function usage(): never {
-  console.error("usage: bun scripts/build.ts <input.bend> <output.html>");
+  console.error("usage: bun scripts/build.ts <input.bend> <output.html> [main_name]");
   process.exit(1);
 }
 
 const input = process.argv[2];
 const output = process.argv[3];
+const explicitMainName = process.argv[4];
 
 if (input === undefined || output === undefined) {
   usage();
@@ -866,7 +867,7 @@ const html = bendLayout.kind === "current"
   ? (() => {
       const loaded = Bend.Lang.Loader$load_book(file);
       return patchAppRuntime(Bend.Lang.Compile$ToBIRL$page(loaded.book, {
-        main_name: loaded.main,
+        main_name: explicitMainName ?? loaded.main,
         title: path.basename(file, ".bend"),
       }));
     })()
@@ -887,7 +888,7 @@ const html = bendLayout.kind === "current"
       }
 
       return patchAppRuntime(Bend.ToJS.page(loaded.book, {
-        main_name: loaded.main,
+        main_name: explicitMainName ?? loaded.main,
         title: path.basename(file, ".bend"),
       }));
     })();
