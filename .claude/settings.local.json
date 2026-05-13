@@ -28,7 +28,8 @@
       "Bash(bun scripts/generate-dungeon-view-css.ts)",
       "Bash(cp \"/Users/isabellaherman/Downloads/GUI Pro-FantasyHero/PNG/Components/Icon_ItemIcons/512/ItemIcon_Coin_Gold.png\" /Users/isabellaherman/Documents/HOC/DungeonBend/assets/ui/topbar/icon-gold.png)",
       "Bash(cp \"/Users/isabellaherman/Downloads/GUI Pro-FantasyHero/PNG/Components/Icon_ItemIcons/512/ItemIcon_Card_1.png\" /Users/isabellaherman/Documents/HOC/DungeonBend/assets/ui/topbar/icon-boosters.png)",
-      "Bash(scripts/build.sh)"
+      "Bash(scripts/build.sh)",
+      "Bash(OUT_DIR=docs scripts/build.sh)"
     ]
   }
 }
