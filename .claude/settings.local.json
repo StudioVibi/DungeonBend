@@ -23,7 +23,9 @@
       "Bash(curl -s http://localhost:8765/ -o /tmp/deck-page.html)",
       "Bash(curl -s -o /tmp/deck-page.html http://localhost:8765/)",
       "Bash(kill 72936)",
-      "Bash(awk '/\\\\.deck-chrome/,/^}/' /Users/isabellaherman/Documents/HOC/DungeonBend/assets/generated/dungeon-view.css)"
+      "Bash(awk '/\\\\.deck-chrome/,/^}/' /Users/isabellaherman/Documents/HOC/DungeonBend/assets/generated/dungeon-view.css)",
+      "Bash(cp assets/generated/dungeon-view.css /tmp/dungeon-view.before.css)",
+      "Bash(bun scripts/generate-dungeon-view-css.ts)"
     ]
   }
 }

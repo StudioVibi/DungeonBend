@@ -62,7 +62,7 @@ function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack
 
   for (const rawLine of body) {
     const line = rawLine.trim();
-    if (line === "") {
+    if (line === "" || line.startsWith("#")) {
       continue;
     }
 
