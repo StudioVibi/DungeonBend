@@ -34,13 +34,14 @@ import Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_ena
 import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
 import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
 import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
+import Dungeon/View/menu_button/primary as menu_button_primary
+import Dungeon/View/menu_button/secondary as menu_button_secondary
+import Dungeon/View/menu_button/secondary_counter as menu_button_secondary_counter
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Midum/Button/catoon_dark as button_catoon_dark
-import Midum/Button/catoon_dark_counter as button_catoon_dark_counter
-import Midum/Button/catoon_yellow as button_catoon_yellow
 import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
 import Midum/Image/animated as image_animated
@@ -460,35 +461,29 @@ def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroPr
 
 def _menu_start_button() -> HTML(DungeonEvent):
   <div class="menu-play-btn-wrap menu-play-btn-wrap--full">
-    {button_catoon_yellow(
-      DungeonEvent,
+    {menu_button_primary(
       start{},
-      large{},
       Content.ui_menu_start(),
-      _play_full_button_overrides(start_enabled(setup{}))
+      start_enabled(setup{})
     )}
   </div>
 
 def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_catoon_dark_counter(
-      DungeonEvent,
+    {menu_button_secondary_counter(
       open_boosters{},
-      medium{},
       Content.ui_menu_boosters(),
       meta_pack_total(meta_state),
-      _full_button_overrides(1)
+      1
     )}
   </div>
 
 def _menu_deck_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_catoon_dark(
-      DungeonEvent,
+    {menu_button_secondary(
       open_deck_list{},
-      medium{},
       "EDIT DECKS",
-      _full_button_overrides(1)
+      1
     )}
   </div>
 
@@ -544,13 +539,6 @@ def _header_characters_action() -> HTML(DungeonEvent):
       _fit_button_overrides(1)
     )}
   </div>
-
-def _play_full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
-  match enabled:
-    case 0:
-      [width_full{}, state_disabled{}]
-    case _:
-      [width_full{}]
 
 def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:

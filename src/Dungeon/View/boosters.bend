@@ -32,6 +32,14 @@ import Midum/Layout/group as layout_group
 import Midum/Layout/overlay as layout_overlay
 import Midum/Layout/shell as layout_shell
 
+type RevealTier {
+  tier_common{}
+  tier_uncommon{}
+  tier_rare{}
+  tier_epic{}
+  tier_legendary{}
+}
+
 def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match reward:
     case no_pack_reward{}:
@@ -121,65 +129,87 @@ def _reveal_stat_left(card: CardRef) -> HTML(DungeonEvent):
       <p class="reveal-stat reveal-stat--detail">{text{_card_stat_range(card)}}</p>
 
 def _reveal_card(card: CardRef) -> HTML(DungeonEvent):
+  tier = _reveal_card_tier(card);
   <div class="booster-visual booster-visual--revealed booster-visual--midum">
     {card_neutral(
       DungeonEvent,
       <div class="booster-visual__detail booster-visual__detail--midum">
-        <div class="booster-visual__image-wrap">
+        <div class="booster-visual__frame">
+          <img class="booster-visual__frame-bg" src={_reveal_card_background(tier)} alt="" aria-hidden="true" />
           <img class="booster-visual__image booster-visual__image--midum" src={_card_sprite(card)} alt={_card_name(card)} />
+          <img class="booster-visual__frame-border" src={_reveal_card_border(tier)} alt="" aria-hidden="true" />
         </div>
       </div>,
-      _reveal_card_surface_overrides(card)
+      _reveal_card_surface_overrides()
     )}
   </div>
 
-def _reveal_card_surface_overrides(card: CardRef) -> List(Midum/Card/Override):
+def _reveal_card_surface_overrides() -> List(Midum/Card/Override):
   [
     padding_none{},
     background_none{},
     border_none{},
-    radius_square{},
-    surface_image_sized{
-      src: _reveal_card_background(card),
-      source_left: U32/to_nat(34),
-      source_right: U32/to_nat(34),
-      source_top: U32/to_nat(34),
-      source_bottom: U32/to_nat(34),
-      target_left: U32/to_nat(22),
-      target_right: U32/to_nat(22),
-      target_top: U32/to_nat(22),
-      target_bottom: U32/to_nat(22),
-    }
+    radius_square{}
   ]
 
-def _reveal_card_background(card: CardRef) -> String:
-  _background_for_weight_share(card, active_pack(config()))
+def _reveal_card_tier(card: CardRef) -> RevealTier:
+  _tier_for_weight_share(card, active_pack(config()))
 
-def _background_for_weight_share(card: CardRef, pack: PackDef) -> String:
+def _tier_for_weight_share(card: CardRef, pack: PackDef) -> RevealTier:
   match pack:
     case pack_def{name, price, reveal_count, allow_duplicates, pool}:
-      _background_for_pool_share(card, pool)
+      _tier_for_pool_share(card, pool)
 
-def _background_for_pool_share(card: CardRef, pool: List(PackPoolEntry)) -> String:
+def _tier_for_pool_share(card: CardRef, pool: List(PackPoolEntry)) -> RevealTier:
   total = _pool_total_weight(pool);
   weighted = _pool_weight_for_card(pool, card) * 100;
   match total:
     case 0:
-      "assets/background-comum.png"
+      tier_common{}
     case _:
-      match weighted <= (total * 5):
+      match weighted <= (total * 2):
         case 1:
-          "assets/background-epic.png"
+          tier_legendary{}
         case _:
-          match weighted <= (total * 12):
+          match weighted <= (total * 5):
             case 1:
-              "assets/background-rare.png"
+              tier_epic{}
             case _:
-              match weighted <= (total * 25):
+              match weighted <= (total * 12):
                 case 1:
-                  "assets/background-incomum.png"
+                  tier_rare{}
                 case _:
-                  "assets/background-comum.png"
+                  match weighted <= (total * 25):
+                    case 1:
+                      tier_uncommon{}
+                    case _:
+                      tier_common{}
+
+def _reveal_card_background(tier: RevealTier) -> String:
+  match tier:
+    case tier_common{}:
+      "assets/ui/boosters/card-frame/common-bg.png"
+    case tier_uncommon{}:
+      "assets/ui/boosters/card-frame/uncommon-bg.png"
+    case tier_rare{}:
+      "assets/ui/boosters/card-frame/rare-bg.png"
+    case tier_epic{}:
+      "assets/ui/boosters/card-frame/epic-bg.png"
+    case tier_legendary{}:
+      "assets/ui/boosters/card-frame/legendary-bg.png"
+
+def _reveal_card_border(tier: RevealTier) -> String:
+  match tier:
+    case tier_common{}:
+      "assets/ui/boosters/card-frame/common-border.png"
+    case tier_uncommon{}:
+      "assets/ui/boosters/card-frame/uncommon-border.png"
+    case tier_rare{}:
+      "assets/ui/boosters/card-frame/rare-border.png"
+    case tier_epic{}:
+      "assets/ui/boosters/card-frame/epic-border.png"
+    case tier_legendary{}:
+      "assets/ui/boosters/card-frame/legendary-border.png"
 
 def _pool_total_weight(pool: List(PackPoolEntry)) -> U32:
   match pool:
