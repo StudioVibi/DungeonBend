@@ -25,7 +25,10 @@
       "Bash(kill 72936)",
       "Bash(awk '/\\\\.deck-chrome/,/^}/' /Users/isabellaherman/Documents/HOC/DungeonBend/assets/generated/dungeon-view.css)",
       "Bash(cp assets/generated/dungeon-view.css /tmp/dungeon-view.before.css)",
-      "Bash(bun scripts/generate-dungeon-view-css.ts)"
+      "Bash(bun scripts/generate-dungeon-view-css.ts)",
+      "Bash(cp \"/Users/isabellaherman/Downloads/GUI Pro-FantasyHero/PNG/Components/Icon_ItemIcons/512/ItemIcon_Coin_Gold.png\" /Users/isabellaherman/Documents/HOC/DungeonBend/assets/ui/topbar/icon-gold.png)",
+      "Bash(cp \"/Users/isabellaherman/Downloads/GUI Pro-FantasyHero/PNG/Components/Icon_ItemIcons/512/ItemIcon_Card_1.png\" /Users/isabellaherman/Documents/HOC/DungeonBend/assets/ui/topbar/icon-boosters.png)",
+      "Bash(scripts/build.sh)"
     ]
   }
 }

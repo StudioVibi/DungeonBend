@@ -36,11 +36,11 @@ import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
 import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
 import Dungeon/View/menu_button/primary as menu_button_primary
 import Dungeon/View/menu_button/secondary as menu_button_secondary
-import Dungeon/View/menu_button/secondary_counter as menu_button_secondary_counter
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Midum/Button/catoon_dark as button_catoon_dark
 import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
@@ -56,6 +56,7 @@ def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
     <header class="topbar topbar--menu-home topbar--menu-home-desktop">
       <div class="topbar__stats">
+        {boosters_stat(meta_pack_total(meta_state))}
         {gold_stat(meta_gold(meta_state))}
       </div>
     </header>
@@ -64,6 +65,7 @@ def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
         {_header_characters_action()}
       </div>
       <div class="topbar__stats">
+        {boosters_stat(meta_pack_total(meta_state))}
         {gold_stat(meta_gold(meta_state))}
       </div>
     </header>
@@ -127,7 +129,7 @@ def _menu_actions_layout(meta_state: Meta) -> HTML(DungeonEvent):
     DungeonEvent,
     <section class="menu-actions">
       <div class="menu-actions__booster">
-        {_menu_boosters_button(meta_state)}
+        {_menu_boosters_button()}
       </div>
       <div class="menu-actions__primary">
         <div class="menu-actions__slot">
@@ -468,12 +470,11 @@ def _menu_start_button() -> HTML(DungeonEvent):
     )}
   </div>
 
-def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
+def _menu_boosters_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {menu_button_secondary_counter(
+    {menu_button_secondary(
       open_boosters{},
       Content.ui_menu_boosters(),
-      meta_pack_total(meta_state),
       1
     )}
   </div>

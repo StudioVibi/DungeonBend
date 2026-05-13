@@ -17,6 +17,8 @@ import Dungeon/Config as Config
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/config as config
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
+import Dungeon/View/selectors/meta_pack_total as meta_pack_total
 import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
 import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
 import Dungeon/View/deck_chrome/render as deck_chrome
@@ -89,6 +91,7 @@ def _mobile_back(picker: DeckPickerMode) -> DungeonEvent:
 
 def _trailing(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="deck-chrome-trailing">
+    {boosters_stat(meta_pack_total(meta_state))}
     {gold_stat(meta_gold_text(meta_state))}
   </div>
 

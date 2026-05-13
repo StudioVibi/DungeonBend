@@ -21,7 +21,7 @@ import Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
 import Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Dungeon/View/topbar_stats/stat as topbar_stat
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Midum/Card/neutral as card_neutral
 import Midum/Button/neutral as button_neutral
 import Midum/Button/primary as button_primary
@@ -273,7 +273,7 @@ def _boosters_header(meta_state: Meta) -> HTML(DungeonEvent):
       {_back_button()}
     </div>
     <div class="topbar__stats">
-      {topbar_stat(Content.ui_topbar_boosters(), meta_pack_total(meta_state))}
+      {boosters_stat(meta_pack_total(meta_state))}
       {gold_stat(meta_gold(meta_state))}
     </div>
   </header>

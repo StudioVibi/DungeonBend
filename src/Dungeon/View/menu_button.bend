@@ -16,12 +16,6 @@ def button_body(label: String) -> HTML(DungeonEvent):
     <span class="menu-main-button__label">{text{label}}</span>
   </span>
 
-def counter_button_body(label: String, count: String) -> HTML(DungeonEvent):
-  <span class="menu-main-button__content">
-    <span class="menu-main-button__label">{text{label}}</span>
-    <span class="menu-main-button__badge">{text{count}}</span>
-  </span>
-
 def button(evt: DungeonEvent, label: String, tone_class: String, size_class: String, enabled: U32) -> HTML(DungeonEvent):
   match enabled:
     case 0:
@@ -33,22 +27,8 @@ def button(evt: DungeonEvent, label: String, tone_class: String, size_class: Str
         {button_body(label)}
       </button>
 
-def counter_button(evt: DungeonEvent, label: String, count: String, tone_class: String, size_class: String, enabled: U32) -> HTML(DungeonEvent):
-  match enabled:
-    case 0:
-      <button class={button_class(tone_class, size_class, enabled) ++ " menu-main-button--counter"} type="button" disabled="disabled">
-        {counter_button_body(label, count)}
-      </button>
-    case _:
-      <button class={button_class(tone_class, size_class, enabled) ++ " menu-main-button--counter"} type="button" on_click={evt}>
-        {counter_button_body(label, count)}
-      </button>
-
 def primary(evt: DungeonEvent, label: String, enabled: U32) -> HTML(DungeonEvent):
   button(evt, label, "menu-main-button--primary", "menu-main-button--large", enabled)
 
 def secondary(evt: DungeonEvent, label: String, enabled: U32) -> HTML(DungeonEvent):
   button(evt, label, "menu-main-button--secondary", "menu-main-button--medium", enabled)
-
-def secondary_counter(evt: DungeonEvent, label: String, count: String, enabled: U32) -> HTML(DungeonEvent):
-  counter_button(evt, label, count, "menu-main-button--secondary", "menu-main-button--medium", enabled)
