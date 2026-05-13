@@ -11,14 +11,13 @@ import Dungeon/config as config
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
-import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
+import Dungeon/View/action_button/primary_full as action_primary_full
+import Dungeon/View/action_button/secondary_fit as action_secondary_fit
+import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/deck_chrome/render as deck_chrome
 import Dungeon/View/deck_sleeve_picker/render_card_control as render_card_control
 import Dungeon/View/selectors/meta_gold as meta_gold_text
 import Dungeon/View/assets_and_labels/_deck_cover_sprite_for_sleeve as _deck_cover_sprite_for_sleeve
-import Midum/Button/primary as button_primary
-import Midum/Button/secondary as button_secondary
 import Midum/Image/view as image_view
 import Midum/Card/neutral as card_neutral
 import Midum/Layout/frame as layout_frame
@@ -91,9 +90,9 @@ def _edit_toggle(meta_state: Meta, mode: DeckListMode) -> HTML(DungeonEvent):
 def _edit_toggle_button(mode: DeckListMode) -> HTML(DungeonEvent):
   match mode:
     case deck_list_view{}:
-      button_secondary(DungeonEvent, enter_deck_edit_mode{}, small{}, "EDIT", _fit_button_overrides(1))
+      action_secondary_fit(DungeonEvent, enter_deck_edit_mode{}, "EDIT", 1)
     case deck_list_edit{ids}:
-      button_secondary(DungeonEvent, exit_deck_edit_mode{}, small{}, "DONE", _fit_button_overrides(1))
+      action_secondary_fit(DungeonEvent, exit_deck_edit_mode{}, "DONE", 1)
     case deck_list_confirm_delete{ids}:
       text{""}
 
@@ -268,7 +267,7 @@ def _delete_button(count: U32) -> HTML(DungeonEvent):
   enabled = _delete_enabled(count);
   label = "DELETE (" ++ U32/show(count) ++ ")";
   <div class="deck-list-delete-action">
-    {button_primary(DungeonEvent, request_delete_decks{}, medium{}, label, _full_button_overrides(enabled))}
+    {action_primary_full(DungeonEvent, request_delete_decks{}, label, enabled)}
   </div>
 
 def _delete_enabled(count: U32) -> U32:
@@ -295,10 +294,10 @@ def _confirm_modal(count: U32) -> HTML(DungeonEvent):
         <p class="game-over-card__body">{text{_confirm_body(count)}}</p>
         <section class="game-over-card__actions">
           <div class="menu-secondary-action game-over-card__secondary">
-            {button_secondary(DungeonEvent, cancel_delete_decks{}, medium{}, "CANCEL", _full_button_overrides(1))}
+            {action_secondary_full(DungeonEvent, cancel_delete_decks{}, "CANCEL", 1)}
           </div>
           <div class="menu-start-action game-over-card__primary">
-            {button_primary(DungeonEvent, confirm_delete_decks{}, medium{}, "DELETE", _full_button_overrides(1))}
+            {action_primary_full(DungeonEvent, confirm_delete_decks{}, "DELETE", 1)}
           </div>
         </section>
       </div>,

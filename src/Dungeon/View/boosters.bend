@@ -14,7 +14,9 @@ import Dungeon/View/selectors/booster_buy_enabled as booster_buy_enabled
 import Dungeon/View/selectors/booster_open_enabled as booster_open_enabled
 import Dungeon/View/selectors/booster_is_last_card as booster_is_last_card
 import Dungeon/View/selectors/card_copies as card_copies
-import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
+import Dungeon/View/action_button/primary_full as action_primary_full
+import Dungeon/View/action_button/back_button as action_back_button
+import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/View/assets_and_labels/_card_name as _card_name
 import Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
@@ -23,9 +25,6 @@ import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Midum/Card/neutral as card_neutral
-import Midum/Button/neutral as button_neutral
-import Midum/Button/primary as button_primary
-import Midum/Button/secondary as button_secondary
 import Midum/Layout/center as layout_center
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/group as layout_group
@@ -245,9 +244,9 @@ def _card_ref_eq(left: CardRef, right: CardRef) -> U32:
 def _reveal_action_button(reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match booster_is_last_card(reward, reveal_index):
     case 1:
-      button_neutral(DungeonEvent, done_reward{}, medium{}, Content.ui_booster_done(), [])
+      action_secondary_full(DungeonEvent, done_reward{}, Content.ui_booster_done(), 1)
     case _:
-      button_neutral(DungeonEvent, next_reward{}, medium{}, Content.ui_booster_next(), [])
+      action_secondary_full(DungeonEvent, next_reward{}, Content.ui_booster_next(), 1)
 
 def _reward_card_at(reward: PackReward, idx: U32) -> CardRef:
   match reward:
@@ -279,7 +278,7 @@ def _boosters_header(meta_state: Meta) -> HTML(DungeonEvent):
   </header>
 
 def _back_button() -> HTML(DungeonEvent):
-  button_secondary(DungeonEvent, close_boosters{}, medium{}, Content.ui_booster_back(), [])
+  action_back_button(DungeonEvent, close_boosters{}, Content.ui_booster_back())
 
 def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
   match booster_open_enabled(meta_state):
@@ -289,8 +288,8 @@ def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
           {layout_group(
             DungeonEvent,
             [
-              button_secondary(DungeonEvent, buy_pack{0}, medium{}, Content.ui_booster_buy_more_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state))),
-              button_primary(DungeonEvent, open_pack{0}, large{}, Content.ui_booster_open(), _full_button_overrides(1))
+              action_secondary_full(DungeonEvent, buy_pack{0}, Content.ui_booster_buy_more_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), booster_buy_enabled(meta_state)),
+              action_primary_full(DungeonEvent, open_pack{0}, Content.ui_booster_open(), 1)
             ],
             [direction_column{}, gap_sm{}, align_stretch{}]
           )}
@@ -302,7 +301,7 @@ def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
           {layout_group(
             DungeonEvent,
             [
-              button_primary(DungeonEvent, buy_pack{0}, large{}, Content.ui_booster_buy_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state)))
+              action_primary_full(DungeonEvent, buy_pack{0}, Content.ui_booster_buy_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), booster_buy_enabled(meta_state))
             ],
             [direction_column{}, gap_sm{}, align_stretch{}]
           )}

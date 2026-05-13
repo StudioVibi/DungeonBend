@@ -78,7 +78,7 @@ def shared_topbar_css() -> String:
      }"
 
   # --- topbar resource value (gold/booster numbers) -------------------------
-  # Same outline + cartoon drop-shadow recipe used by .menu-main-button__label,
+  # Same outline + cartoon drop-shadow recipe used by the shared catoon button,
   # scaled to the smaller font size of the topbar.
   # Design tokens (tunables — override per modifier if needed):
   #   --topbar-resource-value-stroke-width     outline width (visible = HALF this; paint-order: stroke fill)
@@ -179,7 +179,7 @@ def menu_home_css() -> String:
   ++ ".menu-home-info__change-label::before{content:'';position:absolute;inset:0;background:#111111;transform:scaleX(0);transform-origin:left center;z-index:-1;}"
   # --- upgrade button overlay
   ++ ".menu-home__upgrade{position:absolute;left:18%;top:42%;z-index:3;transform:translate(-62%,-72%);}"
-  ++ ".menu-home__upgrade>.bc-btn{width:56px;min-width:56px;height:56px;padding:0;}"
+  ++ ".menu-home__upgrade>.bc-btn,.menu-home__upgrade>.bc-btn-catoon-wrap>.bc-btn{width:56px;min-width:56px;height:56px;padding:0;}"
   ++ ".menu-home__upgrade .bc-btn-content{width:100%;height:100%;justify-content:center;gap:0;}"
   ++ ".menu-home__upgrade .bc-btn-label{display:none;}"
   ++ ".menu-home__upgrade .bc-btn-icon{width:28px;height:28px;}"
@@ -194,7 +194,7 @@ def menu_home_css() -> String:
   # --- desktop tuning
   ++ "@media (min-width:801px){.menu-home__hero{width:min(100%,520px);}.menu-hero-panel__portrait{width:min(100%,380px);max-height:clamp(260px,50vh,400px);}.menu-home-info__default--hud .hero-hud{width:min(100%,236px);}.menu-actions{gap:24px;}.menu-actions__booster{width:min(100%,224px);}.menu-actions__primary{width:min(100%,244px);}}"
   # --- mobile tuning
-  ++ "@media (max-width:800px){.topbar--menu-home-desktop,.menu-hero-panel--desktop{display:none;}.topbar--menu-home-mobile{display:flex;}.menu-hero-panel--mobile{display:grid;gap:14px;}.menu-home__hero{width:min(100%,320px);margin-top:var(--menu-home-hero-offset-mobile);padding:14px 0 16px;}.menu-hero-panel__portrait{width:min(100%,236px);max-height:clamp(176px,34vh,236px);}.menu-home-info__change{display:none;}.menu-home__upgrade{left:10%;top:42%;transform:translate(0,-76%);}.menu-home__upgrade>.bc-btn{width:48px;min-width:48px;height:48px;}.menu-home__upgrade .bc-btn-icon{width:24px;height:24px;}.menu-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;}.menu-actions__booster,.menu-actions__primary{width:100%;}.menu-actions__primary{gap:10px;}}"
+  ++ "@media (max-width:800px){.topbar--menu-home-desktop,.menu-hero-panel--desktop{display:none;}.topbar--menu-home-mobile{display:flex;}.menu-hero-panel--mobile{display:grid;gap:14px;}.menu-home__hero{width:min(100%,320px);margin-top:var(--menu-home-hero-offset-mobile);padding:14px 0 16px;}.menu-hero-panel__portrait{width:min(100%,236px);max-height:clamp(176px,34vh,236px);}.menu-home-info__change{display:none;}.menu-home__upgrade{left:10%;top:42%;transform:translate(0,-76%);}.menu-home__upgrade>.bc-btn,.menu-home__upgrade>.bc-btn-catoon-wrap>.bc-btn{width:48px;min-width:48px;height:48px;}.menu-home__upgrade .bc-btn-icon{width:24px;height:24px;}.menu-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;}.menu-actions__booster,.menu-actions__primary{width:100%;}.menu-actions__primary{gap:10px;}}"
 
 def menu_secondary_button_css() -> String:
   ""
@@ -215,179 +215,12 @@ def menu_secondary_button_css() -> String:
        .menu-club-btn-wrap--full>.bc-btn-catoon-wrap,
        .menu-play-btn-wrap--full>.bc-btn-catoon-wrap{width: 100%;}"
 
-  # --- .menu-main-button base (Start / Edit Decks / Boosters) ---------------
-  # Design tokens — override per-variant below if needed:
-  #   --menu-main-button-radius           visible rounded-corner of the nine-slice art (px)
-  #   --menu-main-button-label-offset     optical re-centering of the label (negative pushes UP)
-  #   --menu-main-button-stroke-width     label outline width (visible = HALF this; paint-order: stroke fill)
-  #   --menu-main-button-stroke-color     label outline color
-  #   --menu-main-button-shadow-offset-y  cartoon drop-shadow under the label (positive = DOWN in CSS)
-  #   --menu-main-button-shadow-color     cartoon drop-shadow color
-  ++ ".menu-main-button{
-       --menu-main-button-radius: 12px;
-       --menu-main-button-label-offset: -4px;
-       --menu-main-button-stroke-width: 3px;
-       --menu-main-button-stroke-color: #0a0e14;
-       --menu-main-button-shadow-offset-y: 2px;
-       --menu-main-button-shadow-color: #000;
-       position: relative;
-       z-index: 0;
-       isolation: isolate;
-       overflow: hidden;
-       border-radius: var(--menu-main-button-radius);
-       min-width: 0;
-       border: 0 !important;
-       background: none;
-       color: #fffdf4;
-       font-family: var(--bc-font-display);
-       font-weight: 800;
-       letter-spacing: 0.08em;
-       text-transform: uppercase;
-       box-shadow: none;
-       transform: none;
-       transition: none;
-     }"
-
-  # --- nine-slice background via border-image (sits behind the label) -------
-  ++ ".menu-main-button::before{
-       content: '';
-       position: absolute;
-       inset: 0;
-       z-index: -1;
-       border-style: solid;
-       border-width: 24px 12px;
-       border-image-slice: 65 24 65 24 fill;
-       border-image-width: 24px 12px;
-       border-image-repeat: stretch;
-       border-image-source: var(--menu-main-button-image);
-       pointer-events: none;
-     }"
-
-  # --- nine-slice image variants (yellow = primary/Start, gray = secondary) -
-  ++ ".menu-main-button--primary{--menu-main-button-image:url(\"assets/ui/menu/button/button-main-yellow.png\");}"
-  ++ ".menu-main-button--secondary{--menu-main-button-image:url(\"assets/ui/menu/button/button-main-gray.png\");}"
-
-  # --- interaction states (no press-down animation; flash lives in bend-shine)
-  ++ ".menu-main-button:hover,.menu-main-button:active{
-       background: none;
-       border-color: transparent;
-       box-shadow: none;
-       transform: none;
-     }"
-  ++ ".menu-main-button--disabled,
-       .menu-main-button--disabled:hover,
-       .menu-main-button--disabled:active{
-       cursor: not-allowed;
-       transform: none;
-     }"
-
-  # --- inner content + label -----------------------------------------------
-  ++ ".menu-main-button__content{
-       position: relative;
-       z-index: 1;
-       display: inline-flex;
-       align-items: center;
-       justify-content: center;
-       width: 100%;
-       gap: 10px;
-     }"
-  # Label consumes the tokens from the base block: outline, drop-shadow and
-  # vertical offset all flow from CSS vars so each visual aspect is tunable
-  # independently. paint-order: stroke fill = outline drawn OUTSIDE the glyph.
-  ++ ".menu-main-button__label{
-       display: block;
-       white-space: nowrap;
-       line-height: 1;
-       transform: translateY(var(--menu-main-button-label-offset));
-       -webkit-text-stroke: var(--menu-main-button-stroke-width) var(--menu-main-button-stroke-color);
-       paint-order: stroke fill;
-       filter: drop-shadow(0 var(--menu-main-button-shadow-offset-y) 0 var(--menu-main-button-shadow-color));
-     }"
-
-  # --- size modifiers -------------------------------------------------------
-  ++ ".menu-main-button--medium{min-height: 48px; padding: 1px 20px 0;}"
-  ++ ".menu-main-button--medium .menu-main-button__label{font-size: 1rem;}"
-  # Large overrides the stroke/shadow tokens to scale up with the font.
-  ++ ".menu-main-button--large{
-       min-height: 58px;
-       padding: 1px 22px 0;
-       --menu-main-button-stroke-width: 4px;
-       --menu-main-button-shadow-offset-y: 2px;
-     }"
-  ++ ".menu-main-button--large .menu-main-button__label{font-size: 1.18rem;}"
-
-  # --- home actions: booster + edit-decks share the start button height ----
-  ++ ".menu-actions__booster .menu-main-button--medium,
-       .menu-actions__slot .menu-main-button--medium{min-height: 58px;}"
-
-  # --- mobile tuning --------------------------------------------------------
-  ++ "@media (max-width: 800px){
-       .menu-main-button--medium{min-height: 44px; padding: 1px 18px 0;}
-       .menu-main-button--medium .menu-main-button__label{font-size: 0.92rem;}
-       .menu-main-button--large .menu-main-button__label{font-size: 1.04rem;}
-     }"
-
 def menu_primary_button_css() -> String:
   ""
 
 def button_press_css() -> String:
   ""
   ++ ".bc-btn,.bc-btn:hover,.bc-btn:active,.bc-btn:focus-visible{transition:none;}"
-
-# --- reusable hover-shine effect (opt-in via .bend-shine class) -----------
-# Any element with .bend-shine gets a one-pass white flash sweep on hover.
-# The host element is responsible for its own clipping shape (border-radius
-# / mask / clip-path). .bend-shine only adds overflow:hidden + isolation
-# so the flash never escapes the host's box.
-def shine_fx_css() -> String:
-  ""
-
-  # Host: sets up the clipping stage. Host still owns its own border-radius.
-  ++ ".bend-shine{
-       position: relative;
-       overflow: hidden;
-       isolation: isolate;
-     }"
-
-  # The flash itself — a vertical white gradient band, parked off-screen left.
-  ++ ".bend-shine::after{
-       content: '';
-       position: absolute;
-       top: 0; bottom: 0; left: 0;
-       width: 60%;
-       pointer-events: none;
-       background: linear-gradient(
-         90deg,
-         rgba(255,255,255,0) 0%,
-         rgba(255,255,255,0.9) 50%,
-         rgba(255,255,255,0) 100%
-       );
-       transform: translateX(-180%) skewX(-18deg);
-       opacity: 0;
-       z-index: 2;
-     }"
-
-  # Trigger: one sweep per hover-enter. Restricted to true hover devices.
-  ++ "@media (hover: hover) and (pointer: fine){
-       .bend-shine:hover::after{
-         animation: bend-shine-sweep 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1 both;
-       }
-     }"
-
-  # Keyframes: sweep -180% → 220% with quick fade-in / fade-out at the edges.
-  ++ "@keyframes bend-shine-sweep{
-       0%   { transform: translateX(-180%) skewX(-18deg); opacity: 0; }
-       20%  { opacity: 1; }
-       80%  { opacity: 1; }
-       100% { transform: translateX( 220%) skewX(-18deg); opacity: 0; }
-     }"
-
-  # Disabled modifier: kill the flash entirely.
-  ++ ".bend-shine--disabled::after,
-       .bend-shine--disabled:hover::after{
-       animation: none;
-       opacity: 0;
-     }"
 
 def character_select_css() -> String:
   ""
@@ -416,7 +249,6 @@ def board_layout_css() -> String:
 
 def layout_css() -> String:
   button_press_css()
-  ++ shine_fx_css()
   ++ shared_topbar_css()
   ++ menu_screen_css()
   ++ menu_home_css()

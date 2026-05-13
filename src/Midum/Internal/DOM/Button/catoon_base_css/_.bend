@@ -1,23 +1,20 @@
 def catoon_base_css() -> String:
   "
   .bc-btn-catoon-wrap {
-    --bc-catoon-base-height: 5px;
-    --bc-catoon-highlight-height: 4px;
-    --bc-catoon-dark-start-normal: 92%;
-    --bc-catoon-dark-start-hover: 94%;
-    --bc-catoon-radius: 14px;
-    --bc-catoon-top-border-normal: 2px;
-    --bc-catoon-top-border-hover: 3px;
-    --bc-catoon-side-border: 3px;
-    --bc-catoon-bottom-border: 3px;
+    --bc-catoon-radius: 12px;
+    --bc-catoon-label-offset: -4px;
+    --bc-catoon-stroke-width: 3px;
+    --bc-catoon-stroke-color: #0a0e14;
     --bc-catoon-border: #0a0e14;
-    --bc-catoon-shadow: #0a0e14;
+    --bc-catoon-shadow-offset-y: 2px;
+    --bc-catoon-shadow-color: #000000;
+    --bc-catoon-small-image: url(\"assets/ui/menu/button/button-main-small-gray.png\");
+    --bc-catoon-small-disabled-image: url(\"assets/ui/menu/button/button-main-white.png\");
     --bc-catoon-text: #ffffff;
-    --bc-catoon-text-stroke: #0a0e14;
-    --bc-catoon-disabled-border: #515a67;
-    --bc-catoon-disabled-shadow: #515a67;
-    --bc-catoon-disabled-text: #f5f7fa;
-    --bc-catoon-disabled-text-stroke: #515a67;
+    --bc-catoon-disabled-text: #fff9ea;
+    --bc-catoon-disabled-stroke-color: #615648;
+    --bc-catoon-disabled-image: url(\"assets/ui/menu/button/button-main-white.png\");
+    --bc-catoon-disabled-content-opacity: 0.58;
     position: relative;
     display: inline-grid;
     max-width: 100%;
@@ -28,40 +25,16 @@ def catoon_base_css() -> String:
     width: 100%;
   }
 
-  .bc-btn-catoon-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--bc-catoon-radius);
-    transform: translateY(var(--bc-catoon-base-height));
-    background: var(--bc-catoon-shadow);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .bc-btn-catoon-wrap:has(>.bc-btn-disabled)::after,
-  .bc-btn-catoon-wrap:has(>.bc-btn:disabled)::after {
-    background: var(--bc-catoon-disabled-shadow);
-  }
-
   .bc-btn-catoon {
     position: relative;
-    z-index: 1;
-    border-style: solid;
-    border-width: var(--bc-catoon-top-border-normal) var(--bc-catoon-side-border) var(--bc-catoon-bottom-border) var(--bc-catoon-side-border) !important;
-    border-color: var(--bc-catoon-border);
-    background: linear-gradient(
-      to bottom,
-      var(--bc-catoon-light) 0%,
-      var(--bc-catoon-light) var(--bc-catoon-highlight-height),
-      var(--bc-catoon-mid) var(--bc-catoon-highlight-height),
-      var(--bc-catoon-mid) var(--bc-catoon-dark-start-normal),
-      var(--bc-catoon-dark) var(--bc-catoon-dark-start-normal),
-      var(--bc-catoon-dark) 100%
-    );
+    z-index: 0;
+    isolation: isolate;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: var(--bc-catoon-radius);
+    background: none;
     color: var(--bc-catoon-text);
     box-shadow: none;
-    overflow: visible;
     transform: none;
     filter: none;
     transition: none;
@@ -69,23 +42,15 @@ def catoon_base_css() -> String:
 
   .bc-btn-catoon:hover,
   .bc-btn-catoon:active {
-    border-width: var(--bc-catoon-top-border-hover) var(--bc-catoon-side-border) var(--bc-catoon-bottom-border) var(--bc-catoon-side-border) !important;
-    background: linear-gradient(
-      to bottom,
-      var(--bc-catoon-light) 0%,
-      var(--bc-catoon-light) var(--bc-catoon-highlight-height),
-      var(--bc-catoon-mid) var(--bc-catoon-highlight-height),
-      var(--bc-catoon-mid) var(--bc-catoon-dark-start-hover),
-      var(--bc-catoon-dark) var(--bc-catoon-dark-start-hover),
-      var(--bc-catoon-dark) 100%
-    );
-  }
-
-  .bc-btn-catoon.bc-btn-rounded {
-    border-radius: var(--bc-catoon-radius);
+    background: none;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
   }
 
   .bc-btn-catoon .bc-btn-content {
+    position: relative;
+    z-index: 1;
     width: 100%;
   }
 
@@ -97,12 +62,10 @@ def catoon_base_css() -> String:
     letter-spacing: 0.08em;
     text-transform: uppercase;
     paint-order: stroke fill;
-    transform: translateY(-1px);
-  }
-
-  .bc-btn-catoon:hover .bc-btn-label,
-  .bc-btn-catoon:active .bc-btn-label {
-    transform: translateY(0);
+    transform: translateY(var(--bc-catoon-label-offset));
+    -webkit-text-stroke: var(--bc-catoon-stroke-width) var(--bc-catoon-stroke-color);
+    filter: drop-shadow(0 var(--bc-catoon-shadow-offset-y) 0 var(--bc-catoon-shadow-color));
+    white-space: nowrap;
   }
 
   .bc-btn-catoon:focus-visible {

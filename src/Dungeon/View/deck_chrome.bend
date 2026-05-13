@@ -1,8 +1,7 @@
 import HTML as HTML
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
-import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
-import Midum/Button/secondary as button_secondary
+import Dungeon/View/action_button/back_button as action_back_button
 
 def render(desktop_back: DungeonEvent, mobile_back: DungeonEvent, trailing: HTML(DungeonEvent), mobile_title: HTML(DungeonEvent), actions: List(HTML(DungeonEvent)), body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
   _menu_screen_frame(_chrome_header(desktop_back, trailing, mobile_title), body, _chrome_footer(mobile_back, actions))
@@ -45,5 +44,5 @@ def _wrap_action(node: HTML(DungeonEvent)) -> HTML(DungeonEvent):
 
 def _back_button(back_event: DungeonEvent) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_secondary(DungeonEvent, back_event, medium{}, "BACK", _fit_button_overrides(1))}
+    {action_back_button(DungeonEvent, back_event, "BACK")}
   </div>
