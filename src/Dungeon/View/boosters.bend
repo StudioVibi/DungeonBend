@@ -14,23 +14,30 @@ import Dungeon/View/selectors/booster_buy_enabled as booster_buy_enabled
 import Dungeon/View/selectors/booster_open_enabled as booster_open_enabled
 import Dungeon/View/selectors/booster_is_last_card as booster_is_last_card
 import Dungeon/View/selectors/card_copies as card_copies
-import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
+import Dungeon/View/action_button/primary_full as action_primary_full
+import Dungeon/View/action_button/back_button as action_back_button
+import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/View/assets_and_labels/_card_name as _card_name
 import Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
 import Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Dungeon/View/topbar_stats/stat as topbar_stat
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Midum/Card/neutral as card_neutral
-import Midum/Button/neutral as button_neutral
-import Midum/Button/primary as button_primary
-import Midum/Button/secondary as button_secondary
 import Midum/Layout/center as layout_center
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/group as layout_group
 import Midum/Layout/overlay as layout_overlay
 import Midum/Layout/shell as layout_shell
+
+type RevealTier {
+  tier_common{}
+  tier_uncommon{}
+  tier_rare{}
+  tier_epic{}
+  tier_legendary{}
+}
 
 def _render_boosters(meta_state: Meta, reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match reward:
@@ -121,65 +128,87 @@ def _reveal_stat_left(card: CardRef) -> HTML(DungeonEvent):
       <p class="reveal-stat reveal-stat--detail">{text{_card_stat_range(card)}}</p>
 
 def _reveal_card(card: CardRef) -> HTML(DungeonEvent):
+  tier = _reveal_card_tier(card);
   <div class="booster-visual booster-visual--revealed booster-visual--midum">
     {card_neutral(
       DungeonEvent,
       <div class="booster-visual__detail booster-visual__detail--midum">
-        <div class="booster-visual__image-wrap">
+        <div class="booster-visual__frame">
+          <img class="booster-visual__frame-bg" src={_reveal_card_background(tier)} alt="" aria-hidden="true" />
           <img class="booster-visual__image booster-visual__image--midum" src={_card_sprite(card)} alt={_card_name(card)} />
+          <img class="booster-visual__frame-border" src={_reveal_card_border(tier)} alt="" aria-hidden="true" />
         </div>
       </div>,
-      _reveal_card_surface_overrides(card)
+      _reveal_card_surface_overrides()
     )}
   </div>
 
-def _reveal_card_surface_overrides(card: CardRef) -> List(Midum/Card/Override):
+def _reveal_card_surface_overrides() -> List(Midum/Card/Override):
   [
     padding_none{},
     background_none{},
     border_none{},
-    radius_square{},
-    surface_image_sized{
-      src: _reveal_card_background(card),
-      source_left: U32/to_nat(34),
-      source_right: U32/to_nat(34),
-      source_top: U32/to_nat(34),
-      source_bottom: U32/to_nat(34),
-      target_left: U32/to_nat(22),
-      target_right: U32/to_nat(22),
-      target_top: U32/to_nat(22),
-      target_bottom: U32/to_nat(22),
-    }
+    radius_square{}
   ]
 
-def _reveal_card_background(card: CardRef) -> String:
-  _background_for_weight_share(card, active_pack(config()))
+def _reveal_card_tier(card: CardRef) -> RevealTier:
+  _tier_for_weight_share(card, active_pack(config()))
 
-def _background_for_weight_share(card: CardRef, pack: PackDef) -> String:
+def _tier_for_weight_share(card: CardRef, pack: PackDef) -> RevealTier:
   match pack:
     case pack_def{name, price, reveal_count, allow_duplicates, pool}:
-      _background_for_pool_share(card, pool)
+      _tier_for_pool_share(card, pool)
 
-def _background_for_pool_share(card: CardRef, pool: List(PackPoolEntry)) -> String:
+def _tier_for_pool_share(card: CardRef, pool: List(PackPoolEntry)) -> RevealTier:
   total = _pool_total_weight(pool);
   weighted = _pool_weight_for_card(pool, card) * 100;
   match total:
     case 0:
-      "assets/background-comum.png"
+      tier_common{}
     case _:
-      match weighted <= (total * 5):
+      match weighted <= (total * 2):
         case 1:
-          "assets/background-epic.png"
+          tier_legendary{}
         case _:
-          match weighted <= (total * 12):
+          match weighted <= (total * 5):
             case 1:
-              "assets/background-rare.png"
+              tier_epic{}
             case _:
-              match weighted <= (total * 25):
+              match weighted <= (total * 12):
                 case 1:
-                  "assets/background-incomum.png"
+                  tier_rare{}
                 case _:
-                  "assets/background-comum.png"
+                  match weighted <= (total * 25):
+                    case 1:
+                      tier_uncommon{}
+                    case _:
+                      tier_common{}
+
+def _reveal_card_background(tier: RevealTier) -> String:
+  match tier:
+    case tier_common{}:
+      "assets/ui/boosters/card-frame/common-bg.png"
+    case tier_uncommon{}:
+      "assets/ui/boosters/card-frame/uncommon-bg.png"
+    case tier_rare{}:
+      "assets/ui/boosters/card-frame/rare-bg.png"
+    case tier_epic{}:
+      "assets/ui/boosters/card-frame/epic-bg.png"
+    case tier_legendary{}:
+      "assets/ui/boosters/card-frame/legendary-bg.png"
+
+def _reveal_card_border(tier: RevealTier) -> String:
+  match tier:
+    case tier_common{}:
+      "assets/ui/boosters/card-frame/common-border.png"
+    case tier_uncommon{}:
+      "assets/ui/boosters/card-frame/uncommon-border.png"
+    case tier_rare{}:
+      "assets/ui/boosters/card-frame/rare-border.png"
+    case tier_epic{}:
+      "assets/ui/boosters/card-frame/epic-border.png"
+    case tier_legendary{}:
+      "assets/ui/boosters/card-frame/legendary-border.png"
 
 def _pool_total_weight(pool: List(PackPoolEntry)) -> U32:
   match pool:
@@ -215,9 +244,9 @@ def _card_ref_eq(left: CardRef, right: CardRef) -> U32:
 def _reveal_action_button(reward: PackReward, reveal_index: U32) -> HTML(DungeonEvent):
   match booster_is_last_card(reward, reveal_index):
     case 1:
-      button_neutral(DungeonEvent, done_reward{}, medium{}, Content.ui_booster_done(), [])
+      action_secondary_full(DungeonEvent, done_reward{}, Content.ui_booster_done(), 1)
     case _:
-      button_neutral(DungeonEvent, next_reward{}, medium{}, Content.ui_booster_next(), [])
+      action_secondary_full(DungeonEvent, next_reward{}, Content.ui_booster_next(), 1)
 
 def _reward_card_at(reward: PackReward, idx: U32) -> CardRef:
   match reward:
@@ -243,13 +272,13 @@ def _boosters_header(meta_state: Meta) -> HTML(DungeonEvent):
       {_back_button()}
     </div>
     <div class="topbar__stats">
-      {topbar_stat(Content.ui_topbar_boosters(), meta_pack_total(meta_state))}
+      {boosters_stat(meta_pack_total(meta_state))}
       {gold_stat(meta_gold(meta_state))}
     </div>
   </header>
 
 def _back_button() -> HTML(DungeonEvent):
-  button_secondary(DungeonEvent, close_boosters{}, medium{}, Content.ui_booster_back(), [])
+  action_back_button(DungeonEvent, close_boosters{}, Content.ui_booster_back())
 
 def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
   match booster_open_enabled(meta_state):
@@ -259,8 +288,8 @@ def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
           {layout_group(
             DungeonEvent,
             [
-              button_secondary(DungeonEvent, buy_pack{0}, medium{}, Content.ui_booster_buy_more_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state))),
-              button_primary(DungeonEvent, open_pack{0}, large{}, Content.ui_booster_open(), _full_button_overrides(1))
+              action_secondary_full(DungeonEvent, buy_pack{0}, Content.ui_booster_buy_more_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), booster_buy_enabled(meta_state)),
+              action_primary_full(DungeonEvent, open_pack{0}, Content.ui_booster_open(), 1)
             ],
             [direction_column{}, gap_sm{}, align_stretch{}]
           )}
@@ -272,7 +301,7 @@ def _booster_actions(meta_state: Meta) -> HTML(DungeonEvent):
           {layout_group(
             DungeonEvent,
             [
-              button_primary(DungeonEvent, buy_pack{0}, large{}, Content.ui_booster_buy_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), _full_button_overrides(booster_buy_enabled(meta_state)))
+              action_primary_full(DungeonEvent, buy_pack{0}, Content.ui_booster_buy_prefix() ++ U32/show(active_pack_price()) ++ Content.ui_booster_currency_suffix(), booster_buy_enabled(meta_state))
             ],
             [direction_column{}, gap_sm{}, align_stretch{}]
           )}

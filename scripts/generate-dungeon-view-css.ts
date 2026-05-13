@@ -1,7 +1,34 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 type DefMap = Map<string, string[]>;
+
+async function readBendFilesRecursive(dir: string): Promise<string[]> {
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+    throw err;
+  }
+
+  const chunks = await Promise.all(
+    entries.map(async (entry) => {
+      const entryPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        return readBendFilesRecursive(entryPath);
+      }
+      if (entry.isFile() && entry.name.endsWith(".bend")) {
+        return [await readFile(entryPath, "utf8")];
+      }
+      return [];
+    }),
+  );
+
+  return chunks.flat();
+}
 
 function parseStringDefs(source: string): DefMap {
   const defs: DefMap = new Map();
@@ -43,6 +70,28 @@ function parseStringLiteral(expr: string): string | null {
   return JSON.parse(expr);
 }
 
+// Returns true if `s` starts with `"` and contains a matching unescaped `"`.
+// Used to detect when a `++ "..."` literal spans multiple physical lines.
+function isCompleteStringLiteral(s: string): boolean {
+  if (!s.startsWith('"')) return false;
+  let escaped = false;
+  for (let j = 1; j < s.length; j++) {
+    const c = s[j];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (c === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (c === '"') {
+      return true;
+    }
+  }
+  return false;
+}
+
 function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack: string[]): string {
   const cached = cache.get(name);
   if (cached !== undefined) {
@@ -59,17 +108,39 @@ function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack
   }
 
   let output = "";
+  let i = 0;
 
-  for (const rawLine of body) {
-    const line = rawLine.trim();
-    if (line === "") {
+  while (i < body.length) {
+    const line = body[i].trim();
+    if (line === "" || line.startsWith("#")) {
+      i++;
       continue;
     }
 
-    const expr = line.startsWith("++ ") ? line.slice(3).trim() : line;
+    let expr = line.startsWith("++ ") ? line.slice(3).trim() : line;
 
     if (expr === '""') {
+      i++;
       continue;
+    }
+
+    // Support multi-line `++ "..."` literals: if the string starts but does
+    // not close on this line, keep absorbing trimmed lines (joined with a
+    // single space, since whitespace is insignificant in CSS) until the
+    // closing quote appears.
+    if (expr.startsWith('"') && !isCompleteStringLiteral(expr)) {
+      const parts = [expr];
+      i++;
+      while (i < body.length) {
+        parts.push(body[i].trim());
+        i++;
+        if (isCompleteStringLiteral(parts.join(" "))) {
+          break;
+        }
+      }
+      expr = parts.join(" ");
+    } else {
+      i++;
     }
 
     const literal = parseStringLiteral(expr);
@@ -98,15 +169,18 @@ async function main() {
   const rootDir = process.cwd();
   const cssModulePath = path.join(rootDir, "src", "Dungeon", "View", "css.bend");
   const assetsModulePath = path.join(rootDir, "src", "Dungeon", "View", "assets_and_labels.bend");
+  const cssModuleDir = path.join(rootDir, "src", "Dungeon", "View", "action_button_css");
   const outPath = path.join(rootDir, "assets", "generated", "dungeon-view.css");
 
-  const [cssModule, assetsModule] = await Promise.all([
+  const [cssModule, assetsModule, cssModules] = await Promise.all([
     readFile(cssModulePath, "utf8"),
     readFile(assetsModulePath, "utf8"),
+    readBendFilesRecursive(cssModuleDir),
   ]);
 
   const defs = new Map([
     ...parseStringDefs(assetsModule),
+    ...cssModules.flatMap((module) => [...parseStringDefs(module)]),
     ...parseStringDefs(cssModule),
   ]);
 

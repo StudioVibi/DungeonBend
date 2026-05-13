@@ -6,7 +6,7 @@ def palette() -> Midum/Theme/Palette:
   olive{}
 
 def style() -> Midum/Theme/Style:
-  toon{}
+  flat{}
 
 # Button defaults stay project-global, but individual button calls may still
 # grow local overrides later without changing the theme layer.

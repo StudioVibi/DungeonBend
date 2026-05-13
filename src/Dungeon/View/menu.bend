@@ -34,14 +34,16 @@ import Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_ena
 import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
 import Dungeon/View/assets_and_labels/_gold_icon as _gold_icon
 import Dungeon/View/assets_and_labels/_menu_upgrade_icon as _menu_upgrade_icon
+import Dungeon/View/action_button/primary_full as action_primary_full
+import Dungeon/View/action_button/back_button as action_back_button
+import Dungeon/View/action_button/secondary_fit as action_secondary_fit
+import Dungeon/View/action_button/secondary_full as action_secondary_full
+import Dungeon/View/action_button/secondary_icon_fit as action_secondary_icon_fit
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Midum/Button/catoon_dark as button_catoon_dark
-import Midum/Button/catoon_dark_counter as button_catoon_dark_counter
-import Midum/Button/catoon_yellow as button_catoon_yellow
-import Midum/Button/secondary as button_secondary
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
 import Midum/Card/neutral as card_neutral
 import Midum/Image/animated as image_animated
 import Midum/Layout/frame as layout_frame
@@ -55,6 +57,7 @@ def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
     <header class="topbar topbar--menu-home topbar--menu-home-desktop">
       <div class="topbar__stats">
+        {boosters_stat(meta_pack_total(meta_state))}
         {gold_stat(meta_gold(meta_state))}
       </div>
     </header>
@@ -63,6 +66,7 @@ def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
         {_header_characters_action()}
       </div>
       <div class="topbar__stats">
+        {boosters_stat(meta_pack_total(meta_state))}
         {gold_stat(meta_gold(meta_state))}
       </div>
     </header>
@@ -126,7 +130,7 @@ def _menu_actions_layout(meta_state: Meta) -> HTML(DungeonEvent):
     DungeonEvent,
     <section class="menu-actions">
       <div class="menu-actions__booster">
-        {_menu_boosters_button(meta_state)}
+        {_menu_boosters_button()}
       </div>
       <div class="menu-actions__primary">
         <div class="menu-actions__slot">
@@ -460,97 +464,41 @@ def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroPr
 
 def _menu_start_button() -> HTML(DungeonEvent):
   <div class="menu-play-btn-wrap menu-play-btn-wrap--full">
-    {button_catoon_yellow(
-      DungeonEvent,
-      start{},
-      large{},
-      Content.ui_menu_start(),
-      _play_full_button_overrides(start_enabled(setup{}))
-    )}
+    {action_primary_full(DungeonEvent, start{}, Content.ui_menu_start(), start_enabled(setup{}))}
   </div>
 
-def _menu_boosters_button(meta_state: Meta) -> HTML(DungeonEvent):
+def _menu_boosters_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_catoon_dark_counter(
-      DungeonEvent,
-      open_boosters{},
-      medium{},
-      Content.ui_menu_boosters(),
-      meta_pack_total(meta_state),
-      _full_button_overrides(1)
-    )}
+    {action_secondary_full(DungeonEvent, open_boosters{}, Content.ui_menu_boosters(), 1)}
   </div>
 
 def _menu_deck_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_catoon_dark(
-      DungeonEvent,
-      open_deck_list{},
-      medium{},
-      "EDIT DECKS",
-      _full_button_overrides(1)
-    )}
+    {action_secondary_full(DungeonEvent, open_deck_list{}, "EDIT DECKS", 1)}
   </div>
 
 def _menu_upgrade_button() -> HTML(DungeonEvent):
-  button_secondary(
-    DungeonEvent,
-    open_character_select{},
-    medium{},
-    "",
-    _menu_upgrade_button_overrides()
-  )
+  action_secondary_icon_fit(DungeonEvent, open_character_select{}, _menu_upgrade_icon(), 1)
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_catoon_dark(
-      DungeonEvent,
-      upgrade{},
-      medium{},
-      Content.ui_upgrade_upgrade(),
-      _action_button_overrides(character_upgrade_enabled(meta_state, hero_value, profile))
-    )}
+    {action_secondary_fit(DungeonEvent, upgrade{}, Content.ui_upgrade_upgrade(), character_upgrade_enabled(meta_state, hero_value, profile))}
   </div>
 
 def _character_booster_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--full">
-    {button_catoon_dark(
-      DungeonEvent,
-      open_boosters{},
-      medium{},
-      Content.ui_menu_boosters(),
-      _full_button_overrides(1)
-    )}
+    {action_secondary_full(DungeonEvent, open_boosters{}, Content.ui_menu_boosters(), 1)}
   </div>
 
 def _character_back_button() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_catoon_dark(
-      DungeonEvent,
-      close_character_select{},
-      medium{},
-      Content.ui_menu_back(),
-      _fit_button_overrides(1)
-    )}
+    {action_back_button(DungeonEvent, close_character_select{}, Content.ui_menu_back())}
   </div>
 
 def _header_characters_action() -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {button_catoon_dark(
-      DungeonEvent,
-      open_character_select{},
-      small{},
-      Content.ui_menu_characters(),
-      _fit_button_overrides(1)
-    )}
+    {action_secondary_fit(DungeonEvent, open_character_select{}, Content.ui_menu_characters(), 1)}
   </div>
-
-def _play_full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
-  match enabled:
-    case 0:
-      [width_full{}, state_disabled{}]
-    case _:
-      [width_full{}]
 
 def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
   match enabled:
@@ -558,20 +506,3 @@ def _full_button_overrides(enabled: U32) -> List(Midum/Button/Override):
       [width_full{}, state_disabled{}]
     case _:
       [width_full{}]
-
-def _fit_button_overrides(enabled: U32) -> List(Midum/Button/Override):
-  match enabled:
-    case 0:
-      [state_disabled{}]
-    case _:
-      []
-
-def _menu_upgrade_button_overrides() -> List(Midum/Button/Override):
-  [icon_left{src: _menu_upgrade_icon()}, shape_square{}]
-
-def _action_button_overrides(enabled: U32) -> List(Midum/Button/Override):
-  match enabled:
-    case 0:
-      [state_disabled{}]
-    case _:
-      []

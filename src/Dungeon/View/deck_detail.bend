@@ -17,15 +17,15 @@ import Dungeon/Config as Config
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/config as config
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
-import Dungeon/View/menu/_full_button_overrides as _full_button_overrides
-import Dungeon/View/menu/_fit_button_overrides as _fit_button_overrides
+import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
+import Dungeon/View/selectors/meta_pack_total as meta_pack_total
+import Dungeon/View/action_button/primary_full as action_primary_full
+import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/deck_chrome/render as deck_chrome
 import Dungeon/View/deck_sleeve_picker/render_detail_control as render_detail_control
 import Dungeon/View/selectors/meta_gold as meta_gold_text
 import Dungeon/View/deck_card_tile/render_tile as render_tile
 import Dungeon/View/deck_card_tile/render_empty as render_empty
-import Midum/Button/primary as button_primary
-import Midum/Button/secondary as button_secondary
 import Midum/Card/neutral as card_neutral
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/shell as layout_shell
@@ -89,6 +89,7 @@ def _mobile_back(picker: DeckPickerMode) -> DungeonEvent:
 
 def _trailing(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="deck-chrome-trailing">
+    {boosters_stat(meta_pack_total(meta_state))}
     {gold_stat(meta_gold_text(meta_state))}
   </div>
 
@@ -143,14 +144,14 @@ def _save_action(valid: U32, dirty: U32) -> List(HTML(DungeonEvent)):
     case 0:
       []
     case _:
-      [button_primary(DungeonEvent, save_deck_changes{}, medium{}, "SAVE", _full_button_overrides(valid))]
+      [action_primary_full(DungeonEvent, save_deck_changes{}, "SAVE", valid)]
 
 def _set_active_action(deck_id: U32, valid: U32, dirty: U32, is_active: U32) -> List(HTML(DungeonEvent)):
   match _set_active_visible(valid, dirty, is_active):
     case 0:
       []
     case _:
-      [button_secondary(DungeonEvent, set_active_deck{deck_id}, medium{}, "SET ACTIVE", _full_button_overrides(1))]
+      [action_secondary_full(DungeonEvent, set_active_deck{deck_id}, "SET ACTIVE", 1)]
 
 def _set_active_visible(valid: U32, dirty: U32, is_active: U32) -> U32:
   match is_active:
@@ -574,10 +575,10 @@ def _discard_modal() -> HTML(DungeonEvent):
         <p class="game-over-card__body">{text{"You have unsaved deck edits."}}</p>
         <section class="game-over-card__actions">
           <div class="menu-secondary-action game-over-card__secondary">
-            {button_secondary(DungeonEvent, cancel_discard_deck_changes{}, medium{}, "KEEP EDITING", _full_button_overrides(1))}
+            {action_secondary_full(DungeonEvent, cancel_discard_deck_changes{}, "KEEP EDITING", 1)}
           </div>
           <div class="menu-start-action game-over-card__primary">
-            {button_primary(DungeonEvent, discard_deck_changes{}, medium{}, "DISCARD", _full_button_overrides(1))}
+            {action_primary_full(DungeonEvent, discard_deck_changes{}, "DISCARD", 1)}
           </div>
         </section>
       </div>,

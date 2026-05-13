@@ -22,7 +22,10 @@ def _gold_name() -> String:
   Content.item_gold_name()
 
 def _gold_icon() -> String:
-  "assets/icon_gold.png"
+  "assets/ui/topbar/icon-gold.png"
+
+def _boosters_icon() -> String:
+  "assets/ui/topbar/icon-boosters.png"
 
 def _gold_sprite() -> String:
   "assets/item-gold.png"
