@@ -1,4 +1,5 @@
 import Dungeon/View/assets_and_labels/_dungeon_bg as _dungeon_bg
+import Dungeon/View/action_button_css as action_button_css
 def base_css() -> String:
   ""
   ++ ":root{--bg:#ffffff;--surface:#f2f2f2;--surface-strong:#e3e3e3;--surface-border:#d2d2d2;--text:#111111;--text-muted:#555555;--accent:#202020;--danger:#c21c1c;--shadow:0 16px 40px rgba(17,17,17,0.08);--radius-lg:28px;--radius-md:20px;--radius-sm:14px;--header-icon-size:34px;--header-icon-gap:7px;--header-icon-size-mobile:30px;--header-icon-gap-mobile:6px;--dungeon-topbar-gap:80px;--dungeon-topbar-gap-mobile:6px;--dungeon-bg-fallback:#081516;--dungeon-level-value-offset-y:-8px;--deck-counter-width:75px;--deck-counter-anchor-height:40px;--deck-counter-anchor-height-mobile:36px;--deck-counter-visual-bottom:-16px;--deck-counter-visual-bottom-mobile:-15px;--menu-home-hero-offset-desktop:32px;--menu-home-hero-offset-mobile:20px;--topbar-min-height:48px;--topbar-resource-value-min-width:4ch;}"
@@ -33,7 +34,8 @@ def shared_topbar_css() -> String:
   # --- topbar slots / actions / stats containers ----------------------------
   ++ ".topbar__back{display: flex; align-items: center;}"
   ++ ".topbar__back>.bc-btn,
-       .topbar__back>.menu-club-btn-wrap>.bc-btn{width: auto; min-width: 0;}"
+       .topbar__back>.menu-club-btn-wrap>.bc-btn,
+       .topbar__back>.menu-club-btn-wrap>.db-action-button-wrap{width: auto; min-width: 0;}"
   ++ ".topbar__actions{
        display: flex;
        align-items: center;
@@ -78,7 +80,7 @@ def shared_topbar_css() -> String:
      }"
 
   # --- topbar resource value (gold/booster numbers) -------------------------
-  # Same outline + cartoon drop-shadow recipe used by the shared catoon button,
+  # Same outline + drop-shadow recipe used by the shared action button,
   # scaled to the smaller font size of the topbar.
   # Design tokens (tunables — override per modifier if needed):
   #   --topbar-resource-value-stroke-width     outline width (visible = HALF this; paint-order: stroke fill)
@@ -179,10 +181,6 @@ def menu_home_css() -> String:
   ++ ".menu-home-info__change-label::before{content:'';position:absolute;inset:0;background:#111111;transform:scaleX(0);transform-origin:left center;z-index:-1;}"
   # --- upgrade button overlay
   ++ ".menu-home__upgrade{position:absolute;left:18%;top:42%;z-index:3;transform:translate(-62%,-72%);}"
-  ++ ".menu-home__upgrade>.bc-btn,.menu-home__upgrade>.bc-btn-catoon-wrap>.bc-btn{width:56px;min-width:56px;height:56px;padding:0;}"
-  ++ ".menu-home__upgrade .bc-btn-content{width:100%;height:100%;justify-content:center;gap:0;}"
-  ++ ".menu-home__upgrade .bc-btn-label{display:none;}"
-  ++ ".menu-home__upgrade .bc-btn-icon{width:28px;height:28px;}"
   # --- bottom actions (booster + play)
   ++ ".menu-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:18px;}"
   ++ ".menu-actions__booster{width:min(100%,190px);justify-self:start;}"
@@ -194,7 +192,7 @@ def menu_home_css() -> String:
   # --- desktop tuning
   ++ "@media (min-width:801px){.menu-home__hero{width:min(100%,520px);}.menu-hero-panel__portrait{width:min(100%,380px);max-height:clamp(260px,50vh,400px);}.menu-home-info__default--hud .hero-hud{width:min(100%,236px);}.menu-actions{gap:24px;}.menu-actions__booster{width:min(100%,224px);}.menu-actions__primary{width:min(100%,244px);}}"
   # --- mobile tuning
-  ++ "@media (max-width:800px){.topbar--menu-home-desktop,.menu-hero-panel--desktop{display:none;}.topbar--menu-home-mobile{display:flex;}.menu-hero-panel--mobile{display:grid;gap:14px;}.menu-home__hero{width:min(100%,320px);margin-top:var(--menu-home-hero-offset-mobile);padding:14px 0 16px;}.menu-hero-panel__portrait{width:min(100%,236px);max-height:clamp(176px,34vh,236px);}.menu-home-info__change{display:none;}.menu-home__upgrade{left:10%;top:42%;transform:translate(0,-76%);}.menu-home__upgrade>.bc-btn,.menu-home__upgrade>.bc-btn-catoon-wrap>.bc-btn{width:48px;min-width:48px;height:48px;}.menu-home__upgrade .bc-btn-icon{width:24px;height:24px;}.menu-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;}.menu-actions__booster,.menu-actions__primary{width:100%;}.menu-actions__primary{gap:10px;}}"
+  ++ "@media (max-width:800px){.topbar--menu-home-desktop,.menu-hero-panel--desktop{display:none;}.topbar--menu-home-mobile{display:flex;}.menu-hero-panel--mobile{display:grid;gap:14px;}.menu-home__hero{width:min(100%,320px);margin-top:var(--menu-home-hero-offset-mobile);padding:14px 0 16px;}.menu-hero-panel__portrait{width:min(100%,236px);max-height:clamp(176px,34vh,236px);}.menu-home-info__change{display:none;}.menu-home__upgrade{left:10%;top:42%;transform:translate(0,-76%);}.menu-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;}.menu-actions__booster,.menu-actions__primary{width:100%;}.menu-actions__primary{gap:10px;}}"
 
 def menu_secondary_button_css() -> String:
   ""
@@ -212,8 +210,8 @@ def menu_secondary_button_css() -> String:
   ++ ".menu-club-btn-wrap--fit,.menu-play-btn-wrap--fit{width: auto;}"
   ++ ".menu-club-btn-wrap--full>.bc-btn,
        .menu-play-btn-wrap--full>.bc-btn,
-       .menu-club-btn-wrap--full>.bc-btn-catoon-wrap,
-       .menu-play-btn-wrap--full>.bc-btn-catoon-wrap{width: 100%;}"
+       .menu-club-btn-wrap--full>.db-action-button-wrap,
+       .menu-play-btn-wrap--full>.db-action-button-wrap{width: 100%;}"
 
 def menu_primary_button_css() -> String:
   ""
@@ -249,6 +247,7 @@ def board_layout_css() -> String:
 
 def layout_css() -> String:
   button_press_css()
+  ++ action_button_css()
   ++ shared_topbar_css()
   ++ menu_screen_css()
   ++ menu_home_css()

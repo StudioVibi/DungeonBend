@@ -1,7 +1,34 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 type DefMap = Map<string, string[]>;
+
+async function readBendFilesRecursive(dir: string): Promise<string[]> {
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+    throw err;
+  }
+
+  const chunks = await Promise.all(
+    entries.map(async (entry) => {
+      const entryPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        return readBendFilesRecursive(entryPath);
+      }
+      if (entry.isFile() && entry.name.endsWith(".bend")) {
+        return [await readFile(entryPath, "utf8")];
+      }
+      return [];
+    }),
+  );
+
+  return chunks.flat();
+}
 
 function parseStringDefs(source: string): DefMap {
   const defs: DefMap = new Map();
@@ -142,15 +169,18 @@ async function main() {
   const rootDir = process.cwd();
   const cssModulePath = path.join(rootDir, "src", "Dungeon", "View", "css.bend");
   const assetsModulePath = path.join(rootDir, "src", "Dungeon", "View", "assets_and_labels.bend");
+  const cssModuleDir = path.join(rootDir, "src", "Dungeon", "View", "action_button_css");
   const outPath = path.join(rootDir, "assets", "generated", "dungeon-view.css");
 
-  const [cssModule, assetsModule] = await Promise.all([
+  const [cssModule, assetsModule, cssModules] = await Promise.all([
     readFile(cssModulePath, "utf8"),
     readFile(assetsModulePath, "utf8"),
+    readBendFilesRecursive(cssModuleDir),
   ]);
 
   const defs = new Map([
     ...parseStringDefs(assetsModule),
+    ...cssModules.flatMap((module) => [...parseStringDefs(module)]),
     ...parseStringDefs(cssModule),
   ]);
 
