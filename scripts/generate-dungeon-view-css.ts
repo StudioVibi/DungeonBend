@@ -43,6 +43,28 @@ function parseStringLiteral(expr: string): string | null {
   return JSON.parse(expr);
 }
 
+// Returns true if `s` starts with `"` and contains a matching unescaped `"`.
+// Used to detect when a `++ "..."` literal spans multiple physical lines.
+function isCompleteStringLiteral(s: string): boolean {
+  if (!s.startsWith('"')) return false;
+  let escaped = false;
+  for (let j = 1; j < s.length; j++) {
+    const c = s[j];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (c === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (c === '"') {
+      return true;
+    }
+  }
+  return false;
+}
+
 function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack: string[]): string {
   const cached = cache.get(name);
   if (cached !== undefined) {
@@ -59,17 +81,39 @@ function renderDef(name: string, defs: DefMap, cache: Map<string, string>, stack
   }
 
   let output = "";
+  let i = 0;
 
-  for (const rawLine of body) {
-    const line = rawLine.trim();
+  while (i < body.length) {
+    const line = body[i].trim();
     if (line === "" || line.startsWith("#")) {
+      i++;
       continue;
     }
 
-    const expr = line.startsWith("++ ") ? line.slice(3).trim() : line;
+    let expr = line.startsWith("++ ") ? line.slice(3).trim() : line;
 
     if (expr === '""') {
+      i++;
       continue;
+    }
+
+    // Support multi-line `++ "..."` literals: if the string starts but does
+    // not close on this line, keep absorbing trimmed lines (joined with a
+    // single space, since whitespace is insignificant in CSS) until the
+    // closing quote appears.
+    if (expr.startsWith('"') && !isCompleteStringLiteral(expr)) {
+      const parts = [expr];
+      i++;
+      while (i < body.length) {
+        parts.push(body[i].trim());
+        i++;
+        if (isCompleteStringLiteral(parts.join(" "))) {
+          break;
+        }
+      }
+      expr = parts.join(" ");
+    } else {
+      i++;
     }
 
     const literal = parseStringLiteral(expr);

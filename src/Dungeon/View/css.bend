@@ -12,8 +12,134 @@ def dungeon_scene_css() -> String:
 
 def shared_topbar_css() -> String:
   ""
-  ++ ".topbar{display:flex;align-items:center;justify-content:flex-start;min-height:var(--topbar-min-height);}.topbar--menu,.topbar--boosters,.topbar--menu-home-mobile{justify-content:space-between;gap:12px;}.topbar--menu-home{width:100%;padding-top:4px;}.topbar--menu-home-desktop{justify-content:flex-end;}.topbar__back{display:flex;align-items:center;}.topbar__back>.bc-btn,.topbar__back>.menu-club-btn-wrap>.bc-btn{width:auto;min-width:0;}.topbar-resource{margin:0;display:inline-grid;grid-template-columns:var(--header-icon-size) auto;align-items:center;column-gap:var(--header-icon-gap);min-height:var(--header-icon-size);min-width:0;color:var(--text);white-space:nowrap;}.topbar-resource__icon{width:var(--header-icon-size);height:var(--header-icon-size);object-fit:contain;flex:0 0 auto;}.topbar-resource__value{display:block;min-width:var(--topbar-resource-value-min-width);font-size:1rem;font-weight:900;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums;text-align:start;}.topbar__actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-width:0;}.topbar__stats{display:flex;align-items:center;justify-content:flex-end;gap:14px;min-width:0;}.topbar__slot{display:flex;align-items:center;justify-content:flex-end;min-width:110px;}.topbar__slot--leading{justify-content:flex-start;}.topbar__slot .bc-btn{width:auto;min-width:0;}.topbar__slot--placeholder{display:flex;visibility:hidden;pointer-events:none;}.topbar-stat{margin:0;display:inline-flex;align-items:baseline;gap:6px;color:var(--text-muted);font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;}.topbar-stat__value{color:var(--text);font-size:0.92rem;letter-spacing:0;}.topbar--menu,.topbar--boosters{padding-top:4px;}"
-  ++ "@media (max-width:800px){.topbar--menu,.topbar--boosters,.topbar--menu-home-mobile{gap:10px;}.topbar__actions,.topbar__stats{gap:10px;}.topbar__slot{min-width:88px;}.topbar-resource{grid-template-columns:var(--header-icon-size-mobile) auto;column-gap:var(--header-icon-gap-mobile);min-height:var(--header-icon-size-mobile);}.topbar-resource__icon{width:var(--header-icon-size-mobile);height:var(--header-icon-size-mobile);}.topbar-resource__value{font-size:0.88rem;}.topbar-stat{font-size:0.64rem;}.topbar-stat__value{font-size:0.82rem;}}"
+
+  # --- topbar shell ---------------------------------------------------------
+  ++ ".topbar{
+       display: flex;
+       align-items: center;
+       justify-content: flex-start;
+       min-height: var(--topbar-min-height);
+     }"
+  ++ ".topbar--menu,
+       .topbar--boosters,
+       .topbar--menu-home-mobile{
+       justify-content: space-between;
+       gap: 12px;
+     }"
+  ++ ".topbar--menu-home{width: 100%; padding-top: 4px;}"
+  ++ ".topbar--menu-home-desktop{justify-content: flex-end;}"
+  ++ ".topbar--menu,.topbar--boosters{padding-top: 4px;}"
+
+  # --- topbar slots / actions / stats containers ----------------------------
+  ++ ".topbar__back{display: flex; align-items: center;}"
+  ++ ".topbar__back>.bc-btn,
+       .topbar__back>.menu-club-btn-wrap>.bc-btn{width: auto; min-width: 0;}"
+  ++ ".topbar__actions{
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+       gap: 12px;
+       min-width: 0;
+     }"
+  ++ ".topbar__stats{
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+       gap: 14px;
+       min-width: 0;
+     }"
+  ++ ".topbar__slot{
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+       min-width: 110px;
+     }"
+  ++ ".topbar__slot--leading{justify-content: flex-start;}"
+  ++ ".topbar__slot .bc-btn{width: auto; min-width: 0;}"
+  ++ ".topbar__slot--placeholder{display: flex; visibility: hidden; pointer-events: none;}"
+
+  # --- resource row (icon + numeric value) ----------------------------------
+  ++ ".topbar-resource{
+       margin: 0;
+       display: inline-grid;
+       grid-template-columns: var(--header-icon-size) auto;
+       align-items: center;
+       column-gap: var(--header-icon-gap);
+       min-height: var(--header-icon-size);
+       min-width: 0;
+       color: var(--text);
+       white-space: nowrap;
+     }"
+  ++ ".topbar-resource__icon{
+       width: var(--header-icon-size);
+       height: var(--header-icon-size);
+       object-fit: contain;
+       flex: 0 0 auto;
+     }"
+
+  # --- topbar resource value (gold/booster numbers) -------------------------
+  # Same outline + cartoon drop-shadow recipe used by .menu-main-button__label,
+  # scaled to the smaller font size of the topbar.
+  # Design tokens (tunables — override per modifier if needed):
+  #   --topbar-resource-value-stroke-width     outline width (visible = HALF this; paint-order: stroke fill)
+  #   --topbar-resource-value-stroke-color     outline color
+  #   --topbar-resource-value-shadow-offset-y  cartoon drop-shadow Y offset (positive = DOWN)
+  #   --topbar-resource-value-shadow-color     cartoon drop-shadow color
+  ++ ".topbar-resource__value{
+       --topbar-resource-value-stroke-width: 1.6px;
+       --topbar-resource-value-stroke-color: #0a0e14;
+       --topbar-resource-value-shadow-offset-y: 2px;
+       --topbar-resource-value-shadow-color: #000;
+       display: block;
+       min-width: var(--topbar-resource-value-min-width);
+       font-size: 1rem;
+       font-weight: 900;
+       line-height: 1;
+       letter-spacing: 0;
+       font-variant-numeric: tabular-nums;
+       text-align: start;
+       color: #fffdf4;
+       -webkit-text-stroke: var(--topbar-resource-value-stroke-width) var(--topbar-resource-value-stroke-color);
+       paint-order: stroke fill;
+       filter: drop-shadow(0 var(--topbar-resource-value-shadow-offset-y) 0 var(--topbar-resource-value-shadow-color));
+     }"
+
+  # --- generic label/value stat (non-resource) ------------------------------
+  ++ ".topbar-stat{
+       margin: 0;
+       display: inline-flex;
+       align-items: baseline;
+       gap: 6px;
+       color: var(--text-muted);
+       font-size: 0.72rem;
+       font-weight: 700;
+       letter-spacing: 0.06em;
+       text-transform: uppercase;
+       white-space: nowrap;
+     }"
+  ++ ".topbar-stat__value{color: var(--text); font-size: 0.92rem; letter-spacing: 0;}"
+
+  # --- mobile tuning --------------------------------------------------------
+  ++ "@media (max-width: 800px){
+       .topbar--menu,
+       .topbar--boosters,
+       .topbar--menu-home-mobile{gap: 10px;}
+       .topbar__actions,
+       .topbar__stats{gap: 10px;}
+       .topbar__slot{min-width: 88px;}
+       .topbar-resource{
+         grid-template-columns: var(--header-icon-size-mobile) auto;
+         column-gap: var(--header-icon-gap-mobile);
+         min-height: var(--header-icon-size-mobile);
+       }
+       .topbar-resource__icon{
+         width: var(--header-icon-size-mobile);
+         height: var(--header-icon-size-mobile);
+       }
+       .topbar-resource__value{font-size: 0.88rem;}
+       .topbar-stat{font-size: 0.64rem;}
+       .topbar-stat__value{font-size: 0.82rem;}
+     }"
 
 def menu_screen_css() -> String:
   ""
@@ -72,38 +198,134 @@ def menu_home_css() -> String:
 
 def menu_secondary_button_css() -> String:
   ""
-  # --- club/play button wrappers
-  ++ ".menu-club-btn-wrap,.menu-play-btn-wrap{position:relative;display:inline-grid;max-width:100%;}"
-  ++ ".menu-club-btn-wrap--full,.menu-play-btn-wrap--full{display:grid;width:100%;}"
-  ++ ".menu-club-btn-wrap--fit,.menu-play-btn-wrap--fit{width:auto;}"
-  ++ ".menu-club-btn-wrap--full>.bc-btn,.menu-play-btn-wrap--full>.bc-btn,.menu-club-btn-wrap--full>.bc-btn-catoon-wrap,.menu-play-btn-wrap--full>.bc-btn-catoon-wrap{width:100%;}"
-  # --- .menu-main-button base (Start button on the main screen)
-  ++ ".menu-main-button{position:relative;z-index:0;isolation:isolate;overflow:hidden;min-width:0;border:0!important;background:none;color:#fffdf4;font-family:var(--bc-font-display);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;box-shadow:none;transform:none;transition:none;}"
-  # --- nine-slice background via border-image (the actual nine-slice rule)
-  ++ ".menu-main-button::before{content:'';position:absolute;inset:0;z-index:-1;border-style:solid;border-width:24px 12px;border-image-slice:65 24 65 24 fill;border-image-width:24px 12px;border-image-repeat:stretch;border-image-source:var(--menu-main-button-image);pointer-events:none;}"
-  # --- nine-slice image variants (yellow = primary/Start, gray = secondary)
+
+  # --- club/play button wrappers --------------------------------------------
+  ++ ".menu-club-btn-wrap,.menu-play-btn-wrap{
+       position: relative;
+       display: inline-grid;
+       max-width: 100%;
+     }"
+  ++ ".menu-club-btn-wrap--full,.menu-play-btn-wrap--full{
+       display: grid;
+       width: 100%;
+     }"
+  ++ ".menu-club-btn-wrap--fit,.menu-play-btn-wrap--fit{width: auto;}"
+  ++ ".menu-club-btn-wrap--full>.bc-btn,
+       .menu-play-btn-wrap--full>.bc-btn,
+       .menu-club-btn-wrap--full>.bc-btn-catoon-wrap,
+       .menu-play-btn-wrap--full>.bc-btn-catoon-wrap{width: 100%;}"
+
+  # --- .menu-main-button base (Start / Edit Decks / Boosters) ---------------
+  # Design tokens — override per-variant below if needed:
+  #   --menu-main-button-radius           visible rounded-corner of the nine-slice art (px)
+  #   --menu-main-button-label-offset     optical re-centering of the label (negative pushes UP)
+  #   --menu-main-button-stroke-width     label outline width (visible = HALF this; paint-order: stroke fill)
+  #   --menu-main-button-stroke-color     label outline color
+  #   --menu-main-button-shadow-offset-y  cartoon drop-shadow under the label (positive = DOWN in CSS)
+  #   --menu-main-button-shadow-color     cartoon drop-shadow color
+  ++ ".menu-main-button{
+       --menu-main-button-radius: 12px;
+       --menu-main-button-label-offset: -4px;
+       --menu-main-button-stroke-width: 3px;
+       --menu-main-button-stroke-color: #0a0e14;
+       --menu-main-button-shadow-offset-y: 2px;
+       --menu-main-button-shadow-color: #000;
+       position: relative;
+       z-index: 0;
+       isolation: isolate;
+       overflow: hidden;
+       border-radius: var(--menu-main-button-radius);
+       min-width: 0;
+       border: 0 !important;
+       background: none;
+       color: #fffdf4;
+       font-family: var(--bc-font-display);
+       font-weight: 800;
+       letter-spacing: 0.08em;
+       text-transform: uppercase;
+       box-shadow: none;
+       transform: none;
+       transition: none;
+     }"
+
+  # --- nine-slice background via border-image (sits behind the label) -------
+  ++ ".menu-main-button::before{
+       content: '';
+       position: absolute;
+       inset: 0;
+       z-index: -1;
+       border-style: solid;
+       border-width: 24px 12px;
+       border-image-slice: 65 24 65 24 fill;
+       border-image-width: 24px 12px;
+       border-image-repeat: stretch;
+       border-image-source: var(--menu-main-button-image);
+       pointer-events: none;
+     }"
+
+  # --- nine-slice image variants (yellow = primary/Start, gray = secondary) -
   ++ ".menu-main-button--primary{--menu-main-button-image:url(\"assets/ui/menu/button/button-main-yellow.png\");}"
   ++ ".menu-main-button--secondary{--menu-main-button-image:url(\"assets/ui/menu/button/button-main-gray.png\");}"
-  # --- interaction states
-  ++ ".menu-main-button:hover,.menu-main-button:active{background:none;border-color:transparent;box-shadow:none;transform:none;}"
-  # --- shine sweep (left-to-right white flash on hover)
-  ++ ".menu-main-button::after{content:'';position:absolute;top:0;bottom:0;left:0;width:60%;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.9) 50%,rgba(255,255,255,0) 100%);transform:translateX(-180%) skewX(-18deg);opacity:0;z-index:2;}"
-  ++ "@media (hover:hover) and (pointer:fine){.menu-main-button:hover::after{animation:menu-main-button-shine 620ms cubic-bezier(0.22,0.61,0.36,1) 1 both;}}"
-  ++ "@keyframes menu-main-button-shine{0%{transform:translateX(-180%) skewX(-18deg);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translateX(220%) skewX(-18deg);opacity:0;}}"
-  ++ ".menu-main-button--disabled,.menu-main-button--disabled:hover,.menu-main-button--disabled:active{cursor:not-allowed;transform:none;}"
-  ++ ".menu-main-button--disabled::after,.menu-main-button--disabled:hover::after{animation:none;opacity:0;}"
-  # --- inner content + label
-  ++ ".menu-main-button__content{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:100%;gap:10px;}"
-  ++ ".menu-main-button__label{display:block;white-space:nowrap;line-height:1;transform:translateY(-1px);-webkit-text-stroke:1.4px #0a0e14;paint-order:stroke fill;}"
-  # --- size modifiers
-  ++ ".menu-main-button--medium{min-height:48px;padding:1px 20px 0;}"
-  ++ ".menu-main-button--medium .menu-main-button__label{font-size:1rem;}"
-  ++ ".menu-main-button--large{min-height:58px;padding:1px 22px 0;}"
-  ++ ".menu-main-button--large .menu-main-button__label{font-size:1.18rem;-webkit-text-stroke:1.8px #0a0e14;}"
-  # --- home actions: booster + edit-decks share the start button height (58px)
-  ++ ".menu-actions__booster .menu-main-button--medium,.menu-actions__slot .menu-main-button--medium{min-height:58px;}"
-  # --- mobile tuning
-  ++ "@media (max-width:800px){.menu-main-button--medium{min-height:44px;padding:1px 18px 0;}.menu-main-button--medium .menu-main-button__label{font-size:0.92rem;}.menu-main-button--large .menu-main-button__label{font-size:1.04rem;}}"
+
+  # --- interaction states (no press-down animation; flash lives in bend-shine)
+  ++ ".menu-main-button:hover,.menu-main-button:active{
+       background: none;
+       border-color: transparent;
+       box-shadow: none;
+       transform: none;
+     }"
+  ++ ".menu-main-button--disabled,
+       .menu-main-button--disabled:hover,
+       .menu-main-button--disabled:active{
+       cursor: not-allowed;
+       transform: none;
+     }"
+
+  # --- inner content + label -----------------------------------------------
+  ++ ".menu-main-button__content{
+       position: relative;
+       z-index: 1;
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       width: 100%;
+       gap: 10px;
+     }"
+  # Label consumes the tokens from the base block: outline, drop-shadow and
+  # vertical offset all flow from CSS vars so each visual aspect is tunable
+  # independently. paint-order: stroke fill = outline drawn OUTSIDE the glyph.
+  ++ ".menu-main-button__label{
+       display: block;
+       white-space: nowrap;
+       line-height: 1;
+       transform: translateY(var(--menu-main-button-label-offset));
+       -webkit-text-stroke: var(--menu-main-button-stroke-width) var(--menu-main-button-stroke-color);
+       paint-order: stroke fill;
+       filter: drop-shadow(0 var(--menu-main-button-shadow-offset-y) 0 var(--menu-main-button-shadow-color));
+     }"
+
+  # --- size modifiers -------------------------------------------------------
+  ++ ".menu-main-button--medium{min-height: 48px; padding: 1px 20px 0;}"
+  ++ ".menu-main-button--medium .menu-main-button__label{font-size: 1rem;}"
+  # Large overrides the stroke/shadow tokens to scale up with the font.
+  ++ ".menu-main-button--large{
+       min-height: 58px;
+       padding: 1px 22px 0;
+       --menu-main-button-stroke-width: 4px;
+       --menu-main-button-shadow-offset-y: 2px;
+     }"
+  ++ ".menu-main-button--large .menu-main-button__label{font-size: 1.18rem;}"
+
+  # --- home actions: booster + edit-decks share the start button height ----
+  ++ ".menu-actions__booster .menu-main-button--medium,
+       .menu-actions__slot .menu-main-button--medium{min-height: 58px;}"
+
+  # --- mobile tuning --------------------------------------------------------
+  ++ "@media (max-width: 800px){
+       .menu-main-button--medium{min-height: 44px; padding: 1px 18px 0;}
+       .menu-main-button--medium .menu-main-button__label{font-size: 0.92rem;}
+       .menu-main-button--large .menu-main-button__label{font-size: 1.04rem;}
+     }"
 
 def menu_primary_button_css() -> String:
   ""
@@ -111,6 +333,61 @@ def menu_primary_button_css() -> String:
 def button_press_css() -> String:
   ""
   ++ ".bc-btn,.bc-btn:hover,.bc-btn:active,.bc-btn:focus-visible{transition:none;}"
+
+# --- reusable hover-shine effect (opt-in via .bend-shine class) -----------
+# Any element with .bend-shine gets a one-pass white flash sweep on hover.
+# The host element is responsible for its own clipping shape (border-radius
+# / mask / clip-path). .bend-shine only adds overflow:hidden + isolation
+# so the flash never escapes the host's box.
+def shine_fx_css() -> String:
+  ""
+
+  # Host: sets up the clipping stage. Host still owns its own border-radius.
+  ++ ".bend-shine{
+       position: relative;
+       overflow: hidden;
+       isolation: isolate;
+     }"
+
+  # The flash itself — a vertical white gradient band, parked off-screen left.
+  ++ ".bend-shine::after{
+       content: '';
+       position: absolute;
+       top: 0; bottom: 0; left: 0;
+       width: 60%;
+       pointer-events: none;
+       background: linear-gradient(
+         90deg,
+         rgba(255,255,255,0) 0%,
+         rgba(255,255,255,0.9) 50%,
+         rgba(255,255,255,0) 100%
+       );
+       transform: translateX(-180%) skewX(-18deg);
+       opacity: 0;
+       z-index: 2;
+     }"
+
+  # Trigger: one sweep per hover-enter. Restricted to true hover devices.
+  ++ "@media (hover: hover) and (pointer: fine){
+       .bend-shine:hover::after{
+         animation: bend-shine-sweep 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1 both;
+       }
+     }"
+
+  # Keyframes: sweep -180% → 220% with quick fade-in / fade-out at the edges.
+  ++ "@keyframes bend-shine-sweep{
+       0%   { transform: translateX(-180%) skewX(-18deg); opacity: 0; }
+       20%  { opacity: 1; }
+       80%  { opacity: 1; }
+       100% { transform: translateX( 220%) skewX(-18deg); opacity: 0; }
+     }"
+
+  # Disabled modifier: kill the flash entirely.
+  ++ ".bend-shine--disabled::after,
+       .bend-shine--disabled:hover::after{
+       animation: none;
+       opacity: 0;
+     }"
 
 def character_select_css() -> String:
   ""
@@ -139,6 +416,7 @@ def board_layout_css() -> String:
 
 def layout_css() -> String:
   button_press_css()
+  ++ shine_fx_css()
   ++ shared_topbar_css()
   ++ menu_screen_css()
   ++ menu_home_css()

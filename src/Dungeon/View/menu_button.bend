@@ -4,12 +4,12 @@ import Dungeon/DungeonEvent as DungeonEvent
 def disabled_class(enabled: U32) -> String:
   match enabled:
     case 0:
-      " menu-main-button--disabled"
+      " menu-main-button--disabled bend-shine--disabled"
     case _:
       ""
 
 def button_class(tone_class: String, size_class: String, enabled: U32) -> String:
-  "bc-btn menu-main-button " ++ tone_class ++ " " ++ size_class ++ disabled_class(enabled)
+  "bc-btn menu-main-button bend-shine " ++ tone_class ++ " " ++ size_class ++ disabled_class(enabled)
 
 def button_body(label: String) -> HTML(DungeonEvent):
   <span class="menu-main-button__content">
