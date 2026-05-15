@@ -20,7 +20,7 @@ def hero_adventurer_ultimate_desc() -> String:
   "Refills the dungeon with new cards while keeping the hero in place."
 
 def hero_adventurer_ultimate_title() -> String:
-  "Ultimate"
+  "SPECIAL MOVE"
 
 def hero_gato_de_botas_name() -> String:
   "Gato de Botas"
@@ -29,7 +29,7 @@ def hero_gato_de_botas_ultimate_desc() -> String:
   "Refills the dungeon with new cards while keeping the hero in place."
 
 def hero_gato_de_botas_ultimate_title() -> String:
-  "Ultimate"
+  "SPECIAL MOVE"
 
 def item_gold_name() -> String:
   "Gold"
