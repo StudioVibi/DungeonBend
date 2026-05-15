@@ -4,6 +4,10 @@ def action_button_upgrade_css() -> String:
     animation: db-upgrade-flash-idle 3000ms cubic-bezier(0.22, 0.61, 0.36, 1) infinite both;
   }
 
+  .db-action-button-wrap--upgrade-available.db-action-button-wrap--icon .bc-btn-icon {
+    transform: translateY(-2px);
+  }
+
   .db-action-button-wrap--upgrade-available:active {
     animation: character-upgrade-jelly 1180ms cubic-bezier(0.2, 0.82, 0.2, 1) 1 both;
     transform-origin: 50% 78%;

@@ -29,7 +29,6 @@ import Dungeon/View/selectors/hero_level_ratio_text as hero_level_ratio_text
 import Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
 import Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
 import Dungeon/View/selectors/start_enabled as start_enabled
-import Dungeon/View/selectors/menu_upgrade_visible as menu_upgrade_visible
 import Dungeon/View/selectors/character_upgrade_maxed as character_upgrade_maxed
 import Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_enabled
 import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
@@ -435,7 +434,7 @@ def _menu_home_portrait(hero_value: HeroDef) -> HTML(DungeonEvent):
   </div>
 
 def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
-  match menu_upgrade_visible(meta_state, hero_value, profile):
+  match character_upgrade_enabled(meta_state, hero_value, profile):
     case 1:
       <div class="menu-home__upgrade">
         {_menu_upgrade_button()}
