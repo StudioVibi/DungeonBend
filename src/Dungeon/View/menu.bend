@@ -13,6 +13,7 @@ import Dungeon/hero_helpers/hero_name as hero_name
 import Dungeon/hero_helpers/hero_sprite as hero_sprite
 import Dungeon/hero_presentation/hero_presentation_at as hero_presentation_at
 import Dungeon/hero_presentation/hero_presentation_lore as hero_presentation_lore
+import Dungeon/hero_presentation/hero_presentation_portrait as hero_presentation_portrait
 import Dungeon/hero_presentation/hero_presentation_ultimate_description as hero_presentation_ultimate_description
 import Dungeon/hero_presentation/hero_presentation_ultimate_icon as hero_presentation_ultimate_icon
 import Dungeon/hero_presentation/hero_presentation_ultimate_title as hero_presentation_ultimate_title
@@ -45,7 +46,7 @@ import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
-import Midum/Card/neutral as card_neutral
+import Dungeon/View/character_roster_card/render as render_character_roster_card
 import Midum/Image/animated as image_animated
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/shell as layout_shell
@@ -324,18 +325,15 @@ def _character_roster_items(meta_state: Meta, preview_hero: U32, hero_ref: U32, 
       _character_roster_card(meta_state, preview_hero, hero_ref, hero_value, profile)<>_character_roster_items(meta_state, preview_hero, hero_ref + 1, count)
 
 def _character_roster_card(meta_state: Meta, preview_hero: U32, hero_ref: U32, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
-  <button class={_character_roster_card_class(meta_state, preview_hero, hero_ref, profile)} type="button" on_click={preview_character{hero_ref}}>
-    {card_neutral(
-      DungeonEvent,
-      <span class="character-roster-card__content">
-        <span class="character-roster-card__image-wrap">
-          <img class="character-roster-card__image" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
-        </span>
-        <span class="character-roster-card__footer">{text{hero_level_ratio_text(hero_value, profile)}}</span>
-      </span>,
-      [padding_none{}]
-    )}
-  </button>
+  presentation = hero_presentation_at(hero_ref);
+  render_character_roster_card(
+    _character_roster_card_class(meta_state, preview_hero, hero_ref, profile),
+    hero_ref,
+    hero_name(hero_value),
+    hero_presentation_portrait(presentation),
+    hero_level_ratio_text(hero_value, profile),
+    character_upgrade_enabled(meta_state, hero_value, profile)
+  )
 
 def _character_equipped(meta_state: Meta, hero_ref: U32) -> U32:
   match selection_confirmed(meta_state):

@@ -81,6 +81,7 @@ export type RawRules = {
 export type RawHeroPresentation = {
   hero_id: string;
   name_align: string;
+  portrait: string;
   ultimate_icon: string;
 };
 
@@ -609,6 +610,9 @@ export function getGameDataErrors(data: GameData): string[] {
     if (!["left", "center", "right"].includes(String(presentation?.name_align))) {
       errors.push(`presentation.heroes[${index}].name_align must be "left", "center", or "right"`);
     }
+    if (typeof presentation?.portrait !== "string") {
+      errors.push(`presentation.heroes[${index}].portrait must be a string`);
+    }
     addStringError(errors, presentation?.ultimate_icon, `presentation.heroes[${index}].ultimate_icon`);
   });
   heroes.forEach((hero) => {
@@ -645,6 +649,10 @@ function assetRefs(data: GameData): Array<{ label: string; value: string }> {
     ...data.monsters.map((monster, index) => ({ label: `monsters[${index}].sprite`, value: monster.sprite })),
     ...data.weapons.map((weapon, index) => ({ label: `weapons[${index}].sprite`, value: weapon.sprite })),
     ...data.potions.map((potion, index) => ({ label: `potions[${index}].sprite`, value: potion.sprite })),
+    ...data.presentation.heroes.map((presentation, index) => ({
+      label: `presentation.heroes[${index}].portrait`,
+      value: presentation.portrait,
+    })),
     ...data.presentation.heroes.map((presentation, index) => ({
       label: `presentation.heroes[${index}].ultimate_icon`,
       value: presentation.ultimate_icon,
@@ -1060,6 +1068,9 @@ export function renderHeroPresentationModule(data: GameData): string {
       fail(`duplicate hero presentation for "${heroId}"`);
     }
     validateString(presentation.ultimate_icon, `presentation.heroes[${index}].ultimate_icon`);
+    if (typeof presentation.portrait !== "string") {
+      fail(`presentation.heroes[${index}].portrait must be a string`);
+    }
     renderPresentationAlign(presentation.name_align, `presentation.heroes[${index}].name_align`);
     presentationByHeroId.set(heroId, presentation);
   });
@@ -1072,7 +1083,7 @@ export function renderHeroPresentationModule(data: GameData): string {
     const lore = requireContent(data, heroLoreKey(hero.id));
     const ultimateTitle = requireContent(data, heroUltimateTitleKey(hero.id));
     const ultimateDesc = requireContent(data, heroUltimateDescKey(hero.id));
-    return `hero_presentation{${bendString(hero.id)}, ${renderPresentationAlign(presentation.name_align, `presentation["${hero.id}"].name_align`)}, ${bendString(lore)}, ${bendString(ultimateTitle)}, ${bendString(presentation.ultimate_icon)}, ${bendString(ultimateDesc)}}`;
+    return `hero_presentation{${bendString(hero.id)}, ${renderPresentationAlign(presentation.name_align, `presentation["${hero.id}"].name_align`)}, ${bendString(presentation.portrait)}, ${bendString(lore)}, ${bendString(ultimateTitle)}, ${bendString(presentation.ultimate_icon)}, ${bendString(ultimateDesc)}}`;
   });
   const renderedPresentations = renderTypedListHelpers("generated_hero_presentation_items", "HeroPresentation", presentations);
 
