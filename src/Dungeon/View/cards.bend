@@ -20,27 +20,17 @@ import Dungeon/Content as Content
 def _hero_card_values(hero_value: HeroDef, hero_hp: U32, hero_max_hp: U32, weapon_value: Weapon, hp_fx: HpFx, dmg_fx: DmgFx) -> HTML(DungeonEvent):
   card_neutral(
     DungeonEvent,
-    <div class={_hero_card_class(dmg_fx)} data-dmg={_hero_damage_attr(weapon_value)}>
-      <div class={_hero_hp_badge_class(hp_fx)}>{text{Content.stat_hp() ++ " " ++ U32/show(hero_hp) ++ "/" ++ U32/show(hero_max_hp)}}</div>
+    <div class="card card--hero">
       <div class="card__art-wrap">
         <img class="card__art" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
+      </div>
+      <div class="card__info">
+        {_hero_dmg_badge_node(weapon_value, dmg_fx)}
+        <div class={_hero_hp_badge_class(hp_fx)}>{text{Content.stat_hp() ++ " " ++ U32/show(hero_hp) ++ "/" ++ U32/show(hero_max_hp)}}</div>
       </div>
     </div>,
     [padding_none{}]
   )
-
-def _hero_card_class(dmg_fx: DmgFx) -> String:
-  match dmg_fx:
-    case dmg_fx_up_a{}:
-      "card card--hero card--hero-dmg-up-a"
-    case dmg_fx_up_b{}:
-      "card card--hero card--hero-dmg-up-b"
-    case dmg_fx_down_a{}:
-      "card card--hero card--hero-dmg-down-a"
-    case dmg_fx_down_b{}:
-      "card card--hero card--hero-dmg-down-b"
-    case _:
-      "card card--hero"
 
 def _hero_hp_badge_class(hp_fx: HpFx) -> String:
   match hp_fx:
@@ -55,12 +45,25 @@ def _hero_hp_badge_class(hp_fx: HpFx) -> String:
     case _:
       "card__badge card__badge--hp"
 
-def _hero_damage_attr(weapon_value: Weapon) -> String:
+def _hero_dmg_badge_node(weapon_value: Weapon, dmg_fx: DmgFx) -> HTML(DungeonEvent):
   match weapon_value:
     case no_weapon{}:
-      ""
+      text{""}
     case weapon{ref, dmg}:
-      Content.stat_dmg() ++ " " ++ U32/show(dmg)
+      <div class={_hero_dmg_badge_class(dmg_fx)}>{text{Content.stat_dmg() ++ " " ++ U32/show(dmg)}}</div>
+
+def _hero_dmg_badge_class(dmg_fx: DmgFx) -> String:
+  match dmg_fx:
+    case dmg_fx_up_a{}:
+      "card__badge card__badge--dmg card__badge--dmg-up-a"
+    case dmg_fx_up_b{}:
+      "card__badge card__badge--dmg card__badge--dmg-up-b"
+    case dmg_fx_down_a{}:
+      "card__badge card__badge--dmg card__badge--dmg-down-a"
+    case dmg_fx_down_b{}:
+      "card__badge card__badge--dmg card__badge--dmg-down-b"
+    case _:
+      "card__badge card__badge--dmg"
 
 def _monster_fx_overrides() -> List(Midum/Image/Override):
   [width_px{value: 112n}, height_px{value: 112n}, fit_contain{}, sampling_pixelated{}]
@@ -121,12 +124,14 @@ def _damage_overlay_layer(pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(Du
 def _tile_card_body(tile: Tile, class_name: String, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(DungeonEvent):
   art_tile = _art_tile(tile, pos, damage_overlay);
   <div class={class_name}>
-    {_tile_badge_node(tile)}
     <div class="card__art-wrap card__art-wrap--stacked">
       {_damage_overlay_layer(pos, damage_overlay)}
       <div class="card__art-layer card__art-layer--base">
         <img class="card__art" src={_tile_sprite(art_tile)} alt={_tile_name(art_tile)} />
       </div>
+    </div>
+    <div class="card__info">
+      {_tile_badge_node(tile)}
     </div>
   </div>
 
