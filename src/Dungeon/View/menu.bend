@@ -40,6 +40,7 @@ import Dungeon/View/action_button/back_button as action_back_button
 import Dungeon/View/action_button/secondary_fit as action_secondary_fit
 import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/action_button/secondary_icon_fit as action_secondary_icon_fit
+import Dungeon/View/action_button/upgrade_fit as action_upgrade_fit
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
 import Dungeon/View/menu_topbar/render as menu_topbar
 import Dungeon/menu_background_animation/clip as menu_background_clip
@@ -462,7 +463,7 @@ def _menu_upgrade_button() -> HTML(DungeonEvent):
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {action_secondary_fit(DungeonEvent, upgrade{}, Content.ui_upgrade_upgrade(), character_upgrade_enabled(meta_state, hero_value, profile))}
+    {action_upgrade_fit(DungeonEvent, upgrade{}, Content.ui_upgrade_upgrade(), character_upgrade_enabled(meta_state, hero_value, profile))}
   </div>
 
 def _character_booster_button() -> HTML(DungeonEvent):
