@@ -80,6 +80,13 @@ def secondary_icon_fit(Event: Type, evt: Event, icon_src: String, enabled: U32) 
     button_secondary(Event, evt, medium{}, "", icon_fit_overrides(icon_src, enabled))
   )
 
+def upgrade_icon_fit(Event: Type, evt: Event, icon_src: String, enabled: U32) -> HTML(Event):
+  action_wrap(
+    Event,
+    "db-action-button-wrap--upgrade-available db-action-button-wrap--icon",
+    button_secondary(Event, evt, medium{}, "", icon_fit_overrides(icon_src, enabled))
+  )
+
 def back_button(Event: Type, evt: Event, label: String) -> HTML(Event):
   action_wrap(
     Event,

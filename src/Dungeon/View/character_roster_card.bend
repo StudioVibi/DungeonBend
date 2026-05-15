@@ -40,7 +40,7 @@ def _upgrade_badge(show_upgrade: U32) -> HTML(DungeonEvent):
     case 0:
       text{""}
     case _:
-      <span class="character-roster-card__upgrade" aria-hidden="true">
+      <span class="character-roster-card__upgrade db-upgrade-jelly" aria-hidden="true">
         <img class="character-roster-card__upgrade-icon" src={_upgrade_arrow()} alt="" />
       </span>
 
