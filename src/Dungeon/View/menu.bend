@@ -12,7 +12,6 @@ import Dungeon/hero_helpers/hero_count as hero_count
 import Dungeon/hero_helpers/hero_name as hero_name
 import Dungeon/hero_helpers/hero_sprite as hero_sprite
 import Dungeon/hero_presentation/hero_presentation_at as hero_presentation_at
-import Dungeon/hero_presentation/hero_presentation_lore as hero_presentation_lore
 import Dungeon/hero_presentation/hero_presentation_portrait as hero_presentation_portrait
 import Dungeon/hero_presentation/hero_presentation_ultimate_description as hero_presentation_ultimate_description
 import Dungeon/hero_presentation/hero_presentation_ultimate_icon as hero_presentation_ultimate_icon
@@ -24,9 +23,9 @@ import Dungeon/profile_helpers/profile_for_hero as profile_for_hero
 import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/View/selectors/meta_gold as meta_gold
 import Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import Dungeon/View/selectors/hero_level_progress_text as hero_level_progress_text
 import Dungeon/View/selectors/hero_level_ratio_text as hero_level_ratio_text
-import Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
+import Dungeon/View/selectors/hero_menu_level_chip_text as hero_menu_level_chip_text
+import Dungeon/View/selectors/hero_at_max_level as hero_at_max_level
 import Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
 import Dungeon/View/selectors/start_enabled as start_enabled
 import Dungeon/View/selectors/character_upgrade_maxed as character_upgrade_maxed
@@ -212,7 +211,6 @@ def _character_info_column(meta_state: Meta, preview_hero: U32, hero_value: Hero
   <div class="character-detail__info">
     <div class="character-detail__stack">
       {_character_detail_name(hero_value)}
-      {_character_detail_lore(presentation)}
       {_character_stats_row(hero_value, profile)}
       {_character_locked_slot(profile)}
       {_character_ultimate_slot(presentation)}
@@ -220,22 +218,32 @@ def _character_info_column(meta_state: Meta, preview_hero: U32, hero_value: Hero
     </div>
   </div>
 
-def _character_detail_name(hero_value: HeroDef) -> HTML(DungeonEvent):
-  <div class="character-detail__name-outline">
-    {text_h2(DungeonEvent, left{}, hero_name(hero_value), [])}
+def _level_star_icon(at_max: U32) -> String:
+  match at_max:
+    case 0:
+      "assets/ui/characters/selection/icon-star-silver.png"
+    case _:
+      "assets/ui/characters/selection/icon-star-gold.png"
+
+def _level_chip(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
+  <div class="hero-hud__level-chip">
+    <img class="hero-hud__level-image" src={_level_star_icon(hero_at_max_level(hero_value, profile))} alt="" />
+    <span class="hero-hud__level-value">{text{hero_menu_level_chip_text(profile)}}</span>
   </div>
 
-def _character_detail_lore(presentation: HeroPresentation) -> HTML(DungeonEvent):
-  <div class="character-detail__lore">
-    {text_body(DungeonEvent, left{}, hero_presentation_lore(presentation), [])}
+def _character_detail_name(hero_value: HeroDef) -> HTML(DungeonEvent):
+  <div class="character-detail__name-outline">
+    <span class="character-detail__name">{text{hero_name(hero_value)}}</span>
   </div>
 
 def _character_stats_row(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="character-detail__stats">
-    <p class="character-detail__stat">{text{hero_level_progress_text(hero_value, profile)}}</p>
+    <div class="character-detail__stat-level">
+      {_level_chip(hero_value, profile)}
+    </div>
     <div class="character-detail__stat-heart">
       <div class="hero-hud__heart">
-        <img class="hero-hud__heart-image" src="assets/icon_heart.png" alt={Content.stat_hp()} />
+        <img class="hero-hud__heart-image" src="assets/ui/characters/selection/icon-heart.png" alt={Content.stat_hp()} />
         <span class="hero-hud__heart-value">{text{hero_menu_max_hp_text(hero_value, profile)}}</span>
       </div>
     </div>
@@ -417,12 +425,10 @@ def _menu_home_info(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEv
 
 def _menu_home_hud(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="hero-hud hero-hud--menu-home">
-    <div class="hero-hud__level">
-      {text_label(DungeonEvent, left{}, hero_menu_level_text(profile), [])}
-    </div>
+    {_level_chip(hero_value, profile)}
     <div class="hero-hud__hp">
       <div class="hero-hud__heart">
-        <img class="hero-hud__heart-image" src="assets/icon_heart.png" alt="" />
+        <img class="hero-hud__heart-image" src="assets/ui/characters/selection/icon-heart.png" alt="" />
         <span class="hero-hud__heart-value">{text{hero_menu_max_hp_text(hero_value, profile)}}</span>
       </div>
     </div>

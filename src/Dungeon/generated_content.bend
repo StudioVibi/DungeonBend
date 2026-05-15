@@ -13,9 +13,6 @@ def fallback_potion_name() -> String:
 def fallback_weapon_name() -> String:
   "Sword"
 
-def hero_adventurer_lore() -> String:
-  "A steady explorer ready for the next dungeon."
-
 def hero_adventurer_name() -> String:
   "Adventurer"
 
@@ -24,9 +21,6 @@ def hero_adventurer_ultimate_desc() -> String:
 
 def hero_adventurer_ultimate_title() -> String:
   "Ultimate"
-
-def hero_gato_de_botas_lore() -> String:
-  "A sly duelist who turns quick moves into clean wins."
 
 def hero_gato_de_botas_name() -> String:
   "Gato de Botas"

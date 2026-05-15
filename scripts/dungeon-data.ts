@@ -186,10 +186,6 @@ function heroNameKey(heroId: string): string {
   return `hero.${heroId}.name`;
 }
 
-function heroLoreKey(heroId: string): string {
-  return `hero.${heroId}.lore`;
-}
-
 function heroUltimateTitleKey(heroId: string): string {
   return `hero.${heroId}.ultimateTitle`;
 }
@@ -374,7 +370,6 @@ function requiredContentKeys(data: GameData): string[] {
   (Array.isArray(data.heroes) ? data.heroes : []).forEach((hero) => {
     if (typeof hero?.id === "string" && hero.id.trim() !== "") {
       keys.add(heroNameKey(hero.id));
-      keys.add(heroLoreKey(hero.id));
       keys.add(heroUltimateTitleKey(hero.id));
       keys.add(heroUltimateDescKey(hero.id));
     }
@@ -1080,10 +1075,9 @@ export function renderHeroPresentationModule(data: GameData): string {
     if (presentation === undefined) {
       fail(`presentation is missing hero_id "${hero.id}"`);
     }
-    const lore = requireContent(data, heroLoreKey(hero.id));
     const ultimateTitle = requireContent(data, heroUltimateTitleKey(hero.id));
     const ultimateDesc = requireContent(data, heroUltimateDescKey(hero.id));
-    return `hero_presentation{${bendString(hero.id)}, ${renderPresentationAlign(presentation.name_align, `presentation["${hero.id}"].name_align`)}, ${bendString(presentation.portrait)}, ${bendString(lore)}, ${bendString(ultimateTitle)}, ${bendString(presentation.ultimate_icon)}, ${bendString(ultimateDesc)}}`;
+    return `hero_presentation{${bendString(hero.id)}, ${renderPresentationAlign(presentation.name_align, `presentation["${hero.id}"].name_align`)}, ${bendString(presentation.portrait)}, ${bendString(ultimateTitle)}, ${bendString(presentation.ultimate_icon)}, ${bendString(ultimateDesc)}}`;
   });
   const renderedPresentations = renderTypedListHelpers("generated_hero_presentation_items", "HeroPresentation", presentations);
 

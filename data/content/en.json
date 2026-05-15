@@ -1,10 +1,8 @@
 {
   "hero.adventurer.name": "Adventurer",
-  "hero.adventurer.lore": "A steady explorer ready for the next dungeon.",
   "hero.adventurer.ultimateTitle": "Ultimate",
   "hero.adventurer.ultimateDesc": "Refills the dungeon with new cards while keeping the hero in place.",
   "hero.gato_de_botas.name": "Gato de Botas",
-  "hero.gato_de_botas.lore": "A sly duelist who turns quick moves into clean wins.",
   "hero.gato_de_botas.ultimateTitle": "Ultimate",
   "hero.gato_de_botas.ultimateDesc": "Refills the dungeon with new cards while keeping the hero in place.",
   "monster.rat.name": "Rat",

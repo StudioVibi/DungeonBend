@@ -53,6 +53,19 @@ def hero_level_progress_text(hero_value: HeroDef, profile: HeroProfile) -> Strin
 def hero_level_ratio_text(hero_value: HeroDef, profile: HeroProfile) -> String:
   _two_digit_value(profile_hero_level(profile) + 1) ++ "/" ++ _two_digit_value(hero_visible_max_level(hero_value))
 
+def hero_menu_level_chip_text(profile: HeroProfile) -> String:
+  "Lv " ++ _two_digit_value(profile_hero_level(profile) + 1)
+
+def hero_at_max_level(hero_value: HeroDef, profile: HeroProfile) -> U32:
+  _hero_at_max_level_flag((profile_hero_level(profile) + 1) === hero_visible_max_level(hero_value))
+
+def _hero_at_max_level_flag(equal: U32) -> U32:
+  match equal:
+    case 0:
+      0
+    case _:
+      1
+
 def hero_base_hp_text(hero_value: HeroDef) -> String:
   U32/show(hero_base_max_hp(hero_value))
 
