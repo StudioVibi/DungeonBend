@@ -12,7 +12,7 @@ import Dungeon/hero_helpers/hero_count as hero_count
 import Dungeon/hero_helpers/hero_name as hero_name
 import Dungeon/hero_helpers/hero_sprite as hero_sprite
 import Dungeon/hero_presentation/hero_presentation_at as hero_presentation_at
-import Dungeon/hero_presentation/hero_presentation_lore as hero_presentation_lore
+import Dungeon/hero_presentation/hero_presentation_portrait as hero_presentation_portrait
 import Dungeon/hero_presentation/hero_presentation_ultimate_description as hero_presentation_ultimate_description
 import Dungeon/hero_presentation/hero_presentation_ultimate_icon as hero_presentation_ultimate_icon
 import Dungeon/hero_presentation/hero_presentation_ultimate_title as hero_presentation_ultimate_title
@@ -23,12 +23,11 @@ import Dungeon/profile_helpers/profile_for_hero as profile_for_hero
 import Dungeon/profile_helpers/profile_unlocked as profile_unlocked
 import Dungeon/View/selectors/meta_gold as meta_gold
 import Dungeon/View/selectors/meta_pack_total as meta_pack_total
-import Dungeon/View/selectors/hero_level_progress_text as hero_level_progress_text
 import Dungeon/View/selectors/hero_level_ratio_text as hero_level_ratio_text
-import Dungeon/View/selectors/hero_menu_level_text as hero_menu_level_text
+import Dungeon/View/selectors/hero_menu_level_chip_text as hero_menu_level_chip_text
+import Dungeon/View/selectors/hero_at_max_level as hero_at_max_level
 import Dungeon/View/selectors/hero_menu_max_hp_text as hero_menu_max_hp_text
 import Dungeon/View/selectors/start_enabled as start_enabled
-import Dungeon/View/selectors/menu_upgrade_visible as menu_upgrade_visible
 import Dungeon/View/selectors/character_upgrade_maxed as character_upgrade_maxed
 import Dungeon/View/selectors/character_upgrade_enabled as character_upgrade_enabled
 import Dungeon/View/selectors/character_upgrade_price_text as character_upgrade_price_text
@@ -38,13 +37,15 @@ import Dungeon/View/action_button/primary_full as action_primary_full
 import Dungeon/View/action_button/back_button as action_back_button
 import Dungeon/View/action_button/secondary_fit as action_secondary_fit
 import Dungeon/View/action_button/secondary_full as action_secondary_full
-import Dungeon/View/action_button/secondary_icon_fit as action_secondary_icon_fit
+import Dungeon/View/action_button/upgrade_fit as action_upgrade_fit
+import Dungeon/View/action_button/upgrade_icon_fit as action_upgrade_icon_fit
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/View/menu_topbar/render as menu_topbar
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
 import Dungeon/View/topbar_stats/boosters_stat as boosters_stat
-import Midum/Card/neutral as card_neutral
+import Dungeon/View/character_roster_card/render as render_character_roster_card
 import Midum/Image/animated as image_animated
 import Midum/Layout/frame as layout_frame
 import Midum/Layout/shell as layout_shell
@@ -55,21 +56,14 @@ import Midum/Text/Align as Align
 
 def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
-    <header class="topbar topbar--menu-home topbar--menu-home-desktop">
-      <div class="topbar__stats">
-        {boosters_stat(meta_pack_total(meta_state))}
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
-    <header class="topbar topbar--menu-home topbar--menu-home-mobile">
-      <div class="topbar__slot topbar__slot--leading">
-        {_header_characters_action()}
-      </div>
-      <div class="topbar__stats">
-        {boosters_stat(meta_pack_total(meta_state))}
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
+    {menu_topbar("topbar--menu-home topbar--menu-home-desktop", text{""}, _menu_resources(meta_state))}
+    {menu_topbar("topbar--menu-home topbar--menu-home-mobile", _header_characters_action(), _menu_resources(meta_state))}
+  </div>
+
+def _menu_resources(meta_state: Meta) -> HTML(DungeonEvent):
+  <div class="topbar-resource-row">
+    {boosters_stat(meta_pack_total(meta_state))}
+    {gold_stat(meta_gold(meta_state))}
   </div>
 
 def _menu_background_image_overrides() -> List(Midum/Image/Override):
@@ -180,20 +174,8 @@ def _character_select_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
 
 def _character_select_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="character-select-headers">
-    <header class="topbar topbar--character-select topbar--character-select-desktop">
-      <div class="topbar__slot topbar__slot--leading">
-        {_character_back_button()}
-      </div>
-      <div class="topbar__stats">
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
-    <header class="topbar topbar--character-select topbar--character-select-mobile">
-      <div class="topbar__slot topbar__slot--leading topbar__slot--placeholder" aria-hidden="true"></div>
-      <div class="topbar__stats">
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
+    {menu_topbar("topbar--character-select topbar--character-select-desktop", _character_back_button(), _menu_resources(meta_state))}
+    {menu_topbar("topbar--character-select topbar--character-select-mobile", text{""}, _menu_resources(meta_state))}
   </div>
 
 def _character_select_content(meta_state: Meta, preview_hero: U32, hero_value: HeroDef, profile: HeroProfile, presentation: HeroPresentation) -> HTML(DungeonEvent):
@@ -229,7 +211,6 @@ def _character_info_column(meta_state: Meta, preview_hero: U32, hero_value: Hero
   <div class="character-detail__info">
     <div class="character-detail__stack">
       {_character_detail_name(hero_value)}
-      {_character_detail_lore(presentation)}
       {_character_stats_row(hero_value, profile)}
       {_character_locked_slot(profile)}
       {_character_ultimate_slot(presentation)}
@@ -237,22 +218,32 @@ def _character_info_column(meta_state: Meta, preview_hero: U32, hero_value: Hero
     </div>
   </div>
 
-def _character_detail_name(hero_value: HeroDef) -> HTML(DungeonEvent):
-  <div class="character-detail__name-outline">
-    {text_h2(DungeonEvent, left{}, hero_name(hero_value), [])}
+def _level_star_icon(at_max: U32) -> String:
+  match at_max:
+    case 0:
+      "assets/ui/characters/selection/icon-star-silver.png"
+    case _:
+      "assets/ui/characters/selection/icon-star-gold.png"
+
+def _level_chip(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
+  <div class="hero-hud__level-chip">
+    <img class="hero-hud__level-image" src={_level_star_icon(hero_at_max_level(hero_value, profile))} alt="" />
+    <span class="hero-hud__level-value">{text{hero_menu_level_chip_text(profile)}}</span>
   </div>
 
-def _character_detail_lore(presentation: HeroPresentation) -> HTML(DungeonEvent):
-  <div class="character-detail__lore">
-    {text_body(DungeonEvent, left{}, hero_presentation_lore(presentation), [])}
+def _character_detail_name(hero_value: HeroDef) -> HTML(DungeonEvent):
+  <div class="character-detail__name-outline">
+    <span class="character-detail__name">{text{hero_name(hero_value)}}</span>
   </div>
 
 def _character_stats_row(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="character-detail__stats">
-    <p class="character-detail__stat">{text{hero_level_progress_text(hero_value, profile)}}</p>
+    <div class="character-detail__stat-level">
+      {_level_chip(hero_value, profile)}
+    </div>
     <div class="character-detail__stat-heart">
       <div class="hero-hud__heart">
-        <img class="hero-hud__heart-image" src="assets/icon_heart.png" alt={Content.stat_hp()} />
+        <img class="hero-hud__heart-image" src="assets/ui/characters/selection/icon-heart.png" alt={Content.stat_hp()} />
         <span class="hero-hud__heart-value">{text{hero_menu_max_hp_text(hero_value, profile)}}</span>
       </div>
     </div>
@@ -342,18 +333,15 @@ def _character_roster_items(meta_state: Meta, preview_hero: U32, hero_ref: U32, 
       _character_roster_card(meta_state, preview_hero, hero_ref, hero_value, profile)<>_character_roster_items(meta_state, preview_hero, hero_ref + 1, count)
 
 def _character_roster_card(meta_state: Meta, preview_hero: U32, hero_ref: U32, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
-  <button class={_character_roster_card_class(meta_state, preview_hero, hero_ref, profile)} type="button" on_click={preview_character{hero_ref}}>
-    {card_neutral(
-      DungeonEvent,
-      <span class="character-roster-card__content">
-        <span class="character-roster-card__image-wrap">
-          <img class="character-roster-card__image" src={hero_sprite(hero_value)} alt={hero_name(hero_value)} />
-        </span>
-        <span class="character-roster-card__footer">{text{hero_level_ratio_text(hero_value, profile)}}</span>
-      </span>,
-      [padding_none{}]
-    )}
-  </button>
+  presentation = hero_presentation_at(hero_ref);
+  render_character_roster_card(
+    _character_roster_card_class(meta_state, preview_hero, hero_ref, profile),
+    hero_ref,
+    hero_name(hero_value),
+    hero_presentation_portrait(presentation),
+    hero_level_ratio_text(hero_value, profile),
+    character_upgrade_enabled(meta_state, hero_value, profile)
+  )
 
 def _character_equipped(meta_state: Meta, hero_ref: U32) -> U32:
   match selection_confirmed(meta_state):
@@ -437,12 +425,10 @@ def _menu_home_info(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEv
 
 def _menu_home_hud(hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="hero-hud hero-hud--menu-home">
-    <div class="hero-hud__level">
-      {text_label(DungeonEvent, left{}, hero_menu_level_text(profile), [])}
-    </div>
+    {_level_chip(hero_value, profile)}
     <div class="hero-hud__hp">
       <div class="hero-hud__heart">
-        <img class="hero-hud__heart-image" src="assets/icon_heart.png" alt="" />
+        <img class="hero-hud__heart-image" src="assets/ui/characters/selection/icon-heart.png" alt="" />
         <span class="hero-hud__heart-value">{text{hero_menu_max_hp_text(hero_value, profile)}}</span>
       </div>
     </div>
@@ -454,7 +440,7 @@ def _menu_home_portrait(hero_value: HeroDef) -> HTML(DungeonEvent):
   </div>
 
 def _menu_upgrade_overlay(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
-  match menu_upgrade_visible(meta_state, hero_value, profile):
+  match character_upgrade_enabled(meta_state, hero_value, profile):
     case 1:
       <div class="menu-home__upgrade">
         {_menu_upgrade_button()}
@@ -478,11 +464,11 @@ def _menu_deck_button() -> HTML(DungeonEvent):
   </div>
 
 def _menu_upgrade_button() -> HTML(DungeonEvent):
-  action_secondary_icon_fit(DungeonEvent, open_character_select{}, _menu_upgrade_icon(), 1)
+  action_upgrade_icon_fit(DungeonEvent, open_character_select{}, _menu_upgrade_icon(), 1)
 
 def _character_upgrade_button(meta_state: Meta, hero_value: HeroDef, profile: HeroProfile) -> HTML(DungeonEvent):
   <div class="menu-club-btn-wrap menu-club-btn-wrap--fit">
-    {action_secondary_fit(DungeonEvent, upgrade{}, Content.ui_upgrade_upgrade(), character_upgrade_enabled(meta_state, hero_value, profile))}
+    {action_upgrade_fit(DungeonEvent, upgrade{}, Content.ui_upgrade_upgrade(), character_upgrade_enabled(meta_state, hero_value, profile))}
   </div>
 
 def _character_booster_button() -> HTML(DungeonEvent):

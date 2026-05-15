@@ -59,10 +59,31 @@ def secondary_fit(Event: Type, evt: Event, label: String, enabled: U32) -> HTML(
     button_secondary(Event, evt, medium{}, label, fit_overrides(enabled))
   )
 
+def upgrade_fit_role(enabled: U32) -> String:
+  match enabled:
+    case 0:
+      "db-action-button-wrap--secondary"
+    case _:
+      "db-action-button-wrap--upgrade-available"
+
+def upgrade_fit(Event: Type, evt: Event, label: String, enabled: U32) -> HTML(Event):
+  action_wrap(
+    Event,
+    upgrade_fit_role(enabled),
+    button_secondary(Event, evt, medium{}, label, fit_overrides(enabled))
+  )
+
 def secondary_icon_fit(Event: Type, evt: Event, icon_src: String, enabled: U32) -> HTML(Event):
   action_wrap(
     Event,
     "db-action-button-wrap--secondary db-action-button-wrap--icon",
+    button_secondary(Event, evt, medium{}, "", icon_fit_overrides(icon_src, enabled))
+  )
+
+def upgrade_icon_fit(Event: Type, evt: Event, icon_src: String, enabled: U32) -> HTML(Event):
+  action_wrap(
+    Event,
+    "db-action-button-wrap--upgrade-available db-action-button-wrap--icon",
     button_secondary(Event, evt, medium{}, "", icon_fit_overrides(icon_src, enabled))
   )
 

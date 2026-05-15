@@ -2,11 +2,13 @@
   {
     "hero_id": "adventurer",
     "name_align": "center",
-    "ultimate_icon": "assets/item-sword.png"
+    "portrait": "assets/ui/characters/selection/portrait-adventurer.png",
+    "ultimate_icon": "assets/ui/characters/selection/icon-ultimate.png"
   },
   {
     "hero_id": "gato_de_botas",
     "name_align": "center",
-    "ultimate_icon": "assets/item-sword.png"
+    "portrait": "",
+    "ultimate_icon": "assets/ui/characters/selection/icon-ultimate.png"
   }
 ]

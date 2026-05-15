@@ -13,6 +13,12 @@ def action_button_skin_css() -> String:
     --db-action-button-disabled-text: #f5f7fa;
   }
 
+  .db-action-button-wrap--upgrade-available {
+    --db-action-button-image: url(\"assets/ui/menu/button/button-main-green.png\");
+    --db-action-button-text: #ffffff;
+    --db-action-button-disabled-text: #f5f7fa;
+  }
+
   .db-action-button-wrap--back {
     --db-action-button-image: var(--db-action-button-small-image);
   }

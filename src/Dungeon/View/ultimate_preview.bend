@@ -8,6 +8,7 @@ import Dungeon/UltimateCutins/cutin_spec_for_hero_ref as cutin_spec_for_hero_ref
 import Dungeon/UltimateCutins/_render_ultimate_cutin as _render_ultimate_cutin
 import Dungeon/View/action_button/primary_full as action_primary_full
 import Dungeon/View/action_button/back_button as action_back_button
+import Dungeon/View/menu_topbar/render as menu_topbar
 import Midum/Layout/shell as layout_shell
 
 def _render_ultimate_preview(meta_state: Meta, fx: UltimatePreviewFx) -> HTML(DungeonEvent):
@@ -15,11 +16,7 @@ def _render_ultimate_preview(meta_state: Meta, fx: UltimatePreviewFx) -> HTML(Du
   layout_shell(
     DungeonEvent,
     <section class="ultimate-preview-scene">
-      <header class="topbar topbar--menu ultimate-preview-topbar">
-        <div class="topbar__back">
-          {_ultimate_preview_back_button()}
-        </div>
-      </header>
+      {menu_topbar("topbar--menu ultimate-preview-topbar", _ultimate_preview_back_button(), text{""})}
       <div class="ultimate-preview-content">
         {_render_ultimate_cutin(spec, _ultimate_preview_stage_class(fx))}
       </div>

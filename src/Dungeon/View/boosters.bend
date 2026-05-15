@@ -18,6 +18,7 @@ import Dungeon/View/action_button/primary_full as action_primary_full
 import Dungeon/View/action_button/back_button as action_back_button
 import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/View/menu_topbar/render as menu_topbar
 import Dungeon/View/assets_and_labels/_card_name as _card_name
 import Dungeon/View/assets_and_labels/_card_sprite as _card_sprite
 import Dungeon/View/assets_and_labels/_card_stat_range as _card_stat_range
@@ -267,15 +268,13 @@ def _card_at(cards: List(CardRef), idx: U32) -> CardRef:
           _card_at(rest, idx - 1)
 
 def _boosters_header(meta_state: Meta) -> HTML(DungeonEvent):
-  <header class="topbar topbar--boosters">
-    <div class="topbar__slot topbar__slot--leading">
-      {_back_button()}
-    </div>
-    <div class="topbar__stats">
-      {boosters_stat(meta_pack_total(meta_state))}
-      {gold_stat(meta_gold(meta_state))}
-    </div>
-  </header>
+  menu_topbar("topbar--boosters", _back_button(), _boosters_resources(meta_state))
+
+def _boosters_resources(meta_state: Meta) -> HTML(DungeonEvent):
+  <div class="topbar-resource-row">
+    {boosters_stat(meta_pack_total(meta_state))}
+    {gold_stat(meta_gold(meta_state))}
+  </div>
 
 def _back_button() -> HTML(DungeonEvent):
   action_back_button(DungeonEvent, close_boosters{}, Content.ui_booster_back())

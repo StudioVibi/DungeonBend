@@ -24,7 +24,7 @@ type HeroPresentation {
   hero_presentation{
     hero_id: String,
     name_align: PresentationAlign,
-    lore: String,
+    portrait: String,
     ultimate_title: String,
     ultimate_icon: String,
     ultimate_description: String
