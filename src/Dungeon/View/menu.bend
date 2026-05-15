@@ -40,6 +40,7 @@ import Dungeon/View/action_button/secondary_fit as action_secondary_fit
 import Dungeon/View/action_button/secondary_full as action_secondary_full
 import Dungeon/View/action_button/secondary_icon_fit as action_secondary_icon_fit
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/View/menu_topbar/render as menu_topbar
 import Dungeon/menu_background_animation/clip as menu_background_clip
 import Dungeon/Content as Content
 import Dungeon/View/topbar_stats/gold_stat as gold_stat
@@ -55,21 +56,14 @@ import Midum/Text/Align as Align
 
 def _menu_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="menu-home-headers">
-    <header class="topbar topbar--menu-home topbar--menu-home-desktop">
-      <div class="topbar__stats">
-        {boosters_stat(meta_pack_total(meta_state))}
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
-    <header class="topbar topbar--menu-home topbar--menu-home-mobile">
-      <div class="topbar__slot topbar__slot--leading">
-        {_header_characters_action()}
-      </div>
-      <div class="topbar__stats">
-        {boosters_stat(meta_pack_total(meta_state))}
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
+    {menu_topbar("topbar--menu-home topbar--menu-home-desktop", text{""}, _menu_resources(meta_state))}
+    {menu_topbar("topbar--menu-home topbar--menu-home-mobile", _header_characters_action(), _menu_resources(meta_state))}
+  </div>
+
+def _menu_resources(meta_state: Meta) -> HTML(DungeonEvent):
+  <div class="topbar-resource-row">
+    {boosters_stat(meta_pack_total(meta_state))}
+    {gold_stat(meta_gold(meta_state))}
   </div>
 
 def _menu_background_image_overrides() -> List(Midum/Image/Override):
@@ -180,20 +174,8 @@ def _character_select_shell(body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
 
 def _character_select_header(meta_state: Meta) -> HTML(DungeonEvent):
   <div class="character-select-headers">
-    <header class="topbar topbar--character-select topbar--character-select-desktop">
-      <div class="topbar__slot topbar__slot--leading">
-        {_character_back_button()}
-      </div>
-      <div class="topbar__stats">
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
-    <header class="topbar topbar--character-select topbar--character-select-mobile">
-      <div class="topbar__slot topbar__slot--leading topbar__slot--placeholder" aria-hidden="true"></div>
-      <div class="topbar__stats">
-        {gold_stat(meta_gold(meta_state))}
-      </div>
-    </header>
+    {menu_topbar("topbar--character-select topbar--character-select-desktop", _character_back_button(), _menu_resources(meta_state))}
+    {menu_topbar("topbar--character-select topbar--character-select-mobile", text{""}, _menu_resources(meta_state))}
   </div>
 
 def _character_select_content(meta_state: Meta, preview_hero: U32, hero_value: HeroDef, profile: HeroProfile, presentation: HeroPresentation) -> HTML(DungeonEvent):

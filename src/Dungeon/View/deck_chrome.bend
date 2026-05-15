@@ -1,6 +1,7 @@
 import HTML as HTML
 import Dungeon/DungeonEvent as DungeonEvent
 import Dungeon/View/menu_screen/_menu_screen_frame as _menu_screen_frame
+import Dungeon/View/menu_topbar/render as menu_topbar
 import Dungeon/View/action_button/back_button as action_back_button
 
 def render(desktop_back: DungeonEvent, mobile_back: DungeonEvent, trailing: HTML(DungeonEvent), mobile_title: HTML(DungeonEvent), actions: List(HTML(DungeonEvent)), body: HTML(DungeonEvent)) -> HTML(DungeonEvent):
@@ -8,20 +9,8 @@ def render(desktop_back: DungeonEvent, mobile_back: DungeonEvent, trailing: HTML
 
 def _chrome_header(back_event: DungeonEvent, trailing: HTML(DungeonEvent), mobile_title: HTML(DungeonEvent)) -> HTML(DungeonEvent):
   <div class="deck-chrome-headers">
-    <header class="topbar topbar--deck-chrome topbar--deck-chrome-desktop">
-      <div class="topbar__slot topbar__slot--leading">
-        {_back_button(back_event)}
-      </div>
-      <div class="topbar__stats">
-        {trailing}
-      </div>
-    </header>
-    <header class="topbar topbar--deck-chrome topbar--deck-chrome-mobile">
-      <div class="topbar__slot topbar__slot--leading topbar__slot--placeholder" aria-hidden="true"></div>
-      <div class="topbar__stats">
-        {mobile_title}
-      </div>
-    </header>
+    {menu_topbar("topbar--deck-chrome topbar--deck-chrome-desktop", _back_button(back_event), trailing)}
+    {menu_topbar("topbar--deck-chrome topbar--deck-chrome-mobile", text{""}, mobile_title)}
   </div>
 
 def _chrome_footer(back_event: DungeonEvent, actions: List(HTML(DungeonEvent))) -> HTML(DungeonEvent):
