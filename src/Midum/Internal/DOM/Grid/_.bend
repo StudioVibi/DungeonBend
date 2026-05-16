@@ -20,7 +20,8 @@ PERSPECTIVE_BOTTOM_X_1 : Nat = 430n
 PERSPECTIVE_BOTTOM_X_2 : Nat = 750n
 PERSPECTIVE_BOTTOM_X_3 : Nat = 1070n
 VIEWBOX_WIDTH : Nat = 1180n
-VIEWBOX_BOTTOM_PAD : Nat = 110n
+VIEWBOX_BOTTOM_PAD : Nat = 30n
+VIEWBOX_SIDE_PAD : Nat = 30n
 
 def nat_px(value: Nat) -> String:
   show_nat(value) ++ "px"
@@ -150,8 +151,17 @@ def grid_bottom_y() -> Nat:
 def viewbox_height() -> Nat:
   nat_add(grid_bottom_y(), VIEWBOX_BOTTOM_PAD)
 
+def svg_viewbox_height() -> Nat:
+  nat_sub(viewbox_height(), grid_box_top())
+
+def svg_viewbox_left() -> Nat:
+  nat_sub(grid_box_left(), VIEWBOX_SIDE_PAD)
+
+def svg_viewbox_width() -> Nat:
+  nat_add(grid_box_width(), nat_mul(2n, VIEWBOX_SIDE_PAD))
+
 def svg_viewbox() -> String:
-  "0 0 " ++ show_nat(VIEWBOX_WIDTH) ++ " " ++ show_nat(viewbox_height())
+  show_nat(svg_viewbox_left()) ++ " " ++ show_nat(grid_box_top()) ++ " " ++ show_nat(svg_viewbox_width()) ++ " " ++ show_nat(svg_viewbox_height())
 
 def interp_left(bottom_x: Nat, y: Nat) -> Nat:
   delta_x = nat_sub(PERSPECTIVE_VANISH_X, bottom_x)
@@ -517,10 +527,10 @@ def content_layer(Event: Type, bounds: Midum/Grid/ContentBounds, cells: List(Mid
     data-perspective-amount={show_nat(amount)}
     data-grid-gap-x={show_nat(gap_x)}
     data-grid-gap-y={show_nat(gap_y)}
-    style:left={ratio_css(grid_box_left(), VIEWBOX_WIDTH)}
-    style:top={ratio_css(grid_box_top(), viewbox_height())}
-    style:width={ratio_css(grid_box_width(), VIEWBOX_WIDTH)}
-    style:height={ratio_css(grid_box_height(), viewbox_height())}
+    style:left={ratio_css(VIEWBOX_SIDE_PAD, svg_viewbox_width())}
+    style:top="0%"
+    style:width={ratio_css(grid_box_width(), svg_viewbox_width())}
+    style:height={ratio_css(grid_box_height(), svg_viewbox_height())}
     style:border={"1px solid " ++ content_bounds_border(bounds, "0.34")}
   >
     {content_row(Event, bounds, 0n, cells, amount, gap_x, max_transfer, gap_y)}
