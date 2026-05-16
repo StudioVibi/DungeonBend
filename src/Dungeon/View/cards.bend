@@ -138,5 +138,25 @@ def _tile_card_body(tile: Tile, class_name: String, pos: Nat/V2, damage_overlay:
 def _standard_tile_card(tile: Tile, class_name: String, pos: Nat/V2, damage_overlay: DamageOverlay) -> HTML(DungeonEvent):
   _standard_card_shell(_tile_card_body(tile, class_name, pos, damage_overlay))
 
+def _tile_badge_value(tile: Tile) -> U32:
+  match tile:
+    case none{}:
+      0
+    case monster{ref, hp}:
+      hp
+    case sword{ref, dmg}:
+      dmg
+    case potion{ref, heal}:
+      heal
+    case gold{amount}:
+      amount
+
+def _tile_badge_class(tile: Tile) -> String:
+  match _tile_badge_value(tile) < 10:
+    case 1:
+      "card__badge card__badge--value"
+    case _:
+      "card__badge card__badge--value card__badge--compact"
+
 def _tile_badge_node(tile: Tile) -> HTML(DungeonEvent):
-  <div class="card__badge card__badge--value">{text{_tile_badge(tile)}}</div>
+  <div class={_tile_badge_class(tile)}>{text{_tile_badge(tile)}}</div>
